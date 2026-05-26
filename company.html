@@ -390,19 +390,84 @@ main { position: relative; z-index: 1; }
 }
 .company-card {
   position: relative;
+  perspective: 1200px;
   min-height: 330px;
+  text-decoration: none;
+  overflow: visible;
+  background: transparent;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 330px;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.company-card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1rem;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.1);
+
+  border: 1px solid rgba(255,255,255,0.12);
   background:
-    linear-gradient(150deg, rgba(255,255,255,0.095), rgba(255,255,255,0.018)),
+    linear-gradient(150deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
     var(--card-color, #111);
-  border-radius: 8px;
-  padding: 1.1rem;
-  transform-style: preserve-3d;
-  transition: transform 0.36s ease, border-color 0.36s ease, box-shadow 0.36s ease;
+
+  box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+}
+
+.card-front {
+  z-index: 2;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  text-align: center;
+  color: white;
+}
+
+.card-back h3 {
+  display: block;
+  color: #ffffff !important;
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+.card-back p {
+  display: block;
+  color: #ffffff !important;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  max-width: 90%;
+}
+
+.card-back .tags {
+  display: flex;
+  margin-top: 1rem;
+}
+
+.card-back .tags span {
+  color: rgba(249, 243, 243, 0.956);
+  border: 1px solid rgba(255,255,255,0.16);
 }
 .company-card::before {
   content: "";
@@ -858,83 +923,83 @@ body::after { opacity: 0.075; }
   }
 }
 
-/* Solid editorial cards inspired by Acquired-style tiles */
+/* Editorial flip card styling */
 .company-card {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 265px;
-  padding: 1rem;
-  border-radius: 8px;
-  border: 1px solid rgba(90,37,37,0.12);
-  background: var(--card-color, #c91f26);
-  box-shadow: 0 18px 50px rgba(92,34,34,0.12);
-}
-.company-card::before,
-.company-card::after {
-  display: none;
-}
-.company-card:hover {
-  transform: translateY(-6px) scale(1.01);
-  border-color: rgba(130,30,30,0.22);
-  box-shadow: 0 26px 70px rgba(92,34,34,0.18);
-}
-.card-top {
-  display: contents;
-}
-.card-bottom {
-  display: contents;
-}
-.logo-mark {
-  width: min(58%, 170px);
-  height: auto;
-  aspect-ratio: 1.7 / 1;
-  margin: 0 auto;
-  border: 0;
-  border-radius: 0;
+  position: relative;
+  perspective: 1200px;
+  min-height: 250px;
   background: transparent;
-  backdrop-filter: none;
+  overflow: visible;
+  transition: transform 0.35s ease;
 }
+
+.company-card:hover {
+  transform: translateY(-8px);
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.company-card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255,255,255,0.12);
+  background:
+    linear-gradient(150deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
+    var(--card-color, #111);
+
+  box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+}
+
+.card-front {
+  z-index: 2;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  flex-direction: column;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.logo-mark {
+  width: 120px;
+  height: 120px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+  border: 0;
+}
+
 .logo-mark img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   filter: none;
-}
-.logo-text {
-  display: none;
-  color: #fff;
-  font-size: clamp(2.2rem, 5vw, 4.6rem);
-}
-.company-card h3,
-.company-card p,
-.tags {
-  display: none;
-}
-.card-category {
-  position: absolute;
-  top: 0.9rem;
-  right: 0.9rem;
-  margin: 0;
-  padding: 0.42rem 0.6rem;
-  border: 1px solid rgba(255,255,255,0.22);
-  border-radius: 6px;
-  color: rgba(255,255,255,0.78);
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(8px);
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-}
-.company-card[href*="dmart"] .logo-text,
-.company-card[href*="nike"] .logo-text {
-  color: #3c161b;
-}
-.company-card[href*="dmart"] .card-category,
-.company-card[href*="nike"] .card-category,
-.company-card[href*="shopify"] .card-category {
-  color: rgba(60,22,27,0.72);
-  border-color: rgba(60,22,27,0.14);
-  background: rgba(255,255,255,0.28);
 }
 </style>
 </head>
@@ -1043,7 +1108,7 @@ const COMPANIES = [
     logo: "https://cdn.simpleicons.org/apple/ffffff",
     tags: ["ecosystem", "premium", "hardware", "services"],
     file: "companies/apple.html",
-    color: "#111111"
+    color: "linear-gradient(135deg, #0f172a, #1e293b, #64748b)"
   },
   {
     name: "BMW",
@@ -1054,6 +1119,15 @@ const COMPANIES = [
     file: "companies/bmw.html",
     color: "linear-gradient(135deg, #0a0f1f, #0066b1)"
   },
+   {
+    name: "IKEA",
+    category: "Retail",
+    description: "Democratic design, self-service logistics, and cultural scale.",
+    logo: "assets/ikea.jpg",
+    tags: ["design", "retail", "supply chain", "global"],
+    file: "companies/ikea.html",
+    color: "linear-gradient(135deg, #0058a3, #facc15, #2563eb)"
+  },
   {
     name: "Tesla",
     category: "Manufacturing",
@@ -1061,35 +1135,36 @@ const COMPANIES = [
     logo: "https://cdn.simpleicons.org/tesla/ffffff",
     tags: ["vertical integration", "ev", "brand", "scale"],
     file: "companies/tesla.html",
-    color: "#e82127"
+    color: "linear-gradient(135deg, #7f1d1d, #e82127, #ff6b6b)"
   },
   {
     name: "DMart",
     category: "Retail",
     description: "Austere retail economics, inventory discipline, everyday value.",
-    logo: "https://cdn.simpleicons.org/dmart/ffffff",
+    logo: "assets/DMart.jpg",
     tags: ["low cost", "retail", "discipline", "india"],
     file: "companies/dmart.html",
-    color: "#f5f0e8"
+    color: "linear-gradient(135deg, #f5f0e8, #d6c7b2, #8f7b67)"
   },
-  {
-    name: "IKEA",
-    category: "Retail",
-    description: "Democratic design, self-service logistics, and cultural scale.",
-    logo: "assets/ikea.jpg",
-    tags: ["design", "retail", "supply chain", "global"],
-    file: "companies/ikea.html",
-    color: "#0058a3"
-  },
+ 
   {
     name: "OpenAI",
     category: "AI",
     description: "Frontier-model gravity reshaping software distribution.",
-    logo: "https://cdn.simpleicons.org/openai/ffffff",
+    logo: "assets/openai.jpg",
     tags: ["ai", "platform", "research", "api"],
     file: "companies/openai.html",
-    color: "#161616"
+    color: "linear-gradient(135deg, #18181b, #71717a, #fafafa)"
   },
+   {
+    name: "Netflix",
+    category: "Media",
+    description: "Attention engine built on taste, distribution, and original IP.",
+    logo: "https://cdn.simpleicons.org/netflix/ffffff",
+    tags: ["media", "subscription", "content", "culture"],
+    file: "companies/netflix.html",
+    color: "linear-gradient(135deg, #141414, #b20710, #7f1d1d)"
+},
   {
     name: "Stripe",
     category: "Finance",
@@ -1097,7 +1172,7 @@ const COMPANIES = [
     logo: "https://cdn.simpleicons.org/stripe/ffffff",
     tags: ["payments", "developer", "saas", "infrastructure"],
     file: "companies/stripe.html",
-    color: "#635bff"
+    color: "linear-gradient(135deg, #4338ca, #635bff, #8b5cf6)"
   },
   {
     name: "Shopify",
@@ -1106,7 +1181,7 @@ const COMPANIES = [
     logo: "https://cdn.simpleicons.org/shopify/ffffff",
     tags: ["commerce", "platform", "smb", "ecosystem"],
     file: "companies/shopify.html",
-    color: "#95bf47"
+    color: "linear-gradient(135deg, #365314, #95bf47, #bef264)"
   },
   {
     name: "Zomato",
@@ -1115,17 +1190,9 @@ const COMPANIES = [
     logo: "https://cdn.simpleicons.org/zomato/ffffff",
     tags: ["food", "logistics", "india", "marketplace"],
     file: "companies/zomato.html",
-    color: "#e23744"
+    color: "linear-gradient(135deg, #ff6b6b, #e23744 45%, #7a0012)"
   },
-  {
-    name: "Netflix",
-    category: "Media",
-    description: "Attention engine built on taste, distribution, and original IP.",
-    logo: "https://cdn.simpleicons.org/netflix/ffffff",
-    tags: ["media", "subscription", "content", "culture"],
-    file: "companies/netflix.html",
-    color: "#141414"
-  },
+ 
   {
     name: "Nike",
     category: "Consumer",
@@ -1133,7 +1200,7 @@ const COMPANIES = [
     logo: "https://cdn.simpleicons.org/nike/ffffff",
     tags: ["brand", "consumer", "culture", "d2c"],
     file: "companies/nike.html",
-    color: "#f26a2e"
+    color: "linear-gradient(135deg, #111111, #f26a2e, #fb923c)"
   },
   {
     name: "LVMH",
@@ -1142,16 +1209,16 @@ const COMPANIES = [
     logo: "https://cdn.simpleicons.org/lvmh/ffffff",
     tags: ["luxury", "portfolio", "brand", "scarcity"],
     file: "companies/lvmh.html",
-    color: "#24211d"
+    color: "linear-gradient(135deg, #1c1917, #44403c, #a8a29e)"
   },
   {
     name: "RegisterKaro",
     category: "SaaS",
     description: "Compliance workflows made legible for Indian founders and SMEs.",
-    logo: "https://cdn.simpleicons.org/googleforms/ffffff",
+    logo: "assets/Registerkaro.jpg",
     tags: ["compliance", "india", "sme", "services"],
     file: "companies/registerkaro.html",
-    color: "#0f766e"
+    color: "linear-gradient(145deg, #071a3d, #123c74 45%, #f59e0b 78%, #ea580c)"
   }
 ];
 
@@ -1178,20 +1245,44 @@ function filteredCompanies() {
 function renderCompanies() {
   const list = filteredCompanies();
   companyGrid.innerHTML = list.map(company => `
-    <a class="company-card reveal-card" href="${company.file}" target="_blank" rel="noopener noreferrer" style="--card-color:${company.color}" data-keywords="${company.tags.join(" ")} ${company.category}">
+    <a class="company-card reveal-card"
+   href="${company.file}"
+   target="_blank"
+   rel="noopener noreferrer"
+   style="--card-color:${company.color}"
+   data-keywords="${company.tags.join(" ")} ${company.category}">
+
+  <div class="card-inner">
+
+    <!-- FRONT -->
+    <div class="card-face card-front">
       <div class="card-top">
-        <div class="logo-mark"><img src="${company.logo}" alt="${company.name} logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="logo-text">${initials(company.name)}</span></div>
+        <div class="logo-mark">
+          <img src="${company.logo}"
+               alt="${company.name} logo"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <span class="logo-text">${initials(company.name)}</span>
+        </div>
+
         <div class="card-category">${company.category}</div>
       </div>
-      <div class="card-bottom">
-        <h3>${company.name}</h3>
-        <p>${company.description}</p>
-        <div class="tags">${company.tags.slice(0, 3).map(tag => `<span>${tag}</span>`).join("")}</div>
+    </div>
+
+    <!-- BACK -->
+    <div class="card-face card-back">
+      <h3>${company.name}</h3>
+      <p>${company.description}</p>
+
+      <div class="tags">
+        ${company.tags.slice(0,3).map(tag => `<span>${tag}</span>`).join("")}
       </div>
-    </a>
+    </div>
+
+  </div>
+</a>
+  
   `).join("");
   animateCards();
-  attachCardTilt();
 }
 
 function setCategory(category) {
@@ -1244,20 +1335,6 @@ function renderSearchResults(query) {
 
 function initials(name) {
   return name.split(/\s+/).map(part => part[0]).join("").slice(0, 3).toUpperCase();
-}
-
-function attachCardTilt() {
-  document.querySelectorAll(".company-card").forEach(card => {
-    card.addEventListener("mousemove", event => {
-      const rect = card.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
-      card.style.transform = `translateY(-8px) scale(1.015) rotateX(${y * -5}deg) rotateY(${x * 6}deg)`;
-    });
-    card.addEventListener("mouseleave", () => {
-      card.style.transform = "";
-    });
-  });
 }
 
 function animateCards() {
