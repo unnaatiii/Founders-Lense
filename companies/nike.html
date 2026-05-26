@@ -1,1 +1,288 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Nike — FounderLens</title><link rel="stylesheet" href="../style.css"></head><body><main class="search-page"><a class="back-btn" href="../company.html">← Companies</a><article class="analysis-wrap"><header class="analysis-header"><p class="ah-tag">Company Analysis</p><h1 class="ah-name">Nike</h1><p class="ah-company">A myth-making machine with product, athletes, and aspiration.</p></header><div class="analysis-body"><section class="section-block"><h3>Strategic Lens</h3><p>Nike compounds through performance credibility, athlete storytelling, cultural moments, supply partnerships, and direct consumer relationships.</p></section></div></article></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FounderLens · NIKE — Strategic Company Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f7f8fc;
+      --bg2:#eef2ff;
+      --ink:#131521;
+      --soft:#5f6780;
+      --line:#dfe4f5;
+      --nike:#111111;
+      --volt:#c6ff00;
+      --orange:#ff7a18;
+      --blue:#2e5bff;
+      --white:#ffffff;
+      --sans:'Outfit',sans-serif;
+      --serif:'Playfair Display',serif;
+      --mono:'JetBrains Mono',monospace;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:var(--sans);
+      background:linear-gradient(160deg,var(--bg) 0%,#fdfdff 45%,var(--bg2) 100%);
+      color:var(--ink);
+      line-height:1.75;
+      overflow-x:hidden;
+    }
+    #progress{
+      position:fixed;top:0;left:0;height:3px;width:0;
+      background:linear-gradient(90deg,var(--orange),var(--blue),var(--volt));
+      z-index:50;transition:width .1s linear;
+    }
+    .nav{
+      position:sticky;top:0;z-index:40;
+      backdrop-filter:blur(12px);
+      background:rgba(255,255,255,.75);
+      border-bottom:1px solid var(--line);
+      padding:14px 26px;
+      display:flex;justify-content:space-between;align-items:center;
+    }
+    .brand{font-family:var(--serif);font-size:25px}
+    .brand em{font-style:italic;color:var(--blue)}
+    .tag{
+      font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+      border:1px solid #d5dcff;border-radius:999px;padding:6px 10px;color:#30437f;background:#f4f6ff;
+    }
+    .hero{
+      max-width:980px;margin:0 auto;padding:78px 24px 52px;position:relative;
+    }
+    .hero::before{
+      content:"";position:absolute;inset:-40px -80px auto auto;width:380px;height:380px;border-radius:50%;
+      background:radial-gradient(circle at center, rgba(46,91,255,.18), transparent 65%);
+      animation:float 7s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes float{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(14px)}
+    }
+    .eyebrow{
+      font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+      color:#46527d;margin-bottom:14px;
+    }
+    h1{
+      font-family:var(--serif);font-size:clamp(44px,9vw,88px);line-height:.95;letter-spacing:-.02em;
+      margin-bottom:14px;
+    }
+    h1 em{font-style:italic;color:var(--orange)}
+    .sub{
+      max-width:700px;font-size:18px;color:#3f4964;margin-bottom:24px;
+    }
+    .kpis{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;
+    }
+    .kpi{
+      background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:14px;padding:14px;
+    }
+    .kpi .v{font-family:var(--serif);font-size:28px;color:#21284f}
+    .kpi .l{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.11em;color:#667092}
+    .container{max-width:980px;margin:0 auto;padding:8px 24px 64px}
+    .section{
+      background:rgba(255,255,255,.86);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:26px 22px;
+      margin:14px 0;
+      box-shadow:0 10px 30px rgba(25,40,90,.04);
+    }
+    .section:nth-child(odd){
+      background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(245,248,255,.92));
+    }
+    .num{
+      font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#56618b;margin-bottom:6px;
+    }
+    h2{
+      font-family:var(--serif);font-size:clamp(26px,4vw,38px);line-height:1.1;margin-bottom:10px;
+    }
+    p{font-size:16px;color:#3d455f;margin-bottom:10px}
+    .lead{font-size:18px;color:#252c47}
+    .chip{
+      display:inline-block;margin-top:6px;
+      font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+      background:#eef2ff;border:1px solid #d5dcff;color:#334886;border-radius:6px;padding:4px 7px;
+    }
+    ul{padding-left:18px;color:#3d455f}
+    li{margin:6px 0}
+    .quote{
+      border-left:3px solid var(--orange);padding:10px 14px;margin-top:10px;
+      background:linear-gradient(90deg,rgba(255,122,24,.08),transparent);
+      border-radius:0 8px 8px 0;font-style:italic;color:#2e3550;
+    }
+    .swot{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:10px;
+    }
+    .swot div{border-radius:10px;padding:12px;border:1px solid var(--line);background:#f9fbff}
+    .swot h4{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#3a4670;margin-bottom:6px}
+    .final{
+      background:linear-gradient(140deg,#1a2036 0%, #253257 50%, #1d2440 100%);
+      color:#eaf0ff;border:none;
+    }
+    .final p{color:#d7e0ff}
+    .final h2{color:#fff}
+    .footer{
+      max-width:980px;margin:0 auto 34px;padding:0 24px;
+      font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#68739b;
+    }
+    .reveal{opacity:0;transform:translateY(14px);transition:all .55s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    @media(max-width:700px){
+      .nav{padding:12px 16px}
+      .hero,.container,.footer{padding-left:16px;padding-right:16px}
+      .section{padding:20px 16px}
+    }
+  </style>
+</head>
+<body>
+  <div id="progress"></div>
+  <nav class="nav">
+    <div class="brand">Founder<em>Lens</em></div>
+    <span class="tag">NIKE Company Analysis</span>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">Business intelligence explained simply through world-class companies</div>
+    <h1>NIKE<br><em>The System Behind the Swoosh</em></h1>
+    <p class="sub">NIKE looks like a sportswear company. Strategically, it is a demand engine: it turns performance credibility, athlete culture, and product speed into global pricing power.</p>
+    <div class="kpis">
+      <div class="kpi"><div class="v">$51B+</div><div class="l">Annual Revenue</div></div>
+      <div class="kpi"><div class="v">190+</div><div class="l">Countries Served</div></div>
+      <div class="kpi"><div class="v">~44%</div><div class="l">Gross Margin Range</div></div>
+      <div class="kpi"><div class="v">DTC + Wholesale</div><div class="l">Hybrid Distribution</div></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section reveal">
+      <div class="num">01 — Company Overview</div>
+      <h2>What NIKE does, and why it matters</h2>
+      <p class="lead">NIKE designs footwear, apparel, and sports equipment, but its true product is confidence in motion. It sells performance and identity at the same time.</p>
+      <p>It operates in athletic footwear and apparel, one of the most competitive consumer markets on earth. NIKE matters because it proved you can scale a premium global brand while still operating with retail-like execution discipline.</p>
+    </section>
+
+    <section class="section reveal">
+      <div class="num">02 — The Core Problem</div>
+      <h2>The customer problem NIKE solved</h2>
+      <p>People wanted gear that genuinely improved performance, not just looked sporty. NIKE solved this by combining athlete-tested design with emotional storytelling, so the product felt technically credible and personally aspirational.</p>
+      <p>That mix made the opportunity massive: sports participation was rising, and consumers were starting to wear athletic products outside sport. <span class="chip">Product Differentiation</span></p>
+    </section>
+
+    <section class="section reveal">
+      <div class="num">03 — Market Timing</div>
+      <h2>Why timing worked in NIKE’s favor</h2>
+      <p>NIKE rode three shifts at once: fitness becoming mainstream, basketball and running becoming global culture exports, and sneaker buying becoming a lifestyle behavior.</p>
+      <p>It entered many trends before they peaked, but only scaled hard after demand was visible. That balance kept risk manageable while preserving upside. <span class="chip">Proactive + Reactive Strategy</span></p>
+    </section>
+
+    <section class="section reveal">
+      <div class="num">04 — Business Model</div>
+      <h2>How NIKE makes money at scale</h2>
+      <p>NIKE earns through product sales across two channels: wholesale partners and direct-to-consumer (its own stores and digital platforms). Wholesale gives reach. DTC gives better margins and customer data.</p>
+      <p>The model scales because design and brand investments are reused across huge volumes. Once a product line works, NIKE can replicate it globally with localized drops. <span class="chip">Economies of Scale</span></p>
+    </section>
+
+    <section class="section reveal">
+      <div class="num">05 — Product & User Experience</div>
+      <h2>Why customers keep choosing NIKE</h2>
+      <p>Customers choose NIKE because products perform, the designs feel culturally current, and the buying experience is fast and familiar. Apps like SNKRS turn launches into events, not just transactions.</p>
+      <p>NIKE also uses tiered products well: flagship innovation builds aspiration, while broader lines capture volume without fully diluting brand heat. <span class="chip">Market Positioning</span></p>
+    </section>
+
+    <section class="section reveal">
+      <div class="num">06 — Growth & Distribution Strategy</div>
+      <h2>The growth loops behind NIKE</h2>
+      <p>Its loop is simple: athlete credibility drives demand, demand improves shelf power and digital traffic, that visibility attracts more collaborators and athletes, and the cycle repeats.</p>
+      <p>NIKE’s distribution strategy is selective abundance: be available globally, but keep key products scarce enough to maintain desire. <span class="chip">Brand-Led Growth Loop</span></p>
+    </section>
+
+    <section class="section reveal">
+      <div class="num">07 — Operational Strategy</div>
+      <h2>The execution machine</h2>
+      <p>NIKE outsources manufacturing but tightly controls design, planning, and demand forecasting. That lets it stay asset-light while still steering quality and speed.</p>
+      <p>Operationally, the challenge is balancing freshness with inventory discipline. Too much stock hurts margins. Too little stock hurts trust. NIKE’s advantage is making this trade-off repeatedly, at global scale. <span class="chip">Operational Efficiency</span></p>
+    </section>
+
+    <section class="section reveal">
+      <div class="num">08 — Competitive Advantage</div>
+      <h2>Why NIKE is hard to beat</h2>
+      <ul>
+        <li><strong>Brand depth:</strong> The Swoosh carries performance proof and cultural status. <span class="chip">Customer Loyalty</span></li>
+        <li><strong>Distribution muscle:</strong> NIKE can launch globally while tailoring by market.</li>
+        <li><strong>Athlete and league relationships:</strong> Partnership history compounds trust.</li>
+        <li><strong>Innovation cadence:</strong> Constant product refresh keeps relevance high.</li>
+      </ul>
+    </section>
+
+    <section class="section reveal">
+      <div class="num">09 — Strategic Analysis</div>
+      <h2>Framework view, explained simply</h2>
+      <p>NIKE wins by being clearly premium, not cheapest. It charges more because customers believe the product and brand are worth more. <span class="chip">Porter’s Differentiation Strategy</span></p>
+      <p>Some power also comes from scale: bigger order volumes improve supplier economics and marketing efficiency. <span class="chip">Economies of Scale</span></p>
+      <p>There are light network effects too: as NIKE’s athlete and community ecosystem grows, products become more socially validated and harder to ignore. <span class="chip">Network Effects (Brand/Community Layer)</span></p>
+      <div class="swot">
+        <div><h4>Strengths</h4><p>Brand power, global reach, product storytelling.</p></div>
+        <div><h4>Weaknesses</h4><p>Fashion misses can quickly hurt momentum.</p></div>
+        <div><h4>Opportunities</h4><p>Women’s segment, emerging markets, digital personalization.</p></div>
+        <div><h4>Threats</h4><p>Agile challengers, retailer dynamics, demand volatility.</p></div>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="num">10 — Key Risks & Weaknesses</div>
+      <h2>Where NIKE can get hurt</h2>
+      <p>Brand strength can become rigidity if trends shift faster than product cycles. New competitors can win by owning specific communities deeply instead of everyone broadly.</p>
+      <p>Margin pressure is another risk: freight shocks, inventory mistakes, or discount-heavy periods can weaken premium positioning.</p>
+    </section>
+
+    <section class="section reveal">
+      <div class="num">11 — Industry Impact</div>
+      <h2>How NIKE changed the game</h2>
+      <p>NIKE helped redefine sportswear from equipment to identity. It normalized collaboration drops, athlete-led product storytelling, and direct digital engagement as core strategy, not side marketing.</p>
+      <p>Many brands now copy this playbook. Few execute it with NIKE’s consistency.</p>
+    </section>
+
+    <section class="section reveal">
+      <div class="num">12 — Lessons for Builders</div>
+      <h2>Practical takeaways</h2>
+      <ul>
+        <li>Build one clear market position and defend it relentlessly.</li>
+        <li>Use storytelling to amplify real product quality, not hide weak products.</li>
+        <li>Design growth loops that compound trust, not just short-term traffic.</li>
+        <li>Treat operations as strategy, because execution quality becomes brand quality.</li>
+      </ul>
+    </section>
+
+    <section class="section final reveal">
+      <div class="num">13 — Final FounderLens Verdict</div>
+      <h2>NIKE is not just a brand. It is a strategic operating system.</h2>
+      <p>What makes NIKE powerful is not one ad campaign, one athlete, or one shoe line. It is the system: product credibility, cultural timing, distribution discipline, and brand memory all working together.</p>
+      <p>Its uniqueness is this: NIKE turns movement into meaning, then turns that meaning into repeatable global economics. That is why the Swoosh still scales after decades — and why competing with NIKE means competing with an entire system, not a logo.</p>
+      <div class="quote">“Great brands sell products. Category-defining companies build self-reinforcing systems.”</div>
+    </section>
+  </main>
+
+  <div class="footer">FounderLens · NIKE Strategic Company Analysis · May 2026</div>
+
+  <script>
+    const progress = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      const h = document.body.scrollHeight - window.innerHeight;
+      progress.style.width = ((window.scrollY / h) * 100) + '%';
+    });
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
