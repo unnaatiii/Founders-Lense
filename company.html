@@ -805,6 +805,137 @@ body::after { opacity: 0.075; }
 .result-row:focus {
   background: rgba(254,226,226,0.58);
 }
+
+/* Shared page rhythm aligned with About */
+.site-nav {
+  width: min(960px, calc(100vw - 32px));
+}
+.hero {
+  min-height: 92svh;
+  padding: 9rem 0 5rem;
+}
+.hero-content,
+.editorial,
+.library-inner {
+  width: min(1180px, calc(100vw - 36px));
+}
+.hero h1 {
+  font-size: clamp(3.4rem, 8.2vw, 7.2rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+.hero-copy {
+  max-width: 680px;
+  font-size: clamp(1rem, 1.35vw, 1.16rem);
+}
+.hero-depth {
+  inset: 15vh max(18px, calc((100vw - 1180px) / 2)) 5vh;
+  border-radius: 28px;
+}
+.editorial {
+  min-height: auto;
+  grid-template-columns: 0.82fr 1.18fr;
+  padding: 6rem 0;
+}
+.editorial h2,
+.library h2 {
+  font-size: clamp(2.2rem, 5.2vw, 5.6rem);
+  line-height: 0.95;
+}
+.company-grid {
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.35rem;
+}
+.company-card {
+  min-height: 250px;
+}
+@media (max-width: 900px) {
+  .hero-depth {
+    inset: 18vh 1rem 5vh;
+  }
+  .editorial {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Solid editorial cards inspired by Acquired-style tiles */
+.company-card {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 265px;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(90,37,37,0.12);
+  background: var(--card-color, #c91f26);
+  box-shadow: 0 18px 50px rgba(92,34,34,0.12);
+}
+.company-card::before,
+.company-card::after {
+  display: none;
+}
+.company-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  border-color: rgba(130,30,30,0.22);
+  box-shadow: 0 26px 70px rgba(92,34,34,0.18);
+}
+.card-top {
+  display: contents;
+}
+.card-bottom {
+  display: contents;
+}
+.logo-mark {
+  width: min(58%, 170px);
+  height: auto;
+  aspect-ratio: 1.7 / 1;
+  margin: 0 auto;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
+}
+.logo-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: none;
+}
+.logo-text {
+  display: none;
+  color: #fff;
+  font-size: clamp(2.2rem, 5vw, 4.6rem);
+}
+.company-card h3,
+.company-card p,
+.tags {
+  display: none;
+}
+.card-category {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  margin: 0;
+  padding: 0.42rem 0.6rem;
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 6px;
+  color: rgba(255,255,255,0.78);
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+}
+.company-card[href*="dmart"] .logo-text,
+.company-card[href*="nike"] .logo-text {
+  color: #3c161b;
+}
+.company-card[href*="dmart"] .card-category,
+.company-card[href*="nike"] .card-category,
+.company-card[href*="shopify"] .card-category {
+  color: rgba(60,22,27,0.72);
+  border-color: rgba(60,22,27,0.14);
+  background: rgba(255,255,255,0.28);
+}
 </style>
 </head>
 <body>
@@ -912,7 +1043,7 @@ const COMPANIES = [
     logo: "https://cdn.simpleicons.org/apple/ffffff",
     tags: ["ecosystem", "premium", "hardware", "services"],
     file: "companies/apple.html",
-    color: "#151515"
+    color: "#111111"
   },
   {
     name: "Tesla",
@@ -921,7 +1052,7 @@ const COMPANIES = [
     logo: "https://cdn.simpleicons.org/tesla/ffffff",
     tags: ["vertical integration", "ev", "brand", "scale"],
     file: "companies/tesla.html",
-    color: "#251112"
+    color: "#e82127"
   },
   {
     name: "DMart",
@@ -930,16 +1061,16 @@ const COMPANIES = [
     logo: "https://cdn.simpleicons.org/dmart/ffffff",
     tags: ["low cost", "retail", "discipline", "india"],
     file: "companies/dmart.html",
-    color: "#10210f"
+    color: "#f5f0e8"
   },
   {
     name: "IKEA",
     category: "Retail",
     description: "Democratic design, self-service logistics, and cultural scale.",
-    logo: "https://cdn.simpleicons.org/ikea/ffffff",
+    logo: "assets/ikea.jpg",
     tags: ["design", "retail", "supply chain", "global"],
     file: "companies/ikea.html",
-    color: "#111a2a"
+    color: "#0058a3"
   },
   {
     name: "OpenAI",
@@ -948,7 +1079,7 @@ const COMPANIES = [
     logo: "https://cdn.simpleicons.org/openai/ffffff",
     tags: ["ai", "platform", "research", "api"],
     file: "companies/openai.html",
-    color: "#111c19"
+    color: "#161616"
   },
   {
     name: "Stripe",
@@ -957,7 +1088,7 @@ const COMPANIES = [
     logo: "https://cdn.simpleicons.org/stripe/ffffff",
     tags: ["payments", "developer", "saas", "infrastructure"],
     file: "companies/stripe.html",
-    color: "#171426"
+    color: "#635bff"
   },
   {
     name: "Shopify",
@@ -966,7 +1097,7 @@ const COMPANIES = [
     logo: "https://cdn.simpleicons.org/shopify/ffffff",
     tags: ["commerce", "platform", "smb", "ecosystem"],
     file: "companies/shopify.html",
-    color: "#13200e"
+    color: "#95bf47"
   },
   {
     name: "Zomato",
@@ -975,7 +1106,7 @@ const COMPANIES = [
     logo: "https://cdn.simpleicons.org/zomato/ffffff",
     tags: ["food", "logistics", "india", "marketplace"],
     file: "companies/zomato.html",
-    color: "#270e13"
+    color: "#e23744"
   },
   {
     name: "Netflix",
@@ -984,7 +1115,7 @@ const COMPANIES = [
     logo: "https://cdn.simpleicons.org/netflix/ffffff",
     tags: ["media", "subscription", "content", "culture"],
     file: "companies/netflix.html",
-    color: "#240d0d"
+    color: "#141414"
   },
   {
     name: "Nike",
@@ -993,7 +1124,7 @@ const COMPANIES = [
     logo: "https://cdn.simpleicons.org/nike/ffffff",
     tags: ["brand", "consumer", "culture", "d2c"],
     file: "companies/nike.html",
-    color: "#171717"
+    color: "#f26a2e"
   },
   {
     name: "LVMH",
@@ -1002,7 +1133,7 @@ const COMPANIES = [
     logo: "https://cdn.simpleicons.org/lvmh/ffffff",
     tags: ["luxury", "portfolio", "brand", "scarcity"],
     file: "companies/lvmh.html",
-    color: "#20170f"
+    color: "#24211d"
   },
   {
     name: "RegisterKaro",
@@ -1011,7 +1142,7 @@ const COMPANIES = [
     logo: "https://cdn.simpleicons.org/googleforms/ffffff",
     tags: ["compliance", "india", "sme", "services"],
     file: "companies/registerkaro.html",
-    color: "#0d2220"
+    color: "#0f766e"
   }
 ];
 

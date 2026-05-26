@@ -6,40 +6,437 @@
 <title>About — FounderLens</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,500&display=swap" rel="stylesheet">
 <style>
-body{margin:0;min-height:100vh;display:grid;place-items:center;background:#050506;color:#f4f0e8;font-family:"DM Sans",system-ui,sans-serif}
-main{width:min(760px,calc(100vw - 36px));padding:4rem 0}
-a{color:#d6b878;text-decoration:none}
-p{color:rgba(244,240,232,.66);font-size:1.1rem;line-height:1.75}
-h1{font-family:"Playfair Display",Georgia,serif;font-size:clamp(3.2rem,10vw,7rem);line-height:.9;letter-spacing:-.06em;margin:.7rem 0 1.4rem}
-.tag{color:#d6b878;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+:root {
+  --ink: #f4f7ff;
+  --muted: rgba(220,231,255,0.68);
+  --line: rgba(191,211,255,0.16);
+  --panel: rgba(255,255,255,0.08);
+  --accent: #8fb4ff;
+  --gold: #d7b56d;
+  --paper: #0e1f5c;
+  --serif: "Playfair Display", Georgia, serif;
+  --sans: "DM Sans", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 14% 12%, rgba(95,139,255,0.36), transparent 28vw),
+    radial-gradient(circle at 82% 10%, rgba(215,181,109,0.18), transparent 30vw),
+    radial-gradient(circle at 50% 90%, rgba(46,89,180,0.22), transparent 34vw),
+    linear-gradient(180deg, #07133d 0%, #0e1f5c 48%, #081541 100%);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.55;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.36;
+  background-image:
+    linear-gradient(rgba(191,211,255,0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(191,211,255,0.035) 1px, transparent 1px);
+  background-size: 82px 82px;
+  mask-image: radial-gradient(circle at center, black 0%, transparent 76%);
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.64'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+.ambient {
+  position: fixed;
+  inset: -18vh -10vw;
+  z-index: 0;
+  pointer-events: none;
+}
+.wash {
+  position: absolute;
+  width: 54vw;
+  height: 54vw;
+  border-radius: 999px;
+  filter: blur(80px);
+  opacity: 0.24;
+  animation: drift 16s ease-in-out infinite alternate;
+}
+.wash.one { top: -24vw; left: -14vw; background: radial-gradient(circle, rgba(95,139,255,0.5), transparent 66%); }
+.wash.two { top: 12vh; right: -22vw; background: radial-gradient(circle, rgba(215,181,109,0.26), transparent 66%); animation-duration: 19s; }
+.wash.three { bottom: -34vw; left: 34vw; background: radial-gradient(circle, rgba(46,89,180,0.34), transparent 66%); animation-duration: 22s; }
+@keyframes drift { to { transform: translate3d(72px, 48px, 0) scale(1.08); } }
+
+.about-nav {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(960px, calc(100vw - 32px));
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.72rem 0.82rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(10,27,82,0.68);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.24);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.about-nav.is-scrolled {
+  background: rgba(10,27,82,0.9);
+  box-shadow: 0 28px 90px rgba(0,0,0,0.32);
+}
+.brand {
+  padding-left: 0.8rem;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+.brand span { color: var(--accent); }
+.nav-links {
+  display: flex;
+  gap: 0.2rem;
+  align-items: center;
+}
+.nav-links a {
+  border-radius: 999px;
+  padding: 0.55rem 0.75rem;
+  color: rgba(244,247,255,0.72);
+  font-size: 0.82rem;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: #fff;
+  background: rgba(143,180,255,0.18);
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  width: min(1180px, calc(100vw - 36px));
+  margin: 0 auto;
+}
+.hero {
+  min-height: 92svh;
+  display: grid;
+  grid-template-columns: 1fr minmax(280px, 0.62fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 6rem);
+  padding: 9rem 0 5rem;
+}
+.eyebrow {
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 6.8vw, 6.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+}
+.hero-copy {
+  max-width: 680px;
+  margin-top: 1.7rem;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.35vw, 1.16rem);
+  font-weight: 300;
+}
+.hero-panel {
+  position: relative;
+  min-height: 360px;
+  width: min(100%, 430px);
+  justify-self: end;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(10,27,82,0.1), rgba(14,31,92,0.72)),
+    url("https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80") center/cover;
+  background-blend-mode: multiply;
+  box-shadow: inset 0 0 120px rgba(255,255,255,0.08), 0 64px 150px rgba(0,0,0,0.26);
+}
+.signal-card {
+  position: absolute;
+  left: 1.2rem;
+  right: 1.2rem;
+  bottom: 1.2rem;
+  padding: 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(8,20,62,0.72);
+  backdrop-filter: blur(18px);
+}
+.signal-card strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+.signal-card span {
+  display: block;
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 2rem;
+}
+.pill {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.58rem 0.85rem;
+  background: rgba(255,255,255,0.08);
+  color: rgba(244,247,255,0.76);
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.pill:hover,
+.pill.active {
+  transform: translateY(-2px);
+  border-color: rgba(143,180,255,0.38);
+  background: rgba(143,180,255,0.14);
+}
+
+.sections {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: 1rem;
+  margin-bottom: 6rem;
+}
+.sticky-note {
+  position: sticky;
+  top: 110px;
+  height: fit-content;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.25rem;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(18px);
+}
+.sticky-note p {
+  color: var(--muted);
+  margin-top: 0.7rem;
+}
+.story-stack {
+  display: grid;
+  gap: 1rem;
+}
+.story-card,
+.social-card {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.18);
+  transition: transform 0.24s ease, box-shadow 0.24s ease;
+}
+.story-card:hover,
+.social-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 34px 90px rgba(0,0,0,0.24);
+}
+.story-card h2,
+.sticky-note h2,
+.social-card h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.55rem, 2.8vw, 2.55rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+.story-card p {
+  color: var(--muted);
+  margin-top: 1rem;
+  font-size: 0.98rem;
+}
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+.social-link {
+  min-height: 86px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 0.82rem;
+  background: rgba(255,255,255,0.07);
+  transition: transform 0.22s ease, background 0.22s ease;
+}
+.social-link:hover {
+  transform: translateY(-4px);
+  background: rgba(143,180,255,0.14);
+}
+.social-link strong {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 1.05rem;
+}
+.social-link img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+.social-link span {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+.connect-section {
+  width: min(820px, 100%);
+  margin: -3rem 0 6rem auto;
+}
+.connect-section .social-card {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.09), rgba(143,180,255,0.08));
+  padding: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .about-nav { border-radius: 24px; }
+  .hero,
+  .sections {
+    grid-template-columns: 1fr;
+  }
+  .hero-panel { min-height: 300px; justify-self: stretch; width: 100%; }
+  .sticky-note { position: relative; top: auto; }
+}
+@media (max-width: 640px) {
+  .about-nav { top: 10px; width: calc(100vw - 20px); }
+  .nav-links a:nth-child(2) { display: none; }
+  .hero { padding-top: 8rem; }
+  .social-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
+<div class="ambient" aria-hidden="true">
+  <div class="wash one"></div>
+  <div class="wash two"></div>
+  <div class="wash three"></div>
+</div>
+
+<nav class="about-nav" id="aboutNav">
+  <a class="brand" href="index.html">Founder<span>Lens</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="founders.html">Founders</a>
+    <a href="company.html">Companies</a>
+    <a class="active" href="about.html">About</a>
+  </div>
+</nav>
+
 <main>
-  <a href="company.html"> ← Companies</a> 
-  <br>
-  <a href="founders.html"> ← Founders</a>
-  <br>
-  <a href="index.html"> ← Home</a>
-  <p class="tag">About FounderLens</p>
+  <section class="hero">
+    <div>
+      <p class="eyebrow">About FounderLens</p>
+      <h1>Business stories, studied like strategy.</h1>
+      <p class="hero-copy">FounderLens decodes founders, companies, and markets through clear strategic analysis: what they built, why it worked, what almost broke, and what builders can learn from it.</p>
+      <div class="pill-row" id="pillRow">
+        <button class="pill active" type="button" data-text="We look past biography and focus on decisions, systems, incentives, and execution.">Strategy</button>
+        <button class="pill" type="button" data-text="We translate complex business stories into useful mental models for students, founders, and curious operators.">Clarity</button>
+        <button class="pill" type="button" data-text="We study companies as living systems: distribution, culture, pricing power, capital, and timing.">Systems</button>
+      </div>
+    </div>
+    <div class="hero-panel" id="heroPanel">
+      <div class="signal-card">
+        <strong id="signalTitle">Strategy</strong>
+        <span id="signalText">We look past biography and focus on decisions, systems, incentives, and execution.</span>
+      </div>
+    </div>
+  </section>
 
-<h1>Business stories, studied like strategy.</h1>
+  <section class="sections">
+    <aside class="sticky-note">
+      <p class="eyebrow">The lens</p>
+      <h2>Not business news. Business intelligence.</h2>
+      <p>Every analysis is meant to make business thinking feel more legible, practical, and alive.</p>
+    </aside>
+    <div class="story-stack">
+      <article class="story-card">
+        <h2>What FounderLens studies</h2>
+        <p>Operating strategy, market positioning, growth loops, product choices, leadership psychology, capital allocation, competitive advantage, and the difficult tradeoffs behind iconic companies.</p>
+      </article>
+      <article class="story-card">
+        <h2>Who it is for</h2>
+        <p>Commerce students, startup enthusiasts, creators, young operators, and anyone who wants to understand how businesses actually compound over time.</p>
+      </article>
+    </div>
+  </section>
 
-<p>
-<em> FounderLens</em> explores the systems behind extraordinary companies and the decisions that shaped them.
-</p>
-<p>
-From operational strategy and market positioning to execution, growth, and competitive advantage, we decode how modern businesses actually work.
-</p>
-<p>
-The goal is simple:
-make intelligent business thinking accessible without making it simplistic.
-</p>
-<p>
-Not business news.
-Business intelligence.
-</p></main>
+  <section class="connect-section">
+    <article class="social-card">
+      <h2>Connect</h2>
+      <p style="color:var(--muted);margin-top:1rem">Add your own profile links below when you are ready.</p>
+      <div class="social-grid">
+        <a class="social-link" href="https://www.linkedin.com/in/unnatisrivastav" target="_blank" rel="noopener noreferrer">
+          <strong><img src="https://cdn.simpleicons.org/linkedin/0A66C2" alt="">LinkedIn</strong>
+          <span>Add your LinkedIn URL</span>
+        </a>
+        <a class="social-link" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+          <strong><img src="https://cdn.simpleicons.org/instagram/E4405F" alt="">Instagram</strong>
+          <span>Add your Instagram handle</span>
+        </a>
+        <a class="social-link" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
+          <strong><img src="https://cdn.simpleicons.org/youtube/FF0000" alt="">YouTube</strong>
+          <span>Add your YouTube channel</span>
+        </a>
+      </div>
+    </article>
+  </section>
+</main>
+
+<script>
+const aboutNav = document.getElementById('aboutNav');
+window.addEventListener('scroll', () => {
+  aboutNav.classList.toggle('is-scrolled', window.scrollY > 24);
+});
+
+document.querySelectorAll('.pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.pill').forEach(item => item.classList.remove('active'));
+    pill.classList.add('active');
+    document.getElementById('signalTitle').textContent = pill.textContent;
+    document.getElementById('signalText').textContent = pill.dataset.text;
+  });
+});
+
+document.getElementById('heroPanel').addEventListener('mousemove', event => {
+  const panel = event.currentTarget;
+  const rect = panel.getBoundingClientRect();
+  const x = (event.clientX - rect.left) / rect.width - 0.5;
+  const y = (event.clientY - rect.top) / rect.height - 0.5;
+  panel.style.transform = `rotateX(${y * -4}deg) rotateY(${x * 5}deg)`;
+});
+document.getElementById('heroPanel').addEventListener('mouseleave', event => {
+  event.currentTarget.style.transform = '';
+});
+</script>
 </body>
 </html>

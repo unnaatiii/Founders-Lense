@@ -379,13 +379,54 @@
       border-bottom: 1px solid rgba(37,99,235,0.12);
     }
   }
+
+  /* Shared page rhythm aligned with About */
+  .home-premium-nav {
+    width: min(960px, calc(100vw - 32px));
+  }
+  #page-home .hero {
+    width: min(1180px, calc(100vw - 36px));
+    min-height: 92svh;
+    margin: 0 auto;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.62fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    padding: 9rem 0 5rem;
+  }
+  #page-home .hero-title {
+    font-size: clamp(2.8rem, 6.8vw, 6.2rem);
+    line-height: 0.95;
+    letter-spacing: -0.055em;
+  }
+  #page-home .hero-sub {
+    max-width: 680px;
+  }
+  #page-home .hero-right {
+    justify-self: end;
+    width: min(100%, 430px);
+  }
+  #page-home .featured-card {
+    min-height: 128px;
+    padding: 1.05rem;
+  }
+  #page-home .stats-row {
+    width: min(1180px, calc(100vw - 36px));
+  }
+  @media (max-width: 900px) {
+    #page-home .hero {
+      grid-template-columns: 1fr;
+    }
+    #page-home .hero-right {
+      justify-self: stretch;
+      width: 100%;
+    }
+  }
 </style>
 </head>
 <body>
 <nav class="home-premium-nav" id="homePremiumNav">
   <a class="home-premium-brand" href="index.html">Founder<span>Lens</span></a>
   <a class="home-premium-search" id="homeSearchTrigger" href="founders.html">
-    <span>Search founders</span>
+    <span>Explore FounderLens</span>
     <span aria-hidden="true">⌘K</span>
   </a>
   <div class="home-premium-links">
@@ -408,13 +449,13 @@
       <p class="hero-tag">Founder Intelligence Platform</p>
       <h1 class="hero-title">Learn how great<br>companies were<br><em>really</em> built.</h1>
       <p class="hero-sub">
-        <pre> 
-        Deep-dive founder analysis, not biographies. 
+        
+        Deep-dive founder analysis, not biographies. <br>
         We decode business thinking, 
         startup strategy, 
         psychology, and execution playbooks 
         <strong>for students, entrepreneurs, and curious minds.  </strong> 
-      </pre>
+      
       </p>
       <div class="hero-cta-row">
         <a href="founders.html" class="home-cta primary" target="_blank" rel="noopener noreferrer">Search a Founder</a>

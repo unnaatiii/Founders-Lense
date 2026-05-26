@@ -1,1 +1,1122 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>IKEA — FounderLens</title><link rel="stylesheet" href="../style.css"></head><body><main class="search-page"><a class="back-btn" href="../company.html">← Companies</a><article class="analysis-wrap"><header class="analysis-header"><p class="ah-tag">Company Analysis</p><h1 class="ah-name">IKEA</h1><p class="ah-company">Democratic design, self-service logistics, and cultural scale.</p></header><div class="analysis-body"><section class="section-block"><h3>Strategic Lens</h3><p>IKEA turns design, flat-pack logistics, store theatre, and cost discipline into a global system that customers actively participate in.</p></section></div></article></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IKEA — FounderLens Company Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════ TOKENS ═══════════ */
+:root {
+  --blue:    #003087;
+  --blue-md: #0051a8;
+  --blue-lt: #1a6ecf;
+  --blue-pale: #e8f0fb;
+  --yellow:  #FFDA1A;
+  --yellow-dk: #e6c200;
+  --yellow-pale: #fffbe6;
+  --ink:     #0d1320;
+  --ink-md:  #2d3a50;
+  --ink-lt:  #5a6a80;
+  --cream:   #faf7f0;
+  --white:   #ffffff;
+  --rule:    rgba(0,48,135,0.1);
+  --syne:    'Syne', sans-serif;
+  --lora:    'Lora', Georgia, serif;
+  --mono:    'Space Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--lora); background: var(--white); color: var(--ink); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--white); }
+::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 2px; }
+
+/* ═══════════ NAV ═══════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 2px solid var(--yellow);
+  transition: box-shadow 0.3s;
+}
+.nav.scrolled { box-shadow: 0 4px 30px rgba(0,48,135,0.1); }
+.nav-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--syne); font-size: 16px; font-weight: 800;
+  color: var(--blue);
+}
+.nav-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); border: 2px solid var(--blue); }
+.nav-badge {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink-lt);
+  background: var(--yellow-pale); border: 1px solid rgba(230,194,0,0.35);
+  padding: 4px 10px; border-radius: 20px;
+}
+
+/* ═══════════ HERO ═══════════ */
+.hero {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 40%, rgba(0,48,135,0.88) 0%, rgba(0,48,135,0.6) 50%, transparent 80%),
+    radial-gradient(ellipse 60% 80% at 80% 60%, rgba(0,81,168,0.5) 0%, transparent 60%),
+    linear-gradient(135deg, #001855 0%, #003087 40%, #0051a8 70%, #1a6ecf 100%);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 80px 60px 60px;
+  position: relative;
+  overflow: hidden;
+}
+/* Animated geometric background */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,218,26,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,218,26,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: grid-drift 20s linear infinite;
+}
+@keyframes grid-drift {
+  from { transform: translate(0,0); }
+  to   { transform: translate(60px, 60px); }
+}
+/* Floating circle accents */
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  border: 80px solid rgba(255,218,26,0.06);
+  top: -120px; right: -120px;
+  animation: float-slow 8s ease-in-out infinite;
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%       { transform: translateY(-20px) rotate(5deg); }
+}
+
+.hero-left { position: relative; z-index: 1; padding-right: 40px; }
+.hero-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--yellow); background: rgba(255,218,26,0.1);
+  border: 1px solid rgba(255,218,26,0.3); border-radius: 20px;
+  padding: 6px 14px; margin-bottom: 24px;
+  animation: fade-up 0.8s ease both;
+}
+.hero-chip-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--yellow); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:0.5; transform:scale(1.4); } }
+
+.hero-title {
+  font-family: var(--syne);
+  font-size: clamp(52px, 7vw, 96px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  margin-bottom: 8px;
+  animation: fade-up 0.8s 0.1s ease both;
+}
+.hero-title-sub {
+  font-family: var(--lora);
+  font-size: clamp(16px, 2vw, 22px);
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 32px;
+  animation: fade-up 0.8s 0.18s ease both;
+}
+.hero-desc {
+  font-size: 16px; font-weight: 400;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.75;
+  max-width: 480px;
+  margin-bottom: 40px;
+  animation: fade-up 0.8s 0.24s ease both;
+}
+.hero-desc strong { color: #fff; font-weight: 600; }
+
+.hero-stats {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+  animation: fade-up 0.8s 0.3s ease both;
+}
+.hero-stat {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 16px 18px;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s;
+}
+.hero-stat:hover { background: rgba(255,218,26,0.08); border-color: rgba(255,218,26,0.25); }
+.hero-stat-val {
+  font-family: var(--syne); font-size: 24px; font-weight: 800;
+  color: var(--yellow); line-height: 1; margin-bottom: 4px;
+}
+.hero-stat-lbl {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.13em;
+  text-transform: uppercase; color: rgba(255,255,255,0.5);
+}
+
+/* IKEA Logo SVG side */
+.hero-right {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 28px;
+  animation: fade-up 0.8s 0.35s ease both;
+}
+.hero-logo-card {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 16px;
+  padding: 36px 40px;
+  text-align: center;
+  width: 100%;
+  max-width: 380px;
+}
+.hero-logo-card svg { filter: drop-shadow(0 8px 24px rgba(0,0,0,0.3)); }
+.hero-tagline {
+  font-family: var(--lora); font-size: 17px; font-style: italic;
+  color: rgba(255,255,255,0.7); text-align: center; max-width: 340px;
+  line-height: 1.6;
+}
+.hero-tagline strong { color: var(--yellow); font-style: normal; font-weight: 600; }
+
+/* ═══════════ FADE-UP KEYFRAME ═══════════ */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════ REVEAL ON SCROLL ═══════════ */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.18s; }
+.reveal-delay-3 { transition-delay: 0.26s; }
+
+/* ═══════════ SECTION WRAPPERS ═══════════ */
+.seg { padding: 80px 60px; }
+.seg-white  { background: var(--white); }
+.seg-cream  { background: var(--cream); }
+.seg-blue   { background: var(--blue); color: white; }
+.seg-dark   { background: #0d1627; color: white; }
+.seg-yellow { background: var(--yellow-pale); }
+.seg-grad-blue {
+  background: linear-gradient(135deg, #001855 0%, #003087 60%, #0051a8 100%);
+  color: white;
+}
+.seg-grad-warm {
+  background: linear-gradient(135deg, #fffbe6 0%, #fff8d6 50%, #fef3c7 100%);
+}
+
+.inner { max-width: 1000px; margin: 0 auto; }
+
+/* ═══════════ SECTION LABELS ═══════════ */
+.sec-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+  margin-bottom: 10px; display: flex; align-items: center; gap: 10px;
+}
+.sec-label::before { content: ''; display: block; width: 28px; height: 2px; }
+.seg-white .sec-label, .seg-cream .sec-label, .seg-yellow .sec-label, .seg-grad-warm .sec-label {
+  color: var(--blue);
+}
+.seg-white .sec-label::before, .seg-cream .sec-label::before, .seg-yellow .sec-label::before, .seg-grad-warm .sec-label::before {
+  background: var(--blue);
+}
+.seg-blue .sec-label, .seg-dark .sec-label, .seg-grad-blue .sec-label {
+  color: var(--yellow);
+}
+.seg-blue .sec-label::before, .seg-dark .sec-label::before, .seg-grad-blue .sec-label::before {
+  background: var(--yellow);
+}
+
+/* Section headings */
+.sec-h {
+  font-family: var(--syne);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin-bottom: 28px;
+}
+.seg-white .sec-h, .seg-cream .sec-h, .seg-yellow .sec-h, .seg-grad-warm .sec-h { color: var(--ink); }
+.seg-blue .sec-h, .seg-dark .sec-h, .seg-grad-blue .sec-h { color: white; }
+.sec-h em { font-style: italic; }
+.seg-white .sec-h em, .seg-cream .sec-h em, .seg-yellow .sec-h em { color: var(--blue); }
+.seg-blue .sec-h em, .seg-dark .sec-h em, .seg-grad-blue .sec-h em { color: var(--yellow); }
+
+/* Body text */
+.body-p {
+  font-size: 16px; line-height: 1.82; font-weight: 400;
+  margin-bottom: 18px;
+}
+.body-p:last-child { margin-bottom: 0; }
+.seg-white .body-p, .seg-cream .body-p, .seg-yellow .body-p, .seg-grad-warm .body-p { color: var(--ink-md); }
+.seg-blue .body-p, .seg-dark .body-p, .seg-grad-blue .body-p { color: rgba(255,255,255,0.72); }
+.body-p strong { font-weight: 600; }
+.seg-white .body-p strong, .seg-cream .body-p strong, .seg-yellow .body-p strong { color: var(--ink); }
+.seg-blue .body-p strong, .seg-dark .body-p strong, .seg-grad-blue .body-p strong { color: white; }
+
+/* ═══════════ FRAMEWORK BADGE ═══════════ */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 20px; vertical-align: middle; margin: 0 3px;
+  font-weight: 700;
+}
+.badge-blue { background: var(--blue-pale); color: var(--blue); border: 1px solid rgba(0,48,135,0.2); }
+.badge-yellow { background: var(--yellow); color: var(--blue); border: 1px solid var(--yellow-dk); }
+.badge-dark { background: rgba(255,218,26,0.15); color: var(--yellow); border: 1px solid rgba(255,218,26,0.3); }
+
+/* ═══════════ PULL QUOTE ═══════════ */
+.pq {
+  margin: 32px 0; padding: 24px 32px;
+  border-radius: 0 10px 10px 0;
+}
+.seg-white .pq, .seg-cream .pq { border-left: 4px solid var(--blue); background: var(--blue-pale); }
+.seg-blue .pq, .seg-dark .pq, .seg-grad-blue .pq { border-left: 4px solid var(--yellow); background: rgba(255,218,26,0.06); }
+.seg-yellow .pq, .seg-grad-warm .pq { border-left: 4px solid var(--yellow-dk); background: rgba(230,194,0,0.12); }
+.pq-text {
+  font-family: var(--lora); font-size: 19px; font-style: italic; line-height: 1.6;
+  margin-bottom: 8px;
+}
+.seg-white .pq-text, .seg-cream .pq-text { color: var(--ink); }
+.seg-blue .pq-text, .seg-dark .pq-text, .seg-grad-blue .pq-text { color: white; }
+.seg-yellow .pq-text, .seg-grad-warm .pq-text { color: var(--ink); }
+
+/* ═══════════ STAT STRIP ═══════════ */
+.stat-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 2px; border-radius: 12px; overflow: hidden; margin: 32px 0;
+}
+.stat-cell { padding: 20px 18px; text-align: center; }
+.seg-white .stat-cell, .seg-cream .stat-cell { background: var(--blue); }
+.seg-blue .stat-cell, .seg-grad-blue .stat-cell, .seg-dark .stat-cell { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; }
+.seg-yellow .stat-cell, .seg-grad-warm .stat-cell { background: rgba(0,48,135,0.06); border: 1px solid rgba(0,48,135,0.1); border-radius: 6px; }
+.stat-num {
+  font-family: var(--syne); font-size: 26px; font-weight: 800;
+  color: var(--yellow); line-height: 1; margin-bottom: 4px;
+}
+.seg-yellow .stat-num, .seg-grad-warm .stat-num { color: var(--blue); }
+.stat-nm {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+}
+.seg-white .stat-nm, .seg-cream .stat-nm { color: rgba(255,255,255,0.55); }
+.seg-blue .stat-nm, .seg-dark .stat-nm, .seg-grad-blue .stat-nm { color: rgba(255,255,255,0.45); }
+.seg-yellow .stat-nm, .seg-grad-warm .stat-nm { color: var(--ink-lt); }
+
+/* ═══════════ CARD GRID ═══════════ */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 28px 0; }
+.card {
+  border-radius: 12px; padding: 24px 22px;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.card:hover { transform: translateY(-4px); }
+.seg-white .card, .seg-cream .card {
+  background: var(--white); border: 1px solid var(--rule);
+  box-shadow: 0 2px 12px rgba(0,48,135,0.05);
+}
+.seg-white .card:hover, .seg-cream .card:hover { box-shadow: 0 12px 40px rgba(0,48,135,0.12); }
+.seg-blue .card, .seg-grad-blue .card {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.seg-dark .card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.seg-yellow .card, .seg-grad-warm .card {
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(0,48,135,0.1);
+}
+.seg-yellow .card:hover, .seg-grad-warm .card:hover { box-shadow: 0 8px 30px rgba(0,48,135,0.1); }
+.card-icon { font-size: 26px; margin-bottom: 12px; display: block; }
+.card-title {
+  font-family: var(--syne); font-size: 16px; font-weight: 700;
+  margin-bottom: 8px;
+}
+.seg-white .card-title, .seg-cream .card-title, .seg-yellow .card-title, .seg-grad-warm .card-title { color: var(--ink); }
+.seg-blue .card-title, .seg-dark .card-title, .seg-grad-blue .card-title { color: white; }
+.card-text {
+  font-size: 14px; line-height: 1.65; font-weight: 400;
+}
+.seg-white .card-text, .seg-cream .card-text, .seg-yellow .card-text { color: var(--ink-lt); }
+.seg-blue .card-text, .seg-dark .card-text, .seg-grad-blue .card-text { color: rgba(255,255,255,0.6); }
+
+/* ═══════════ HIGHLIGHT BAND ═══════════ */
+.band {
+  background: var(--yellow);
+  padding: 6px 0;
+  display: flex; align-items: center; justify-content: center;
+  gap: 32px; flex-wrap: wrap;
+  overflow: hidden;
+}
+.band-item {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--blue); font-weight: 700;
+  white-space: nowrap;
+}
+.band-sep { color: rgba(0,48,135,0.3); font-size: 16px; }
+
+/* ═══════════ INSIGHT BOX ═══════════ */
+.insight {
+  border-radius: 10px; padding: 22px 26px; margin: 24px 0;
+}
+.seg-white .insight, .seg-cream .insight {
+  background: var(--blue-pale); border-left: 3px solid var(--blue);
+}
+.seg-blue .insight, .seg-grad-blue .insight {
+  background: rgba(255,218,26,0.08); border-left: 3px solid var(--yellow);
+}
+.seg-dark .insight {
+  background: rgba(255,255,255,0.06); border-left: 3px solid var(--yellow);
+}
+.seg-yellow .insight, .seg-grad-warm .insight {
+  background: rgba(0,48,135,0.06); border-left: 3px solid var(--blue);
+}
+.insight-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.18em;
+  text-transform: uppercase; font-weight: 700; margin-bottom: 8px;
+}
+.seg-white .insight-label, .seg-cream .insight-label, .seg-yellow .insight-label { color: var(--blue); }
+.seg-blue .insight-label, .seg-dark .insight-label, .seg-grad-blue .insight-label { color: var(--yellow); }
+.insight p { font-size: 14.5px; line-height: 1.65; font-weight: 400; }
+.seg-white .insight p, .seg-cream .insight p, .seg-yellow .insight p { color: var(--ink-md); }
+.seg-blue .insight p, .seg-dark .insight p, .seg-grad-blue .insight p { color: rgba(255,255,255,0.75); }
+.insight p strong { font-weight: 600; }
+.seg-white .insight p strong, .seg-cream .insight p strong { color: var(--ink); }
+.seg-blue .insight p strong, .seg-dark .insight p strong { color: white; }
+
+/* ═══════════ BULLET LIST ═══════════ */
+ul.pts { list-style: none; margin: 20px 0; }
+ul.pts li {
+  padding: 10px 0 10px 24px; position: relative;
+  border-bottom: 1px solid;
+  font-size: 15px; line-height: 1.65;
+}
+ul.pts li:last-child { border-bottom: none; }
+ul.pts li::before { content: '→'; position: absolute; left: 0; font-weight: 700; }
+.seg-white ul.pts li, .seg-cream ul.pts li { border-color: var(--rule); color: var(--ink-md); }
+.seg-white ul.pts li::before, .seg-cream ul.pts li::before { color: var(--blue); }
+.seg-yellow ul.pts li, .seg-grad-warm ul.pts li { border-color: rgba(0,48,135,0.1); color: var(--ink-md); }
+.seg-yellow ul.pts li::before, .seg-grad-warm ul.pts li::before { color: var(--blue); }
+.seg-blue ul.pts li, .seg-dark ul.pts li, .seg-grad-blue ul.pts li { border-color: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); }
+.seg-blue ul.pts li::before, .seg-dark ul.pts li::before, .seg-grad-blue ul.pts li::before { color: var(--yellow); }
+ul.pts li strong { font-weight: 600; }
+.seg-white ul.pts li strong, .seg-cream ul.pts li strong, .seg-yellow ul.pts li strong { color: var(--ink); }
+.seg-blue ul.pts li strong, .seg-dark ul.pts li strong, .seg-grad-blue ul.pts li strong { color: white; }
+
+/* ═══════════ TWO COL ═══════════ */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.two-col-img {
+  border-radius: 12px; overflow: hidden;
+  position: relative;
+}
+
+/* ═══════════ SWOT GRID ═══════════ */
+.swot { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; border-radius: 12px; overflow: hidden; }
+.swot-cell { padding: 24px 22px; }
+.swot-cell:nth-child(1) { background: rgba(0,48,135,0.06); }
+.swot-cell:nth-child(2) { background: rgba(255,218,26,0.2); }
+.swot-cell:nth-child(3) { background: rgba(22,163,74,0.06); }
+.swot-cell:nth-child(4) { background: rgba(220,38,38,0.05); }
+.swot-label {
+  font-family: var(--syne); font-size: 11px; font-weight: 800;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.swot-cell:nth-child(1) .swot-label { color: var(--blue); }
+.swot-cell:nth-child(2) .swot-label { color: #9a7100; }
+.swot-cell:nth-child(3) .swot-label { color: #16a34a; }
+.swot-cell:nth-child(4) .swot-label { color: #dc2626; }
+.swot-cell ul { list-style: none; }
+.swot-cell ul li {
+  font-size: 13px; padding: 6px 0 6px 16px; position: relative;
+  border-bottom: 1px solid rgba(0,0,0,0.06); line-height: 1.5;
+  color: var(--ink-md);
+}
+.swot-cell ul li:last-child { border-bottom: none; }
+.swot-cell ul li::before { content: '·'; position: absolute; left: 4px; font-size: 18px; line-height: 1; color: currentColor; }
+
+/* ═══════════ LESSON CARDS ═══════════ */
+.lesson-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 28px 0; }
+.lesson-card {
+  border-radius: 12px; padding: 24px 22px;
+  background: white;
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--blue);
+  transition: transform 0.25s;
+}
+.lesson-card:hover { transform: translateY(-3px); }
+.lesson-num {
+  font-family: var(--syne); font-size: 38px; font-weight: 800;
+  color: var(--yellow); line-height: 1; margin-bottom: 10px;
+  -webkit-text-stroke: 2px var(--yellow-dk);
+}
+.lesson-title { font-family: var(--syne); font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+.lesson-text { font-size: 13.5px; line-height: 1.65; color: var(--ink-lt); }
+
+/* ═══════════ VERDICT SECTION ═══════════ */
+.verdict {
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 50%, rgba(0,81,168,0.2) 0%, transparent 70%),
+    linear-gradient(160deg, #001040 0%, #003087 50%, #001855 100%);
+  padding: 100px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.verdict::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(255,218,26,0.04) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(255,218,26,0.04) 0%, transparent 50%);
+}
+.verdict-inner { max-width: 780px; margin: 0 auto; position: relative; z-index: 1; }
+.verdict-chip {
+  display: inline-block;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--yellow); background: rgba(255,218,26,0.1);
+  border: 1px solid rgba(255,218,26,0.3); border-radius: 20px;
+  padding: 6px 16px; margin-bottom: 28px;
+}
+.verdict-title {
+  font-family: var(--syne); font-size: clamp(32px, 5vw, 56px); font-weight: 800;
+  color: white; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 24px;
+}
+.verdict-title span { color: var(--yellow); }
+.verdict-body {
+  font-family: var(--lora); font-size: 18px; font-style: italic;
+  color: rgba(255,255,255,0.75); line-height: 1.75;
+  margin-bottom: 20px;
+}
+.verdict-body strong { color: white; font-style: normal; font-weight: 600; }
+.verdict-rule {
+  width: 60px; height: 3px; background: var(--yellow);
+  margin: 32px auto; border-radius: 2px;
+}
+.verdict-meta {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: rgba(255,255,255,0.35);
+}
+.verdict-meta span { color: var(--yellow); }
+
+/* ═══════════ FOOTER ═══════════ */
+.footer {
+  background: var(--ink); color: rgba(255,255,255,0.5);
+  padding: 36px 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-brand { font-family: var(--syne); font-size: 16px; font-weight: 800; color: white; }
+.footer-brand span { color: var(--yellow); }
+.footer-note { font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; }
+.footer-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.footer-chip {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.4);
+}
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; padding: 80px 24px 50px; }
+  .hero-right { display: none; }
+  .seg { padding: 60px 24px; }
+  .nav { padding: 0 20px; }
+  .two-col { grid-template-columns: 1fr; }
+  .swot { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  .verdict { padding: 70px 24px; }
+  .footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════ NAV ════ -->
+<nav class="nav" id="nav">
+  <div class="nav-brand">
+    <div class="nav-dot"></div>
+    FounderLens
+  </div>
+  <div class="nav-badge">Company Intelligence · IKEA</div>
+</nav>
+
+<!-- ════ HERO ════ -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-chip">
+      <span class="hero-chip-dot"></span>
+      Company Analysis — FounderLens Intelligence
+    </div>
+    <h1 class="hero-title">IKEA</h1>
+    <div class="hero-title-sub">The company that made beautiful homes affordable for everyone</div>
+    <p class="hero-desc">
+      IKEA isn't just a furniture store. It is a <strong>vertically integrated design-to-delivery machine</strong> built on one unbreakable idea: that good design should have no price barrier. For 80 years, that idea has compounded into the world's most powerful retail system.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val">€45.1B</div>
+        <div class="hero-stat-lbl">FY2024 Revenue</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">500+</div>
+        <div class="hero-stat-lbl">Stores / 63 Countries</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">915M</div>
+        <div class="hero-stat-lbl">Annual Store Visits</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">1,800+</div>
+        <div class="hero-stat-lbl">Global Suppliers</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-logo-card">
+      <!-- IKEA Logo SVG - hand-built -->
+      <svg width="240" height="110" viewBox="0 0 280 120" xmlns="http://www.w3.org/2000/svg" aria-label="IKEA">
+        <rect width="280" height="120" rx="12" fill="#0051A8"/>
+        <rect x="7" y="7" width="266" height="106" rx="8" fill="#FFDA1A"/>
+        <rect x="14" y="14" width="252" height="92" rx="6" fill="#0051A8"/>
+        <text x="140" y="78" font-family="'Syne',Arial,sans-serif" font-size="58" font-weight="800" text-anchor="middle" fill="#FFDA1A" letter-spacing="2">IKEA</text>
+      </svg>
+      <p style="font-family:var(--mono);font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:16px;">Founded 1943 · Älmhult, Sweden</p>
+    </div>
+    <div class="hero-tagline">
+      Founded at <strong>age 17</strong>. Built without a single rupee of venture capital. Became the world's most-visited furniture store.
+    </div>
+  </div>
+</section>
+
+<!-- ════ YELLOW BAND ════ -->
+<div class="band">
+  <span class="band-item">€45.1B Revenue FY2024</span>
+  <span class="band-sep">·</span>
+  <span class="band-item">1.2B Meatballs Sold</span>
+  <span class="band-sep">·</span>
+  <span class="band-item">180M IKEA Family Members</span>
+  <span class="band-sep">·</span>
+  <span class="band-item">6th Most Valuable Retailer Globally</span>
+  <span class="band-sep">·</span>
+  <span class="band-item">0 External Investors. Ever.</span>
+</div>
+
+<!-- ════ 1: COMPANY OVERVIEW ════ -->
+<section class="seg seg-white">
+  <div class="inner">
+    <div class="sec-label reveal">01 · Company Overview</div>
+    <h2 class="sec-h reveal">What IKEA Actually <em>Is</em></h2>
+
+    <div class="two-col reveal">
+      <div>
+        <p class="body-p">Most people think IKEA is a furniture store. That's like saying Amazon is a bookshop. IKEA is a <strong>vertically integrated design, manufacturing, and retail system</strong> — one of the few companies in the world that controls its product from the initial sketch to the moment a customer carries it home in a flat box.</p>
+        <p class="body-p">It operates in the $750 billion global home furnishings market — a category driven by constant demand: people move, people upgrade, people start families. The category never disappears. And IKEA, by making quality design affordable, turned what used to be an occasional luxury purchase into a frequent, accessible one.</p>
+        <p class="body-p">What makes IKEA strategically interesting isn't its scale — it's how it got there. It chose a price point that the entire furniture industry said was impossible to sustain with good design, then spent 80 years proving otherwise.</p>
+      </div>
+      <div>
+        <div class="stat-row" style="grid-template-columns:1fr 1fr;">
+          <div class="stat-cell"><div class="stat-num">63</div><div class="stat-nm">Countries</div></div>
+          <div class="stat-cell"><div class="stat-num">500+</div><div class="stat-nm">Stores</div></div>
+          <div class="stat-cell"><div class="stat-num">225K+</div><div class="stat-nm">Employees (co-workers)</div></div>
+          <div class="stat-cell"><div class="stat-num">9,500+</div><div class="stat-nm">Products in Range</div></div>
+        </div>
+        <div class="insight reveal">
+          <div class="insight-label">Why It Matters</div>
+          <p>IKEA proved that you don't need to choose between <strong>affordability and design quality</strong>. That's not a retail insight — it's a civilisational one. It changed how ordinary people think about their homes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 2: CORE PROBLEM ════ -->
+<section class="seg seg-cream">
+  <div class="inner">
+    <div class="sec-label reveal">02 · The Core Problem</div>
+    <h2 class="sec-h reveal">Beautiful Homes Were a <em>Privilege</em></h2>
+
+    <p class="body-p reveal">In post-war Europe, furniture was expensive, ugly at low price points, and only available in "nice" versions at prices most families couldn't afford. The furniture market was built around a silent assumption: <strong>quality design is for people who can pay for it.</strong></p>
+
+    <div class="card-grid reveal">
+      <div class="card">
+        <span class="card-icon">💰</span>
+        <div class="card-title">Price Exclusivity</div>
+        <div class="card-text">Well-designed furniture from traditional makers cost a month's wages for working families. Good aesthetics were a status marker, not a standard.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🏭</span>
+        <div class="card-title">Bloated Supply Chain</div>
+        <div class="card-text">Designer → Manufacturer → Wholesaler → Retailer → Customer. Every middleman took a margin cut. By the end, you were paying 3× what the furniture cost to make.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">📦</span>
+        <div class="card-title">Logistics Tax</div>
+        <div class="card-text">Bulky assembled furniture was expensive to ship and store. That cost was always passed to customers — another invisible price premium on top of everything else.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🎨</span>
+        <div class="card-title">The False Trade-Off</div>
+        <div class="card-text">Industry consensus said cheap furniture must look cheap. Nobody had challenged this structurally. IKEA's entire existence is a refutation of this belief.</div>
+      </div>
+    </div>
+
+    <div class="pq reveal">
+      <div class="pq-text">"IKEA didn't enter the furniture market. It created a new one — where the question wasn't 'can I afford this?' but 'which one do I like?'"</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 3: MARKET TIMING ════ -->
+<section class="seg seg-grad-blue">
+  <div class="inner">
+    <div class="sec-label reveal">03 · Market Timing</div>
+    <h2 class="sec-h reveal">The Right Idea at the <em>Right Moment</em></h2>
+
+    <div class="two-col reveal">
+      <div>
+        <p class="body-p">IKEA was founded in 1943 and hit its stride in the 1950s–60s — exactly when Europe's post-war housing boom created millions of new homes that needed to be furnished. The timing wasn't accidental; it was structural. <span class="badge badge-dark">First-Mover Advantage</span></p>
+        <p class="body-p">Three converging forces made IKEA's model inevitable:</p>
+        <ul class="pts reveal">
+          <li><strong>Urbanisation surge.</strong> Millions of Europeans moved to cities and needed to furnish new apartments — fast and affordably.</li>
+          <li><strong>Rising middle-class aspiration.</strong> People wanted homes they were proud of. Aesthetic desire was no longer reserved for the wealthy.</li>
+          <li><strong>Modernisation of manufacturing.</strong> Post-war industrial capacity meant standardised, machine-cut furniture components were now economical to produce at scale.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="body-p">When Swedish manufacturers tried to boycott IKEA in the early 1960s, Kamprad turned to Polish factories — accidentally discovering that low-cost, high-quality manufacturing was available globally, not just locally. <strong>The crisis that should have killed IKEA gave it its greatest structural advantage.</strong> <span class="badge badge-dark">Reactive Becomes Proactive</span></p>
+
+        <div class="insight">
+          <div class="insight-label">Timing Insight</div>
+          <p>IKEA didn't predict the housing boom. It simply <strong>built something useful at the exact moment millions of people needed it</strong>. Great companies often don't time markets perfectly — they survive long enough for the market to find them.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 4: BUSINESS MODEL ════ -->
+<section class="seg seg-white">
+  <div class="inner">
+    <div class="sec-label reveal">04 · Business Model</div>
+    <h2 class="sec-h reveal">Every Element is <em>Engineered</em> for Low Cost</h2>
+
+    <p class="body-p reveal">IKEA's business model works because every single part of it is designed to reduce cost at one stage so the savings can be passed to customers. It's not one clever trick — it's an entire system of interlocking choices that compound. <span class="badge badge-blue">Porter's Cost Leadership</span></p>
+
+    <div class="card-grid reveal">
+      <div class="card">
+        <span class="card-icon">📐</span>
+        <div class="card-title">Flat-Pack Design</div>
+        <div class="card-text">Products are designed to ship flat, saving up to 6–8× in storage and transport costs. The design process <em>starts</em> with the price target, then engineers backwards. The box size is a design constraint.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🌍</span>
+        <div class="card-title">Global Sourcing</div>
+        <div class="card-text">1,800+ suppliers across 50+ countries. IKEA plays suppliers against each other for the best cost without sacrificing standards — maintaining leverage at every tier. <span class="badge badge-blue">Economies of Scale</span></div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🏬</span>
+        <div class="card-title">Stores as Warehouses</div>
+        <div class="card-text">Each IKEA store is simultaneously a showroom AND a warehouse. Customers pick items off the shelf themselves. No separate warehousing cost, no delivery lag for in-stock items.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🔧</span>
+        <div class="card-title">Self-Assembly = Cost Transfer</div>
+        <div class="card-text">The customer assembles the product. This isn't a compromise — it's a deliberate cost-transfer model. You do the labour; you pay less. That exchange is transparent and accepted. <span class="badge badge-blue">IKEA Effect</span></div>
+      </div>
+    </div>
+
+    <div class="stat-row reveal">
+      <div class="stat-cell"><div class="stat-num">27%</div><div class="stat-nm">Online Sales Share FY2024</div></div>
+      <div class="stat-cell"><div class="stat-num">40%</div><div class="stat-nm">Click-and-Collect of Online Orders</div></div>
+      <div class="stat-cell"><div class="stat-num">30%</div><div class="stat-nm">Visitors Come Only for Food</div></div>
+      <div class="stat-cell"><div class="stat-num">50%+</div><div class="stat-nm">Margins on Small Accessories</div></div>
+    </div>
+
+    <div class="insight reveal">
+      <div class="insight-label">Revenue Architecture</div>
+      <p>IKEA makes money in layers: <strong>anchor furniture</strong> (low margins, drives traffic), <strong>accessories and textiles</strong> (50%+ margins, impulse buys), <strong>food</strong> (loss-leader that keeps people in-store longer), and <strong>services</strong> (assembly, delivery — fast-growing, high-margin). The entire system is cross-subsidised to maximise basket size per visit.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 5: PRODUCT & UX ════ -->
+<section class="seg seg-grad-warm">
+  <div class="inner">
+    <div class="sec-label reveal">05 · Product & User Experience</div>
+    <h2 class="sec-h reveal">The Store Isn't a Store. It's a <em>Machine</em>.</h2>
+
+    <div class="two-col reveal">
+      <div>
+        <p class="body-p">The IKEA store layout is one of the most studied retail environments on earth. It forces you through a predetermined path — room by room, category by category — before you reach the exit. You can't take shortcuts. This "Long Natural Path" isn't a design quirk; it's a <strong>deliberate impulse-purchase generator</strong>. <span class="badge badge-blue">Behavioural Retail Design</span></p>
+
+        <p class="body-p">Products are staged in full room settings. You don't just see a bookshelf — you see an entire living room you want to live in. This triggers aspirational purchasing. You came for the shelf; you leave with the lamp, the cushion, and the candles too.</p>
+
+        <ul class="pts">
+          <li><strong>Democratic Design Framework.</strong> Every product must satisfy Form + Function + Quality + Sustainability + Low Price — simultaneously. If it fails one dimension, it doesn't ship.</li>
+          <li><strong>Name System as Brand Depth.</strong> Products named after Swedish and Nordic places feel personal and memorable. The "BILLY" bookcase is a relationship. A product code is a transaction.</li>
+          <li><strong>IKEA Place App (AR).</strong> Points your phone at a room; shows exactly how the furniture looks at scale. Eliminates the biggest barrier to online furniture buying — uncertainty about fit.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="insight" style="margin-top:0;">
+          <div class="insight-label">The Meatball Strategy</div>
+          <p>IKEA serves 1.2 billion meatballs annually. This is not a side business. Cheap, filling food <strong>keeps customers in the store longer</strong>. Full shoppers are patient shoppers. Patient shoppers spend more. The meatball is a conversion tool with a side effect of being delicious.</p>
+        </div>
+
+        <div class="insight" style="margin-top:16px;">
+          <div class="insight-label">The IKEA Effect — Proven Psychology</div>
+          <p>Harvard Business School research confirmed what IKEA knew intuitively: <strong>people value things they've partly built themselves significantly more</strong> than identical pre-assembled items. Self-assembly turns customers into invested owners, not just buyers. Ownership starts at the Allen key, not the checkout.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 6: GROWTH & DISTRIBUTION ════ -->
+<section class="seg seg-blue">
+  <div class="inner">
+    <div class="sec-label reveal">06 · Growth & Distribution</div>
+    <h2 class="sec-h reveal">From Sweden to Everywhere — <em>Without Rushing</em></h2>
+
+    <p class="body-p reveal">IKEA's global expansion is the opposite of blitzscaling. It moved one country at a time, made each market profitable before entering the next, and used the physical store itself as a marketing event. When IKEA opens in a new city, it's a cultural moment — people queue overnight. That's earned media worth more than any advertising campaign. <span class="badge badge-dark">Word-of-Mouth as Growth Engine</span></p>
+
+    <div class="card-grid reveal">
+      <div class="card">
+        <span class="card-icon">📚</span>
+        <div class="card-title">The Catalogue as Growth Loop</div>
+        <div class="card-text">For decades, IKEA's annual catalogue was the world's most distributed printed publication — delivered to millions of homes free of charge. It was a desire-creation engine: you didn't shop the catalogue, you dreamed with it.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🧲</span>
+        <div class="card-title">IKEA Family — 180M Members</div>
+        <div class="card-text">Free loyalty programme with personalised discounts, exclusive offers, and behavioural data. 180 million members provide the intelligence to personalise at scale and reduce cost-of-customer-retention dramatically. <span class="badge badge-dark">Switching Costs</span></div>
+      </div>
+      <div class="card">
+        <span class="card-icon">📱</span>
+        <div class="card-title">Digital as New Showroom</div>
+        <div class="card-text">Online sales reached 27% of total revenue in FY2024. IKEA treats its website as a primary storefront — not just an order channel. The AR visualisation app converted online browsers into buyers who previously needed to visit stores.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🏙</span>
+        <div class="card-title">Urban Store Pivot</div>
+        <div class="card-text">Traditionally suburban, IKEA is now opening smaller city-centre planning studios and showrooms to reach urban millennials who don't own cars. Tokyo Shibuya, Manhattan, central London — the format adapts but the price promise doesn't.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 7: OPERATIONAL STRATEGY ════ -->
+<section class="seg seg-dark">
+  <div class="inner">
+    <div class="sec-label reveal">07 · Operational Strategy</div>
+    <h2 class="sec-h reveal">Logistics Is the Product. <em>Not a Support Function.</em></h2>
+
+    <p class="body-p reveal">A company generating €45 billion in revenue by moving 2+ billion products per year globally is, first and foremost, a logistics company that happens to make furniture. IKEA's operational strategy is what makes the entire price promise mathematically possible.</p>
+
+    <div class="two-col reveal">
+      <div>
+        <ul class="pts">
+          <li><strong>Design for movement, not just beauty.</strong> Products are engineered around the box size first. Packaging is a constraint built into the design process, not solved after the fact. Efficient packaging = fewer trucks = lower cost = lower price.</li>
+          <li><strong>Stores as fulfilment centres.</strong> Each store holds thousands of SKUs in its warehouse section. No separate distribution centre needed. This integration reduces the supply chain by one entire layer. <span class="badge badge-dark">Vertical Integration</span></li>
+          <li><strong>Direct supplier relationships.</strong> IKEA works directly with 1,800+ manufacturers — no wholesaler layer. This means IKEA takes the wholesale margin, reducing cost and increasing quality control simultaneously.</li>
+          <li><strong>Zero-emission last-mile ambition.</strong> Electric vehicle fleets and cargo bikes are now operating in Paris, Amsterdam, Los Angeles, and Shanghai for final-mile delivery. Sustainability and cost efficiency are the same goal.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="insight">
+          <div class="insight-label">The Flat-Pack as Logistics Unlock</div>
+          <p>One flat-packed BILLY bookcase occupies roughly <strong>⅛ the space</strong> of an assembled one. That means 8× more units per truck, per ship, per warehouse shelf. Across billions of units annually, this efficiency compounds into billions of euros in cost savings — directly enabling IKEA's low prices.</p>
+        </div>
+        <div class="insight" style="margin-top:16px;">
+          <div class="insight-label">Supplier Development as Competitive Moat</div>
+          <p>IKEA doesn't just buy from suppliers — it <strong>develops them</strong>. It trains manufacturers, helps them optimise production, and builds multi-decade relationships. This creates suppliers who are deeply embedded in IKEA's cost model and difficult for competitors to simply poach.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 8: COMPETITIVE ADVANTAGE ════ -->
+<section class="seg seg-cream">
+  <div class="inner">
+    <div class="sec-label reveal">08 · Competitive Advantage</div>
+    <h2 class="sec-h reveal">Why No One Has <em>Copied</em> IKEA in 80 Years</h2>
+
+    <p class="body-p reveal">Many retailers have tried to copy the IKEA model. None have succeeded at scale. The reason is simple but rarely stated clearly: <strong>IKEA's competitive advantage is not one thing — it's an interlocking system</strong>, where each element reinforces every other. Remove any one part, and the economics fall apart. <span class="badge badge-blue">Systems Moat</span></p>
+
+    <div class="card-grid reveal">
+      <div class="card">
+        <span class="card-icon">⏳</span>
+        <div class="card-title">80-Year Supply Chain</div>
+        <div class="card-text">Relationships with 1,800+ suppliers built over eight decades cannot be replicated in five years. Deep supplier loyalty + production knowledge + negotiated pricing = an impossible-to-copy cost structure.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🧠</span>
+        <div class="card-title">The Brand IS the Value Proposition</div>
+        <div class="card-text">"IKEA" means affordable-beautiful-functional in the minds of hundreds of millions of people. This association took a generation to build and is worth more than any single product line.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🏢</span>
+        <div class="card-title">Physical Store as Experience</div>
+        <div class="card-text">The IKEA showroom experience — staged room settings, take-it-home-today warehouse, the restaurant — is irreplaceable by e-commerce for most furniture purchases. The physical experience is the moat.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🔒</span>
+        <div class="card-title">Private Ownership = Long-Term Thinking</div>
+        <div class="card-text">IKEA is owned by a foundation, not shareholders. No quarterly pressure. In FY2024, IKEA deliberately cut prices 10%, reducing revenue from €47.6B to €45.1B, to serve its mission. A public company cannot make that call. <span class="badge badge-blue">Structural Advantage</span></div>
+      </div>
+    </div>
+
+    <div class="pq reveal">
+      <div class="pq-text">"The scariest competitive advantage is one that took 80 years to build. You can't sprint your way to IKEA's supply chain. You can't outspend your way to IKEA's brand. You can't out-engineer your way to IKEA's culture. That's what makes it truly defensible."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 9: STRATEGIC ANALYSIS ════ -->
+<section class="seg seg-white">
+  <div class="inner">
+    <div class="sec-label reveal">09 · Strategic Analysis</div>
+    <h2 class="sec-h reveal">The Frameworks <em>Behind the Success</em></h2>
+
+    <p class="body-p reveal">Let's look at IKEA through the lens of established strategic frameworks — explained simply, applied specifically.</p>
+
+    <!-- SWOT -->
+    <div class="swot reveal" style="margin: 28px 0 32px;">
+      <div class="swot-cell">
+        <div class="swot-label">💪 Strengths</div>
+        <ul>
+          <li>World's strongest furniture brand — recognised everywhere</li>
+          <li>80-year supply chain relationships — non-replicable</li>
+          <li>Vertical integration = full cost and quality control</li>
+          <li>Private ownership = long-term decision freedom</li>
+          <li>Flat-pack logistics = structural cost advantage</li>
+        </ul>
+      </div>
+      <div class="swot-cell">
+        <div class="swot-label">⚠ Weaknesses</div>
+        <ul>
+          <li>Self-assembly creates friction — not all customers accept it</li>
+          <li>Late to e-commerce; digital still catching up to competitors</li>
+          <li>Suburban stores disconnect with urban-first consumers</li>
+          <li>Product safety scandals (MALM dresser 2016) — quality gaps</li>
+        </ul>
+      </div>
+      <div class="swot-cell">
+        <div class="swot-label">🌱 Opportunities</div>
+        <ul>
+          <li>Circular economy (buy-back + resell) — revenue on same item twice</li>
+          <li>India, Southeast Asia, Africa — massive untapped middle class</li>
+          <li>Smart home integration — affordable IoT under IKEA brand</li>
+          <li>Digital-first urban formats — smaller planning studios</li>
+        </ul>
+      </div>
+      <div class="swot-cell">
+        <div class="swot-label">⚡ Threats</div>
+        <ul>
+          <li>Amazon + digital natives offer faster delivery for furniture</li>
+          <li>Supply chain geopolitical disruption (hyper-globalised sourcing)</li>
+          <li>Consumer preference shift to second-hand/sustainable</li>
+          <li>Rising material and logistics costs compressing margins</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card-grid reveal">
+      <div class="card">
+        <div class="card-title">Cost Leadership <span class="badge badge-blue">Porter</span></div>
+        <div class="card-text">IKEA doesn't compete on lowest absolute price — it competes on best value at the lowest possible price. This is sustained through structural cost advantages: flat-pack, direct sourcing, self-serve stores. Any competitor matching the price without matching the system loses money doing so.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Network Effects <span class="badge badge-blue">Platform</span></div>
+        <div class="card-text">Not traditional network effects — but IKEA Family (180M members) creates a data and loyalty flywheel. More members → better personalisation → higher conversion → more members. The loyalty programme is a data moat disguised as a discount programme.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Switching Costs <span class="badge badge-blue">Lock-In</span></div>
+        <div class="card-text">If you own a kitchen from IKEA, expanding it means buying from IKEA again — the modular system only works within itself. This creates soft switching costs that keep customers in the IKEA ecosystem for years across multiple life stages.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 10: RISKS ════ -->
+<section class="seg seg-grad-blue">
+  <div class="inner">
+    <div class="sec-label reveal">10 · Key Risks & Weaknesses</div>
+    <h2 class="sec-h reveal">Where the Model <em>Has Cracks</em></h2>
+
+    <div class="two-col reveal">
+      <div>
+        <ul class="pts">
+          <li><strong>Supply chain concentration risk.</strong> Sourcing from 50+ countries makes IKEA efficient but exposed. Post-COVID supply disruptions revealed that hyper-globalised sourcing creates fragility. A single geopolitical event can remove a major supplier nation overnight.</li>
+          <li><strong>E-commerce gap.</strong> Amazon, Wayfair, and digital-native furniture brands offer faster delivery, easier returns, and better mobile experiences. At 27% online share, IKEA is growing digitally — but it's catching up to born-digital competitors, not leading them.</li>
+          <li><strong>DIY assembly friction.</strong> As demographics shift and urbanites have less time and space, self-assembly is increasingly a barrier. IKEA has partly addressed this via TaskRabbit acquisition and in-house assembly services — but it remains a structural friction point.</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="pts">
+          <li><strong>The sustainability paradox.</strong> IKEA produces enormous volumes of single-use-lifecycle furniture. In a world moving toward quality-over-quantity consumption, the fast-furniture model faces reputational and regulatory pressure. The buy-back programme helps but doesn't fully resolve the tension.</li>
+          <li><strong>Tax structure vs brand values.</strong> IKEA's complex foundation/franchise structure minimises taxes in ways that contradict its egalitarian brand positioning. EU investigations have flagged this. The gap between public values and corporate structure remains unresolved.</li>
+          <li><strong>Product safety.</strong> The 2016 MALM dresser recall of 36+ million units globally was a serious execution failure. At IKEA's volumes, a single design oversight has devastating real-world consequences.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 11: INDUSTRY IMPACT ════ -->
+<section class="seg seg-white">
+  <div class="inner">
+    <div class="sec-label reveal">11 · Industry Impact</div>
+    <h2 class="sec-h reveal">IKEA Didn't Just Build a Business — It <em>Reset the Industry</em></h2>
+
+    <div class="card-grid reveal">
+      <div class="card">
+        <span class="card-icon">🧩</span>
+        <div class="card-title">Invented a Product Category</div>
+        <div class="card-text">Flat-pack, self-assembly furniture did not exist as a mainstream category before IKEA. It created an entirely new way furniture is made, shipped, sold, and experienced — globally copied but never surpassed.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🎯</span>
+        <div class="card-title">Changed What "Affordable" Means</div>
+        <div class="card-text">Before IKEA, cheap furniture looked cheap. After IKEA, customers expect — and get — design quality at low prices. This permanently raised the baseline expectation for the entire industry.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🔄</span>
+        <div class="card-title">Made Furniture Disposable (For Better or Worse)</div>
+        <div class="card-text">IKEA's affordability triggered a cultural shift: furniture went from lifetime investment to frequent replacement purchase. This is the company's most complex legacy — enabling access, but also enabling waste.</div>
+      </div>
+      <div class="card">
+        <span class="card-icon">🏘</span>
+        <div class="card-title">Democratised Scandinavian Design</div>
+        <div class="card-text">Clean lines, functional minimalism, natural materials — what was once a Scandinavian design philosophy for the affluent became the dominant global aesthetic for ordinary homes. IKEA exported a design culture, not just furniture.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 12: LESSONS ════ -->
+<section class="seg seg-yellow">
+  <div class="inner">
+    <div class="sec-label reveal">12 · Lessons for Builders</div>
+    <h2 class="sec-h reveal">What IKEA Teaches Every <em>Entrepreneur</em></h2>
+
+    <div class="lesson-grid reveal">
+      <div class="lesson-card">
+        <div class="lesson-num">01</div>
+        <div class="lesson-title">Design backwards from the price</div>
+        <div class="lesson-text">IKEA sets the price target first, then engineers the product to hit it. Most companies do this in reverse — build first, then price. Working backwards from the customer's wallet forces genuine innovation in design and operations.</div>
+      </div>
+      <div class="lesson-card">
+        <div class="lesson-num">02</div>
+        <div class="lesson-title">Turn constraints into features</div>
+        <div class="lesson-text">Self-assembly was a cost-reduction necessity. IKEA turned it into a value proposition through honest framing: "you saved money because you did the work." Any product friction can become a feature if the value trade-off is communicated honestly.</div>
+      </div>
+      <div class="lesson-card">
+        <div class="lesson-num">03</div>
+        <div class="lesson-title">Every loss-leader must serve the whole system</div>
+        <div class="lesson-text">The meatball isn't food — it's a customer retention mechanism. Before adding a product or feature, ask: what does this do for the overall system? The best businesses have no waste — every element cross-subsidises something else.</div>
+      </div>
+      <div class="lesson-card">
+        <div class="lesson-num">04</div>
+        <div class="lesson-title">Crisis is a forcing function for structural advantage</div>
+        <div class="lesson-text">The 1961 supplier boycott forced IKEA to build a global supply chain. The attack that should have ended the company became its deepest competitive moat. When a crisis forces you to find a new path, it might be a better path.</div>
+      </div>
+      <div class="lesson-card">
+        <div class="lesson-num">05</div>
+        <div class="lesson-title">Culture is the compounding interest of values</div>
+        <div class="lesson-text">IKEA's frugality culture — modelled from the top for 75 years — made every layer of the organisation operationally lean. You can write a cost policy. You can't write cost culture. It has to be lived, not mandated.</div>
+      </div>
+      <div class="lesson-card">
+        <div class="lesson-num">06</div>
+        <div class="lesson-title">Patience is a structural advantage</div>
+        <div class="lesson-text">Private ownership gave IKEA the freedom to cut prices in FY2024, reducing revenue intentionally. Public companies cannot make that call. If your ownership structure forces short-term thinking, your strategy will be permanently sub-optimal.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ 13: VERDICT ════ -->
+<section class="verdict">
+  <div class="verdict-inner reveal">
+    <div class="verdict-chip">FounderLens Verdict · IKEA</div>
+    <h2 class="verdict-title">
+      A Business Built on<br><span>One Unbreakable Promise</span>
+    </h2>
+    <div class="verdict-rule"></div>
+    <p class="verdict-body">
+      IKEA's power isn't its scale, its stores, or even its iconic meatballs. Its power is the <strong>80-year consistency of a single, stubbornly held belief</strong> — that beautiful homes should be accessible to everyone, regardless of income.
+    </p>
+    <p class="verdict-body">
+      Every strategic decision IKEA has ever made — flat-pack design, direct sourcing, the maze store layout, self-assembly, the catalogue, private ownership, the restaurant — flows from that one belief. That's not a business model. <strong>That's a moral position, operationalised at global scale.</strong>
+    </p>
+    <p class="verdict-body">
+      What makes IKEA uniquely difficult to replicate is precisely this: competitors can copy the flat-pack. They can copy the blue-yellow colours. They can hire Scandinavian designers. What they cannot copy is <strong>eight decades of compounding operational decisions made in service of a principle, not a profit target.</strong>
+    </p>
+    <p class="verdict-body" style="margin-bottom:0;">
+      The deepest business intelligence IKEA offers is this: <strong>the most defensible companies in history are not the ones with the best product — they are the ones with the strongest, most consistently executed conviction about what they're for.</strong>
+    </p>
+    <div class="verdict-rule"></div>
+    <div class="verdict-meta">
+      Research compiled May 2026 &nbsp;·&nbsp; <span>FounderLens Intelligence</span> &nbsp;·&nbsp; For educational purposes
+    </div>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer class="footer">
+  <div>
+    <div class="footer-brand">Founder<span>Lens</span></div>
+    <p style="font-family:var(--mono);font-size:9px;letter-spacing:0.1em;color:rgba(255,255,255,0.3);margin-top:4px;">Business intelligence. Explained simply.</p>
+  </div>
+  <div class="footer-note">IKEA Company Analysis · Issue #03 · FounderLens Intelligence Series</div>
+  <div class="footer-chips">
+    <span class="footer-chip">Retail Strategy</span>
+    <span class="footer-chip">Cost Leadership</span>
+    <span class="footer-chip">Supply Chain</span>
+    <span class="footer-chip">Democratic Design</span>
+    <span class="footer-chip">Flat-Pack</span>
+  </div>
+</footer>
+
+<script>
+  /* Nav scroll effect */
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  /* Scroll reveal */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  /* Staggered child reveals for card grids */
+  document.querySelectorAll('.card-grid, .lesson-grid, .stat-row').forEach(grid => {
+    Array.from(grid.children).forEach((child, i) => {
+      child.classList.add('reveal');
+      child.style.transitionDelay = `${i * 0.08}s`;
+      obs.observe(child);
+    });
+  });
+</script>
+</body>
+</html>
