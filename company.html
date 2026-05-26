@@ -612,6 +612,199 @@ main { position: relative; z-index: 1; }
     scroll-behavior: auto !important;
   }
 }
+
+/* Light rose editorial theme */
+:root {
+  --bg: #fff7f6;
+  --bg-2: #ffecea;
+  --panel: rgba(255,255,255,0.68);
+  --panel-2: rgba(255,245,243,0.82);
+  --line: rgba(147,34,42,0.14);
+  --text: #321017;
+  --muted: rgba(82,30,36,0.68);
+  --faint: rgba(82,30,36,0.42);
+  --gold: #b91c1c;
+  --steel: #d96c74;
+  --ember: #e11d48;
+}
+
+html { background: var(--bg); color: var(--text); }
+body {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255,170,160,0.48), transparent 29vw),
+    radial-gradient(circle at 80% 8%, rgba(225,29,72,0.16), transparent 31vw),
+    linear-gradient(180deg, #fffafb 0%, #ffeceb 48%, #fff5f3 100%);
+  color: var(--text);
+}
+
+body::before {
+  opacity: 0.42;
+  background-image:
+    linear-gradient(rgba(185,28,28,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(185,28,28,0.04) 1px, transparent 1px);
+}
+
+body::after { opacity: 0.075; }
+
+.wash { opacity: 0.28; background: radial-gradient(circle, rgba(255,146,136,0.6), transparent 64%); }
+.wash.two { background: radial-gradient(circle, rgba(225,29,72,0.25), transparent 66%); }
+.wash.three { background: radial-gradient(circle, rgba(251,113,133,0.28), transparent 66%); }
+
+.site-nav {
+  border-color: rgba(147,34,42,0.14);
+  background: rgba(255,247,246,0.72);
+  box-shadow: 0 24px 70px rgba(147,34,42,0.12);
+}
+.site-nav.is-scrolled {
+  background: rgba(255,247,246,0.92);
+  border-color: rgba(147,34,42,0.2);
+}
+.brand { color: #321017; }
+.brand span { color: #dc2626; }
+.search-trigger {
+  border-color: rgba(185,28,28,0.16);
+  color: #69313a;
+  background: rgba(255,255,255,0.5);
+}
+.search-trigger:hover {
+  background: rgba(255,255,255,0.78);
+  border-color: rgba(220,38,38,0.38);
+  color: #321017;
+}
+.nav-links a { color: rgba(50,16,23,0.68); }
+.nav-links a:hover,
+.nav-links a.active {
+  color: #fff;
+  background: #b91c1c;
+}
+
+.hero-media {
+  opacity: 0.2;
+  background:
+    linear-gradient(180deg, rgba(255,250,251,0.2), rgba(255,237,236,0.92)),
+    url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=2200&q=80") center/cover;
+  filter: grayscale(1) contrast(1.05);
+}
+.hero-depth {
+  border-color: rgba(147,34,42,0.1);
+  background: linear-gradient(135deg, rgba(255,255,255,0.75), rgba(255,229,225,0.24));
+  box-shadow: inset 0 0 120px rgba(255,255,255,0.52), 0 70px 170px rgba(147,34,42,0.16);
+}
+.eyebrow,
+.microtext,
+.hero-copy,
+.scroll-cue,
+.editorial p,
+.library-note {
+  color: var(--muted);
+}
+.eyebrow::before { background: linear-gradient(90deg, transparent, rgba(185,28,28,0.62)); }
+.eyebrow::after { background: linear-gradient(90deg, rgba(185,28,28,0.62), transparent); }
+.hero h1 {
+  color: #321017;
+  text-shadow: 0 20px 70px rgba(185,28,28,0.12);
+}
+.float-logo {
+  border-color: rgba(147,34,42,0.12);
+  background: rgba(255,255,255,0.58);
+  box-shadow: 0 28px 70px rgba(147,34,42,0.14);
+}
+.float-logo img { filter: grayscale(1) invert(16%) sepia(31%) saturate(1311%) hue-rotate(314deg) brightness(88%) contrast(92%); opacity: 0.75; }
+
+.section-label { color: #dc2626; }
+.metrics {
+  background: rgba(147,34,42,0.12);
+  border-color: rgba(147,34,42,0.12);
+}
+.metric {
+  background: rgba(255,255,255,0.64);
+}
+.metric span { color: var(--faint); }
+
+.cat-chip {
+  border-color: rgba(147,34,42,0.14);
+  color: rgba(50,16,23,0.68);
+  background: rgba(255,255,255,0.48);
+}
+.cat-chip:hover,
+.cat-chip.active {
+  color: #fff;
+  border-color: rgba(185,28,28,0.44);
+  background: #b91c1c;
+  box-shadow: 0 18px 48px rgba(185,28,28,0.12);
+}
+
+.company-card {
+  border-color: rgba(147,34,42,0.13);
+  background:
+    linear-gradient(150deg, rgba(255,255,255,0.82), rgba(255,229,225,0.38)),
+    linear-gradient(135deg, rgba(255,244,242,0.78), var(--card-color, #fff0ef));
+  box-shadow: 0 24px 70px rgba(147,34,42,0.1);
+}
+.company-card:hover {
+  border-color: rgba(220,38,38,0.36);
+  box-shadow: 0 30px 90px rgba(147,34,42,0.18), 0 0 60px rgba(220,38,38,0.06);
+}
+.company-card h3,
+.result-name {
+  color: #321017;
+}
+.company-card p,
+.card-category,
+.tags span,
+.logo-text,
+.result-desc {
+  color: rgba(82,30,36,0.68);
+}
+.logo-mark,
+.result-logo {
+  background: rgba(255,255,255,0.54);
+  border-color: rgba(147,34,42,0.13);
+}
+.logo-mark img,
+.result-row img {
+  filter: grayscale(1) invert(16%) sepia(31%) saturate(1311%) hue-rotate(314deg) brightness(88%) contrast(92%);
+}
+.tags span {
+  border-color: rgba(147,34,42,0.13);
+  background: rgba(255,255,255,0.34);
+}
+
+.marquee {
+  border-block-color: rgba(147,34,42,0.1);
+  color: rgba(82,30,36,0.22);
+}
+
+.search-overlay {
+  background: rgba(64,10,18,0.2);
+}
+.command {
+  border-color: rgba(147,34,42,0.16);
+  background: rgba(255,250,250,0.92);
+  box-shadow: 0 34px 110px rgba(147,34,42,0.2);
+}
+.command-bar {
+  border-bottom-color: rgba(147,34,42,0.1);
+}
+.command-icon,
+.result-tag {
+  color: #dc2626;
+}
+.command input {
+  color: #321017;
+}
+.command input::placeholder {
+  color: rgba(82,30,36,0.38);
+}
+.esc {
+  border-color: rgba(147,34,42,0.14);
+  color: rgba(82,30,36,0.56);
+  background: rgba(255,255,255,0.62);
+}
+.result-row:hover,
+.result-row:focus {
+  background: rgba(254,226,226,0.58);
+}
 </style>
 </head>
 <body>
