@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sam Walton — The Man Who Rewrote Retail Forever</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,600;1,9..144,800&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Martian+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════ DESIGN TOKENS ═══════════ */
+:root{
+  --blue:       #0071ce;
+  --blue-dark:  #004f99;
+  --blue-deep:  #002d6a;
+  --blue-pale:  rgba(0,113,206,0.08);
+  --blue-glow:  rgba(0,113,206,0.18);
+  --yellow:     #ffc220;
+  --yellow-pale:rgba(255,194,32,0.13);
+  --orange:     #f97316;
+
+  /* Dark mode tokens */
+  --dk-bg:      #0b0e14;
+  --dk-bg2:     #111520;
+  --dk-bg3:     #171c2e;
+  --dk-bg4:     #1e2438;
+  --dk-text:    #eef2ff;
+  --dk-text2:   rgba(238,242,255,0.72);
+  --dk-text3:   rgba(238,242,255,0.42);
+  --dk-rule:    rgba(238,242,255,0.09);
+
+  /* Light mode tokens */
+  --lt-bg:      #f8f9fc;
+  --lt-bg2:     #eef1f8;
+  --lt-bg3:     #e4e9f4;
+  --lt-bg4:     #ffffff;
+  --lt-text:    #0d1117;
+  --lt-text2:   #2d3748;
+  --lt-text3:   #718096;
+  --lt-rule:    rgba(13,17,23,0.10);
+
+  /* Typography */
+  --serif:      'Fraunces',Georgia,serif;
+  --sans:       'Instrument Sans',sans-serif;
+  --mono:       'Martian Mono',monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased;background:var(--dk-bg)}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--dk-bg)}
+::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px}
+
+/* grain on dark sections only */
+.dark-sec::before,.hero::before,.footer::before{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* ═══ BANNER ═══ */
+.banner{
+  background:var(--blue);color:#fff;text-align:center;
+  padding:8px 20px;font-family:var(--mono);font-size:10px;
+  letter-spacing:0.2em;text-transform:uppercase;
+  position:sticky;top:0;z-index:200;
+}
+
+/* ═══ NAV ═══ */
+.nav{
+  background:rgba(11,14,20,0.93);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--dk-rule);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:60px;
+  position:sticky;top:33px;z-index:199;
+}
+.nav-brand{font-family:var(--serif);font-size:17px;font-weight:800;color:var(--dk-text);letter-spacing:-0.01em;display:flex;align-items:center;gap:10px}
+.nav-brand-dot{width:8px;height:8px;border-radius:50%;background:var(--yellow);display:inline-block}
+.nav-chips{display:flex;gap:6px;flex-wrap:wrap}
+.nav-chip{font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;padding:5px 12px;border-radius:20px;border:1px solid var(--dk-rule);color:var(--dk-text3);background:none;cursor:pointer;transition:all .2s}
+.nav-chip:hover,.nav-chip.active{border-color:var(--yellow);color:var(--yellow);background:var(--yellow-pale)}
+.nav-cta{font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--dk-bg);background:var(--yellow);padding:8px 18px;border-radius:6px;border:none;cursor:pointer;transition:all .2s;font-weight:600}
+.nav-cta:hover{background:#e5ae00;transform:translateY(-1px)}
+
+/* ═══ HERO (DARK) ═══ */
+.hero{
+  min-height:100vh;display:grid;
+  grid-template-columns:1fr 480px;
+  gap:0;position:relative;overflow:hidden;
+  background:var(--dk-bg);
+}
+.hero-left{
+  padding:90px 60px 80px;display:flex;flex-direction:column;justify-content:center;
+  position:relative;z-index:1;
+  background:radial-gradient(ellipse 70% 60% at -10% 60%,rgba(0,113,206,0.14) 0%,transparent 65%),var(--dk-bg);
+}
+.hero-left::after{content:'';position:absolute;right:-2px;top:0;bottom:0;width:80px;background:linear-gradient(to right,transparent,var(--dk-bg2));z-index:2}
+.hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:24px;animation:slideIn .7s ease both}
+.hero-eyebrow-line{width:36px;height:2px;background:var(--yellow)}
+.hero-eyebrow-text{font-family:var(--mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--yellow)}
+.hero-title{font-family:var(--serif);font-size:clamp(44px,5.5vw,76px);font-weight:900;line-height:1.0;letter-spacing:-0.025em;margin-bottom:16px;animation:slideIn .7s .1s ease both;color:var(--dk-text)}
+.hero-title em{font-style:italic;color:var(--yellow);font-weight:300;display:block}
+.hero-sub{font-size:17px;color:var(--dk-text2);max-width:520px;line-height:1.7;margin-bottom:40px;font-weight:300;animation:slideIn .7s .2s ease both}
+.hero-sub strong{color:var(--dk-text);font-weight:500}
+.hero-kpis{display:flex;gap:36px;flex-wrap:wrap;padding:28px 0;border-top:1px solid var(--dk-rule);border-bottom:1px solid var(--dk-rule);margin-bottom:36px;animation:slideIn .7s .3s ease both}
+.kpi-val{font-family:var(--serif);font-size:28px;font-weight:800;color:var(--yellow);line-height:1.1}
+.kpi-label{font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--dk-text3);margin-top:2px}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;animation:slideIn .7s .35s ease both}
+.hero-tag{font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;padding:5px 12px;border-radius:20px;border:1px solid var(--dk-rule);color:var(--dk-text3)}
+.hero-tag.yellow{border-color:rgba(255,194,32,.4);color:var(--yellow);background:var(--yellow-pale)}
+.hero-tag.blue{border-color:rgba(0,113,206,.4);color:#60a5fa;background:var(--blue-pale)}
+.hero-right{position:relative;overflow:hidden;background:var(--dk-bg2)}
+.hero-right::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 40%,rgba(0,113,206,0.12) 0%,transparent 65%);z-index:1}
+.hero-right::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,194,32,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,194,32,0.05) 1px,transparent 1px);background-size:40px 40px;z-index:0}
+.hero-img-frame{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2}
+.founder-photo-wrap{position:relative;width:340px;height:400px}
+.founder-photo{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;filter:grayscale(15%) contrast(1.05);border-radius:12px;position:relative;z-index:2}
+.founder-photo-bg{position:absolute;top:20px;left:20px;right:-20px;bottom:-20px;background:linear-gradient(135deg,var(--blue-dark),var(--blue-deep));border-radius:12px;z-index:1}
+.photo-badge{position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);background:var(--yellow);color:var(--dk-bg);font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;padding:5px 14px;border-radius:20px;white-space:nowrap;z-index:3;font-weight:600}
+.hero-float-quote{position:absolute;bottom:40px;left:20px;right:20px;background:rgba(11,14,20,0.88);border:1px solid rgba(255,194,32,0.3);border-left:3px solid var(--yellow);border-radius:8px;padding:16px 18px;z-index:3;backdrop-filter:blur(8px)}
+.hero-float-quote-text{font-family:var(--serif);font-size:14px;font-style:italic;font-weight:300;color:var(--dk-text2);line-height:1.5;margin-bottom:6px}
+.hero-float-quote-by{font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--yellow)}
+
+/* ═══════════ SECTION THEMES ═══════════ */
+/* DARK section */
+.sec-dark{
+  background:var(--dk-bg);
+  color:var(--dk-text);
+  position:relative;overflow:hidden;
+  padding:80px 0;
+}
+.sec-dark + .sec-dark{border-top:1px solid var(--dk-rule)}
+
+/* LIGHT section */
+.sec-light{
+  background:var(--lt-bg);
+  color:var(--lt-text);
+  position:relative;
+  padding:80px 0;
+  border-top:3px solid var(--yellow);
+  border-bottom:3px solid var(--yellow);
+}
+
+/* BLUE-ACCENT section (mid-dark with blue tint) */
+.sec-blue{
+  background:linear-gradient(135deg,var(--blue-deep) 0%,var(--dk-bg3) 60%,var(--dk-bg2) 100%);
+  color:var(--dk-text);
+  position:relative;overflow:hidden;
+  padding:80px 0;
+  border-top:1px solid rgba(0,113,206,0.3);
+  border-bottom:1px solid rgba(0,113,206,0.3);
+}
+
+/* YELLOW-ACCENT section */
+.sec-yellow-accent{
+  background:linear-gradient(135deg,#fffbeb 0%,#fef9e7 60%,#fffef5 100%);
+  color:var(--lt-text);
+  position:relative;
+  padding:80px 0;
+  border-top:3px solid var(--blue);
+  border-bottom:3px solid var(--blue);
+}
+
+/* inner wrapper reused across all section types */
+.sec-inner{max-width:1140px;margin:0 auto;padding:0 80px;position:relative;z-index:1}
+
+/* ═══ TOC SIDEBAR ═══ */
+.article{display:grid;grid-template-columns:220px 1fr;max-width:1140px;margin:0 auto;padding:0 40px}
+.toc{padding:48px 0;border-right:1px solid var(--dk-rule);padding-right:28px;position:sticky;top:93px;height:calc(100vh - 93px);overflow-y:auto;scrollbar-width:none;background:transparent}
+.toc::-webkit-scrollbar{display:none}
+.toc-heading{font-family:var(--mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--yellow);margin-bottom:14px}
+.toc-item{display:block;width:100%;text-align:left;font-family:var(--sans);font-size:12px;color:var(--dk-text3);padding:7px 0 7px 12px;border-left:2px solid transparent;background:none;border-top:none;border-right:none;border-bottom:none;cursor:pointer;transition:all .2s;line-height:1.4}
+.toc-item:hover{color:var(--dk-text);border-left-color:rgba(238,242,255,0.2)}
+.toc-item.active{color:var(--yellow);border-left-color:var(--yellow)}
+.toc-wrap{padding:0 40px;max-width:1140px;margin:0 auto;display:grid;grid-template-columns:220px 1fr;background:var(--dk-bg)}
+
+/* ═══ SECTION NUMBER & TITLE ═══ */
+.sec-num{font-family:var(--mono);font-size:9px;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:8px}
+.sec-dark .sec-num,.sec-blue .sec-dark .sec-num{color:var(--yellow)}
+.sec-light .sec-num,.sec-yellow-accent .sec-num{color:var(--blue)}
+.sec-blue .sec-num{color:var(--yellow)}
+
+.sec-title{font-family:var(--serif);font-size:clamp(26px,3.5vw,42px);font-weight:800;margin-bottom:24px;padding-bottom:14px;display:inline-block;line-height:1.15;letter-spacing:-0.015em}
+.sec-dark .sec-title,.sec-blue .sec-title{color:var(--dk-text);border-bottom:2px solid var(--yellow)}
+.sec-light .sec-title,.sec-yellow-accent .sec-title{color:var(--lt-text);border-bottom:2px solid var(--blue)}
+.sec-title em{font-style:italic;font-weight:300}
+.sec-dark .sec-title em,.sec-blue .sec-title em{color:var(--yellow)}
+.sec-light .sec-title em,.sec-yellow-accent .sec-title em{color:var(--blue)}
+
+.subsec-title{font-family:var(--serif);font-size:22px;font-weight:600;margin-top:36px;margin-bottom:14px;letter-spacing:-0.01em}
+.sec-dark .subsec-title,.sec-blue .subsec-title{color:var(--dk-text2)}
+.sec-light .subsec-title,.sec-yellow-accent .subsec-title{color:var(--lt-text2)}
+
+/* ═══ TYPOGRAPHY ═══ */
+.lead{font-family:var(--serif);font-size:19px;font-style:italic;font-weight:300;line-height:1.7;margin-bottom:28px;padding-bottom:28px}
+.sec-dark .lead,.sec-blue .lead{color:var(--dk-text2);border-bottom:1px solid var(--dk-rule)}
+.sec-light .lead,.sec-yellow-accent .lead{color:var(--lt-text2);border-bottom:1px solid var(--lt-rule)}
+
+p{font-size:16px;line-height:1.8;margin-bottom:18px;font-weight:300}
+p:last-child{margin-bottom:0}
+.sec-dark p,.sec-blue p{color:var(--dk-text2)}
+.sec-dark p strong,.sec-blue p strong{color:var(--dk-text);font-weight:500}
+.sec-light p,.sec-yellow-accent p{color:var(--lt-text2)}
+.sec-light p strong,.sec-yellow-accent p strong{color:var(--lt-text);font-weight:500}
+mark{padding:1px 6px;border-radius:3px}
+.sec-dark mark,.sec-blue mark{background:rgba(255,194,32,0.15);color:var(--yellow)}
+.sec-light mark,.sec-yellow-accent mark{background:rgba(0,113,206,0.1);color:var(--blue-dark)}
+
+/* ═══ PULL QUOTE ═══ */
+.pq{margin:36px 0;padding:24px 32px;border-radius:0 8px 8px 0}
+.sec-dark .pq,.sec-blue .pq{border-left:3px solid var(--yellow);background:rgba(255,194,32,0.05)}
+.sec-light .pq,.sec-yellow-accent .pq{border-left:3px solid var(--blue);background:rgba(0,113,206,0.05)}
+.pq blockquote{font-family:var(--serif);font-size:20px;font-style:italic;font-weight:300;line-height:1.55;margin-bottom:10px}
+.sec-dark .pq blockquote,.sec-blue .pq blockquote{color:var(--dk-text)}
+.sec-light .pq blockquote,.sec-yellow-accent .pq blockquote{color:var(--lt-text)}
+.pq cite{font-family:var(--mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;font-style:normal}
+.sec-dark .pq cite,.sec-blue .pq cite{color:var(--yellow)}
+.sec-light .pq cite,.sec-yellow-accent .pq cite{color:var(--blue)}
+
+/* ═══ CALLOUT BOXES ═══ */
+.callout{margin:28px 0;padding:20px 24px;border-radius:8px}
+.callout-lesson-dk{background:rgba(6,182,212,0.1);border-left:3px solid #06b6d4}
+.callout-lesson-lt{background:rgba(6,182,212,0.08);border-left:3px solid #0891b2}
+.callout-warn-dk{background:rgba(255,194,32,0.08);border-left:3px solid var(--yellow)}
+.callout-warn-lt{background:rgba(0,113,206,0.08);border-left:3px solid var(--blue)}
+.callout-green-dk{background:rgba(34,197,94,0.1);border-left:3px solid #22c55e}
+.callout-green-lt{background:rgba(22,163,74,0.08);border-left:3px solid #16a34a}
+.callout-label{font-family:var(--mono);font-size:9px;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:8px;font-weight:500}
+.callout-lesson-dk .callout-label{color:#06b6d4}
+.callout-lesson-lt .callout-label{color:#0891b2}
+.callout-warn-dk .callout-label{color:var(--yellow)}
+.callout-warn-lt .callout-label{color:var(--blue)}
+.callout-green-dk .callout-label{color:#22c55e}
+.callout-green-lt .callout-label{color:#16a34a}
+.callout p{font-size:14px;line-height:1.65;margin-bottom:6px;font-weight:300}
+.callout p:last-child{margin-bottom:0}
+.sec-dark .callout p,.sec-blue .callout p{color:var(--dk-text2)}
+.sec-dark .callout p strong,.sec-blue .callout p strong{color:var(--dk-text)}
+.sec-light .callout p,.sec-yellow-accent .callout p{color:var(--lt-text2)}
+.sec-light .callout p strong,.sec-yellow-accent .callout p strong{color:var(--lt-text)}
+
+/* ═══ ARROW LISTS ═══ */
+ul.alist{list-style:none;margin:18px 0}
+ul.alist li{padding:11px 0 11px 26px;position:relative;font-size:15px;line-height:1.65;font-weight:300}
+.sec-dark ul.alist li,.sec-blue ul.alist li{color:var(--dk-text2);border-bottom:1px solid var(--dk-rule)}
+.sec-light ul.alist li,.sec-yellow-accent ul.alist li{color:var(--lt-text2);border-bottom:1px solid var(--lt-rule)}
+ul.alist li:last-child{border-bottom:none}
+.sec-dark ul.alist li::before,.sec-blue ul.alist li::before{content:'→';position:absolute;left:0;color:var(--yellow);font-weight:700}
+.sec-light ul.alist li::before,.sec-yellow-accent ul.alist li::before{content:'→';position:absolute;left:0;color:var(--blue);font-weight:700}
+.sec-dark ul.alist li strong,.sec-blue ul.alist li strong{color:var(--dk-text);font-weight:500}
+.sec-light ul.alist li strong,.sec-yellow-accent ul.alist li strong{color:var(--lt-text);font-weight:500}
+
+/* ═══ STATS STRIP ═══ */
+.stats-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:2px;margin:28px 0;border-radius:8px;overflow:hidden}
+.sec-dark .stats-strip,.sec-blue .stats-strip{background:var(--dk-rule)}
+.sec-light .stats-strip,.sec-yellow-accent .stats-strip{background:var(--lt-rule)}
+.stat-card{padding:16px 14px;text-align:center}
+.sec-dark .stat-card,.sec-blue .stat-card{background:var(--dk-bg2)}
+.sec-light .stat-card,.sec-yellow-accent .stat-card{background:#fff;border:1px solid var(--lt-rule)}
+.stat-val{font-family:var(--serif);font-size:22px;font-weight:800;line-height:1.1;margin-bottom:4px}
+.sec-dark .stat-val,.sec-blue .stat-val{color:var(--yellow)}
+.sec-light .stat-val,.sec-yellow-accent .stat-val{color:var(--blue)}
+.stat-lbl{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase}
+.sec-dark .stat-lbl,.sec-blue .stat-lbl{color:var(--dk-text3)}
+.sec-light .stat-lbl,.sec-yellow-accent .stat-lbl{color:var(--lt-text3)}
+
+/* ═══ INFO ROWS ═══ */
+.info-rows{margin:20px 0}
+.info-row{display:flex;gap:20px;padding:11px 0;font-size:15px;align-items:flex-start}
+.sec-dark .info-row,.sec-blue .info-row{border-bottom:1px solid var(--dk-rule)}
+.sec-light .info-row,.sec-yellow-accent .info-row{border-bottom:1px solid var(--lt-rule)}
+.info-row:last-child{border-bottom:none}
+.info-key{font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;flex-shrink:0;width:140px;padding-top:3px;font-weight:500}
+.sec-dark .info-key,.sec-blue .info-key{color:var(--yellow)}
+.sec-light .info-key,.sec-yellow-accent .info-key{color:var(--blue)}
+.info-val{line-height:1.6;font-weight:300}
+.sec-dark .info-val,.sec-blue .info-val{color:var(--dk-text2)}
+.sec-dark .info-val strong,.sec-blue .info-val strong{color:var(--dk-text)}
+.sec-light .info-val,.sec-yellow-accent .info-val{color:var(--lt-text2)}
+.sec-light .info-val strong,.sec-yellow-accent .info-val strong{color:var(--lt-text)}
+
+/* ═══ TIMELINE ═══ */
+.timeline{margin:28px 0}
+.tl-item{display:flex;gap:18px;padding-bottom:24px;position:relative}
+.tl-item::before{content:'';position:absolute;left:28px;top:52px;bottom:0;width:1px}
+.sec-dark .tl-item::before,.sec-blue .tl-item::before{background:var(--dk-rule)}
+.sec-light .tl-item::before,.sec-yellow-accent .tl-item::before{background:var(--lt-rule)}
+.tl-item:last-child::before{display:none}
+.tl-dot{flex-shrink:0;width:56px;height:56px;border-radius:50%;font-family:var(--serif);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2}
+.sec-dark .tl-dot,.sec-blue .tl-dot{background:var(--dk-bg3);border:1px solid rgba(255,194,32,.3);color:var(--yellow)}
+.sec-light .tl-dot,.sec-yellow-accent .tl-dot{background:#e8f0fe;border:1px solid rgba(0,113,206,.3);color:var(--blue)}
+.tl-content{flex:1;padding-top:10px}
+.tl-content strong{display:block;font-size:15px;font-weight:500;margin-bottom:4px}
+.sec-dark .tl-content strong,.sec-blue .tl-content strong{color:var(--dk-text)}
+.sec-light .tl-content strong,.sec-yellow-accent .tl-content strong{color:var(--lt-text)}
+.tl-content p{font-size:13px;margin:0;line-height:1.55}
+.sec-dark .tl-content p,.sec-blue .tl-content p{color:var(--dk-text3)}
+.sec-light .tl-content p,.sec-yellow-accent .tl-content p{color:var(--lt-text3)}
+
+/* ═══ QUOTES GRID ═══ */
+.quotes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;margin:24px 0}
+.qcard{border-radius:10px;padding:22px 20px;transition:transform .2s}
+.qcard:hover{transform:translateY(-2px)}
+.sec-dark .qcard{background:var(--dk-bg2);border:1px solid var(--dk-rule)}
+.sec-dark .qcard:hover{border-color:rgba(255,194,32,.3)}
+.sec-light .qcard{background:#fff;border:1px solid var(--lt-rule);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.sec-yellow-accent .qcard{background:#fff;border:1px solid rgba(0,113,206,0.15);box-shadow:0 2px 12px rgba(0,113,206,0.06)}
+.qnum{font-family:var(--serif);font-size:44px;font-weight:800;line-height:1;margin-bottom:-8px}
+.sec-dark .qnum{color:rgba(255,194,32,0.1)}
+.sec-light .qnum,.sec-yellow-accent .qnum{color:rgba(0,113,206,0.08)}
+.qtext{font-family:var(--serif);font-size:15px;font-style:italic;font-weight:300;line-height:1.6;margin-bottom:12px}
+.sec-dark .qtext{color:var(--dk-text2)}
+.sec-light .qtext,.sec-yellow-accent .qtext{color:var(--lt-text2)}
+.qmeta{font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase}
+.sec-dark .qmeta{color:var(--yellow)}
+.sec-light .qmeta,.sec-yellow-accent .qmeta{color:var(--blue)}
+
+/* ═══ INLINE IMAGE ═══ */
+.inline-img-wrap{float:right;width:240px;margin:0 0 24px 32px;position:relative}
+.inline-img{width:100%;border-radius:10px;display:block;object-fit:cover;filter:grayscale(15%)}
+.sec-dark .inline-img{border:1px solid var(--dk-rule)}
+.sec-light .inline-img{border:1px solid var(--lt-rule);box-shadow:0 4px 16px rgba(0,0,0,0.1)}
+.inline-img-caption{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;text-align:center;margin-top:8px;padding:6px 10px;border-radius:0 0 10px 10px}
+.sec-dark .inline-img-caption{color:var(--dk-text3);background:var(--dk-bg3);border:1px solid var(--dk-rule);border-top:none}
+.sec-light .inline-img-caption{color:var(--lt-text3);background:var(--lt-bg2);border:1px solid var(--lt-rule);border-top:none}
+.inline-img-accent{position:absolute;top:-8px;right:-8px;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;z-index:1}
+.sec-dark .inline-img-accent{background:var(--yellow)}
+.sec-light .inline-img-accent{background:var(--blue)}
+.clearfix::after{content:'';display:table;clear:both}
+
+/* ═══ SUMMARY TABLE ═══ */
+.sum-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:14px;border-radius:8px;overflow:hidden}
+.sec-dark .sum-table{border:1px solid var(--dk-rule)}
+.sec-light .sum-table,.sec-yellow-accent .sum-table{border:1px solid var(--lt-rule);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.sum-table th{font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;padding:12px 16px;text-align:left;font-weight:500}
+.sec-dark .sum-table th{background:var(--dk-bg3);color:var(--yellow)}
+.sec-light .sum-table th,.sec-yellow-accent .sum-table th{background:#e8f0fe;color:var(--blue-dark)}
+.sum-table td{padding:13px 16px;vertical-align:top;line-height:1.55;font-weight:300}
+.sec-dark .sum-table td{border-bottom:1px solid var(--dk-rule)}
+.sec-light .sum-table td,.sec-yellow-accent .sum-table td{border-bottom:1px solid var(--lt-rule)}
+.sum-table td:first-child{font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;width:30%}
+.sec-dark .sum-table td:first-child{color:var(--yellow)}
+.sec-light .sum-table td:first-child,.sec-yellow-accent .sum-table td:first-child{color:var(--blue-dark)}
+.sec-dark .sum-table td:last-child{color:var(--dk-text2)}
+.sec-light .sum-table td:last-child,.sec-yellow-accent .sum-table td:last-child{color:var(--lt-text2)}
+.sum-table tr:last-child td{border-bottom:none}
+.sec-dark .sum-table tr:nth-child(even) td{background:rgba(255,255,255,0.02)}
+.sec-light .sum-table tr:nth-child(even) td,.sec-yellow-accent .sum-table tr:nth-child(even) td{background:#f7f9ff}
+
+/* ═══ REVISION ═══ */
+.revision{border-radius:12px;padding:36px 32px;margin:32px 0}
+.sec-dark .revision{background:var(--dk-bg2);border:1px solid var(--dk-rule)}
+.sec-light .revision{background:#fff;border:1px solid var(--lt-rule);box-shadow:0 4px 20px rgba(0,0,0,0.07)}
+.sec-yellow-accent .revision{background:#fff;border:1px solid rgba(0,113,206,0.15);box-shadow:0 4px 20px rgba(0,113,206,0.07)}
+.revision h3{font-family:var(--serif);font-size:24px;font-weight:800;margin-bottom:24px;padding-bottom:14px}
+.sec-dark .revision h3{color:var(--yellow);border-bottom:1px solid var(--dk-rule)}
+.sec-light .revision h3,.sec-yellow-accent .revision h3{color:var(--blue-dark);border-bottom:1px solid var(--lt-rule)}
+.qr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.qr-item{padding:13px 16px}
+.sec-dark .qr-item{border-bottom:1px solid var(--dk-rule);border-right:1px solid var(--dk-rule)}
+.sec-light .qr-item,.sec-yellow-accent .qr-item{border-bottom:1px solid var(--lt-rule);border-right:1px solid var(--lt-rule)}
+.qr-item:nth-child(2n){border-right:none}
+.qr-label{font-family:var(--mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px}
+.sec-dark .qr-label{color:var(--yellow)}
+.sec-light .qr-label,.sec-yellow-accent .qr-label{color:var(--blue-dark)}
+.qr-val{font-size:13px;line-height:1.5;font-weight:300}
+.sec-dark .qr-val{color:var(--dk-text2)}
+.sec-light .qr-val,.sec-yellow-accent .qr-val{color:var(--lt-text2)}
+
+/* ═══ FINAL BOX ═══ */
+.final-box{border-radius:12px;padding:36px 32px;margin:32px 0}
+.sec-dark .final-box{background:linear-gradient(135deg,var(--dk-bg2),var(--dk-bg3));border:1px solid rgba(255,194,32,.3)}
+.sec-light .final-box,.sec-yellow-accent .final-box{background:linear-gradient(135deg,#e8f0fe,#f0f7ff);border:1px solid rgba(0,113,206,.25)}
+.final-box h3{font-family:var(--serif);font-size:20px;font-style:italic;font-weight:300;margin-bottom:18px;line-height:1.4}
+.sec-dark .final-box h3{color:var(--yellow)}
+.sec-light .final-box h3,.sec-yellow-accent .final-box h3{color:var(--blue-dark)}
+.final-box p{font-size:15px;line-height:1.75;margin-bottom:16px;font-weight:300}
+.sec-dark .final-box p{color:var(--dk-text2)}
+.sec-light .final-box p,.sec-yellow-accent .final-box p{color:var(--lt-text2)}
+.sec-dark .final-box p strong{color:var(--yellow);font-weight:600}
+.sec-light .final-box p strong,.sec-yellow-accent .final-box p strong{color:var(--blue-dark);font-weight:600}
+.final-box .footnote{font-style:italic;font-size:14px;margin-top:24px;padding-top:20px}
+.sec-dark .final-box .footnote{color:var(--dk-text3);border-top:1px solid var(--dk-rule)}
+.sec-light .final-box .footnote,.sec-yellow-accent .final-box .footnote{color:var(--lt-text3);border-top:1px solid var(--lt-rule)}
+
+/* ═══ TOC WRAPPER (dark bg strip) ═══ */
+.article-shell{background:var(--dk-bg)}
+.article-shell .toc-col{padding:48px 0 48px 40px}
+
+/* ═══ FOOTER (DARK) ═══ */
+.footer{background:var(--dk-bg2);border-top:3px solid var(--yellow);padding:48px 48px 32px;margin-top:0;position:relative}
+.footer-inner{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;position:relative;z-index:1}
+.footer-brand{font-family:var(--serif);font-size:18px;font-weight:800;color:var(--dk-text)}
+.footer-brand span{color:var(--yellow)}
+.footer-sub{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;color:var(--dk-text3);margin-top:6px}
+.footer-links{display:flex;gap:20px;font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase}
+.footer-links a{color:var(--dk-text3);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--yellow)}
+.footer-copy{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;color:var(--dk-text3);margin-top:28px;padding-top:20px;border-top:1px solid var(--dk-rule);text-align:center;position:relative;z-index:1}
+.footer-copy span{color:var(--yellow)}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-left{padding:90px 24px 60px}
+  .hero-left::after{display:none}
+  .hero-right{height:380px}
+  .sec-inner{padding:0 24px}
+  .toc-col{display:none}
+  .article-shell{display:block}
+  .nav{padding:0 20px}
+  .inline-img-wrap{float:none;width:100%;margin:0 0 24px}
+  .footer{padding:40px 24px 28px}
+}
+
+/* Theme transition dividers */
+.divider-to-light{height:4px;background:linear-gradient(90deg,var(--blue),var(--yellow))}
+.divider-to-dark{height:4px;background:linear-gradient(90deg,var(--yellow),var(--blue))}
+</style>
+</head>
+<body>
+
+<!-- BANNER -->
+<div class="banner">Founder Deep-Dive Series &nbsp;·&nbsp; American Business Legends &nbsp;·&nbsp; FounderLens 2025</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <span class="nav-brand-dot"></span>
+    FounderLens
+  </div>
+  <div class="nav-chips">
+    <button class="nav-chip active" onclick="scrollToTop()">Overview</button>
+    <button class="nav-chip" onclick="document.getElementById('sec-background').scrollIntoView({behavior:'smooth'})">Background</button>
+    <button class="nav-chip" onclick="document.getElementById('sec-strategy').scrollIntoView({behavior:'smooth'})">Strategy</button>
+    <button class="nav-chip" onclick="document.getElementById('sec-lessons').scrollIntoView({behavior:'smooth'})">Lessons</button>
+    <button class="nav-chip" onclick="document.getElementById('sec-quotes').scrollIntoView({behavior:'smooth'})">Quotes</button>
+  </div>
+  <button class="nav-cta" onclick="document.getElementById('sec-identity').scrollIntoView({behavior:'smooth'})">Read Analysis ↓</button>
+</nav>
+
+<!-- ════ HERO (DARK) ════ -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      <span class="hero-eyebrow-text">Founder Analysis — Issue #04</span>
+    </div>
+    <h1 class="hero-title">
+      Sam Walton<br>
+      <em>The Frugal Revolutionary Who Built the World's Biggest Store</em>
+    </h1>
+    <p class="hero-sub">
+      From a small-town variety store in Newport, Arkansas to the world's largest retailer — the inside story of how a obsessively frugal, relentlessly curious farm boy turned everyday low prices into a <strong>$650 Billion empire that rewrote capitalism itself</strong>.
+    </p>
+    <div class="hero-kpis">
+      <div><div class="kpi-val">$650 Bn+</div><div class="kpi-label">Walmart Revenue (2024)</div></div>
+      <div><div class="kpi-val">#1</div><div class="kpi-label">Fortune 500 — 12+ Years</div></div>
+      <div><div class="kpi-val">2.3 Mn+</div><div class="kpi-label">Employees Worldwide</div></div>
+      <div><div class="kpi-val">10,500+</div><div class="kpi-label">Stores in 24 Countries</div></div>
+    </div>
+    <div class="hero-tags">
+      <span class="hero-tag yellow">Retail Revolution</span>
+      <span class="hero-tag yellow">Everyday Low Prices</span>
+      <span class="hero-tag blue">Bootstrapped</span>
+      <span class="hero-tag blue">Supply Chain Pioneer</span>
+      <span class="hero-tag">Fortune 500 #1</span>
+      <span class="hero-tag">Small Town Origins</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-frame">
+      <div class="founder-photo-wrap">
+        <div class="founder-photo-bg"></div>
+        <img class="founder-photo"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Sam_Walton_in_1983.jpg/800px-Sam_Walton_in_1983.jpg"
+          alt="Sam Walton — Founder, Walmart"
+          onerror="this.onerror=null;this.style.display='none';this.parentNode.querySelector('.svg-fallback').style.display='flex';">
+        <div class="svg-fallback" style="display:none;position:absolute;inset:0;z-index:3;border-radius:12px;background:linear-gradient(160deg,#0b0e14,#1e2438);align-items:center;justify-content:center;flex-direction:column;">
+          <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+            <circle cx="60" cy="60" r="58" stroke="rgba(255,194,32,0.4)" stroke-width="2"/>
+            <circle cx="60" cy="44" r="22" fill="rgba(255,194,32,0.2)"/>
+            <ellipse cx="60" cy="100" rx="36" ry="22" fill="rgba(255,194,32,0.15)"/>
+          </svg>
+          <span style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:rgba(238,242,255,0.5);margin-top:8px;">SW</span>
+          <span style="font-family:'Martian Mono',monospace;font-size:9px;letter-spacing:0.14em;color:rgba(255,194,32,0.7);text-transform:uppercase;margin-top:4px;">Sam Walton</span>
+        </div>
+        <span class="photo-badge">Founder &amp; Chairman · Walmart</span>
+      </div>
+    </div>
+    <div class="hero-float-quote">
+      <div class="hero-float-quote-text">"There is only one boss — the customer. And he can fire everybody in the company, from the chairman on down, simply by spending his money somewhere else."</div>
+      <div class="hero-float-quote-by">— Sam Walton</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-to-light"></div>
+
+<!-- ════ ARTICLE SHELL ════ -->
+<div class="article-shell" style="display:grid;grid-template-columns:260px 1fr;max-width:100%;">
+
+  <!-- STICKY TOC COLUMN (dark bg) -->
+  <div class="toc-col" style="background:var(--dk-bg);padding:48px 0 48px 40px;position:sticky;top:93px;height:calc(100vh - 93px);overflow-y:auto;scrollbar-width:none;border-right:1px solid var(--dk-rule);">
+    <div class="toc-heading">Contents</div>
+    <button class="toc-item active" onclick="scrollSec('sec-identity')">01 · Founder &amp; Company</button>
+    <button class="toc-item" onclick="scrollSec('sec-background')">02 · Background</button>
+    <button class="toc-item" onclick="scrollSec('sec-problem')">03 · Problem Solved</button>
+    <button class="toc-item" onclick="scrollSec('sec-opportunity')">04 · Opportunity</button>
+    <button class="toc-item" onclick="scrollSec('sec-revenue')">05 · Revenue Model</button>
+    <button class="toc-item" onclick="scrollSec('sec-business')">06 · Business Model</button>
+    <button class="toc-item" onclick="scrollSec('sec-struggles')">07 · Initial Struggles</button>
+    <button class="toc-item" onclick="scrollSec('sec-strategy')">08 · Growth Strategy</button>
+    <button class="toc-item" onclick="scrollSec('sec-marketing')">09 · Marketing</button>
+    <button class="toc-item" onclick="scrollSec('sec-acquisition')">10 · Customer Acquisition</button>
+    <button class="toc-item" onclick="scrollSec('sec-product')">11 · Product Strategy</button>
+    <button class="toc-item" onclick="scrollSec('sec-funding')">12 · Funding Journey</button>
+    <button class="toc-item" onclick="scrollSec('sec-mistakes')">13 · Mistakes</button>
+    <button class="toc-item" onclick="scrollSec('sec-strengths')">14 · Strengths</button>
+    <button class="toc-item" onclick="scrollSec('sec-leadership')">15 · Leadership</button>
+    <button class="toc-item" onclick="scrollSec('sec-decisions')">16 · Smart Decisions</button>
+    <button class="toc-item" onclick="scrollSec('sec-moat')">17 · Competitive Edge</button>
+    <button class="toc-item" onclick="scrollSec('sec-turning')">18 · Turning Points</button>
+    <button class="toc-item" onclick="scrollSec('sec-controversies')">19 · Controversies</button>
+    <button class="toc-item" onclick="scrollSec('sec-lessons')">20 · Key Lessons</button>
+    <button class="toc-item" onclick="scrollSec('sec-startups')">21 · What Startups Learn</button>
+    <button class="toc-item" onclick="scrollSec('sec-quotes')">22 · 10 Quotes</button>
+    <button class="toc-item" onclick="scrollSec('sec-summary')">23 · Final Summary</button>
+    <button class="toc-item" onclick="scrollSec('sec-revision')">24 · Quick Revision</button>
+    <button class="toc-item" onclick="scrollSec('sec-table')">25 · Strategy Table</button>
+    <button class="toc-item" onclick="scrollSec('sec-final')">26 · If Starting Over</button>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div>
+
+<!-- ─── SEC 01 DARK: IDENTITY ─── -->
+<div class="sec-dark" id="sec-identity" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--yellow)">01 — Who He Was</div>
+    <h2 class="sec-title">Founder &amp; <em>Company</em></h2>
+    <div class="info-rows">
+      <div class="info-row"><div class="info-key">Founder</div><div class="info-val"><strong>Samuel Moore "Sam" Walton</strong> — Founder &amp; Chairman</div></div>
+      <div class="info-row"><div class="info-key">Born</div><div class="info-val">March 29, 1918 — Kingfisher, Oklahoma, USA</div></div>
+      <div class="info-row"><div class="info-key">Died</div><div class="info-val">April 5, 1992 — Little Rock, Arkansas (age 74, leukaemia)</div></div>
+      <div class="info-row"><div class="info-key">Company</div><div class="info-val"><strong>Walmart Inc.</strong> (formerly Wal-Mart Stores, Inc.)</div></div>
+      <div class="info-row"><div class="info-key">First Store</div><div class="info-val">Walton's Five and Dime — Bentonville, Arkansas — 1950</div></div>
+      <div class="info-row"><div class="info-key">Walmart Founded</div><div class="info-val">July 2, 1962 — Rogers, Arkansas</div></div>
+      <div class="info-row"><div class="info-key">IPO</div><div class="info-val">1970 — NYSE. Early investors saw 500,000%+ returns over decades.</div></div>
+      <div class="info-row"><div class="info-key">Sector</div><div class="info-val">Mass Retail / Discount Retail / Grocery / E-commerce (now)</div></div>
+      <div class="info-row"><div class="info-key">Core Philosophy</div><div class="info-val">"Everyday Low Prices" (EDLP) — pass savings to customers, always</div></div>
+      <div class="info-row"><div class="info-key">Peak Net Worth</div><div class="info-val">$25 Billion at time of death (1992) — richest person in America</div></div>
+    </div>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 02 LIGHT: BACKGROUND ─── -->
+<div class="sec-light" id="sec-background" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--blue)">02 — The Origin Story</div>
+    <h2 class="sec-title">Background of the <em>Founder</em></h2>
+    <div class="inline-img-wrap">
+      <img class="inline-img"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Sam_Walton_in_1983.jpg/800px-Sam_Walton_in_1983.jpg"
+        alt="Sam Walton" onerror="this.onerror=null;this.parentNode.style.display='none';" loading="lazy">
+      <div class="inline-img-accent" style="background:var(--blue)">🌾</div>
+      <div class="inline-img-caption" style="color:var(--lt-text3);background:var(--lt-bg2);">Sam Walton — Small Town to Retail Giant</div>
+    </div>
+    <p class="lead">Sam Walton did not come from money. He came from the American heartland during the Great Depression — a place and time that taught a generation that nothing is guaranteed, and everything must be earned, preserved, and stretched as far as it can go. Those Depression-era values never left him, even when he became the richest person in America.</p>
+    <p>Born in 1918 in Kingfisher, Oklahoma, Sam grew up in Kingfisher and then Missouri, where his father Thomas Walton worked various jobs and his mother Nan Walton managed the family through hard times. The family was <strong>not poor, but never comfortable</strong> — and Sam learned early to work for everything he wanted. He delivered newspapers, sold magazine subscriptions, and raised rabbits to sell as a boy.</p>
+    <p>At the University of Missouri, Sam was elected student body president, captained the football team, and maintained strong grades. He graduated in 1940 with a degree in economics and immediately went to work as a management trainee at JC Penney — earning $75 a month. He learned retail from the ground up, studying everything about how stores worked, how customers behaved, and how prices were set.</p>
+    <div class="clearfix"></div>
+    <div class="subsec-title">The Pre-Walmart Years</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">1918</div>
+        <div class="tl-content"><strong>Born — Kingfisher, Oklahoma</strong><p>Depression-era childhood instils lifelong frugality. Works multiple jobs as a teenager, learning the value of every dollar.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">1940</div>
+        <div class="tl-content"><strong>Joins JC Penney — First Retail Job</strong><p>Works as a management trainee in Des Moines, Iowa. Studies store operations, supplier relations, and pricing — the foundations of everything he will build.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">1942–45</div>
+        <div class="tl-content"><strong>World War II — US Army</strong><p>Serves in the intelligence corps, supervising POW camps. Returns from the war with savings, a wife (Helen Robson), and a burning desire to own his own store.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">1945</div>
+        <div class="tl-content"><strong>Buys First Ben Franklin Franchise — Newport, Arkansas</strong><p>Borrows $20,000 from his father-in-law and invests his $5,000 savings to buy a Ben Franklin variety store franchise. Within 3 years it's the highest-volume Ben Franklin in the region — because Sam undercuts every competitor on price.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">1950</div>
+        <div class="tl-content"><strong>Loses the Newport Store — The Biggest Setback</strong><p>His landlord refuses to renew the lease (wanting it for his son). Sam loses everything he built in Newport. He and Helen move to Bentonville, Arkansas. He calls it "the best thing that ever happened to me."</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">1950–62</div>
+        <div class="tl-content"><strong>Builds 15 Ben Franklin Franchises</strong><p>Across Arkansas, Missouri, and Kansas. Continuously experiments with lower prices, self-service layouts, and direct supplier relationships. Each store is a laboratory. By 1960, his stores generate $1.4M annually.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">1962</div>
+        <div class="tl-content"><strong>Opens First Walmart — Rogers, Arkansas</strong><p>After Ben Franklin refuses to back his discount store concept, Sam funds it himself with family money. The store is larger, cheaper, and self-service. The Walmart era begins.</p></div>
+      </div>
+    </div>
+    <div class="callout callout-lesson-lt">
+      <div class="callout-label">🎯 Startup Lesson</div>
+      <p><strong>Losing your first business is not the end of the story — it's the prologue.</strong> Sam losing his Newport store at 32 looked like catastrophe. What it actually did was free him from a bad lease, force him into a better market (Bentonville), and light the competitive fire that eventually became Walmart. Your worst setback may be re-routing you to your best opportunity.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 03 DARK: PROBLEM ─── -->
+<div class="sec-dark" id="sec-problem" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--yellow)">03 — The Real Problem</div>
+    <h2 class="sec-title">Problem <em>They Solved</em></h2>
+    <p class="lead">In 1960s America, small-town and rural consumers were systematically overcharged. Department stores and local shops in rural areas charged high prices because there was no competition — and because they could. Sam Walton decided this was wrong, and then spent his entire life proving it didn't have to be this way.</p>
+    <p>The reality for a family in Rogers, Arkansas in 1962 was stark: <strong>everyday household goods — soap, toothpaste, clothes, tools — cost significantly more in rural stores than in large urban department stores</strong>. Rural customers were price-captive. They had nowhere else to go. Local merchants, knowing this, kept margins high.</p>
+    <p>Sam's fundamental insight was that <strong>this price inequality was structural, not inevitable</strong>. It existed because nobody had figured out how to bring the buying power of large-volume retail to small-town America. His entire business model was the answer to one question: how do you sell things in Bentonville, Arkansas at prices that compete with Chicago department stores?</p>
+    <ul class="alist">
+      <li><strong>Problem 1 — The rural price premium:</strong> Small-town Americans paid 15–30% more for identical goods than urban consumers. No retailer had a model to fix this.</li>
+      <li><strong>Problem 2 — Retailer inefficiency:</strong> Most stores bought from distributors who added margins on top of manufacturers. Sam went direct to manufacturers, cutting out the middleman entirely.</li>
+      <li><strong>Problem 3 — Low consumer trust in "sale" prices:</strong> Retailers ran constant fake sales — marking up prices to mark them down again. Sam's "Everyday Low Prices" was a radical promise: no games, always the lowest price.</li>
+      <li><strong>Problem 4 — Rural underservice:</strong> Large retail chains refused to open stores in towns under 50,000 people — they thought the market was too small. Sam bet they were wrong. He was right.</li>
+    </ul>
+    <div class="callout callout-green-dk">
+      <div class="callout-label">💡 Simple Explanation</div>
+      <p>Sam's business was built on one simple moral conviction: <strong>a poor family in Arkansas deserves to pay the same price for toothpaste as a rich family in New York.</strong> That conviction — combined with the obsessive operational work needed to make it economically possible — is the entire Walmart story.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 04 LIGHT: OPPORTUNITY ─── -->
+<div class="sec-light" id="sec-opportunity" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--blue)">04 — Spotting the Gap</div>
+    <h2 class="sec-title">How They Identified <em>the Opportunity</em></h2>
+    <p class="lead">Sam's opportunity identification was not a boardroom exercise. It was 15 years of driving his pickup truck across rural America, walking into competitor stores, counting product categories, asking customers what they wished they could afford, and obsessively recording what he found.</p>
+    <p>Sam Walton was the original mystery shopper. He personally visited every competitor store he could find — Kmart, Target, Sears, local merchants — with a yellow notepad, counting products, recording prices, studying layouts, and talking to employees. He did this for decades. His airplane was a prop aircraft that he flew himself, low and slow, across the Arkansas countryside, <strong>literally looking down for towns that had the right population and no competitors</strong>.</p>
+    <div class="pq">
+      <blockquote>"Most of what I did was just copy what others were doing and try to do it a little better. But I was the one willing to go to the small towns."</blockquote>
+      <cite>— Sam Walton, Made in America</cite>
+    </div>
+    <div class="subsec-title">4.1 — Initial Days of Business</div>
+    <p>The first Walmart opened in Rogers, Arkansas in July 1962. The store was physically ugly — a converted building, crowded with merchandise, with tables made of wooden planks. But the prices were extraordinary. Sam priced everything at cost plus a tiny margin and made up the difference in volume.</p>
+    <ul class="alist">
+      <li><strong>First day:</strong> Sam ran the store himself. He swept the floors, unloaded trucks, and rang customers through the register. There was no separation between owner and worker.</li>
+      <li><strong>First pricing philosophy:</strong> "We sell for less so we can sell more. Volume is the profit." Sam charged 20–30% below local competitors from Day 1.</li>
+      <li><strong>First supplier negotiation:</strong> Sam drove to manufacturers directly, bypassing distributors, and negotiated the lowest possible wholesale prices by promising volume. He made promises about scale he hadn't yet achieved — and then worked obsessively to achieve them.</li>
+      <li><strong>First competitive intelligence:</strong> Sam visited every Kmart, Target, and Sears he could find in the first year. His notepad was always full. He shamelessly copied any good idea he found.</li>
+    </ul>
+    <div class="callout callout-lesson-lt">
+      <div class="callout-label">🎯 Startup Lesson</div>
+      <p><strong>The best market research is done on foot, not in spreadsheets.</strong> Sam Walton spent decades walking competitor stores, talking to customers, and filling notepads. His competitive intelligence was more detailed and current than any consulting firm's report. Founders who stay in their offices lose to founders who spend time in their market.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 05 BLUE: REVENUE MODEL ─── -->
+<div class="sec-blue" id="sec-revenue" style="scroll-margin-top:100px;background:linear-gradient(135deg,#002d6a 0%,#111520 60%,#0b0e14 100%);">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--yellow)">05 — The Money Model</div>
+    <h2 class="sec-title">Revenue <em>Model</em></h2>
+    <p class="lead">Walmart's revenue model is deceptively simple and dangerously powerful: sell enormous volume at very low margins, and make those margins so operationally lean that even thin margins generate massive absolute profits at scale.</p>
+    <div class="stats-strip">
+      <div class="stat-card" style="background:rgba(255,255,255,0.05)"><div class="stat-val" style="color:var(--yellow)">$650 Bn+</div><div class="stat-lbl" style="color:var(--dk-text3)">Annual Revenue (FY2024)</div></div>
+      <div class="stat-card" style="background:rgba(255,255,255,0.05)"><div class="stat-val" style="color:var(--yellow)">~2.5%</div><div class="stat-lbl" style="color:var(--dk-text3)">Net Profit Margin</div></div>
+      <div class="stat-card" style="background:rgba(255,255,255,0.05)"><div class="stat-val" style="color:var(--yellow)">~25%</div><div class="stat-lbl" style="color:var(--dk-text3)">Gross Margin</div></div>
+      <div class="stat-card" style="background:rgba(255,255,255,0.05)"><div class="stat-val" style="color:var(--yellow)">240 Mn</div><div class="stat-lbl" style="color:var(--dk-text3)">Weekly Shoppers Globally</div></div>
+    </div>
+    <ul class="alist">
+      <li><strong>Product sales margin — the core engine:</strong> Walmart buys goods at the lowest possible wholesale price (by leveraging massive purchase volumes) and sells at a small markup. A 2–4% net margin on $650B revenue is $13–26 Billion in profit. The model works at scale, not at individual store level.</li>
+      <li><strong>Supplier "partnership" fees:</strong> Large suppliers pay Walmart for premium shelf placement, promotional positioning, and marketing support within stores. This high-margin income supplements product margin.</li>
+      <li><strong>Walmart+  subscription (modern era):</strong> A Prime-style membership offering free delivery, fuel discounts, and exclusive deals. Creates predictable revenue and customer loyalty.</li>
+      <li><strong>Walmart Connect (advertising):</strong> Brands pay for targeted digital advertising across Walmart's app and website — Walmart's version of Amazon's high-margin advertising business.</li>
+      <li><strong>Financial services:</strong> MoneyCenter locations inside stores offer check cashing, money transfers, and prepaid cards to underbanked consumers — a high-demand, high-margin service segment.</li>
+      <li><strong>Sam's Club (membership warehouse):</strong> Annual membership fees generate pure, predictable income. Sam's Club members pay to shop at lower prices — the membership fee is the margin buffer.</li>
+    </ul>
+    <div class="callout callout-lesson-dk">
+      <div class="callout-label">💡 Simple Explanation</div>
+      <p>Walmart's model is like turning water into gold through volume. Each gallon of water (each sale) generates tiny profit — but when you move <strong>billions of gallons a year</strong>, the tiny per-unit profit becomes an ocean of absolute profit. The model only works if you are obsessively efficient in operations. Sam built that efficiency from Day 1 and never relaxed it.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 06 LIGHT: BUSINESS MODEL ─── -->
+<div class="sec-light" id="sec-business" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--blue)">06 — How It Actually Works</div>
+    <h2 class="sec-title">Business <em>Model</em></h2>
+    <p class="lead">Walmart's business model is the most studied in history — not because it's complicated, but because it was so ruthlessly, systematically, and consistently executed over decades that it became unstoppable.</p>
+    <ul class="alist">
+      <li><strong>The EDLP (Everyday Low Prices) flywheel:</strong> Lower prices → more customers → higher volume → more supplier leverage → lower costs → even lower prices → even more customers. This self-reinforcing loop is the heart of Walmart's competitive advantage. Once started, it's almost impossible to stop — and almost impossible for a competitor to replicate without matching Walmart's scale.</li>
+      <li><strong>Small-town saturation first, then expansion:</strong> Sam deliberately targeted towns of 5,000–25,000 people — markets too small for Kmart or Sears. By dominating these markets before the big chains noticed, Walmart built cash flows and operational experience that funded its eventual metro expansion.</li>
+      <li><strong>The distribution centre model:</strong> Walmart built its own distribution centres before building new stores. Each DC could serve a cluster of stores within a day's drive. This meant Walmart could replenish stores faster, cheaper, and more reliably than any competitor — an operational advantage that took decades for rivals to close.</li>
+      <li><strong>Cross-docking logistics:</strong> Sam pioneered (with supply chain legend David Glass) the practice of cross-docking — goods arriving at the DC from suppliers are immediately sorted and loaded onto outbound trucks without ever entering storage. This eliminated warehousing costs and cut replenishment time dramatically.</li>
+      <li><strong>Vendor-managed inventory (with P&G):</strong> Walmart was the first retailer to share real-time sales data with suppliers, allowing them to manage inventory levels proactively. This reduced stockouts, reduced overstock, and reduced waste — a win for both sides. It started with Procter &amp; Gamble and changed the entire retail-supplier relationship globally.</li>
+      <li><strong>The 10% rule on expenses:</strong> Sam mandated that total administrative and overhead expenses should never exceed 10% of total sales. This kept the organisation lean and disciplined even as it scaled to thousands of stores.</li>
+    </ul>
+    <div class="callout callout-lesson-lt">
+      <div class="callout-label">🎯 Startup Lesson</div>
+      <p><strong>The flywheel is more valuable than the product.</strong> Walmart's product is just groceries and household goods. Any retailer can sell those. What nobody could copy was the flywheel: lower price → more volume → lower cost → lower price. Build a flywheel, not just a product, and your business becomes exponentially harder to compete with over time.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 07 DARK: STRUGGLES ─── -->
+<div class="sec-dark" id="sec-struggles" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--yellow)">07 — The Hard Part Nobody Talks About</div>
+    <h2 class="sec-title">Initial <em>Struggles</em></h2>
+    <p class="lead">Sam Walton's story is often told as a frictionless rise. The reality was 17 years of grinding, setbacks, near-bankruptcies, and moments where a less determined person would have quit.</p>
+    <ul class="alist">
+      <li><strong>The Newport disaster (1950):</strong> Sam built his first store into the most profitable Ben Franklin franchise in the region in 5 years — and then lost it because he had signed a lease without a renewal option. His landlord took it. He lost everything he'd built and had to start over at 32 with three children and a mortgage. Most people don't survive this. Sam rebuilt.</li>
+      <li><strong>Ben Franklin rejection (1962):</strong> Sam pitched his discount store concept to Ben Franklin headquarters, hoping they would back it as a franchise concept. They turned him down — they couldn't see how it would work in small rural towns. Sam funded the first Walmart himself. The company that said no to Walmart went bankrupt in 1990.</li>
+      <li><strong>Financing nightmare in early growth:</strong> Banks in rural Arkansas in the 1960s were reluctant to lend to a retailer expanding into unproven markets. Sam mortgaged his house four times. Helen Walton had to co-sign every loan. The family finances were constantly stretched to the edge during the first decade of Walmart's growth.</li>
+      <li><strong>Talent shortage in Bentonville:</strong> Top retail executives in the 1960s and 70s were not lining up to move to Bentonville, Arkansas — a town with a population of 3,500. Sam had to grow his own talent, promote from within, and develop managers on the job. The upside was deep loyalty and cultural consistency. The downside was that talent gaps sometimes slowed expansion.</li>
+      <li><strong>Kmart's superior resources:</strong> When Walmart started in 1962, Kmart (S.S. Kresge) was 200x its size. Kmart had better supplier terms, more experienced management, and brand recognition. For 15 years, Walmart was the underdog competing against a Goliath that barely noticed it — until it was too late for Goliath to respond.</li>
+    </ul>
+    <div class="callout callout-warn-dk">
+      <div class="callout-label">⚠ Critical Insight</div>
+      <p>Sam's most important psychological trait was his <strong>inability to interpret setbacks as signals to quit</strong>. The Newport disaster would have ended most people's retail ambitions. For Sam, it was simply data about what not to do in a lease negotiation — and fuel for what became Walmart. His relationship with adversity was fundamentally different from most people's.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 08 YELLOW-ACCENT: GROWTH STRATEGY ─── -->
+<div class="sec-yellow-accent" id="sec-strategy" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--blue)">08 — The Growth Playbook</div>
+    <h2 class="sec-title">Growth <em>Strategy</em></h2>
+    <p class="lead">Sam Walton's growth strategy can be described in one sentence: dominate a geography so completely that competitors cannot afford to enter it, then use that cash and operational expertise to expand concentrically to the next geography. Slow, then fast. Deep, then wide.</p>
+    <ul class="alist">
+      <li><strong>The 300-mile distribution radius rule:</strong> Sam would never open a store more than a day's drive from a Walmart distribution centre. This constraint — which seemed limiting — was actually a growth superpower. It kept logistics tight, culture consistent, and operational oversight possible. Kmart opened stores everywhere. Walmart opened stores in tight clusters.</li>
+      <li><strong>Saturate before you expand:</strong> Before expanding to a new region, Walmart opened enough stores in a single area to make the DC serving that area highly efficient. A cluster of 10 stores in Arkansas is 10x more operationally efficient than 10 stores spread across 10 states. Sam understood this instinctively.</li>
+      <li><strong>Small towns as moats:</strong> By establishing dominant positions in rural markets that larger competitors ignored, Walmart built brand loyalty so deep that when national chains eventually arrived, local customers were already Walmart shoppers. The small-town penetration strategy also built cash flows that funded the eventual metropolitan push.</li>
+      <li><strong>The Saturday morning meeting:</strong> Every Saturday, Sam held a meeting with his entire store management team. Managers from hundreds of stores participated. The meeting covered the week's numbers, shared best practices from every store, celebrated successes, and identified problems. This weekly cadence kept the organisation aligned across thousands of miles. It was Walmart's version of a distributed operating system.</li>
+      <li><strong>Technology as a growth multiplier:</strong> In the 1980s, Walmart built a proprietary satellite communication system — at a cost of $24 million — connecting every store to Bentonville headquarters in real time. This was a decade ahead of any competitor and enabled the supply chain innovations that became Walmart's ultimate competitive weapon.</li>
+    </ul>
+    <div class="callout callout-lesson-lt">
+      <div class="callout-label">🎯 Startup Lesson</div>
+      <p><strong>Constraint creates competitive advantage.</strong> Sam's 300-mile distribution rule seemed like a limitation. It was actually what kept Walmart's operations tighter than any competitor. Many startups fail by expanding too broadly too fast. The founders who win are often those who chose to go deeper in a smaller market before going wider. Concentration before expansion is a principle that works at every scale.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 09 DARK: MARKETING ─── -->
+<div class="sec-dark" id="sec-marketing" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--yellow)">09 — How They Got Noticed</div>
+    <h2 class="sec-title">Marketing <em>Strategy</em></h2>
+    <p class="lead">Sam Walton barely believed in advertising. His marketing strategy was, in essence, a product strategy: if your prices are genuinely the lowest, and you are consistently honest with customers, word of mouth does the rest. The product is the marketing.</p>
+    <ul class="alist">
+      <li><strong>"Always Low Prices. Always." — the campaign that wrote itself:</strong> Walmart's marketing tagline was not invented by an agency. It was a description of the actual business. When your marketing promise and your product reality are identical, you don't need sophisticated advertising — you need consistent execution. Sam understood this before most business schools taught it.</li>
+      <li><strong>Community presence as marketing:</strong> In small towns, Walmart was not just a store. It was an employer, a community sponsor, and a civic institution. Sam personally attended store openings, shook hands with every employee, and made the opening of a Walmart feel like a local event. The community marketing created loyalty that advertising couldn't buy.</li>
+      <li><strong>The greeter — a marketing masterpiece:</strong> Sam introduced the Walmart greeter — a person stationed at the store entrance whose sole job was to welcome customers and make them feel acknowledged. This cost almost nothing but created a warmth and belonging that department stores never had. It was marketing disguised as hospitality.</li>
+      <li><strong>Circular newspaper inserts:</strong> In the 1960s–80s, Walmart's primary paid advertising was the weekly circular — a printed flyer inserted in local newspapers, showing that week's sale items. Sam wrote the philosophy of these himself: show real prices, show real products, never inflate before discounting.</li>
+      <li><strong>"10-Foot Rule" as marketing culture:</strong> Sam's instruction to every employee: if a customer comes within 10 feet of you, make eye contact, smile, and offer to help. This turned every employee into a brand ambassador. Customer service was Walmart's marketing budget in human form.</li>
+    </ul>
+    <div class="pq">
+      <blockquote>"We don't talk our way into quality. We price our way in. If the price is right, customers come. If they have a good experience, they come back. That's the whole marketing plan."</blockquote>
+      <cite>— Sam Walton's retail philosophy</cite>
+    </div>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 10 LIGHT: CUSTOMER ACQUISITION ─── -->
+<div class="sec-light" id="sec-acquisition" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--blue)">10 — Getting &amp; Keeping Customers</div>
+    <h2 class="sec-title">Customer Acquisition <em>Strategy</em></h2>
+    <ul class="alist">
+      <li><strong>Price as the first-visit trigger:</strong> Customers came to Walmart the first time because a neighbour or family member told them about the prices. Rural America has tight social networks — one person discovering that Walmart's prices were 20% cheaper than the local shop told everyone they knew within a week. This organic word-of-mouth was the primary acquisition engine for the first 20 years.</li>
+      <li><strong>One-stop shopping as retention:</strong> Walmart's huge store format (later Supercenters) sold groceries, clothing, electronics, toys, and hardware under one roof. Once customers discovered they could do all their shopping in one place at low prices, switching became inconvenient. Breadth of offering created retention that price alone couldn't guarantee.</li>
+      <li><strong>The lay-away plan:</strong> For lower-income customers who couldn't afford to pay for large purchases upfront, Walmart offered lay-away — pay in instalments, pick up when paid. This unlocked a massive segment of American consumers who were price-sensitive but aspiration-rich. It built brand loyalty among customers who would eventually become Walmart's most consistent spenders.</li>
+      <li><strong>Location as acquisition:</strong> Walmart's stores were placed at the edge of towns, near highways, with massive parking lots. This made them accessible to customers from multiple surrounding towns — one Walmart in Rogers, Arkansas served customers from 5–6 surrounding communities. Location was an acquisition strategy disguised as real estate decision-making.</li>
+      <li><strong>Sam's Club membership model:</strong> Sam's Club charged an annual membership fee — which psychologically committed members to shopping there (to get their money's worth). Members shopped more frequently and spent more per visit than non-members. The membership fee was both a revenue stream and a retention mechanism.</li>
+    </ul>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 11 BLUE: PRODUCT STRATEGY ─── -->
+<div class="sec-blue" id="sec-product" style="scroll-margin-top:100px;background:linear-gradient(160deg,#0b1930 0%,#0b0e14 100%);">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--yellow)">11 — Building the Right Thing</div>
+    <h2 class="sec-title">Product <em>Strategy</em></h2>
+    <p class="lead">In retail, the "product" is the total shopping experience — the assortment, the prices, the store layout, the service, and the reliability. Sam Walton designed all of these with obsessive precision, and changed each one when data told him to.</p>
+    <ul class="alist">
+      <li><strong>SKU discipline — stock what sells:</strong> Walmart's buyers were trained to stock the items that moved fastest and cut those that didn't — ruthlessly. Unlike department stores that stocked prestige brands for margin, Walmart stocked what customers actually bought. This kept inventory lean, turnover fast, and cash flowing.</li>
+      <li><strong>The Supercenter concept (1988):</strong> Sam combined a full-size grocery store with a discount general merchandise store under one roof. The Supercenter was a product innovation that made Walmart the destination for 100% of household spending — not just 50%. When Supercenters launched, they averaged 182,000 square feet and wiped out local grocery stores, department stores, and specialty shops simultaneously.</li>
+      <li><strong>Store-within-a-store partnerships:</strong> McDonald's, hair salons, optical centres, pharmacies, and financial services were brought inside Walmart stores. This expanded the product proposition without Walmart needing to build expertise in these verticals. Customers had another reason to visit — and stayed longer.</li>
+      <li><strong>Inventory technology as product:</strong> Walmart's investment in bar code scanning (early 1980s), satellite data transfer (1987), and eventually RFID technology transformed inventory management into a product feature. Stockouts — when a product is out of stock — are catastrophic in retail. Walmart's technology reduced stockouts to a fraction of industry average, making Walmart more reliable than competitors.</li>
+      <li><strong>Private label brands (Great Value, Equate, etc.):</strong> Walmart created its own store brands — selling at 15–25% below national brand prices. Private label expanded product choice, improved margins, and gave Walmart a negotiating tool against national brand suppliers: "Lower your prices, or we'll sell more Great Value."</li>
+    </ul>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 12 LIGHT: FUNDING ─── -->
+<div class="sec-light" id="sec-funding" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--blue)">12 — The Money Story</div>
+    <h2 class="sec-title">Funding <em>Journey</em></h2>
+    <p class="lead">Sam Walton's funding story is the opposite of a Silicon Valley startup story. There were no venture capitalists, no angel investors, no seed rounds. There was a father-in-law's loan, four mortgages on the family home, a reluctant Arkansas banking system, and one very patient wife.</p>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">1945</div>
+        <div class="tl-content"><strong>First Store — $25,000 Total</strong><p>$5,000 personal savings + $20,000 loan from father-in-law L.S. Robson. This was the entire startup capital for the first Ben Franklin franchise.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">1950–62</div>
+        <div class="tl-content"><strong>Self-Financed Expansion — Multiple Mortgages</strong><p>Sam mortgaged the family home repeatedly to fund new store openings. Helen co-signed every loan. Banks in rural Arkansas were conservative — Sam had to show profitability before each new loan.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">1962</div>
+        <div class="tl-content"><strong>First Walmart — Entirely Self-Funded</strong><p>When Ben Franklin refused to back the discount store concept, Sam and his brother Bud funded the first Walmart themselves from accumulated store profits and family savings. No outside investors. No VC. Just retained earnings and family capital.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">1966</div>
+        <div class="tl-content"><strong>First Bank Financing for Walmart</strong><p>With 5 Walmart stores profitable and growing, Arkansas banks finally offered meaningful credit lines. Sam used them aggressively to fund the next cluster of store openings.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">1970</div>
+        <div class="tl-content"><strong>IPO — Walmart Goes Public</strong><p>With 38 stores and $44 million in revenue, Walmart listed on the New York Stock Exchange. The IPO raised $5 million. Early investors who held through 2024 saw returns of over 500,000%. The Walton family retained 61% of shares — worth $1.4 Trillion today.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">1972–92</div>
+        <div class="tl-content"><strong>Growth Funded Entirely by Operations + Debt</strong><p>Post-IPO, Walmart funded its extraordinary growth through operating cash flows and conservative bank debt. Sam never diluted the family's ownership through equity raises. The business funded itself.</p></div>
+      </div>
+    </div>
+    <div class="callout callout-lesson-lt">
+      <div class="callout-label">🎯 Startup Lesson</div>
+      <p><strong>Profitability from Day 1 is a funding strategy.</strong> Sam never had the luxury of losing money on each sale while "waiting for scale." He had to make each store profitable immediately because there was no investor cushion. This constraint made him a better operator — and the world's richest person. Profitable growth, however slow, compounds into something that money can't replicate.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 13 DARK: MISTAKES ─── -->
+<div class="sec-dark" id="sec-mistakes" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--yellow)">13 — Where He Went Wrong</div>
+    <h2 class="sec-title">Biggest <em>Mistakes</em></h2>
+    <ul class="alist">
+      <li><strong>The Newport lease — the original mistake:</strong> Sam signed his first store lease without a renewal option. His landlord took the store. Sam called this his biggest professional mistake — and it informed every property negotiation he ever made afterward. He became one of the most sophisticated real estate negotiators in retail history. The lesson was expensive. The learning was priceless.</li>
+      <li><strong>Resisting computers and technology too long:</strong> Sam was a people-first, instinct-first leader who initially resisted the computerisation of Walmart's operations in the 1970s. His CFO and logistics team had to fight hard to get approval for early technology investments. By the 1980s, Sam was the most aggressive technology investor in retail — but the delay cost early efficiency gains.</li>
+      <li><strong>Underinvesting in employee pay relative to profits:</strong> Walmart's associates were historically paid at or near minimum wage while the company generated billions in profit and the Walton family became the world's richest dynasty. This created persistent labour relations problems, PR crises, and government scrutiny. Sam's "we can only pay what the model allows" logic was financially correct but morally vulnerable.</li>
+      <li><strong>International expansion missteps:</strong> After Sam's death, Walmart's international expansions — particularly in Germany and South Korea — were costly failures that required full retreats. Sam himself was cautious about international expansion; the failures happened under later management, but the pattern of underestimating local culture in retail is a lesson Sam's playbook didn't fully address.</li>
+      <li><strong>E-commerce slow start:</strong> Again after Sam's era, Walmart was dangerously slow to build e-commerce capabilities, allowing Amazon to capture online retail while Walmart protected its physical stores. The $16B acquisition of Jet.com in 2016 was the correction — but a decade of delay is a decade of compounding lost to a competitor.</li>
+    </ul>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 14 LIGHT: STRENGTHS ─── -->
+<div class="sec-light" id="sec-strengths" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--blue)">14 — What Made Him Exceptional</div>
+    <h2 class="sec-title">Biggest <em>Strengths</em></h2>
+    <ul class="alist">
+      <li><strong>Relentless curiosity with zero ego about the source of ideas:</strong> Sam shamelessly copied every good idea he found — from competitors, from suppliers, from employees, from other industries. He once said, "Most of what I did was just copy what others were doing and try to do it a little better." This intellectual humility, combined with his obsessive work ethic, meant Walmart always improved. He had no "not invented here" ego. Every good idea was his idea, because he adopted it.</li>
+      <li><strong>Frugality as competitive advantage:</strong> Sam flew coach, drove his own truck, shared hotel rooms with colleagues on buying trips, and held company meetings in a warehouse. Every dollar saved in overhead was a dollar that could be passed to customers in lower prices. His frugality was not a personal quirk — it was a strategic philosophy embedded in company culture.</li>
+      <li><strong>The ability to attract and retain great people despite location:</strong> Bentonville, Arkansas is not a talent magnet. Yet Sam built one of the most skilled retail operations teams in history. He did it through meritocracy (promote from within), profit-sharing (every employee owned Walmart stock), and a culture of genuine respect. People worked 60-hour weeks for Sam not because they had to, but because they believed in what they were building.</li>
+      <li><strong>Speed of decision + willingness to be wrong:</strong> Sam made decisions fast and admitted mistakes openly. "Try it, fix it, do it" was his mantra. This high-velocity decision culture meant Walmart moved faster than competitors three times its size, because those competitors had committees that moved slowly and managers who feared being wrong.</li>
+      <li><strong>The ability to hold frugality and generosity simultaneously:</strong> Sam could spend $24M on a satellite system without hesitation when the ROI was clear, while simultaneously refusing to upgrade his office furniture. He was not cheap — he was precise. His resource allocation was the financial embodiment of strategic clarity: invest where it multiplies, cut where it doesn't.</li>
+    </ul>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 15 DARK: LEADERSHIP ─── -->
+<div class="sec-dark" id="sec-leadership" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--yellow)">15 — How He Led</div>
+    <h2 class="sec-title">Leadership <em>Style</em></h2>
+    <p class="lead">Sam Walton led by presence, not by memo. He was in stores constantly — his own and competitors'. He knew more about what was happening at the shelf level than most CEOs knew about their boardrooms. This ground-level immersion was both his management philosophy and his competitive intelligence system.</p>
+    <p>Sam's leadership had three defining characteristics. First, <strong>genuine egalitarianism</strong>. He called every employee — from store cleaner to senior vice president — an "associate." This was not a linguistic trick. He remembered names, asked about families, and celebrated individual contributions at the Saturday morning meetings. Employees felt seen in a way that created loyalty money couldn't buy.</p>
+    <p>Second, <strong>radical transparency about numbers</strong>. Walmart shared more financial data with frontline employees than almost any major corporation of its era. Store managers knew their store's contribution to total profit. Department heads tracked their margin daily. Sam believed that people who see the scoreboard play harder. He was right.</p>
+    <p>Third, <strong>cheerleading as leadership</strong>. Sam's Saturday morning meetings were part data review, part revival meeting. He would perform the Walmart cheer ("Give me a W! Give me an A!..."), celebrate remarkable individual stories, and personally thank associates who had done something exceptional. Critics found it corny. Associates found it motivating. Results proved Sam's approach correct.</p>
+    <div class="callout callout-lesson-dk">
+      <div class="callout-label">🎯 Startup Lesson</div>
+      <p><strong>Culture is not what you write in values documents — it's what the founder does on Tuesday morning.</strong> Sam's Saturday meetings, his store visits, his cheerleading — these were culture-building activities disguised as management practices. Every founder creates culture through their own behaviour. The question is whether you're creating it intentionally or accidentally.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 16 YELLOW-ACCENT: SMART DECISIONS ─── -->
+<div class="sec-yellow-accent" id="sec-decisions" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--blue)">16 — The Moves That Changed Everything</div>
+    <h2 class="sec-title">Smart Decisions That <em>Changed the Company</em></h2>
+    <ul class="alist">
+      <li><strong>Targeting small-town America before the big chains (1962):</strong> The fundamental strategic decision that made Walmart possible. Kmart, Target, and Sears were all going to major metro markets. Sam went to Rogers, Arkansas. By the time the big chains noticed Walmart, Walmart had 20 years of small-town dominance and the operational muscle to take their customers in metropolitan markets too. The deliberate choice of an uncontested market is the single most important strategic decision in Walmart's history.</li>
+      <li><strong>Building proprietary distribution infrastructure (1969):</strong> Sam built Walmart's first distribution centre in Bentonville before it was strictly necessary. Most retailers used third-party distributors. Sam believed controlling the supply chain was too important to outsource. This decision — made when Walmart had only 18 stores — created a structural advantage that still defines the company 55 years later.</li>
+      <li><strong>The $24M satellite system (1987):</strong> When Sam's technology team proposed a company-wide satellite communication network at a cost of $24 million, the board was sceptical. Sam approved it. The system allowed real-time inventory data to flow from every store to Bentonville, revolutionising demand forecasting, supplier management, and operational efficiency. Competitors took 10–15 years to match it.</li>
+      <li><strong>Profit sharing for associates from 1971:</strong> Sam introduced employee profit sharing and stock purchase programs across all Walmart stores in 1971. Associates who had worked at Walmart for 20 years by 1991 had accumulated six-figure retirement accounts from profit sharing alone. The economic alignment this created — making every associate a financial stakeholder in the company's success — was a retention and motivation system of profound power.</li>
+      <li><strong>The Supercenter pivot (1988):</strong> Combining a full grocery store with a general merchandise store seems obvious in retrospect. In 1988, it was a $30 million bet per store — and Walmart opened hundreds of them. The Supercenter format made Walmart the destination for 100% of household spending and eliminated the need for customers to shop anywhere else. It is arguably the most value-creating retail format in history.</li>
+    </ul>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 17 BLUE: COMPETITIVE ADVANTAGE ─── -->
+<div class="sec-blue" id="sec-moat" style="scroll-margin-top:100px;background:linear-gradient(135deg,#001d4a 0%,#0b0e14 100%);">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--yellow)">17 — Why Competitors Can't Beat Them</div>
+    <h2 class="sec-title">Competitive <em>Advantage</em></h2>
+    <p class="lead">Walmart's competitive advantages compound on each other in ways that make the total moat far wider than any single advantage suggests. They didn't build one wall. They built five, layered inside each other.</p>
+    <ul class="alist">
+      <li><strong>Scale-driven cost advantage:</strong> Walmart buys more of almost every consumer product than any other company on earth. This gives it purchase terms — prices, payment schedules, logistics arrangements — that no competitor can match. A competitor matching Walmart's prices would need to lose money to do so, because they cannot achieve Walmart's cost base without Walmart's scale. The cost advantage is self-reinforcing: lower costs enable lower prices, which drive more volume, which drives even lower costs.</li>
+      <li><strong>Proprietary logistics network:</strong> Walmart's distribution network — 210+ distribution centres, a private truck fleet, and 55 years of supply chain optimisation — is worth hundreds of billions of dollars to replicate. No new entrant can build this. Amazon has spent 25 years building something comparable. Nobody else is even close.</li>
+      <li><strong>Physical store moat in smaller markets:</strong> In the 2,500 towns where Walmart is the only major retailer, it has a natural monopoly. These markets are too small for Amazon's one-day delivery to be profitable. They are too small for Target or Costco. They are just right for Walmart — and Walmart has served them for 40 years. Local loyalty is structural.</li>
+      <li><strong>Data advantage:</strong> 240 million customers per week generate more retail purchase data than any company on earth outside of Amazon. This data advantages demand forecasting, pricing decisions, supplier negotiations, and advertising targeting in ways that deepen with every transaction.</li>
+      <li><strong>The EDLP trust brand:</strong> "Everyday Low Prices" is not just a tagline — it's a 60-year brand promise that has never been broken. Customers who trust that Walmart always has the lowest price don't comparison shop. They simply go to Walmart. The trust premium creates a customer behaviour that even lower-priced competitors struggle to displace.</li>
+    </ul>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 18 LIGHT: TURNING POINTS ─── -->
+<div class="sec-light" id="sec-turning" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--blue)">18 — The Moments That Mattered</div>
+    <h2 class="sec-title">Major <em>Turning Points</em></h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">1950</div>
+        <div class="tl-content"><strong>Losing the Newport Store</strong><p>The most painful setback became the most clarifying moment. Sam rebuilt stronger, smarter, and more determined. He never again signed a lease without a renewal option, and never again allowed a landlord to take what he'd built.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">1962</div>
+        <div class="tl-content"><strong>Opening the First Walmart</strong><p>When Ben Franklin said no, Sam said fine — and built it himself. This act of self-determination set the cultural DNA of Walmart: we don't wait for permission. We build what we believe in.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">1970</div>
+        <div class="tl-content"><strong>The IPO — Walmart Enters Capital Markets</strong><p>Going public gave Walmart access to growth capital without diluting the family's control. The IPO was the moment Walmart transformed from a regional retailer into a national growth story — and gave early investors one of the greatest returns in stock market history.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">1983</div>
+        <div class="tl-content"><strong>Sam's Club Launch — Membership Retail</strong><p>Inspired by the Costco model, Sam launched Sam's Club as a warehouse membership store. It reached $1B in sales faster than any retail concept in history and added a high-margin, subscription-based revenue stream to Walmart's portfolio.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">1987</div>
+        <div class="tl-content"><strong>The Satellite Network — Technology Changes Everything</strong><p>Real-time data from every store transformed Walmart's operational intelligence. The satellite network made possible supply chain innovations (cross-docking, vendor-managed inventory) that became Walmart's ultimate competitive weapon and took competitors 15 years to match.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">1988</div>
+        <div class="tl-content"><strong>First Supercenter — Retail's Biggest Format</strong><p>Adding a full grocery store to general merchandise created a total household shopping destination. The Supercenter format generated more revenue per square foot than any retail concept of its era and reshaped American retail permanently.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 19 DARK: CONTROVERSIES ─── -->
+<div class="sec-dark" id="sec-controversies" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--yellow)">19 — The Difficult Chapters</div>
+    <h2 class="sec-title">Controversies or <em>Failures</em></h2>
+    <p class="lead">No company that rewrites the rules of an industry does so without significant casualties and criticism. Walmart's success story has a shadow side that is as important to understand as its triumphs.</p>
+    <ul class="alist">
+      <li><strong>"Walmartisation" of Main Street — the small business killer:</strong> Walmart's entry into small towns systematically destroyed local retail. When a Walmart opened in a town of 15,000, local hardware stores, clothing shops, pharmacies, and grocery stores typically lost 20–40% of revenue within 2 years and closed within 5. Economic research estimates Walmart's entry eliminated a net of 150+ small retail jobs for every 100 Walmart jobs created in its early expansion years. The human cost of Main Street death in rural America is real, documented, and directly attributable to Sam's strategy.</li>
+      <li><strong>Supplier squeeze — the dark side of EDLP:</strong> Walmart's demand for ever-lower prices forced suppliers to cut costs continuously — which meant offshore manufacturing, job losses in American factories, and quality compromises. The pressure Walmart exerted on its supply chain shifted manufacturing from the US to Asia on a scale that contributed meaningfully to American de-industrialisation. Sam's EDLP was good for customers and catastrophic for American manufacturing workers.</li>
+      <li><strong>Gender discrimination lawsuit — Dukes v. Walmart (2001–2011):</strong> The largest employment discrimination lawsuit in US history alleged that Walmart systematically underpaid and under-promoted female associates relative to male ones. The Supreme Court eventually ruled the class action too broad to proceed as a single case — but the underlying discrimination allegations were never refuted. The case revealed systemic gender bias in Walmart's promotion culture that post-Sam leadership has worked to address.</li>
+      <li><strong>Associate wages and healthcare:</strong> Walmart's wage structure — historically at or near minimum wage for most associates — generated sustained criticism given the Walton family's extraordinary wealth. The implicit contract of low wages + profit sharing made sense when Walmart stock was rising. When Walmart's stock stagnated in the 2000s, the equation turned harsh for associates who depended on stock growth for retirement savings.</li>
+      <li><strong>Mexico corruption scandal (2012):</strong> Walmart de México paid millions in bribes to local officials to accelerate store opening permits. The scandal implicated executives at both the Mexican subsidiary and, potentially, Bentonville headquarters. The DOJ investigation cost Walmart over $280 million in settlements and revealed how the "growth at any cost" culture Sam had built could, in different hands and different regulatory environments, produce ethical catastrophe.</li>
+    </ul>
+    <div class="callout callout-warn-dk">
+      <div class="callout-label">⚠ Ethical Analysis</div>
+      <p>Sam Walton's intentions were genuine — he believed deeply that low prices helped the poorest Americans most. The structural consequences of his model were more complex than his intentions. <strong>Business strategies can be moral in intent and damaging in aggregate effect.</strong> The lesson for entrepreneurs is not that EDLP was wrong — but that systems thinking about second and third-order effects is as important as optimising for the first-order win (lower prices for customers).</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 20 YELLOW-ACCENT: KEY LESSONS ─── -->
+<div class="sec-yellow-accent" id="sec-lessons" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--blue)">20 — What Young Entrepreneurs Must Know</div>
+    <h2 class="sec-title">Key Lessons for Young <em>Entrepreneurs</em></h2>
+    <ul class="alist">
+      <li><strong>Lesson 1 — The uncontested market is more valuable than the attractive market:</strong> Sam went to Rogers, Arkansas when every smart retailer was going to Chicago and New York. The "boring" markets, the "small" markets, the markets that sophisticated competitors overlook — these are where the best foundations are built. Be where the competition isn't.</li>
+      <li><strong>Lesson 2 — Frugality is a strategic weapon, not just a personal virtue:</strong> Every dollar Sam saved on overhead was a dollar he could pass to customers in lower prices. Frugality in operations creates the economic room to be more generous with customers than competitors. Don't confuse being cheap with being strategically lean — they are very different things.</li>
+      <li><strong>Lesson 3 — Copy shamelessly, credit generously:</strong> Sam stole every good idea he ever found — from competitors, suppliers, employees, and other industries — and gave credit to whoever he borrowed it from. He had no ego about the origin of ideas. Good ideas make the business better regardless of who thought of them first.</li>
+      <li><strong>Lesson 4 — Ownership beats salary at every scale:</strong> Sam's profit-sharing and stock programs for associates were not charity. They were the most powerful alignment mechanism in business history. When your employees own a share of what they're building, they work like owners. Design compensation systems that create ownership at every level.</li>
+      <li><strong>Lesson 5 — Operations IS strategy, not just execution:</strong> Most entrepreneurs think strategy happens in a boardroom and operations happen on the floor. Sam collapsed this distinction. His supply chain decisions, his store layouts, his distribution network choices — these were his strategic differentiators. The business that executes operations 5% better than competitors, consistently, for 30 years, wins the market.</li>
+      <li><strong>Lesson 6 — The setback contains the lesson that makes the success possible:</strong> Sam losing his Newport store taught him everything he needed to know about lease negotiation, competitor analysis, and operational resilience. He called it the best thing that happened to him. Your worst professional setback probably contains your most important lesson. Find it.</li>
+      <li><strong>Lesson 7 — Curiosity is a competitive advantage:</strong> Sam visited competitor stores until he was physically unable to walk store aisles (in his final months, dying of leukaemia, he was still asking management to describe what competitor stores looked like). Curiosity about how things work, why competitors succeed, and what customers actually want is the foundation of every great business insight.</li>
+    </ul>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 21 DARK: WHAT STARTUPS LEARN ─── -->
+<div class="sec-dark" id="sec-startups" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--yellow)">21 — The Bigger Picture</div>
+    <h2 class="sec-title">What Startups Can <em>Learn From Walmart</em></h2>
+    <ul class="alist">
+      <li><strong>The flywheel is more valuable than the feature:</strong> Walmart's EDLP flywheel — lower price → more volume → lower cost → lower price — is a self-reinforcing system that compounds for decades. Most startups build features. The great ones build flywheels. Ask yourself: what is the self-reinforcing loop in my business? What makes it stronger with every customer I add?</li>
+      <li><strong>Infrastructure investment is moat-building:</strong> Sam's distribution centres, satellite system, and private truck fleet looked like costs. They were actually barriers to entry that took competitors 15–20 years to match. Infrastructure that looks expensive often becomes the deepest competitive moat. Don't always optimise for today's P&L — invest in infrastructure that creates tomorrow's advantage.</li>
+      <li><strong>Radical cost discipline enables radical customer generosity:</strong> Walmart's ability to offer extraordinary prices to customers was made possible by extraordinary discipline about internal costs. You cannot be generous to customers without being disciplined about everything else. The two are inseparable.</li>
+      <li><strong>Local culture matters more than headquarters optimism:</strong> Walmart's international failures (Germany, South Korea) came from assuming that what worked in Bentonville would work in Berlin. They were wrong. Consumer culture is deeply local, and retail especially so. The lesson: understand the market you're entering at least as well as you understand the market you're leaving.</li>
+      <li><strong>The founder's personal values become the company's operating system:</strong> Sam's frugality, his transparency, his people-first philosophy, his obsessive curiosity — these became Walmart's culture. Not because he wrote them in a values document, but because he embodied them every day. Your personal values are your company's founding culture. Choose them carefully, because they scale.</li>
+    </ul>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 22 LIGHT: QUOTES ─── -->
+<div class="sec-light" id="sec-quotes" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--blue)">22 — His Mental Models</div>
+    <h2 class="sec-title">10 Powerful Quotes &amp; <em>Thinking Patterns</em></h2>
+    <div class="quotes-grid">
+      <div class="qcard">
+        <div class="qnum">01</div>
+        <div class="qtext">"There is only one boss — the customer. And he can fire everybody in the company from the chairman on down, simply by spending his money somewhere else."</div>
+        <div class="qmeta">On customer centricity</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">02</div>
+        <div class="qtext">"Capital isn't scarce; vision is."</div>
+        <div class="qmeta">On what limits businesses</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">03</div>
+        <div class="qtext">"Celebrate your success and find humour in your failures. Don't take yourself so seriously. Loosen up and everybody around you will loosen up."</div>
+        <div class="qmeta">On leadership culture</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">04</div>
+        <div class="qtext">"I had to pick myself up and get back in the race. That's life. You just keep on going. You learn from the bad stuff that happens and move forward."</div>
+        <div class="qmeta">On the Newport setback</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">05</div>
+        <div class="qtext">"Most of what I did was just copy what others were doing and try to do it a little better. I was never ashamed to borrow the best idea I could find."</div>
+        <div class="qmeta">On idea-borrowing without ego</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">06</div>
+        <div class="qtext">"The secret of successful retailing is to give your customers what they want. And really, if you think about it from your point of view as a customer, you want everything: a wide assortment of good-quality merchandise; the lowest possible prices; guaranteed satisfaction; friendly, knowledgeable service; convenient hours; free parking; a pleasant shopping experience."</div>
+        <div class="qmeta">On what customers actually want</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">07</div>
+        <div class="qtext">"Swim upstream. Go the other way. Ignore the conventional wisdom. If everybody else is doing it one way, there's a good chance you can find your niche by going in exactly the opposite direction."</div>
+        <div class="qmeta">On contrarian strategy</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">08</div>
+        <div class="qtext">"We're all working together; that's the secret. And we'll lower the cost of living for everyone, not just in America, but we'll give the world an opportunity to see what it's like to save and have a better life."</div>
+        <div class="qmeta">On the mission of Walmart</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">09</div>
+        <div class="qtext">"High expectations are the key to everything."</div>
+        <div class="qmeta">On standards and culture</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">10</div>
+        <div class="qtext">"Outstanding leaders go out of their way to boost the self-esteem of their personnel. If people believe in themselves, it's amazing what they can accomplish."</div>
+        <div class="qmeta">On people-first leadership</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 23 DARK: FINAL SUMMARY ─── -->
+<div class="sec-dark" id="sec-summary" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--yellow)">23 — The Big Picture</div>
+    <h2 class="sec-title">Final <em>Summary</em></h2>
+    <p class="lead">Sam Walton didn't just build the world's largest retailer. He rewrote the fundamental relationship between businesses and their customers — proving that the path to extraordinary wealth was not to extract maximum margin from customers, but to give maximum value to them.</p>
+    <p>The Walmart story is ultimately a story about what happens when <strong>genuine conviction about serving customers meets obsessive operational discipline</strong>. Sam believed — really believed — that helping a family in rural Arkansas save $15 on their grocery bill was a moral act. And he worked 60-hour weeks for 47 years building the systems, the supplier relationships, the logistics networks, and the culture that made that belief economically possible at a scale of 240 million customers per week.</p>
+    <p>What separates Sam from other successful retail executives is not intelligence or luck — it is the completeness of his commitment. He was not sometimes frugal, sometimes customer-obsessed, sometimes curious about competitors. He was <strong>always</strong> these things. Consistency over 47 years is what compounds a modest variety store in Bentonville, Arkansas into the largest company on earth.</p>
+    <ul class="alist">
+      <li>From a borrowed $20,000 to the world's largest company by revenue. <strong>This is what compounding operational discipline looks like across five decades.</strong></li>
+      <li>From a lease error that cost him his first store to the most sophisticated real estate and logistics operation in retail history. <strong>The best operators learn from every mistake and never make the same one twice.</strong></li>
+      <li>From a small-town retailer that big chains ignored to the company that destroyed Sears, Kmart, and the American department store model. <strong>The most dangerous competitor is the one you didn't notice until it was too late.</strong></li>
+    </ul>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 24 LIGHT: QUICK REVISION ─── -->
+<div class="sec-light" id="sec-revision" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--blue)">24 — One Page Summary</div>
+    <h2 class="sec-title">Quick Revision <em>Summary</em></h2>
+    <div class="revision">
+      <h3>📋 Sam Walton × Walmart — Complete Snapshot</h3>
+      <div class="qr-grid">
+        <div class="qr-item"><div class="qr-label">Founder</div><div class="qr-val">Samuel Moore Walton (March 29, 1918 — April 5, 1992)</div></div>
+        <div class="qr-item"><div class="qr-label">Born</div><div class="qr-val">Kingfisher, Oklahoma — Great Depression upbringing</div></div>
+        <div class="qr-item"><div class="qr-label">Company</div><div class="qr-val">Walmart Inc. (formerly Wal-Mart Stores, Inc.)</div></div>
+        <div class="qr-item"><div class="qr-label">Founded</div><div class="qr-val">July 2, 1962 — Rogers, Arkansas (first Walmart)</div></div>
+        <div class="qr-item"><div class="qr-label">Core Insight</div><div class="qr-val">Small-town America was systematically overcharged. EDLP + volume = fix.</div></div>
+        <div class="qr-item"><div class="qr-label">Revenue (FY2024)</div><div class="qr-val">$650 Billion+ — #1 Fortune 500 for 12+ years</div></div>
+        <div class="qr-item"><div class="qr-label">Net Worth at Death</div><div class="qr-val">$25 Billion (1992) — Richest person in America</div></div>
+        <div class="qr-item"><div class="qr-label">Walton Family (2024)</div><div class="qr-val">~$260 Billion combined — World's richest family</div></div>
+        <div class="qr-item"><div class="qr-label">IPO</div><div class="qr-val">1970 — $5M raised. Early investors earned 500,000%+</div></div>
+        <div class="qr-item"><div class="qr-label">Employees</div><div class="qr-val">2.3 Million — Largest private employer in the world</div></div>
+        <div class="qr-item"><div class="qr-label">Key Innovation</div><div class="qr-val">EDLP flywheel + proprietary distribution network + satellite data system</div></div>
+        <div class="qr-item"><div class="qr-label">Biggest Setback</div><div class="qr-val">Newport store loss (1950) — reframed as "the best thing that happened to me"</div></div>
+        <div class="qr-item"><div class="qr-label">Biggest Strength</div><div class="qr-val">Frugality as strategy + boundless curiosity + people-first culture</div></div>
+        <div class="qr-item"><div class="qr-label">Biggest Controversy</div><div class="qr-val">Destruction of small-town retail + wage criticism + gender discrimination lawsuits</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 25 BLUE: STRATEGY TABLE ─── -->
+<div class="sec-blue" id="sec-table" style="scroll-margin-top:100px;background:linear-gradient(135deg,#0b1930 0%,#0b0e14 100%);">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--yellow)">25 — Framework at a Glance</div>
+    <h2 class="sec-title">The Walmart <em>Framework Table</em></h2>
+    <table class="sum-table">
+      <thead><tr><th>Dimension</th><th>Analysis</th></tr></thead>
+      <tbody>
+        <tr><td>Problem Solved</td><td>Rural and small-town American consumers paid 15–30% more for identical goods than urban consumers. No retailer had a model that brought big-city buying power to small-town America affordably.</td></tr>
+        <tr><td>Revenue Model</td><td>Ultra-thin retail margin on enormous volume + Sam's Club membership fees + supplier placement fees + Walmart Connect advertising + private label margin + financial services (MoneyCenter).</td></tr>
+        <tr><td>Growth Engine</td><td>The EDLP flywheel: lower price → more customers → more volume → more supplier leverage → lower cost → lower price. Reinforced by proprietary distribution infrastructure, real-time data systems, and saturation-before-expansion geographic strategy.</td></tr>
+        <tr><td>Key Strategy</td><td>Target uncontested markets (small-town America). Build proprietary infrastructure before competitors notice. Use distribution density to achieve cost advantages that make EDLP sustainable. Saturate one geography before expanding to the next.</td></tr>
+        <tr><td>Biggest Mistake</td><td>Signing a lease without a renewal option on the Newport store (1945) — losing 5 years of built value to a landlord. Also: under-investment in e-commerce in the 2000s (post-Sam management). And: associate wages failing to keep pace with company wealth generation.</td></tr>
+        <tr><td>Biggest Strength</td><td>Frugality as strategic discipline. Intellectual humility about the source of ideas (copying shamelessly). Relentless operational curiosity. People-first culture that created extraordinary loyalty and performance at scale.</td></tr>
+        <tr><td>Competitive Moat</td><td>Scale-driven cost advantage (buying power no one can match) + proprietary logistics network (decades to replicate) + physical presence in 2,500 towns with no competition + consumer trust in EDLP brand (60 years of consistent promise-keeping) + data from 240M weekly shoppers.</td></tr>
+        <tr><td>Most Important Lesson</td><td>The path to extraordinary business success is to give customers more value than they expect, more consistently than seems economically rational, for longer than competitors are willing to sustain. Everything else — the technology, the logistics, the culture — is in service of that singular commitment.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 26 YELLOW-ACCENT: IF STARTING OVER ─── -->
+<div class="sec-yellow-accent" id="sec-final" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num" style="color:var(--blue)">26 — The Counter-Factual</div>
+    <h2 class="sec-title">If Starting From <em>Zero Today</em></h2>
+    <div class="final-box" style="background:linear-gradient(135deg,#e8f0fe,#f0f9ff);border:1px solid rgba(0,113,206,0.25);">
+      <h3 style="color:var(--blue-dark)">"If Sam Walton started Walmart from zero in 2025, what would he likely do differently?"</h3>
+      <p>Sam Walton died in 1992 before the internet existed as a commercial force. His playbook was built entirely on physical infrastructure, supplier relationships, and human capital. Starting over in 2025 with full knowledge of what retail has become — Amazon, Shopify, D2C, same-day delivery — here is what he would most likely do differently:</p>
+      <p><strong>1. Build e-commerce infrastructure on Day 1, not as an afterthought.</strong> Sam's greatest regret would likely be that Walmart let Amazon build a $600 billion business in a category — online retail — that Sam pioneered in physical form. Starting in 2025, Sam would treat the digital shelf as equal in priority to the physical shelf from the very first day. He would build a proprietary fulfilment network for digital orders with the same obsessive infrastructure logic he applied to physical distribution centres.</p>
+      <p><strong>2. Target underserved digital consumers the same way he targeted underserved rural consumers.</strong> Sam's genius was finding people that sophisticated competitors ignored — rural Americans in 1962. In 2025, the underserved market is digital consumers in semi-urban and rural markets globally who are poorly served by e-commerce logistics (slow delivery, high fees, limited assortment). Sam would build for them with the same precision he applied to Rogers, Arkansas.</p>
+      <p><strong>3. Invest in associate wages as a brand strategy, not just a labour cost.</strong> The version of Sam who lived through the social media era — where every disgruntled employee can reach millions of people — would have understood that underpaying associates while the Walton family accumulates trillions is not just morally questionable but strategically expensive. A Sam Walton starting in 2025 would structure associate economics so that Walmart's people were its most powerful brand advocates.</p>
+      <p><strong>4. Build data as a business from Year 1.</strong> Sam's satellite network was the 1987 version of a data infrastructure investment. Starting in 2025, Sam would treat consumer purchase data as a product line — not just an operational input. The Walmart data business (advertising, consumer insights, demand forecasting as a service to suppliers) would be built from the first store, not retrofitted 40 years later.</p>
+      <p><strong>5. Think about international from the start, but through local operators.</strong> Sam's international expansion failures (post his era) came from applying the Bentonville playbook to markets with fundamentally different retail cultures. A Sam Walton starting in 2025 would expand internationally through local partnerships and franchises — bringing the EDLP philosophy but letting local operators adapt the execution. The philosophy scales globally. The execution must be local.</p>
+      <p class="footnote" style="color:var(--lt-text3);border-top:1px solid var(--lt-rule);">But here's the truth about Sam Walton that no counter-factual changes: he would still drive his own pickup truck. He would still visit competitor stores with a yellow notepad. He would still insist that every Walmart executive fly coach. He would still know the names of his associates. The strategic adaptations are tools. The character that built Walmart — the relentless frugality, the obsessive curiosity, the genuine belief that serving customers well is the highest purpose of business — is the reason any of it worked. Character is not a strategy. It is the foundation on which all strategy rests.</p>
+    </div>
+  </div>
+</div>
+
+  </div><!-- end main content -->
+</div><!-- end article shell -->
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Founder<span>Lens</span></div>
+      <div class="footer-sub">Deep-Dive Founder Analysis for the Next Generation of Entrepreneurs</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">About</a>
+      <a href="#">All Analyses</a>
+      <a href="#">Next Issue</a>
+      <a href="#">Subscribe</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <span>FounderLens</span> · Sam Walton × Walmart Analysis · Research compiled May 2026 ·
+    For educational purposes — data sourced from public filings, Made in America (Walton, 1992), and verified media reports
+  </div>
+</footer>
+
+<script>
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+function scrollSec(id){
+  const el=document.getElementById(id);
+  if(el)el.scrollIntoView({behavior:'smooth'});
+}
+
+// TOC active on scroll
+const allSections=['sec-identity','sec-background','sec-problem','sec-opportunity','sec-revenue','sec-business','sec-struggles','sec-strategy','sec-marketing','sec-acquisition','sec-product','sec-funding','sec-mistakes','sec-strengths','sec-leadership','sec-decisions','sec-moat','sec-turning','sec-controversies','sec-lessons','sec-startups','sec-quotes','sec-summary','sec-revision','sec-table','sec-final'];
+const tocItems=document.querySelectorAll('.toc-item');
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      tocItems.forEach(t=>t.classList.remove('active'));
+      const target=document.querySelector(`.toc-item[onclick*="${e.target.id}"]`);
+      if(target)target.classList.add('active');
+    }
+  });
+},{rootMargin:'-15% 0px -75% 0px'});
+allSections.forEach(id=>{const el=document.getElementById(id);if(el)observer.observe(el)});
+
+// Scroll reveal
+const revealObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')});
+},{threshold:0.06});
+document.querySelectorAll('.sec-dark,.sec-light,.sec-blue,.sec-yellow-accent').forEach(el=>{
+  el.classList.add('reveal');
+  revealObs.observe(el);
+});
+</script>
+</body>
+</html>

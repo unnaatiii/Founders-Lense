@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ingvar Kamprad — The Farm Boy Who Furnished the World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   DESIGN TOKENS
+══════════════════════════════════════ */
+:root {
+  /* IKEA palette */
+  --ikea-blue:   #003087;
+  --ikea-blue-mid: #0051a8;
+  --ikea-blue-lt: #1a6ecf;
+  --ikea-yellow: #FFDA1A;
+  --ikea-yellow-dk: #e6c200;
+  --ikea-yellow-pale: #fffae0;
+
+  /* Segment A – White/light */
+  --seg-light-bg:   #ffffff;
+  --seg-light-bg2:  #f5f5f5;
+  --seg-light-bg3:  #eef2f8;
+  --seg-light-ink:  #0d1b2a;
+  --seg-light-mid:  #354a63;
+  --seg-light-muted:#6b7a8d;
+  --seg-light-rule: rgba(0,48,135,0.1);
+
+  /* Segment B – Deep dark */
+  --seg-dark-bg:   #08101e;
+  --seg-dark-bg2:  #0d1a2e;
+  --seg-dark-bg3:  #142035;
+  --seg-dark-ink:  #f0f5ff;
+  --seg-dark-mid:  rgba(240,245,255,0.75);
+  --seg-dark-muted:rgba(240,245,255,0.42);
+  --seg-dark-rule: rgba(240,245,255,0.1);
+
+  /* Segment C – Swedish blue mid */
+  --seg-blue-bg:   #003087;
+  --seg-blue-bg2:  #002270;
+  --seg-blue-ink:  #ffffff;
+  --seg-blue-mid:  rgba(255,255,255,0.82);
+  --seg-blue-muted:rgba(255,255,255,0.52);
+  --seg-blue-rule: rgba(255,255,255,0.15);
+
+  /* Segment D – Warm cream */
+  --seg-cream-bg:  #faf5e8;
+  --seg-cream-bg2: #f2ead0;
+  --seg-cream-ink: #1a1208;
+  --seg-cream-mid: #3d2f10;
+  --seg-cream-muted:#7a6030;
+  --seg-cream-rule: rgba(26,18,8,0.1);
+
+  --serif:  'Libre Baskerville', Georgia, serif;
+  --sans:   'Plus Jakarta Sans', system-ui, sans-serif;
+  --mono:   'Space Mono', monospace;
+  --radius: 10px;
+  --radius-lg: 16px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--seg-dark-bg); }
+::-webkit-scrollbar-thumb { background: var(--ikea-yellow); border-radius: 3px; }
+
+/* ══════════════════════════════════════
+   TOP TICKER BANNER
+══════════════════════════════════════ */
+.ticker {
+  background: var(--ikea-blue);
+  color: var(--ikea-yellow);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 9px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.ticker-inner {
+  display: inline-block;
+  animation: ticker-scroll 30s linear infinite;
+  padding-left: 100%;
+}
+.ticker-inner span { margin: 0 40px; }
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ══════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════ */
+.nav {
+  position: sticky;
+  top: 33px;
+  z-index: 199;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 3px solid var(--ikea-blue);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 58px;
+  box-shadow: 0 2px 20px rgba(0,48,135,0.08);
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.nav-logo-box {
+  width: 40px;
+  height: 40px;
+  background: var(--ikea-blue);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+/* Mini IKEA-style logo */
+.nav-logo-box::after {
+  content: 'FL';
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ikea-yellow);
+}
+.nav-logo-text {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ikea-blue);
+  letter-spacing: -0.01em;
+}
+.nav-logo-sub {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--seg-light-muted);
+}
+.nav-pills {
+  display: flex;
+  gap: 4px;
+}
+.nav-pill {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 20px;
+  color: var(--seg-light-muted);
+  background: none;
+  border: 1px solid var(--seg-light-rule);
+  cursor: pointer;
+  transition: all .2s;
+}
+.nav-pill:hover, .nav-pill.active {
+  background: var(--ikea-blue);
+  color: var(--ikea-yellow);
+  border-color: var(--ikea-blue);
+}
+.nav-issue {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--seg-light-muted);
+  background: var(--seg-light-bg2);
+  padding: 7px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--seg-light-rule);
+}
+
+/* ══════════════════════════════════════
+   SEGMENT WRAPPERS
+   Light / Dark / Blue / Cream sections
+══════════════════════════════════════ */
+.seg-light {
+  background: var(--seg-light-bg);
+  color: var(--seg-light-ink);
+}
+.seg-light-alt {
+  background: var(--seg-light-bg3);
+  color: var(--seg-light-ink);
+}
+.seg-dark {
+  background: var(--seg-dark-bg);
+  color: var(--seg-dark-ink);
+}
+.seg-dark-alt {
+  background: var(--seg-dark-bg3);
+  color: var(--seg-dark-ink);
+}
+.seg-blue {
+  background: var(--seg-blue-bg);
+  color: var(--seg-blue-ink);
+}
+.seg-cream {
+  background: var(--seg-cream-bg);
+  color: var(--seg-cream-ink);
+}
+
+/* ══════════════════════════════════════
+   HERO — Splits blue left, white right
+══════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* LEFT: deep blue panel */
+.hero-left {
+  background: var(--ikea-blue);
+  padding: 90px 60px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+/* Decorative circles */
+.hero-left::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  border: 60px solid rgba(255,218,26,0.1);
+  pointer-events: none;
+}
+.hero-left::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; left: -50px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  border: 40px solid rgba(255,255,255,0.05);
+  pointer-events: none;
+}
+.hero-series {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 1;
+  animation: rise 0.7s ease both;
+}
+.hero-series-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--ikea-yellow);
+  flex-shrink: 0;
+}
+.hero-series-text {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ikea-yellow);
+}
+.hero-h1 {
+  font-family: var(--serif);
+  font-size: clamp(40px, 5.5vw, 72px);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  color: #fff;
+  margin-bottom: 6px;
+  position: relative; z-index: 1;
+  animation: rise 0.7s 0.08s ease both;
+}
+.hero-h1-sub {
+  font-family: var(--serif);
+  font-size: clamp(18px, 2.5vw, 30px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ikea-yellow);
+  margin-bottom: 28px;
+  position: relative; z-index: 1;
+  animation: rise 0.7s 0.14s ease both;
+}
+.hero-desc {
+  font-size: 16px;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.7;
+  max-width: 480px;
+  margin-bottom: 40px;
+  font-weight: 300;
+  position: relative; z-index: 1;
+  animation: rise 0.7s 0.2s ease both;
+}
+.hero-desc strong { color: #fff; font-weight: 600; }
+
+.hero-kpi-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: rgba(255,255,255,0.12);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 32px;
+  position: relative; z-index: 1;
+  animation: rise 0.7s 0.26s ease both;
+}
+.hero-kpi-cell {
+  background: rgba(0,48,135,0.6);
+  padding: 16px 14px;
+  text-align: center;
+}
+.hero-kpi-val {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ikea-yellow);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.hero-kpi-lbl {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+
+.hero-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  position: relative; z-index: 1;
+  animation: rise 0.7s 0.3s ease both;
+}
+.hero-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.7);
+}
+.hero-tag.yellow {
+  background: rgba(255,218,26,0.15);
+  border-color: rgba(255,218,26,0.35);
+  color: var(--ikea-yellow);
+}
+
+/* RIGHT: cream/white photo panel */
+.hero-right {
+  background: var(--seg-cream-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 50px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-right::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 60% at 50% 30%, rgba(0,48,135,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+/* Grid texture */
+.hero-right::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,48,135,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,48,135,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* Founder photo frame */
+.founder-frame {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 28px;
+  text-align: center;
+}
+.founder-img-wrap {
+  width: 280px;
+  height: 320px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 24px 60px rgba(0,48,135,0.18);
+  border: 3px solid var(--ikea-blue);
+}
+.founder-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  filter: sepia(5%) contrast(1.05);
+  transition: transform .4s ease;
+}
+.founder-img-wrap:hover .founder-photo { transform: scale(1.04); }
+/* Yellow accent corner */
+.founder-img-corner {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 6px;
+  background: var(--ikea-yellow);
+}
+/* SVG fallback */
+.founder-svg-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: linear-gradient(160deg, var(--seg-light-bg3), #dce8f7);
+}
+.founder-badge {
+  position: absolute;
+  top: -14px; right: -14px;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--ikea-yellow);
+  border: 3px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ikea-blue);
+  text-align: center;
+  line-height: 1.2;
+  z-index: 3;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.founder-caption {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--seg-light-muted);
+  margin-top: 14px;
+  text-align: center;
+}
+.founder-years {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--seg-light-muted);
+  margin-top: 3px;
+  text-align: center;
+}
+
+/* IKEA Logo SVG in hero */
+.hero-ikea-logo {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  z-index: 3;
+}
+.ikea-logo-svg {
+  /* hand-drawn IKEA logo */
+}
+
+/* Quote float */
+.hero-quote-float {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  border-left: 4px solid var(--ikea-blue);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 16px 20px;
+  max-width: 320px;
+  box-shadow: 0 8px 30px rgba(0,48,135,0.1);
+}
+.hero-quote-text {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--seg-light-ink);
+  line-height: 1.55;
+  margin-bottom: 8px;
+}
+.hero-quote-by {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ikea-blue);
+}
+
+/* ══════════════════════════════════════
+   ARTICLE LAYOUT — TOC + BODY
+══════════════════════════════════════ */
+.article-layout {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+}
+
+/* TOC — white sidebar */
+.sidebar {
+  position: sticky;
+  top: 91px;
+  height: calc(100vh - 91px);
+  overflow-y: auto;
+  scrollbar-width: none;
+  background: #fff;
+  border-right: 1px solid var(--seg-light-rule);
+  padding: 36px 0;
+}
+.sidebar::-webkit-scrollbar { display: none; }
+
+.toc-section-label {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ikea-blue);
+  padding: 0 20px;
+  margin-bottom: 8px;
+  margin-top: 18px;
+  display: block;
+}
+.toc-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--seg-light-muted);
+  padding: 7px 20px 7px 18px;
+  border-left: 3px solid transparent;
+  background: none;
+  border-top: none; border-right: none; border-bottom: none;
+  cursor: pointer;
+  transition: all .2s;
+  line-height: 1.4;
+}
+.toc-item:hover { color: var(--ikea-blue); background: var(--seg-light-bg3); }
+.toc-item.active {
+  color: var(--ikea-blue);
+  border-left-color: var(--ikea-blue);
+  background: var(--ikea-yellow-pale);
+  font-weight: 600;
+}
+
+/* ══════════════════════════════════════
+   ARTICLE BODY
+══════════════════════════════════════ */
+.article-body { min-width: 0; }
+
+/* Each section block with alternating theme */
+.sec-block {
+  padding: 70px 60px;
+  scroll-margin-top: 96px;
+}
+/* Light sections */
+.sec-block.light  { background: var(--seg-light-bg);  color: var(--seg-light-ink); }
+.sec-block.light-alt { background: var(--seg-light-bg3); color: var(--seg-light-ink); }
+.sec-block.cream  { background: var(--seg-cream-bg);  color: var(--seg-cream-ink); }
+/* Dark sections */
+.sec-block.dark   { background: var(--seg-dark-bg);   color: var(--seg-dark-ink); }
+.sec-block.dark-alt { background: var(--seg-dark-bg3); color: var(--seg-dark-ink); }
+/* Blue sections */
+.sec-block.blue   { background: var(--ikea-blue);     color: #fff; }
+.sec-block.blue-mid { background: var(--ikea-blue-mid); color: #fff; }
+
+/* Section number */
+.sec-num {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.light .sec-num, .light-alt .sec-num, .cream .sec-num { color: var(--ikea-blue); }
+.dark .sec-num, .dark-alt .sec-num { color: var(--ikea-yellow); }
+.blue .sec-num, .blue-mid .sec-num { color: var(--ikea-yellow); }
+
+/* Section title */
+.sec-title {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3.5vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  display: inline-block;
+}
+.light .sec-title, .light-alt .sec-title, .cream .sec-title {
+  border-bottom: 3px solid var(--ikea-blue);
+  color: var(--seg-light-ink);
+}
+.dark .sec-title, .dark-alt .sec-title {
+  border-bottom: 3px solid var(--ikea-yellow);
+  color: var(--seg-dark-ink);
+}
+.blue .sec-title, .blue-mid .sec-title {
+  border-bottom: 3px solid var(--ikea-yellow);
+  color: #fff;
+}
+.sec-title em {
+  font-style: italic;
+}
+.light .sec-title em, .light-alt .sec-title em, .cream .sec-title em { color: var(--ikea-blue-lt); }
+.dark .sec-title em, .dark-alt .sec-title em { color: var(--ikea-yellow); }
+.blue .sec-title em, .blue-mid .sec-title em { color: var(--ikea-yellow); }
+
+.subsec-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 40px;
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+.light .subsec-title, .light-alt .subsec-title, .cream .subsec-title { color: var(--seg-light-ink); }
+.dark .subsec-title, .dark-alt .subsec-title { color: var(--seg-dark-ink); }
+.blue .subsec-title, .blue-mid .subsec-title { color: #fff; }
+
+/* ── BODY TEXT ── */
+.lead {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+}
+.light .lead, .light-alt .lead, .cream .lead {
+  color: var(--seg-light-mid);
+  border-bottom: 1px solid var(--seg-light-rule);
+}
+.dark .lead, .dark-alt .lead {
+  color: var(--seg-dark-mid);
+  border-bottom: 1px solid var(--seg-dark-rule);
+}
+.blue .lead, .blue-mid .lead {
+  color: var(--seg-blue-mid);
+  border-bottom: 1px solid var(--seg-blue-rule);
+}
+
+p.body-p {
+  font-size: 16px;
+  line-height: 1.82;
+  margin-bottom: 18px;
+  font-weight: 300;
+}
+p.body-p:last-child { margin-bottom: 0; }
+.light p.body-p, .light-alt p.body-p, .cream p.body-p { color: var(--seg-light-mid); }
+.dark p.body-p, .dark-alt p.body-p { color: var(--seg-dark-mid); }
+.blue p.body-p, .blue-mid p.body-p { color: var(--seg-blue-mid); }
+
+p.body-p strong, .subsec-title strong {
+  font-weight: 600;
+}
+.light p.body-p strong, .light-alt p.body-p strong, .cream p.body-p strong { color: var(--seg-light-ink); }
+.dark p.body-p strong, .dark-alt p.body-p strong { color: var(--seg-dark-ink); }
+.blue p.body-p strong, .blue-mid p.body-p strong { color: #fff; }
+
+mark {
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+.light mark, .light-alt mark, .cream mark {
+  background: var(--ikea-yellow-pale);
+  color: var(--ikea-blue);
+}
+.dark mark, .dark-alt mark {
+  background: rgba(255,218,26,0.15);
+  color: var(--ikea-yellow);
+}
+
+/* ── PULL QUOTE ── */
+.pq {
+  margin: 36px 0;
+  padding: 26px 32px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.light .pq, .light-alt .pq, .cream .pq {
+  border-left: 4px solid var(--ikea-blue);
+  background: var(--seg-light-bg3);
+}
+.dark .pq, .dark-alt .pq {
+  border-left: 4px solid var(--ikea-yellow);
+  background: rgba(255,218,26,0.06);
+}
+.blue .pq, .blue-mid .pq {
+  border-left: 4px solid var(--ikea-yellow);
+  background: rgba(255,255,255,0.08);
+}
+.pq blockquote {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-style: italic;
+  line-height: 1.55;
+  margin-bottom: 10px;
+}
+.light .pq blockquote, .light-alt .pq blockquote, .cream .pq blockquote { color: var(--seg-light-ink); }
+.dark .pq blockquote, .dark-alt .pq blockquote { color: var(--seg-dark-ink); }
+.blue .pq blockquote, .blue-mid .pq blockquote { color: #fff; }
+.pq cite {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-style: normal;
+}
+.light .pq cite, .light-alt .pq cite, .cream .pq cite { color: var(--ikea-blue); }
+.dark .pq cite, .dark-alt .pq cite { color: var(--ikea-yellow); }
+.blue .pq cite, .blue-mid .pq cite { color: var(--ikea-yellow); }
+
+/* ── CALLOUT BOXES ── */
+.callout {
+  margin: 28px 0;
+  padding: 22px 26px;
+  border-radius: var(--radius);
+}
+.callout-blue {
+  background: #eef2f8;
+  border-left: 3px solid var(--ikea-blue);
+}
+.callout-yellow {
+  background: var(--ikea-yellow-pale);
+  border-left: 3px solid var(--ikea-yellow-dk);
+}
+.callout-warning {
+  background: #fef2f2;
+  border-left: 3px solid #dc2626;
+}
+.callout-green {
+  background: #f0fdf4;
+  border-left: 3px solid #16a34a;
+}
+/* Dark-segment callouts */
+.dark .callout-blue, .dark-alt .callout-blue {
+  background: rgba(26,110,207,0.12);
+  border-left-color: var(--ikea-blue-lt);
+}
+.dark .callout-yellow, .dark-alt .callout-yellow {
+  background: rgba(255,218,26,0.08);
+  border-left-color: var(--ikea-yellow);
+}
+.dark .callout-warning, .dark-alt .callout-warning {
+  background: rgba(220,38,38,0.1);
+  border-left-color: #f87171;
+}
+.blue .callout-yellow, .blue-mid .callout-yellow {
+  background: rgba(255,218,26,0.12);
+  border-left-color: var(--ikea-yellow);
+}
+
+.callout-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.callout-blue .callout-label, .light .callout-blue .callout-label { color: var(--ikea-blue); }
+.callout-yellow .callout-label { color: #9a7100; }
+.callout-warning .callout-label { color: #dc2626; }
+.callout-green .callout-label { color: #16a34a; }
+.dark .callout-yellow .callout-label, .dark-alt .callout-yellow .callout-label { color: var(--ikea-yellow); }
+.dark .callout-blue .callout-label, .dark-alt .callout-blue .callout-label { color: #7eb3f5; }
+.dark .callout-warning .callout-label, .dark-alt .callout-warning .callout-label { color: #f87171; }
+.blue .callout-yellow .callout-label, .blue-mid .callout-yellow .callout-label { color: var(--ikea-yellow); }
+
+.callout p {
+  font-size: 14px;
+  line-height: 1.65;
+  margin-bottom: 6px;
+  font-weight: 300;
+}
+.callout p:last-child { margin-bottom: 0; }
+.light .callout p, .light-alt .callout p, .cream .callout p { color: var(--seg-light-mid); }
+.dark .callout p, .dark-alt .callout p { color: var(--seg-dark-mid); }
+.blue .callout p, .blue-mid .callout p { color: var(--seg-blue-mid); }
+.callout p strong {
+  font-weight: 600;
+}
+.light .callout p strong, .light-alt .callout p strong { color: var(--seg-light-ink); }
+.dark .callout p strong, .dark-alt .callout p strong { color: #fff; }
+
+/* ── BULLET LIST ── */
+ul.blist { list-style: none; margin: 18px 0; }
+ul.blist li {
+  padding: 11px 0 11px 26px;
+  position: relative;
+  border-bottom: 1px solid;
+  font-size: 15px;
+  line-height: 1.65;
+  font-weight: 300;
+}
+ul.blist li:last-child { border-bottom: none; }
+ul.blist li::before {
+  content: '→';
+  position: absolute; left: 0;
+  font-weight: 700;
+}
+.light ul.blist li, .light-alt ul.blist li, .cream ul.blist li {
+  border-bottom-color: var(--seg-light-rule);
+  color: var(--seg-light-mid);
+}
+.light ul.blist li::before, .light-alt ul.blist li::before, .cream ul.blist li::before { color: var(--ikea-blue); }
+.dark ul.blist li, .dark-alt ul.blist li {
+  border-bottom-color: var(--seg-dark-rule);
+  color: var(--seg-dark-mid);
+}
+.dark ul.blist li::before, .dark-alt ul.blist li::before { color: var(--ikea-yellow); }
+.blue ul.blist li, .blue-mid ul.blist li {
+  border-bottom-color: var(--seg-blue-rule);
+  color: var(--seg-blue-mid);
+}
+.blue ul.blist li::before, .blue-mid ul.blist li::before { color: var(--ikea-yellow); }
+ul.blist li strong { font-weight: 600; }
+.light ul.blist li strong, .light-alt ul.blist li strong, .cream ul.blist li strong { color: var(--seg-light-ink); }
+.dark ul.blist li strong, .dark-alt ul.blist li strong { color: var(--seg-dark-ink); }
+.blue ul.blist li strong, .blue-mid ul.blist li strong { color: #fff; }
+
+/* ── STATS STRIP ── */
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 2px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 28px 0;
+}
+.stat-card {
+  padding: 18px 14px;
+  text-align: center;
+}
+.light .stat-card, .light-alt .stat-card, .cream .stat-card {
+  background: var(--ikea-blue);
+}
+.dark .stat-card, .dark-alt .stat-card {
+  background: var(--seg-dark-bg3);
+  border: 1px solid var(--seg-dark-rule);
+}
+.blue .stat-card, .blue-mid .stat-card {
+  background: rgba(255,255,255,0.1);
+}
+.stat-val {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ikea-yellow);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.dark .stat-val, .dark-alt .stat-val { color: var(--ikea-yellow); }
+.stat-lbl {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.light .stat-lbl, .light-alt .stat-lbl, .cream .stat-lbl { color: rgba(255,255,255,0.6); }
+.dark .stat-lbl, .dark-alt .stat-lbl { color: var(--seg-dark-muted); }
+.blue .stat-lbl, .blue-mid .stat-lbl { color: rgba(255,255,255,0.55); }
+
+/* ── INFO ROWS ── */
+.info-rows { margin: 20px 0; }
+.info-row {
+  display: flex; gap: 20px;
+  padding: 12px 0;
+  border-bottom: 1px solid;
+  font-size: 15px;
+  align-items: flex-start;
+}
+.light .info-row, .light-alt .info-row, .cream .info-row { border-bottom-color: var(--seg-light-rule); }
+.dark .info-row, .dark-alt .info-row { border-bottom-color: var(--seg-dark-rule); }
+.blue .info-row, .blue-mid .info-row { border-bottom-color: var(--seg-blue-rule); }
+.info-row:last-child { border-bottom: none; }
+.info-key {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  width: 140px;
+  padding-top: 3px;
+  font-weight: 500;
+}
+.light .info-key, .light-alt .info-key, .cream .info-key { color: var(--ikea-blue); }
+.dark .info-key, .dark-alt .info-key { color: var(--ikea-yellow); }
+.blue .info-key, .blue-mid .info-key { color: var(--ikea-yellow); }
+.info-val { line-height: 1.6; font-weight: 300; }
+.light .info-val, .light-alt .info-val, .cream .info-val { color: var(--seg-light-mid); }
+.dark .info-val, .dark-alt .info-val { color: var(--seg-dark-mid); }
+.blue .info-val, .blue-mid .info-val { color: var(--seg-blue-mid); }
+.info-val strong { font-weight: 600; }
+.light .info-val strong, .light-alt .info-val strong, .cream .info-val strong { color: var(--seg-light-ink); }
+.dark .info-val strong, .dark-alt .info-val strong { color: #fff; }
+
+/* ── TIMELINE ── */
+.timeline { margin: 28px 0; }
+.tl-item {
+  display: flex; gap: 18px;
+  padding-bottom: 24px; position: relative;
+}
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: 27px; top: 54px; bottom: 0;
+  width: 1px;
+}
+.light .tl-item::before, .light-alt .tl-item::before, .cream .tl-item::before { background: var(--seg-light-rule); }
+.dark .tl-item::before, .dark-alt .tl-item::before { background: var(--seg-dark-rule); }
+.blue .tl-item::before, .blue-mid .tl-item::before { background: var(--seg-blue-rule); }
+.tl-item:last-child::before { display: none; }
+.tl-dot {
+  flex-shrink: 0;
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center; justify-content: center;
+  text-align: center;
+  font-family: var(--serif);
+  font-size: 11px; font-weight: 700;
+  line-height: 1.2;
+}
+.light .tl-dot, .light-alt .tl-dot, .cream .tl-dot {
+  background: var(--ikea-blue);
+  color: var(--ikea-yellow);
+}
+.dark .tl-dot, .dark-alt .tl-dot {
+  background: var(--seg-dark-bg3);
+  border: 1px solid var(--seg-dark-rule);
+  color: var(--ikea-yellow);
+}
+.blue .tl-dot, .blue-mid .tl-dot {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--ikea-yellow);
+}
+.tl-content { flex: 1; padding-top: 10px; }
+.tl-content strong {
+  display: block; font-size: 15px; font-weight: 600;
+  margin-bottom: 4px;
+}
+.light .tl-content strong, .light-alt .tl-content strong, .cream .tl-content strong { color: var(--seg-light-ink); }
+.dark .tl-content strong, .dark-alt .tl-content strong { color: var(--seg-dark-ink); }
+.blue .tl-content strong, .blue-mid .tl-content strong { color: #fff; }
+.tl-content p { font-size: 13px; margin: 0; line-height: 1.55; }
+.light .tl-content p, .light-alt .tl-content p, .cream .tl-content p { color: var(--seg-light-muted); }
+.dark .tl-content p, .dark-alt .tl-content p { color: var(--seg-dark-muted); }
+.blue .tl-content p, .blue-mid .tl-content p { color: var(--seg-blue-muted); }
+
+/* ── QUOTES GRID ── */
+.quotes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px; margin: 24px 0;
+}
+.qcard {
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  transition: transform .2s;
+}
+.qcard:hover { transform: translateY(-3px); }
+.light .qcard, .light-alt .qcard, .cream .qcard {
+  background: var(--ikea-blue);
+}
+.dark .qcard, .dark-alt .qcard {
+  background: var(--seg-dark-bg3);
+  border: 1px solid var(--seg-dark-rule);
+}
+.blue .qcard, .blue-mid .qcard {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.qnum {
+  font-family: var(--serif);
+  font-size: 44px; font-weight: 700;
+  color: rgba(255,218,26,0.18);
+  line-height: 1; margin-bottom: -8px;
+}
+.qtext {
+  font-family: var(--serif);
+  font-size: 14.5px; font-style: italic;
+  color: rgba(255,255,255,0.82);
+  line-height: 1.6; margin-bottom: 12px;
+}
+.dark .qtext, .dark-alt .qtext { color: var(--seg-dark-mid); }
+.qmeta {
+  font-family: var(--mono);
+  font-size: 9px; letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ikea-yellow);
+}
+
+/* ── SUMMARY TABLE ── */
+.sum-table {
+  width: 100%; border-collapse: collapse;
+  margin: 24px 0; font-size: 14px;
+  border-radius: var(--radius); overflow: hidden;
+  border: 1px solid;
+}
+.light .sum-table, .light-alt .sum-table, .cream .sum-table { border-color: var(--seg-light-rule); }
+.dark .sum-table, .dark-alt .sum-table { border-color: var(--seg-dark-rule); }
+.sum-table th {
+  padding: 12px 16px; text-align: left;
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700;
+}
+.light .sum-table th, .light-alt .sum-table th, .cream .sum-table th {
+  background: var(--ikea-blue); color: var(--ikea-yellow);
+}
+.dark .sum-table th, .dark-alt .sum-table th {
+  background: var(--seg-dark-bg3); color: var(--ikea-yellow);
+}
+.sum-table td {
+  padding: 13px 16px; vertical-align: top;
+  line-height: 1.55; border-bottom: 1px solid;
+}
+.light .sum-table td, .light-alt .sum-table td, .cream .sum-table td {
+  border-bottom-color: var(--seg-light-rule); color: var(--seg-light-mid);
+}
+.dark .sum-table td, .dark-alt .sum-table td {
+  border-bottom-color: var(--seg-dark-rule); color: var(--seg-dark-mid);
+}
+.sum-table td:first-child {
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  white-space: nowrap; width: 28%; font-weight: 700;
+}
+.light .sum-table td:first-child, .light-alt .sum-table td:first-child, .cream .sum-table td:first-child { color: var(--ikea-blue); }
+.dark .sum-table td:first-child, .dark-alt .sum-table td:first-child { color: var(--ikea-yellow); }
+.sum-table tr:last-child td { border-bottom: none; }
+.light .sum-table tr:nth-child(even) td { background: var(--seg-light-bg3); }
+.dark .sum-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+/* ── QUICK REVISION ── */
+.revision {
+  border-radius: var(--radius-lg);
+  padding: 36px 32px; margin: 32px 0;
+}
+.light .revision, .light-alt .revision { background: var(--seg-light-bg3); border: 1px solid var(--seg-light-rule); }
+.dark .revision, .dark-alt .revision { background: var(--seg-dark-bg3); border: 1px solid var(--seg-dark-rule); }
+.blue .revision, .blue-mid .revision { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); }
+.revision h3 {
+  font-family: var(--serif); font-size: 22px; font-weight: 700;
+  margin-bottom: 24px; padding-bottom: 14px;
+}
+.light .revision h3, .light-alt .revision h3 { color: var(--ikea-blue); border-bottom: 1px solid var(--seg-light-rule); }
+.dark .revision h3, .dark-alt .revision h3 { color: var(--ikea-yellow); border-bottom: 1px solid var(--seg-dark-rule); }
+.blue .revision h3, .blue-mid .revision h3 { color: var(--ikea-yellow); border-bottom: 1px solid rgba(255,255,255,0.15); }
+.qr-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.qr-item { padding: 12px 14px; border-bottom: 1px solid; border-right: 1px solid; }
+.qr-item:nth-child(2n) { border-right: none; }
+.light .qr-item, .light-alt .qr-item { border-color: var(--seg-light-rule); }
+.dark .qr-item, .dark-alt .qr-item { border-color: var(--seg-dark-rule); }
+.blue .qr-item, .blue-mid .qr-item { border-color: rgba(255,255,255,0.12); }
+.qr-label {
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.light .qr-label, .light-alt .qr-label, .cream .qr-label { color: var(--ikea-blue); }
+.dark .qr-label, .dark-alt .qr-label { color: var(--ikea-yellow); }
+.blue .qr-label, .blue-mid .qr-label { color: var(--ikea-yellow); }
+.qr-val { font-size: 13px; line-height: 1.5; font-weight: 300; }
+.light .qr-val, .light-alt .qr-val, .cream .qr-val { color: var(--seg-light-mid); }
+.dark .qr-val, .dark-alt .qr-val { color: var(--seg-dark-mid); }
+.blue .qr-val, .blue-mid .qr-val { color: var(--seg-blue-mid); }
+
+/* ── FINAL ANSWER BOX ── */
+.final-box {
+  border-radius: var(--radius-lg);
+  padding: 36px 32px; margin: 32px 0;
+  border-left: 6px solid var(--ikea-yellow);
+}
+.light .final-box, .light-alt .final-box { background: var(--seg-light-bg3); }
+.dark .final-box, .dark-alt .final-box { background: var(--seg-dark-bg3); }
+.blue .final-box, .blue-mid .final-box { background: rgba(255,255,255,0.08); }
+.final-box h3 {
+  font-family: var(--serif); font-size: 20px;
+  font-style: italic; font-weight: 400;
+  margin-bottom: 20px; line-height: 1.4;
+}
+.light .final-box h3, .light-alt .final-box h3 { color: var(--ikea-blue); }
+.dark .final-box h3, .dark-alt .final-box h3 { color: var(--ikea-yellow); }
+.blue .final-box h3, .blue-mid .final-box h3 { color: var(--ikea-yellow); }
+.final-box p { font-size: 15px; line-height: 1.75; margin-bottom: 14px; font-weight: 300; }
+.light .final-box p, .light-alt .final-box p { color: var(--seg-light-mid); }
+.dark .final-box p, .dark-alt .final-box p { color: var(--seg-dark-mid); }
+.blue .final-box p, .blue-mid .final-box p { color: var(--seg-blue-mid); }
+.final-box p strong { font-weight: 600; color: var(--ikea-yellow-dk); }
+.dark .final-box p strong, .dark-alt .final-box p strong { color: var(--ikea-yellow); }
+.blue .final-box p strong, .blue-mid .final-box p strong { color: var(--ikea-yellow); }
+.final-box .note { font-style: italic; font-size: 14px; margin-top: 20px; padding-top: 18px; border-top: 1px solid; }
+.light .final-box .note { border-color: var(--seg-light-rule); color: var(--seg-light-muted); }
+.dark .final-box .note { border-color: var(--seg-dark-rule); color: var(--seg-dark-muted); }
+.blue .final-box .note { border-color: var(--seg-blue-rule); color: var(--seg-blue-muted); }
+
+/* ── INLINE IMAGE ── */
+.inline-img-wrap {
+  float: right;
+  width: 220px;
+  margin: 0 0 20px 28px;
+}
+.inline-img {
+  width: 100%;
+  border-radius: var(--radius);
+  display: block;
+  object-fit: cover;
+}
+.light .inline-img, .light-alt .inline-img, .cream .inline-img {
+  border: 2px solid var(--seg-light-rule);
+  box-shadow: 0 8px 24px rgba(0,48,135,0.1);
+}
+.dark .inline-img, .dark-alt .inline-img {
+  border: 2px solid var(--seg-dark-rule);
+}
+.inline-img-cap {
+  font-family: var(--mono);
+  font-size: 9px; letter-spacing: 0.12em;
+  text-transform: uppercase; text-align: center;
+  padding: 8px 10px;
+  border-radius: 0 0 var(--radius) var(--radius);
+  margin-top: -2px;
+}
+.light .inline-img-cap, .light-alt .inline-img-cap, .cream .inline-img-cap {
+  background: var(--seg-light-bg3);
+  color: var(--seg-light-muted);
+  border: 2px solid var(--seg-light-rule);
+  border-top: none;
+}
+.dark .inline-img-cap, .dark-alt .inline-img-cap {
+  background: var(--seg-dark-bg3);
+  color: var(--seg-dark-muted);
+  border: 2px solid var(--seg-dark-rule);
+  border-top: none;
+}
+.clearfix::after { content: ''; display: table; clear: both; }
+
+/* ── FRUGALITY SHOWCASE ── */
+.frugal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px; margin: 24px 0;
+}
+.frugal-card {
+  border-radius: var(--radius);
+  padding: 20px 18px; text-align: center;
+}
+.light .frugal-card, .light-alt .frugal-card { background: #fff; border: 1px solid var(--seg-light-rule); }
+.dark .frugal-card, .dark-alt .frugal-card { background: var(--seg-dark-bg3); border: 1px solid var(--seg-dark-rule); }
+.blue .frugal-card, .blue-mid .frugal-card { background: rgba(255,255,255,0.1); }
+.frugal-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+.frugal-title {
+  font-family: var(--serif); font-size: 16px; font-weight: 700;
+  margin-bottom: 6px;
+}
+.light .frugal-title, .light-alt .frugal-title { color: var(--seg-light-ink); }
+.dark .frugal-title, .dark-alt .frugal-title { color: var(--seg-dark-ink); }
+.blue .frugal-title, .blue-mid .frugal-title { color: #fff; }
+.frugal-desc { font-size: 13px; line-height: 1.55; font-weight: 300; }
+.light .frugal-desc, .light-alt .frugal-desc { color: var(--seg-light-muted); }
+.dark .frugal-desc, .dark-alt .frugal-desc { color: var(--seg-dark-muted); }
+.blue .frugal-desc, .blue-mid .frugal-desc { color: var(--seg-blue-muted); }
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+.footer {
+  background: var(--ikea-blue);
+  color: rgba(255,255,255,0.7);
+  padding: 50px 60px 36px;
+}
+.footer-inner {
+  max-width: 1200px; margin: 0 auto;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 36px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+.footer-brand {
+  font-family: var(--serif);
+  font-size: 22px; font-weight: 700;
+  color: #fff;
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 10px;
+}
+.footer-brand-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--ikea-yellow);
+  flex-shrink: 0;
+}
+.footer-desc { font-size: 13px; line-height: 1.65; font-weight: 300; }
+.footer-col-title {
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ikea-yellow); margin-bottom: 14px;
+}
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: 8px; }
+.footer-links a {
+  font-size: 13px; color: rgba(255,255,255,0.65);
+  text-decoration: none; transition: color .2s;
+}
+.footer-links a:hover { color: var(--ikea-yellow); }
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; gap: 12px;
+}
+.footer-copy {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.1em; color: rgba(255,255,255,0.4);
+}
+.footer-copy span { color: var(--ikea-yellow); }
+.footer-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.footer-tag {
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.45);
+}
+
+/* ══════════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════════ */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-left { padding: 80px 24px 50px; }
+  .hero-right { padding: 40px 24px; height: auto; min-height: 360px; }
+  .article-layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .sec-block { padding: 50px 24px; }
+  .nav { padding: 0 20px; }
+  .nav-pills { display: none; }
+  .footer { padding: 40px 24px 28px; }
+  .footer-top { grid-template-columns: 1fr; gap: 24px; }
+  .inline-img-wrap { float: none; width: 100%; margin: 0 0 20px; }
+  .sum-table td:first-child { white-space: normal; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════ TICKER ════ -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>FounderLens · Issue #03</span>
+    <span>Ingvar Kamprad · IKEA Founder · 1926 – 2018</span>
+    <span>€45.1 Billion Revenue FY2024</span>
+    <span>500+ Stores · 63 Countries</span>
+    <span>The Man Who Democratised Good Design</span>
+    <span>Flat-Pack Revolution · Swedish Entrepreneurship</span>
+    <span>FounderLens · Issue #03</span>
+    <span>Ingvar Kamprad · IKEA Founder · 1926 – 2018</span>
+    <span>€45.1 Billion Revenue FY2024</span>
+    <span>500+ Stores · 63 Countries</span>
+    <span>The Man Who Democratised Good Design</span>
+    <span>Flat-Pack Revolution · Swedish Entrepreneurship</span>
+  </div>
+</div>
+
+<!-- ════ NAV ════ -->
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-box"></div>
+    <div>
+      <div class="nav-logo-text">FounderLens</div>
+      <div class="nav-logo-sub">Founder Analysis Series</div>
+    </div>
+  </div>
+  <div class="nav-pills">
+    <button class="nav-pill active" onclick="scrollTop()">Overview</button>
+    <button class="nav-pill" onclick="scrollTo2('sec-background')">Background</button>
+    <button class="nav-pill" onclick="scrollTo2('sec-flatpack')">Flat-Pack</button>
+    <button class="nav-pill" onclick="scrollTo2('sec-strategy')">Strategy</button>
+    <button class="nav-pill" onclick="scrollTo2('sec-lessons')">Lessons</button>
+    <button class="nav-pill" onclick="scrollTo2('sec-quotes')">Quotes</button>
+  </div>
+  <div class="nav-issue">Issue #03 · Retail &amp; Design</div>
+</nav>
+
+<!-- ════ HERO ════ -->
+<section class="hero">
+  <!-- LEFT: Blue panel -->
+  <div class="hero-left">
+    <div class="hero-series">
+      <span class="hero-series-dot"></span>
+      <span class="hero-series-text">Founder Deep-Dive · Issue #03</span>
+    </div>
+
+    <h1 class="hero-h1">Ingvar<br>Kamprad</h1>
+    <div class="hero-h1-sub">The Farm Boy Who Furnished the World</div>
+
+    <p class="hero-desc">
+      From selling matches to neighbours at age 5, to building the world's largest furniture retailer — the story of how a dyslexic Swedish farm boy with <strong>₹0 in venture capital</strong> created a global empire built on a single radical idea: that <strong>beautiful design should be affordable for everyone.</strong>
+    </p>
+
+    <div class="hero-kpi-row">
+      <div class="hero-kpi-cell">
+        <div class="hero-kpi-val">€45.1B</div>
+        <div class="hero-kpi-lbl">FY24 Revenue</div>
+      </div>
+      <div class="hero-kpi-cell">
+        <div class="hero-kpi-val">500+</div>
+        <div class="hero-kpi-lbl">Global Stores</div>
+      </div>
+      <div class="hero-kpi-cell">
+        <div class="hero-kpi-val">63</div>
+        <div class="hero-kpi-lbl">Countries</div>
+      </div>
+      <div class="hero-kpi-cell">
+        <div class="hero-kpi-val">1943</div>
+        <div class="hero-kpi-lbl">Founded Age 17</div>
+      </div>
+      <div class="hero-kpi-cell">
+        <div class="hero-kpi-val">775M+</div>
+        <div class="hero-kpi-lbl">Annual Visitors</div>
+      </div>
+      <div class="hero-kpi-cell">
+        <div class="hero-kpi-val">$58.7B</div>
+        <div class="hero-kpi-lbl">Peak Net Worth</div>
+      </div>
+    </div>
+
+    <div class="hero-tags">
+      <span class="hero-tag yellow">Retail Revolution</span>
+      <span class="hero-tag yellow">Flat-Pack</span>
+      <span class="hero-tag">Bootstrapped</span>
+      <span class="hero-tag">Democratic Design</span>
+      <span class="hero-tag">Swedish Frugality</span>
+      <span class="hero-tag">Supply Chain</span>
+    </div>
+  </div>
+
+  <!-- RIGHT: Cream panel with photo -->
+  <div class="hero-right">
+    <div class="founder-frame">
+      <div class="founder-img-wrap">
+        <img
+          class="founder-photo"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Ingvar_Kamprad_2012.jpg/400px-Ingvar_Kamprad_2012.jpg"
+          alt="Ingvar Kamprad — IKEA Founder"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          loading="eager"
+        >
+        <div class="founder-svg-fallback" style="display:none;">
+          <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="38" r="26" fill="rgba(0,48,135,0.18)"/>
+            <ellipse cx="50" cy="88" rx="38" ry="20" fill="rgba(0,48,135,0.12)"/>
+          </svg>
+          <span style="font-family:'Libre Baskerville',serif;font-size:32px;font-weight:700;color:var(--ikea-blue);margin-top:8px;">I.K.</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.14em;color:var(--ikea-blue);text-transform:uppercase;margin-top:4px;">Ingvar Kamprad</span>
+        </div>
+        <div class="founder-img-corner"></div>
+        <div class="founder-badge">IKEA<br>Founder</div>
+      </div>
+      <div class="founder-caption">Ingvar Feodor Kamprad</div>
+      <div class="founder-years">30 March 1926 — 27 January 2018</div>
+    </div>
+
+    <!-- IKEA Logo SVG -->
+    <svg width="140" height="70" viewBox="0 0 280 130" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:20px;" aria-label="IKEA Logo">
+      <rect width="280" height="130" rx="12" fill="#0051A8"/>
+      <rect x="8" y="8" width="264" height="114" rx="8" fill="#FFDA1A"/>
+      <rect x="16" y="16" width="248" height="98" rx="6" fill="#0051A8"/>
+      <text x="140" y="83" font-family="'Libre Baskerville', serif" font-size="62" font-weight="700" text-anchor="middle" fill="#FFDA1A" letter-spacing="4">IKEA</text>
+    </svg>
+
+    <div class="hero-quote-float">
+      <div class="hero-quote-text">"To design a desk which may cost $1,000 is easy for a furniture designer. But to design a functional and good desk which shall cost $50 can only be done by the very best."</div>
+      <div class="hero-quote-by">— Ingvar Kamprad</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ ARTICLE LAYOUT ════ -->
+<div class="article-layout">
+
+  <!-- SIDEBAR TOC -->
+  <nav class="sidebar">
+    <span class="toc-section-label">Identity</span>
+    <button class="toc-item active" onclick="scrollTo2('sec-identity')">01 · Founder & Company</button>
+    <button class="toc-item" onclick="scrollTo2('sec-background')">02 · Background</button>
+
+    <span class="toc-section-label">The Business</span>
+    <button class="toc-item" onclick="scrollTo2('sec-problem')">03 · Problem Solved</button>
+    <button class="toc-item" onclick="scrollTo2('sec-opportunity')">04 · Opportunity</button>
+    <button class="toc-item" onclick="scrollTo2('sec-revenue')">05 · Revenue Model</button>
+    <button class="toc-item" onclick="scrollTo2('sec-flatpack')">06 · Flat-Pack Revolution</button>
+
+    <span class="toc-section-label">Execution</span>
+    <button class="toc-item" onclick="scrollTo2('sec-struggles')">07 · Initial Struggles</button>
+    <button class="toc-item" onclick="scrollTo2('sec-strategy')">08 · Growth Strategy</button>
+    <button class="toc-item" onclick="scrollTo2('sec-marketing')">09 · Marketing</button>
+    <button class="toc-item" onclick="scrollTo2('sec-product')">10 · Product Strategy</button>
+    <button class="toc-item" onclick="scrollTo2('sec-funding')">11 · Funding Journey</button>
+
+    <span class="toc-section-label">Character</span>
+    <button class="toc-item" onclick="scrollTo2('sec-frugality')">12 · Legendary Frugality</button>
+    <button class="toc-item" onclick="scrollTo2('sec-mistakes')">13 · Mistakes</button>
+    <button class="toc-item" onclick="scrollTo2('sec-strengths')">14 · Strengths</button>
+    <button class="toc-item" onclick="scrollTo2('sec-leadership')">15 · Leadership</button>
+
+    <span class="toc-section-label">Insight</span>
+    <button class="toc-item" onclick="scrollTo2('sec-decisions')">16 · Smart Decisions</button>
+    <button class="toc-item" onclick="scrollTo2('sec-moat')">17 · Competitive Edge</button>
+    <button class="toc-item" onclick="scrollTo2('sec-controversies')">18 · Controversies</button>
+    <button class="toc-item" onclick="scrollTo2('sec-lessons')">19 · Key Lessons</button>
+    <button class="toc-item" onclick="scrollTo2('sec-quotes')">20 · 10 Quotes</button>
+
+    <span class="toc-section-label">Summary</span>
+    <button class="toc-item" onclick="scrollTo2('sec-summary')">21 · Final Summary</button>
+    <button class="toc-item" onclick="scrollTo2('sec-revision')">22 · Quick Revision</button>
+    <button class="toc-item" onclick="scrollTo2('sec-table')">23 · Strategy Table</button>
+    <button class="toc-item" onclick="scrollTo2('sec-final')">24 · If Starting Over</button>
+  </nav>
+
+  <!-- ARTICLE BODY -->
+  <div class="article-body">
+
+    <!-- ── 01: IDENTITY — LIGHT ── -->
+    <div class="sec-block light reveal" id="sec-identity">
+      <div class="sec-num">01 — Who He Was</div>
+      <h2 class="sec-title">Founder &amp; <em>Company</em></h2>
+
+      <div class="info-rows">
+        <div class="info-row"><div class="info-key">Founder</div><div class="info-val"><strong>Ingvar Feodor Kamprad</strong></div></div>
+        <div class="info-row"><div class="info-key">Born</div><div class="info-val">March 30, 1926 · Pjätteryd (Småland), Sweden</div></div>
+        <div class="info-row"><div class="info-key">Died</div><div class="info-val">January 27, 2018 · Älmhult, Sweden · Age 91</div></div>
+        <div class="info-row"><div class="info-key">Company</div><div class="info-val"><strong>IKEA</strong> — world's largest furniture retailer</div></div>
+        <div class="info-row"><div class="info-key">Name Meaning</div><div class="info-val"><mark>I</mark>ngvar <mark>K</mark>amprad · <mark>E</mark>lmtaryd (family farm) · <mark>A</mark>gunnaryd (nearby village)</div></div>
+        <div class="info-row"><div class="info-key">Founded</div><div class="info-val">1943 — when Ingvar was just 17 years old</div></div>
+        <div class="info-row"><div class="info-key">First Product</div><div class="info-val">Mail-order business: pens, picture frames, nylon stockings — not furniture!</div></div>
+        <div class="info-row"><div class="info-key">Furniture Entry</div><div class="info-val">1948 — added furniture; became furniture-only by 1951</div></div>
+        <div class="info-row"><div class="info-key">First Store</div><div class="info-val">1958 — Älmhult, Sweden. Still operational today.</div></div>
+        <div class="info-row"><div class="info-key">HQ</div><div class="info-val">Delft, Netherlands (holding company) | Älmhult, Sweden (design & operations)</div></div>
+        <div class="info-row"><div class="info-key">FY24 Revenue</div><div class="info-val"><strong>€45.1 Billion</strong> (500+ stores, 63 countries, 775M+ annual visitors)</div></div>
+        <div class="info-row"><div class="info-key">Peak Net Worth</div><div class="info-val">$58.7 Billion — once ranked world's 8th richest person</div></div>
+      </div>
+    </div>
+
+    <!-- ── 02: BACKGROUND — CREAM ── -->
+    <div class="sec-block cream reveal" id="sec-background">
+      <div class="sec-num">02 — The Origin Story</div>
+      <h2 class="sec-title">Background of the <em>Founder</em></h2>
+
+      <div class="inline-img-wrap">
+        <img
+          class="inline-img"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Ingvar_Kamprad_2012.jpg/300px-Ingvar_Kamprad_2012.jpg"
+          alt="Ingvar Kamprad"
+          onerror="this.parentNode.style.display='none';"
+          loading="lazy"
+        >
+        <div class="inline-img-cap">Kamprad · Småland's Most Famous Son</div>
+      </div>
+
+      <p class="lead">Ingvar Kamprad's story begins not in a Silicon Valley garage or an Ivy League dorm room, but on a small, rocky farm in southern Sweden during the Great Depression — and it remains one of the most inspiring entrepreneurial biographies in human history.</p>
+
+      <p class="body-p">Born on March 30, 1926, in Pjätteryd, Småland, Sweden, Ingvar grew up on a small farm called <strong>Elmtaryd</strong> near the village of Agunnaryd. Sweden's Småland region — rocky, unforgiving terrain — produced a particular type of person: hardworking, resourceful, and relentlessly frugal. Ingvar absorbed these regional values at the bone-level.</p>
+
+      <p class="body-p">His family's history was marked by tragedy. His grandfather, unable to pay the mortgage on the farm, took his own life. His grandmother Franziska fought to save the farm and succeeded through sheer determination. This story of financial precarity and the survival instinct it requires became the psychological foundation of everything Kamprad would later build.</p>
+
+      <p class="body-p">He also had <strong>dyslexia</strong> — a learning difficulty that made traditional schooling a constant struggle. Yet his father gave him a small amount of money as a reward when he excelled in school despite this disadvantage. That money would become IKEA's founding capital.</p>
+
+      <div class="clearfix"></div>
+
+      <div class="subsec-title">The Early Entrepreneur — A Child Who Could Not Stop Selling</div>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot">Age 5</div>
+          <div class="tl-content">
+            <strong>The First Trade — Matches</strong>
+            <p>His aunt bought him a pack of matches. He sold them individually to neighbours at a profit. He would later say he still remembered the "pleasant feeling" of that first profit.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">Age 7</div>
+          <div class="tl-content">
+            <strong>Scaling Up — Bulk Matches from Stockholm</strong>
+            <p>Realises he can buy matches in bulk cheaply from Stockholm and sell them individually at a higher margin. His first lesson in the power of supply chain economics.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">Age 10</div>
+          <div class="tl-content">
+            <strong>Diversification — Fish, Seeds, Pencils, Christmas Decorations</strong>
+            <p>Criss-crossing his neighbourhood on a bicycle, Ingvar sells whatever he can find a market for. He is learning product-market fit through empirical trial — before that term existed.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">1943</div>
+          <div class="tl-content">
+            <strong>IKEA Founded — Age 17</strong>
+            <p>Using his father's reward money for good grades, Ingvar registers IKEA as a mail-order business. First products: picture frames, jewellery, nylon stockings — sold by telephone.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">1948</div>
+          <div class="tl-content">
+            <strong>Furniture Enters the Catalogue</strong>
+            <p>Ingvar adds locally made furniture to the IKEA catalogue. The response is overwhelming. Within 3 years, IKEA sells only furniture. The pivot is complete.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">1956</div>
+          <div class="tl-content">
+            <strong>The Flat-Pack Accident Changes Everything</strong>
+            <p>Employee Gillis Lundgren removes table legs to fit a table in his car. The flat-pack idea is born. IKEA's most revolutionary product feature emerges from a logistics problem, not an R&D lab.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">1958</div>
+          <div class="tl-content">
+            <strong>First IKEA Store — Älmhult, Sweden</strong>
+            <p>The first physical showroom opens. People drive hundreds of kilometres to visit. The store concept — see it, touch it, take it home the same day — is a revolution in furniture retail.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-blue">
+        <div class="callout-label">🧠 Psychological Insight</div>
+        <p>Kamprad's dyslexia was not incidental to his genius — it may have been part of it. Unable to rely on verbal-sequential memory, he developed <strong>exceptional spatial and conceptual thinking</strong>. This different cognitive style likely contributed to his ability to think about furniture design, logistics, and customer experience as integrated systems rather than separate problems.</p>
+        <p>His system of naming products by place names rather than codes (beds named after Norwegian places, garden furniture after Swedish islands) was a direct workaround for his dyslexia — and it accidentally made IKEA's products feel more personal and human than any competitor's.</p>
+      </div>
+    </div>
+
+    <!-- ── 03: PROBLEM — DARK ── -->
+    <div class="sec-block dark reveal" id="sec-problem">
+      <div class="sec-num">03 — The Root Cause</div>
+      <h2 class="sec-title">The Problem <em>They Solved</em></h2>
+
+      <p class="lead">In post-war Sweden and across Europe, beautiful furniture was a privilege of the wealthy. Ordinary working families lived in homes furnished with whatever they could afford — which was rarely beautiful, rarely functional, and rarely well-designed. Ingvar Kamprad's entire career was a war against this injustice.</p>
+
+      <p class="body-p">The furniture industry of the 1940s and 1950s was broken in ways that would be familiar to any market reformer:</p>
+
+      <ul class="blist">
+        <li><strong>Price exclusivity as a status symbol.</strong> Furniture retailers deliberately kept prices high to maintain the "luxury" positioning of good design. Beautiful furniture was aspirational — not accessible. A well-designed dining table cost a month's wages for a working-class family.</li>
+        <li><strong>The design-price paradox.</strong> Industry wisdom said: cheap furniture is poorly designed, and well-designed furniture must be expensive. Nobody had seriously challenged this assumption. Ingvar rejected it entirely.</li>
+        <li><strong>Inefficient supply chain.</strong> Furniture was sold by retailers who bought from manufacturers who bought from wholesalers. Every layer added cost and margin. By the time a table reached a customer, it had passed through 3–4 hands, each taking a cut.</li>
+        <li><strong>The last-mile problem.</strong> Large furniture was expensive to transport and deliver. This cost was passed on to customers — further inflating prices for no value added.</li>
+        <li><strong>No showroom innovation.</strong> Traditional furniture shops were small, static, and limited by their physical inventory. Customers couldn't see most products; they ordered from catalogues and waited weeks for delivery.</li>
+      </ul>
+
+      <div class="pq">
+        <blockquote>"Why should well-designed, functional home furnishings be the privilege of the few? We are determined to bring good design to the many."</blockquote>
+        <cite>— Ingvar Kamprad, IKEA Founding Philosophy</cite>
+      </div>
+
+      <p class="body-p">This wasn't just a business thesis — it was a moral position. Kamprad grew up poor. He knew what it felt like to live in a home that lacked beauty because beauty was unaffordable. His entire life's work was, in some sense, a personal answer to that experience.</p>
+    </div>
+
+    <!-- ── 04: OPPORTUNITY — LIGHT-ALT ── -->
+    <div class="sec-block light-alt reveal" id="sec-opportunity">
+      <div class="sec-num">04 — The Insight</div>
+      <h2 class="sec-title">Identifying the <em>Opportunity</em></h2>
+
+      <p class="body-p">Kamprad's opportunity identification was not a single eureka moment — it was a long, iterative process of recognising patterns that others in the industry refused to see:</p>
+
+      <ul class="blist">
+        <li><strong>Post-war housing boom = massive furniture demand.</strong> After World War II, Sweden (and then Europe) experienced rapid urbanisation and housing construction. Millions of new homes needed to be furnished. The market was about to explode — but nobody was building for the mass market.</li>
+        <li><strong>Customers valued function AND beauty, not just price.</strong> The furniture industry assumed budget customers only cared about price. Kamprad observed — correctly — that ordinary people cared deeply about how their homes looked. They wanted beautiful furniture; they just couldn't afford what was available. This insight unlocked the entire IKEA model.</li>
+        <li><strong>Self-assembly as a cost transfer, not a burden.</strong> The flat-pack insight reframed customer labour from a negative (having to assemble furniture) to a positive (lower price = you did some of the work). This psychological reframing — "you saved money because you assembled it yourself" — is one of the most elegant value proposition designs in business history.</li>
+        <li><strong>The showroom as an experience, not a catalogue.</strong> Kamprad understood that customers need to imagine furniture in a room before buying it. By staging full room settings in IKEA stores, he transformed furniture shopping from a transactional purchase into a lifestyle aspirational experience.</li>
+        <li><strong>Vertical integration as the path to low prices.</strong> By owning the design, working directly with manufacturers, and cutting out wholesalers and distributors, Kamprad could offer lower prices while maintaining quality. Each supply chain layer removed = direct price reduction for the customer.</li>
+      </ul>
+
+      <div class="callout callout-yellow">
+        <div class="callout-label">💡 The 5.1 — Initial Days</div>
+        <p>IKEA's first "store" was simply a warehouse in Älmhult that Kamprad opened so customers could see the furniture before buying it — because describing it in a catalogue wasn't convincing enough. <strong>When word spread that there was a place where you could actually see and touch well-designed affordable furniture, people drove 4–6 hours to visit.</strong> This organic demand — zero advertising, zero PR — was the proof of concept for everything that followed.</p>
+        <p>The initial business was a mail-order catalogue. The transition from catalogue to physical showroom happened not because Kamprad planned it, but because customers demanded it. He was listening to his market at every step.</p>
+      </div>
+    </div>
+
+    <!-- ── 05: REVENUE MODEL — BLUE ── -->
+    <div class="sec-block blue reveal" id="sec-revenue">
+      <div class="sec-num">05 — The Money Engine</div>
+      <h2 class="sec-title">Revenue <em>Model</em></h2>
+
+      <p class="lead">IKEA's revenue model is deceptively simple on the surface and extraordinarily sophisticated beneath it. The secret is that almost everything IKEA does — from store layout to meatballs — is engineered to maximise revenue per visitor.</p>
+
+      <div class="stats-strip">
+        <div class="stat-card"><div class="stat-val">€45.1B</div><div class="stat-lbl">FY24 Retail Sales</div></div>
+        <div class="stat-card"><div class="stat-val">775M</div><div class="stat-lbl">Annual Store Visits</div></div>
+        <div class="stat-card"><div class="stat-val">1.2B</div><div class="stat-lbl">Meatballs Sold FY24</div></div>
+        <div class="stat-card"><div class="stat-val">23%</div><div class="stat-lbl">Online Sales Share</div></div>
+        <div class="stat-card"><div class="stat-val">1,800+</div><div class="stat-lbl">Global Suppliers</div></div>
+        <div class="stat-card"><div class="stat-val">50+</div><div class="stat-lbl">Sourcing Countries</div></div>
+      </div>
+
+      <ul class="blist">
+        <li><strong>Core Furniture &amp; Home Products (80%+ of revenue).</strong> Flat-pack furniture, home accessories, textiles, kitchen tools. High-volume, strategically priced to maximise basket size. Anchor items (sofas, beds) may have thin margins; accessories and small items (50%+ margins) subsidise the big pieces.</li>
+        <li><strong>The IKEA Restaurant — Strategic, Not Incidental.</strong> IKEA is, by some measures, the world's 6th largest restaurant chain. In FY24, 1.2 billion meatballs were sold. The food is intentionally cheap (loss-leader pricing) because <strong>customers with full stomachs shop longer, spend more, and return more often.</strong> Food is not revenue — it's a conversion tool disguised as a revenue line.</li>
+        <li><strong>IKEA Food Products (Swedish Food Market).</strong> IKEA sells Swedish food products — meatballs, jams, biscuits, sauces — in a market area at store exits. High-margin, impulse-purchase items that extend the shopping experience into grocery buying and extend brand affinity into customers' homes.</li>
+        <li><strong>Services — Assembly, Delivery, Planning.</strong> IKEA acquired TaskRabbit in 2017 to monetise its biggest product weakness (assembly complexity) and turn it into a revenue line. Assembly, home delivery, and kitchen/wardrobe planning services are growing at 30%+ annually and carry premium margins.</li>
+        <li><strong>Franchise Royalties.</strong> Inter IKEA Group (the holding company) earns royalty fees from franchisees (primarily INGKA Group, which operates ~90% of stores) for the right to use the IKEA brand, concept, and product range. This royalty model provides permanent, low-risk revenue regardless of individual store performance.</li>
+        <li><strong>Online Sales.</strong> E-commerce grew from under 5% pre-COVID to 23% of total sales by 2023. Growing at double-digit rates annually.</li>
+        <li><strong>The "Buy-Back" Circular Economy.</strong> IKEA increasingly buys back used furniture from customers in exchange for store credit — then resells it. Revenue on the same item twice, plus brand loyalty from circular economy alignment.</li>
+      </ul>
+    </div>
+
+    <!-- ── 06: FLAT-PACK — CREAM ── -->
+    <div class="sec-block cream reveal" id="sec-flatpack">
+      <div class="sec-num">06 — The Innovation That Changed Everything</div>
+      <h2 class="sec-title">The Flat-Pack <em>Revolution</em></h2>
+
+      <p class="lead">The flat-pack is so synonymous with IKEA that most people assume it was a deliberate genius invention. The truth is more interesting: it was an accident. An employee trying to fit a table into a car became the founding principle of the world's most efficient furniture supply chain.</p>
+
+      <p class="body-p">In 1956, IKEA's fourth employee, <strong>Gillis Lundgren</strong> (the catalogue designer), was transporting the newly designed LÖVET table to a photoshoot. The table wouldn't fit in the car. In frustration, Lundgren removed the legs. Then he thought — why not always pack furniture this way?</p>
+
+      <p class="body-p">Kamprad immediately understood the implications. Flat-pack wasn't just a logistics trick — it was a complete restructuring of the furniture value chain. Here's why it was revolutionary:</p>
+
+      <ul class="blist">
+        <li><strong>Transportation costs collapsed.</strong> A flat-packed table occupies a fraction of the space of an assembled one. IKEA could fit 6–8× more units in a truck, ship, or warehouse. This directly reduced the cost per unit at every step of the chain.</li>
+        <li><strong>Warehousing became possible at scale.</strong> Assembled furniture is too bulky to warehouse economically. Flat-packed furniture can be stacked densely — enabling IKEA's enormous warehouse-stores with immediate take-home availability.</li>
+        <li><strong>The customer becomes the final assembly worker.</strong> By transferring the assembly step to the customer, IKEA eliminated a significant cost (skilled labour) and simultaneously created a psychological "ownership effect" — research shows people value things they've helped create more than things handed to them complete. This is now known as the <mark>IKEA Effect</mark> in psychology.</li>
+        <li><strong>Quality control improved.</strong> Flat-packed components are standardised, machine-made, and precision-cut. The consistency of machine-made parts is actually higher than hand-assembled furniture — IKEA's flat-pack products are structurally more consistent than many "premium" assembled alternatives.</li>
+        <li><strong>The entire store model became possible.</strong> Because products are flat-packed and self-serve, customers can pick up their purchases in the warehouse section and take them home the same day. This eliminates delivery delays entirely for in-stock items — a massive competitive advantage before e-commerce existed.</li>
+      </ul>
+
+      <div class="pq">
+        <blockquote>"The real innovation wasn't flat-packing. Chinese furniture makers had done that for centuries. The innovation was making assembly part of the value proposition."</blockquote>
+        <cite>— Business Analysis, Flat-Pack Strategy</cite>
+      </div>
+
+      <div class="callout callout-yellow">
+        <div class="callout-label">🎯 The IKEA Effect — Psychology Insight</div>
+        <p>Harvard Business School researchers Michael Norton, Daniel Mochon, and Dan Ariely formally documented the "IKEA Effect" in 2011: <strong>people significantly overvalue things they have partly assembled themselves.</strong> In experiments, participants valued their self-built IKEA boxes as highly as expert-built origami — even when the results were objectively inferior. Kamprad discovered this psychological principle 55 years before academics named it — purely through market intuition.</p>
+      </div>
+    </div>
+
+    <!-- ── 07: STRUGGLES — DARK-ALT ── -->
+    <div class="sec-block dark-alt reveal" id="sec-struggles">
+      <div class="sec-num">07 — The Hard Years</div>
+      <h2 class="sec-title">Initial <em>Struggles</em></h2>
+
+      <p class="lead">IKEA's rise was not a smooth trajectory. There were years of industry boycotts, supplier wars, quality crises, and personal pressures that would have broken a less determined founder.</p>
+
+      <ul class="blist">
+        <li><strong>The Supplier Boycott — IKEA's Near-Death Experience.</strong> In 1961, as IKEA began consuming an extraordinary share of Swedish furniture production (reportedly 50% by some estimates), the Swedish National Association of Furniture Dealers organised a boycott. Any manufacturer selling to IKEA would be blacklisted. Within weeks, 60% of IKEA's inventory disappeared. They had two weeks of stock left. Kamprad's response was to turn East — sourcing from Poland, where communist-era factories were desperate for hard currency. This crisis became the origin of IKEA's legendary global sourcing model.</li>
+        <li><strong>Early quality disasters.</strong> Some of IKEA's earliest furniture had quality problems — materials that warped, joints that failed. In a business built on trust and value, quality failures are existential. Kamprad had to simultaneously fix quality and maintain price — a genuine engineering and manufacturing challenge. He invested heavily in standardisation and supplier development to solve it.</li>
+        <li><strong>The Swiss tax controversy.</strong> In 1973, Kamprad moved his personal residence to Switzerland, partly for tax reasons. This attracted significant criticism in Sweden — seen by many as a betrayal of the country that made IKEA possible. He lived outside Sweden for 40+ years, only returning to Småland shortly before his death. The episode revealed the gap between Kamprad's public frugality image and his private financial arrangements.</li>
+        <li><strong>Wartime political associations (youth).</strong> Perhaps IKEA's most serious long-term reputational issue: Kamprad was involved with a fascist movement in Sweden during his teenage years in the 1940s. He acknowledged this publicly in 1994, calling it "the greatest mistake of my life." Deeper research by author Elisabeth Åsbrink later revealed his involvement extended further than he had admitted. This controversy cast a long shadow over his legacy.</li>
+      </ul>
+
+      <div class="callout callout-warning">
+        <div class="callout-label">⚠ Crisis Turned Catalyst</div>
+        <p>The supplier boycott is the most instructive episode in IKEA's history. <strong>When the entire Swedish furniture industry tried to destroy IKEA, Kamprad used the crisis to build a global supply chain that made IKEA invincible.</strong> The attack that was supposed to kill the company became the forcing function for its greatest competitive advantage. This is the pattern of every great company: the crisis that should end it becomes the foundation that makes it indestructible.</p>
+      </div>
+    </div>
+
+    <!-- ── 08 & 09: GROWTH & MARKETING — LIGHT ── -->
+    <div class="sec-block light reveal" id="sec-strategy">
+      <div class="sec-num">08 &amp; 09 — Scaling the Vision</div>
+      <h2 class="sec-title">Growth &amp; Marketing <em>Strategy</em></h2>
+
+      <div class="subsec-title">Growth Strategy — The Quiet Expansion</div>
+
+      <p class="body-p">IKEA's global expansion followed a carefully disciplined, slow-and-steady model that rejected the "grow at all costs" mentality that destroys many retail empires:</p>
+
+      <ul class="blist">
+        <li><strong>One country at a time, mastered before the next.</strong> IKEA entered Switzerland in 1973 (first outside Scandinavia), then Germany, UK, and Austria. Each market was studied, localised, and made profitable before the next was attempted. This patience is almost unique among global retail chains.</li>
+        <li><strong>The catalogue as the world's largest marketing vehicle.</strong> The IKEA catalogue — free, delivered to homes worldwide — was for decades the most widely distributed publication in the world (more copies than the Bible in some years). It was simultaneously a product catalogue, a design magazine, and a brand statement. It created desire before customers ever visited a store.</li>
+        <li><strong>Suburban location strategy.</strong> IKEA deliberately chose large suburban locations with low land costs — enabling enormous stores with thousands of products, proper parking, and the space for the full showroom-warehouse experience. City-centre rents would have made the model economically impossible.</li>
+        <li><strong>The maze store layout.</strong> IKEA's "long natural path" store design routes customers through every department before reaching the exit. Studies show this dramatically increases impulse purchases. Every IKEA store is a masterclass in retail psychology — every turn reveals something new.</li>
+      </ul>
+
+      <div class="subsec-title">Marketing Philosophy — Aspiration at Accessible Price</div>
+
+      <ul class="blist">
+        <li><strong>The catalogue was the ad.</strong> For decades, IKEA's primary marketing was the annual catalogue — 200+ pages of beautiful room photography that made affordable furniture look aspirational. This is content marketing at its most powerful: the product presentation itself becomes the desire creation.</li>
+        <li><strong>Democratic design as a brand ideology.</strong> IKEA never marketed itself as "cheap furniture." It marketed itself as "good design for everyone" — a fundamentally different positioning. Cheap implies low quality. Democratic design implies principle and access. This framing elevated the brand above its price point.</li>
+        <li><strong>Controversy as free publicity.</strong> IKEA's advertising has regularly provoked cultural debate — from challenging gender norms in Swedish ads in the 1990s to inclusive family representation. Each controversy generates more earned media than the paid media investment. Kamprad understood that being talked about — even critically — keeps a brand alive in culture.</li>
+      </ul>
+    </div>
+
+    <!-- ── 10 & 11: PRODUCT & FUNDING — BLUE-MID ── -->
+    <div class="sec-block blue-mid reveal" id="sec-product">
+      <div class="sec-num">10 &amp; 11 — Product &amp; Capital</div>
+      <h2 class="sec-title">Product Strategy &amp; <em>Funding</em></h2>
+
+      <div class="subsec-title">Product Strategy — Democratic Design</div>
+
+      <p class="body-p">IKEA's product philosophy is one of the most disciplined in retail history. Every product must pass through what IKEA calls the <strong>"Democratic Design" framework</strong> — five dimensions that must all be satisfied simultaneously:</p>
+
+      <div class="frugal-grid">
+        <div class="frugal-card">
+          <span class="frugal-icon">✦</span>
+          <div class="frugal-title">Form</div>
+          <div class="frugal-desc">Must be visually attractive, not just functional. Aesthetics are non-negotiable — even at low price points.</div>
+        </div>
+        <div class="frugal-card">
+          <span class="frugal-icon">⚙</span>
+          <div class="frugal-title">Function</div>
+          <div class="frugal-desc">Must perform its intended purpose reliably and consistently over time.</div>
+        </div>
+        <div class="frugal-card">
+          <span class="frugal-icon">◆</span>
+          <div class="frugal-title">Quality</div>
+          <div class="frugal-desc">Must be durable enough for the use case. Not premium — but never cheap in the wrong places.</div>
+        </div>
+        <div class="frugal-card">
+          <span class="frugal-icon">♻</span>
+          <div class="frugal-title">Sustainability</div>
+          <div class="frugal-desc">Materials and production must meet environmental standards. Sustainable by 2030 commitment.</div>
+        </div>
+        <div class="frugal-card">
+          <span class="frugal-icon">₹</span>
+          <div class="frugal-title">Low Price</div>
+          <div class="frugal-desc">Accessible to as many people as possible. A product that fails this dimension doesn't make it to market.</div>
+        </div>
+      </div>
+
+      <p class="body-p">Product names — beds named after Norwegian towns, sofas after Swedish places, garden furniture after Swedish islands — were Kamprad's workaround for his dyslexia. Accidentally, this system made IKEA's products feel more personal than any numbered SKU system could. The "BILLY" bookcase is a relationship; "Product #4829-B" is a transaction.</p>
+
+      <div class="subsec-title">Funding Journey — The Bootstrapped Giant</div>
+
+      <p class="body-p">IKEA is one of the most remarkable funding stories in business history: <strong>a company worth €45+ billion in annual revenue that was built from a teenager's reward money and never raised external capital.</strong></p>
+
+      <ul class="blist">
+        <li><strong>Founded with a father's gift.</strong> The sum Ingvar's father gave him for doing well in school — reportedly a modest amount — became IKEA's founding capital. Every subsequent investment came from the company's own retained earnings.</li>
+        <li><strong>No venture capital. Ever.</strong> IKEA never issued public shares. Never took VC money. Never went public (beyond limited bond issuances for real estate). This gave Kamprad complete freedom from short-term shareholder pressure — the freedom to think and build in decades, not quarters.</li>
+        <li><strong>The Stichting INGKA Foundation structure.</strong> IKEA's corporate structure is deliberately complex — the brand and concept are owned by Inter IKEA Group (Liechtenstein), while stores are operated by INGKA Group (owned by Stichting INGKA Foundation in the Netherlands). This structure preserves the company's independence, minimises taxes, and ensures IKEA can never be acquired or taken public against the family's wishes. Kamprad designed this structure to protect IKEA's mission permanently.</li>
+        <li><strong>Reinvestment as strategy.</strong> Every profit IKEA generated was reinvested into new stores, supplier development, and product R&D. The concept of "returning money to shareholders" was structurally impossible — and this forced reinvestment created a compounding machine that built one of the world's largest retail empires without a single external investor.</li>
+      </ul>
+    </div>
+
+    <!-- ── 12: FRUGALITY — CREAM ── -->
+    <div class="sec-block cream reveal" id="sec-frugality">
+      <div class="sec-num">12 — The Character Behind the Company</div>
+      <h2 class="sec-title">Ingvar's Legendary <em>Frugality</em></h2>
+
+      <p class="lead">One of the most studied aspects of Ingvar Kamprad's character is a paradox so extreme it seems impossible: he was, at various points, the richest man in Europe — and he refused to fly business class, drove a 1993 Volvo, and bought vegetables at the market after closing time to get them at a discount.</p>
+
+      <p class="body-p">This was not an act. It was not PR. It was a genuine, deeply held value system that began in Småland and never left him. And it was the most important cultural foundation of IKEA:</p>
+
+      <div class="frugal-grid">
+        <div class="frugal-card">
+          <span class="frugal-icon">✈</span>
+          <div class="frugal-title">Economy Class Always</div>
+          <div class="frugal-desc">Kamprad flew economy — even when worth tens of billions. He felt paying for comfort he didn't need was wasteful.</div>
+        </div>
+        <div class="frugal-card">
+          <span class="frugal-icon">🚗</span>
+          <div class="frugal-title">The 1993 Volvo</div>
+          <div class="frugal-desc">He drove the same modest car for 20+ years, refusing to upgrade simply because he could afford to.</div>
+        </div>
+        <div class="frugal-card">
+          <span class="frugal-icon">🥦</span>
+          <div class="frugal-title">End-of-Day Market Shopping</div>
+          <div class="frugal-desc">Bought discounted vegetables at closing time. "Waste is a moral sin," he would say.</div>
+        </div>
+        <div class="frugal-card">
+          <span class="frugal-icon">🏨</span>
+          <div class="frugal-title">Budget Hotels for Executives</div>
+          <div class="frugal-desc">IKEA managers were expected to share hotel rooms when travelling for business. Cost-consciousness was non-negotiable at every level.</div>
+        </div>
+        <div class="frugal-card">
+          <span class="frugal-icon">🍽</span>
+          <div class="frugal-title">Staff Canteen, Not Restaurants</div>
+          <div class="frugal-desc">Kamprad ate at the IKEA staff canteen rather than restaurants — both to save money and to stay connected with employees.</div>
+        </div>
+        <div class="frugal-card">
+          <span class="frugal-icon">💡</span>
+          <div class="frugal-title">Lights Off Culture</div>
+          <div class="frugal-desc">He turned off lights when leaving rooms and expected everyone to treat company resources as if they were their own money.</div>
+        </div>
+      </div>
+
+      <div class="callout callout-blue">
+        <div class="callout-label">Why This Mattered for Business</div>
+        <p>Kamprad's frugality wasn't just personal virtue — it was <strong>the most powerful cultural signal a CEO can send.</strong> When the founder visibly lives by the same cost-discipline he preaches to his team, cost-consciousness becomes genuinely embedded in the organisation's DNA. Every IKEA employee understood, through Kamprad's example, that waste was unacceptable — because the boss himself rejected it at the personal level. <strong>Values you preach are policies. Values you embody are culture.</strong></p>
+      </div>
+    </div>
+
+    <!-- ── 13 & 14: MISTAKES & STRENGTHS — DARK ── -->
+    <div class="sec-block dark reveal" id="sec-mistakes">
+      <div class="sec-num">13 &amp; 14 — Honest Accounting</div>
+      <h2 class="sec-title">Biggest Mistakes &amp; <em>Strengths</em></h2>
+
+      <div class="subsec-title">Biggest Mistakes</div>
+
+      <ul class="blist">
+        <li><strong>The youth political associations.</strong> Kamprad's teenage involvement with fascist movements in Sweden in the 1940s — and the later revelation that his involvement was deeper than he had admitted — is the darkest chapter of his personal history. He called it "the greatest mistake of my life." Whatever the full truth of those years, it cast a permanent shadow over a genuinely extraordinary life's work. It is a reminder that even the greatest builders are, first, human beings with the full complexity that entails.</li>
+        <li><strong>The Swiss tax exile.</strong> Leaving Sweden for Switzerland in 1973 for tax reasons damaged Kamprad's image in his home country. It created a narrative gap between his "thrifty everyman" public persona and the complex tax structures around his actual wealth. He handled this poorly — remaining in Switzerland for 40+ years when returning earlier might have resolved the tension.</li>
+        <li><strong>Slow adaptation to e-commerce.</strong> IKEA's online store launched in 2000, but the company was consistently slower than digital-native competitors to invest in online shopping, delivery logistics, and app-based experiences. For a decade, IKEA treated e-commerce as a supplement to the physical store rather than an equal channel. This cost market share in younger, more digital urban consumer segments.</li>
+        <li><strong>Late start on sustainability.</strong> Despite Kamprad's genuine personal values around frugality and conservation, IKEA was criticised for years for sourcing practices that were environmentally damaging — particularly around wood sourcing and deforestation concerns. These issues have been substantially addressed, but the delay was a reputational cost that more proactive early action could have avoided.</li>
+      </ul>
+
+      <div class="subsec-title">Biggest Strengths</div>
+
+      <ul class="blist">
+        <li><strong>Moral clarity about the mission.</strong> Kamprad never wavered on IKEA's fundamental purpose: beautiful, functional furniture for ordinary people at prices they could afford. This clarity of mission guided every product, pricing, and expansion decision for 75+ years. Mission-clarity is the most durable competitive advantage in business.</li>
+        <li><strong>Crisis conversion genius.</strong> The supplier boycott that almost destroyed IKEA became the forcing function for IKEA's global supply chain. This pattern — turning the attack into the foundation — defined Kamprad's response to every major crisis. He didn't survive crises; he fed on them.</li>
+        <li><strong>Building systems that outlast the founder.</strong> IKEA's corporate structure, democratic design framework, product naming system, store layout principles, and supplier relations model were all designed to function without Kamprad's personal presence. Most founder-led businesses collapse when the founder leaves. IKEA is still growing 7 years after his death. This is the rarest achievement in business.</li>
+        <li><strong>Founder-as-cultural-embodiment.</strong> Kamprad's frugality, simplicity, and directness were not just personal traits — they were the culture of IKEA made visible. His personal lifestyle was the most effective communication of IKEA's values ever produced.</li>
+      </ul>
+    </div>
+
+    <!-- ── 15: LEADERSHIP — LIGHT-ALT ── -->
+    <div class="sec-block light-alt reveal" id="sec-leadership">
+      <div class="sec-num">15 — The Psychology of Leadership</div>
+      <h2 class="sec-title">Leadership <em>Style</em></h2>
+
+      <ul class="blist">
+        <li><strong>Lead by personal example above all else.</strong> Kamprad's leadership style was fundamentally behavioural — he showed his values through his daily actions rather than through speeches or memos. Economy class flights, modest car, staff canteen meals. Every action was a leadership communication.</li>
+        <li><strong>Radical accessibility and informality.</strong> Despite being a billionaire running a global empire, Kamprad was known for being genuinely approachable with employees at all levels. He used first names universally, sat in the staff cafeteria, visited stores unannounced, and had real conversations with store workers. This was not a management tactic — it was genuine curiosity about the business.</li>
+        <li><strong>Strategic patience and long-term thinking.</strong> In an era of quarterly earnings pressure, Kamprad made decisions in decades. The willingness to enter a new country slowly, build relationships with suppliers over years, and sacrifice short-term profits for long-term positioning is a leadership quality that most public company CEOs simply cannot afford — which is why IKEA's private ownership structure was so essential to its culture.</li>
+        <li><strong>Delegation with accountability.</strong> Kamprad built a management culture where his managers were given genuine authority — but were held to the same cost-discipline and mission standards he held himself to. He trusted his people, but the cultural expectations were crystal clear.</li>
+        <li><strong>Comfortable with simplicity.</strong> Kamprad's famous "Testament of a Furniture Dealer" — IKEA's founding cultural document — is written in plain language that any worker could understand. He distrusted complexity in management, communication, and product design equally. Simplicity was not a style; it was a strategic principle.</li>
+      </ul>
+
+      <div class="pq">
+        <blockquote>"Complexity is the enemy of speed and low cost. If you cannot explain it simply, you have not understood it well enough."</blockquote>
+        <cite>— Ingvar Kamprad, Testament of a Furniture Dealer</cite>
+      </div>
+    </div>
+
+    <!-- ── 16 & 17: DECISIONS & MOAT — BLUE ── -->
+    <div class="sec-block blue reveal" id="sec-decisions">
+      <div class="sec-num">16 &amp; 17 — The Chess Moves</div>
+      <h2 class="sec-title">Smart Decisions &amp; Competitive <em>Advantage</em></h2>
+
+      <div class="subsec-title">Smart Decisions That Changed Everything</div>
+
+      <ul class="blist">
+        <li><strong>Embracing the flat-pack accident.</strong> When Gillis Lundgren removed the table legs, a lesser founder would have seen a logistics hack. Kamprad saw a complete restructuring of the furniture industry's cost model. The decision to make flat-pack fundamental — not optional — is the single most important strategic decision in IKEA's history.</li>
+        <li><strong>Turning the boycott into a global supply chain.</strong> When Swedish manufacturers blacklisted IKEA, Kamprad turned to Poland. When Polish suppliers were unreliable, he diversified further. Today IKEA sources from 1,800+ suppliers in 50+ countries. The strategic diversification that makes IKEA nearly impossible to disrupt through any single supplier failure was born entirely from the 1961 crisis.</li>
+        <li><strong>The corporate structure that made IKEA immortal.</strong> By placing IKEA's brand in a Dutch foundation and its operations in a franchise structure, Kamprad made IKEA effectively impossible to acquire, hostile-takeover, or force public. This structural decision ensures IKEA's mission survives its founder permanently. It is, arguably, the most important decision he ever made — not because of what it built, but because of what it protected.</li>
+        <li><strong>Keeping prices relentlessly low — even at the cost of short-term profit.</strong> In FY2024, IKEA deliberately cut prices by 10% globally, reducing revenue from €47.6 billion to €45.1 billion. Store visits jumped 21%. This counter-intuitive decision — sacrifice revenue to serve the mission — is impossible to make under public shareholder pressure. Kamprad's private ownership structure made it possible. And it was correct.</li>
+        <li><strong>The restaurant as a strategic asset, not a food business.</strong> Spending billions on loss-leader food products to keep customers in stores longer is a brilliant cross-subsidy model. The meatball is not a product — it's a retention mechanism.</li>
+      </ul>
+
+      <div class="subsec-title">Why Competitors Cannot Copy IKEA</div>
+
+      <ul class="blist">
+        <li><strong>The supply chain took 80 years to build.</strong> Relationships with 1,800+ suppliers, proprietary production knowledge, and deep economies of scale cannot be replicated in 5–10 years by a new entrant or an existing competitor.</li>
+        <li><strong>The brand IS the value proposition.</strong> "IKEA" means affordable-beautiful-functional. This association took generations to build. No amount of advertising by a competitor can transfer this brand equity to themselves.</li>
+        <li><strong>The physical store experience is irreplaceable.</strong> IKEA's showroom-warehouse model — see it staged, pick it up yourself, take it home today — remains superior to any online-only or traditional delivery model for the vast majority of furniture purchases.</li>
+        <li><strong>The culture is the competitive advantage.</strong> Democratic design, cost-consciousness, and mission clarity are not just policies — they are embedded cultural values that took decades to build. They cannot be copied through policy imitation.</li>
+      </ul>
+    </div>
+
+    <!-- ── 18: CONTROVERSIES — DARK-ALT ── -->
+    <div class="sec-block dark-alt reveal" id="sec-controversies">
+      <div class="sec-num">18 — Inflection &amp; Friction</div>
+      <h2 class="sec-title">Controversies &amp; <em>Failures</em></h2>
+
+      <ul class="blist">
+        <li><strong>Wartime Political Associations.</strong> The most serious controversy of Kamprad's life: his teenage involvement with Swedish fascist movements during the 1940s. He publicly acknowledged it in 1994 as "the greatest mistake of my life." Elisabeth Åsbrink's 2011 research revealed his involvement was deeper than previously acknowledged, including active recruitment for a Nazi-affiliated Swedish organisation. Kamprad never fully reckoned with this publicly. It remains an unresolved shadow over an otherwise remarkable legacy.</li>
+        <li><strong>Tax Avoidance Structure.</strong> IKEA's corporate structure — involving foundations in the Netherlands and Liechtenstein — has been consistently criticised as one of the world's most sophisticated tax optimisation arrangements. A 2016 EU investigation found IKEA received unlawful state aid through tax rulings. The gap between IKEA's egalitarian values brand and its tax minimisation structures creates genuine ethical tension that has never been fully resolved.</li>
+        <li><strong>Labour and Supply Chain Concerns.</strong> IKEA's low prices require relentless cost pressure on suppliers — which has, at times, translated into substandard working conditions in factories in developing countries. IKEA has invested significantly in supplier codes of conduct and auditing, but the structural tension between affordability and fair wages in global supply chains is not fully resolved.</li>
+        <li><strong>Furniture Safety — Recall Scandals.</strong> The most serious product safety controversy: the MALM dresser recall in 2016, after the dresser was linked to the deaths of several children when it tipped over. IKEA's initial response was criticised as too slow. The eventual global recall of 36+ million units was one of the largest in furniture history. It raised serious questions about product safety testing standards.</li>
+        <li><strong>The "Spy Network" Allegations.</strong> In 2012, a French newspaper investigation alleged that IKEA France had paid for surveillance on employees, customers, and trade union members. The company conducted an internal investigation and eventually paid €1.5 million in damages. This episode contradicted IKEA's egalitarian, worker-focused values narrative severely.</li>
+      </ul>
+    </div>
+
+    <!-- ── 19 & 20: LESSONS — LIGHT ── -->
+    <div class="sec-block light reveal" id="sec-lessons">
+      <div class="sec-num">19 &amp; 20 — The Curriculum</div>
+      <h2 class="sec-title">Key Lessons for <em>Entrepreneurs</em></h2>
+
+      <div class="subsec-title">For Young Entrepreneurs</div>
+
+      <ul class="blist">
+        <li><strong>Your constraint is your innovation.</strong> The flat-pack was born from not being able to fit a table in a car. IKEA's global supply chain was born from a boycott. The Polish sourcing model was born from crisis. <strong>Every constraint you face is an invitation to a better system — if you're willing to see it that way.</strong></li>
+        <li><strong>Frugality is a superpower, not a limitation.</strong> Kamprad's extreme personal cost-consciousness wasn't just about saving money — it built a culture that made IKEA structurally more efficient than any competitor. When the founder is the cheapest person in the company, every layer of management gets the message without a memo.</li>
+        <li><strong>Private ownership is the most underrated competitive advantage.</strong> By never going public, Kamprad could make 50-year decisions without worrying about next quarter's earnings. The decision to cut prices by 10% in FY2024 — which reduced revenue but increased visits — would be impossible for a publicly listed company. Long-term thinking is only possible when short-term pressure is absent.</li>
+        <li><strong>Mission clarity makes every decision easier.</strong> "Beautiful, functional design for everyone at the lowest possible price." Every product decision, pricing decision, and supplier decision at IKEA flows from this sentence. When your mission is this clear, most decisions answer themselves.</li>
+        <li><strong>Build systems, not empires.</strong> Kamprad's greatest achievement was not IKEA's revenue — it was building a company that is still growing and still mission-aligned 7 years after his death. The test of a great builder is not what they create, but whether it survives them.</li>
+      </ul>
+
+      <div class="subsec-title">What Startups Can Learn from IKEA</div>
+
+      <ul class="blist">
+        <li><strong>The supply chain IS the product.</strong> IKEA's retail experience is beautiful — but the real competitive advantage is invisible: the relationship with 1,800+ suppliers across 50+ countries, developed over 80 years. For startups, this is a reminder that the competitive advantage of enduring businesses is usually operational, not front-end.</li>
+        <li><strong>Turn your customers' labour into a feature.</strong> Self-assembly is objectively more work for the customer. IKEA turned it into a value proposition through smart pricing and the psychological IKEA Effect. Any friction in your product can be reframed as user agency — if the value trade-off is clear.</li>
+        <li><strong>The restaurant sells furniture.</strong> IKEA's food isn't a side business — it's a customer retention mechanism. Every product decision should be evaluated not just for its own revenue but for its effect on the whole system. What in your business is the "meatball" — a loss-leader that makes everything else work?</li>
+        <li><strong>Complexity is a tax on speed and cost.</strong> Kamprad's obsession with simplicity — in products, processes, and communication — kept IKEA operationally lean across 63 countries. Complexity compounds; simplicity scales.</li>
+      </ul>
+    </div>
+
+    <!-- ── QUOTES — DARK ── -->
+    <div class="sec-block dark reveal" id="sec-quotes">
+      <div class="sec-num">21 — Words That Reveal the Mind</div>
+      <h2 class="sec-title">10 Powerful Quotes &amp; Thinking <em>Patterns</em></h2>
+
+      <div class="quotes-grid">
+        <div class="qcard"><div class="qnum">01</div><div class="qtext">"The most dangerous poison is the feeling of achievement. The antidote is to every evening think about what can be done better tomorrow."</div><div class="qmeta">On Continuous Improvement</div></div>
+        <div class="qcard"><div class="qnum">02</div><div class="qtext">"To design a desk which may cost $1,000 is easy. To design a functional and good desk which shall cost $50 can only be done by the very best."</div><div class="qmeta">On Democratic Design</div></div>
+        <div class="qcard"><div class="qnum">03</div><div class="qtext">"Waste of resources is a mortal sin at IKEA. Wasting resources means using more than is necessary. We must do everything possible to lower costs."</div><div class="qmeta">On Cost Discipline</div></div>
+        <div class="qcard"><div class="qnum">04</div><div class="qtext">"Our idea is simple: serve the needs of the many people. We work towards that goal every single day."</div><div class="qmeta">On Mission Clarity</div></div>
+        <div class="qcard"><div class="qnum">05</div><div class="qtext">"Only those who are asleep make no mistakes. Making mistakes is the privilege of the active. The more you act, the greater your chance of being right."</div><div class="qmeta">On Action &amp; Risk</div></div>
+        <div class="qcard"><div class="qnum">06</div><div class="qtext">"Happiness is not reaching your goal. Happiness is being on your way."</div><div class="qmeta">On the Journey vs. Destination</div></div>
+        <div class="qcard"><div class="qnum">07</div><div class="qtext">"A job well done can mean just as much as a big bank account. But a job that has been done poorly makes you poorer in ways that have nothing to do with money."</div><div class="qmeta">On Quality &amp; Pride</div></div>
+        <div class="qcard"><div class="qnum">08</div><div class="qtext">"Time is your most important resource. You can do so much in ten minutes' time. Ten minutes — once gone — is gone for good."</div><div class="qmeta">On Time &amp; Urgency</div></div>
+        <div class="qcard"><div class="qnum">09</div><div class="qtext">"We should plan our business thinking in decades, not years. Anyone who thinks in quarters will make worse decisions than those who think in decades."</div><div class="qmeta">On Long-Term Thinking</div></div>
+        <div class="qcard"><div class="qnum">10</div><div class="qtext">"It is not just about furniture. It is about the dream of a better everyday life at home — affordable for as many people as possible."</div><div class="qmeta">On Why IKEA Exists</div></div>
+      </div>
+    </div>
+
+    <!-- ── FINAL SUMMARY — LIGHT ── -->
+    <div class="sec-block light reveal" id="sec-summary">
+      <div class="sec-num">22 — The Verdict</div>
+      <h2 class="sec-title">Final <em>Summary</em></h2>
+
+      <p class="lead">Ingvar Kamprad's story is, at its core, a story about the power of a simple, moral idea applied with ferocious consistency over an entire lifetime.</p>
+
+      <p class="body-p">The idea was not complicated: <strong>beautiful design should not be a luxury.</strong> Ordinary families deserved well-designed, functional homes. The price of a table should not determine whether your home is beautiful. Kamprad held this conviction from his first days as a teenager in Småland to his last days in the same region at age 91.</p>
+
+      <p class="body-p">Everything IKEA is — the flat-pack, the showroom, the supply chain, the catalogue, the meatballs, the names, the frugality culture, the private ownership structure — flows from that single moral conviction. This is the lesson that transcends IKEA entirely: <strong>the companies that last for generations are the ones built around a genuine moral position about the world, executed with relentless operational discipline.</strong></p>
+
+      <ul class="blist">
+        <li>A farm boy who sold matches at 5 → founded a company at 17 → built the world's largest furniture empire by 80. <strong>Proof that time × consistency × moral clarity = civilisation-changing impact.</strong></li>
+        <li>Never raised external capital. Never went public. Never chased quarterly numbers. <strong>Result: a company so financially strong it deliberately reduced revenue in FY2024 to serve its mission better.</strong></li>
+        <li>Dyslexia became a product naming system. A boycott became a global supply chain. An accident with a table became the flat-pack revolution. <strong>Every crisis in Kamprad's story became a foundation stone.</strong></li>
+        <li>He lived the same values he built into his products: affordable, functional, unflashy, and deeply purposeful. <strong>When the founder and the brand are the same person — that is the ultimate competitive advantage.</strong></li>
+      </ul>
+    </div>
+
+    <!-- ── QUICK REVISION — BLUE ── -->
+    <div class="sec-block blue reveal" id="sec-revision">
+      <div class="sec-num">23 — One-Page Summary</div>
+      <h2 class="sec-title">Quick Revision <em>Summary</em></h2>
+
+      <div class="revision">
+        <h3>📋 Ingvar Kamprad × IKEA — Complete Snapshot</h3>
+        <div class="qr-grid">
+          <div class="qr-item"><div class="qr-label">Founder</div><div class="qr-val">Ingvar Feodor Kamprad (30 Mar 1926 – 27 Jan 2018)</div></div>
+          <div class="qr-item"><div class="qr-label">Birthplace</div><div class="qr-val">Pjätteryd, Småland, Sweden</div></div>
+          <div class="qr-item"><div class="qr-label">Company</div><div class="qr-val">IKEA — world's largest furniture retailer</div></div>
+          <div class="qr-item"><div class="qr-label">Founded</div><div class="qr-val">1943, age 17. Started as a mail-order business.</div></div>
+          <div class="qr-item"><div class="qr-label">IKEA Stands For</div><div class="qr-val">Ingvar Kamprad, Elmtaryd farm, Agunnaryd village</div></div>
+          <div class="qr-item"><div class="qr-label">Core Innovation</div><div class="qr-val">Flat-pack furniture (1956) + democratic design + vertical integration</div></div>
+          <div class="qr-item"><div class="qr-label">FY24 Revenue</div><div class="qr-val">€45.1 Billion (deliberately reduced 10% from €47.6B to serve mission)</div></div>
+          <div class="qr-item"><div class="qr-label">Store Count</div><div class="qr-val">500+ stores in 63 countries</div></div>
+          <div class="qr-item"><div class="qr-label">Visitors/Year</div><div class="qr-val">775 million+ (30% come just to eat)</div></div>
+          <div class="qr-item"><div class="qr-label">Meatballs Sold</div><div class="qr-val">1.2 billion in FY2024 — the world's 6th largest restaurant chain</div></div>
+          <div class="qr-item"><div class="qr-label">Funding Raised</div><div class="qr-val">Zero — entirely bootstrapped from first day to present</div></div>
+          <div class="qr-item"><div class="qr-label">Ownership</div><div class="qr-val">Stichting INGKA Foundation (Netherlands) — can never be taken public</div></div>
+          <div class="qr-item"><div class="qr-label">Peak Net Worth</div><div class="qr-val">$58.7 Billion — once world's 8th richest person</div></div>
+          <div class="qr-item"><div class="qr-label">Biggest Strength</div><div class="qr-val">Mission clarity + frugality culture + supply chain moat + private ownership</div></div>
+          <div class="qr-item"><div class="qr-label">Biggest Mistake</div><div class="qr-val">Youth political associations (fascist movements, 1940s) — "the greatest mistake of my life"</div></div>
+          <div class="qr-item"><div class="qr-label">Core Philosophy</div><div class="qr-val">"Beautiful design for everyone, at the lowest possible price" — maintained for 75+ years without deviation</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── STRATEGY TABLE — LIGHT-ALT ── -->
+    <div class="sec-block light-alt reveal" id="sec-table">
+      <div class="sec-num">24 — Framework at a Glance</div>
+      <h2 class="sec-title">The IKEA <em>Framework Table</em></h2>
+
+      <table class="sum-table">
+        <thead>
+          <tr><th>Dimension</th><th>Analysis</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Problem Solved</td>
+            <td>Beautiful, well-designed furniture was accessible only to the wealthy. Ordinary families lived in homes that were functional but aesthetically poor — not by choice, but by price. IKEA eliminated the design-price trade-off permanently.</td>
+          </tr>
+          <tr>
+            <td>Revenue Model</td>
+            <td>Retail furniture sales (core) + in-store restaurant (retention/loss-leader) + IKEA Food Market (impulse/high-margin) + services (assembly, delivery — growing fast) + franchise royalties (Inter IKEA to INGKA Group) + e-commerce (23% of sales, fast growing).</td>
+          </tr>
+          <tr>
+            <td>Growth Engine</td>
+            <td>Flat-pack logistics efficiency → lower prices → higher volume → more supplier leverage → lower prices again. Compound flywheel. Plus: The IKEA catalogue (world's most distributed publication) → desire creation → store visits → basket purchase.</td>
+          </tr>
+          <tr>
+            <td>Key Strategy</td>
+            <td>Democratic Design (form + function + quality + sustainability + low price must ALL be satisfied). Vertical integration from design to shelf. Private ownership for mission protection. Frugality as culture, not just policy.</td>
+          </tr>
+          <tr>
+            <td>Biggest Mistake</td>
+            <td>Youth political associations with fascist movements — the defining personal failure of Kamprad's life. Compounded by corporate: slow e-commerce adaptation, tax avoidance structures that contradicted brand values, MALM dresser safety failures.</td>
+          </tr>
+          <tr>
+            <td>Biggest Strength</td>
+            <td>Mission clarity sustained over 75+ years. Crisis conversion (boycott → global supply chain). Private ownership enabling long-term decision-making. Founder-as-culture-embodiment. Systems designed to outlast the founder.</td>
+          </tr>
+          <tr>
+            <td>Competitive Moat</td>
+            <td>80-year supply chain relationships (1,800+ suppliers, 50+ countries). "IKEA" brand synonymous with affordable-beautiful design. Physical showroom-warehouse experience. Corporate structure that prevents hostile acquisition. Democratic Design framework.</td>
+          </tr>
+          <tr>
+            <td>Most Important Lesson</td>
+            <td>A genuinely held moral conviction about the world — combined with relentless operational discipline over decades — is the only formula for building something that outlasts its founder. Mission-driven companies don't just survive; they compound.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── IF STARTING OVER — DARK ── -->
+    <div class="sec-block dark reveal" id="sec-final">
+      <div class="sec-num">25 — The Counter-Factual</div>
+      <h2 class="sec-title">If Starting From <em>Zero Today</em></h2>
+
+      <div class="final-box">
+        <h3>"If Ingvar Kamprad started IKEA from zero today, what would he do differently?"</h3>
+
+        <p>Based on the patterns of his thinking, the structure of his decisions, and the lessons embedded in IKEA's 80-year history, here is what Kamprad would most likely do differently — and what he would almost certainly keep exactly the same:</p>
+
+        <p><strong>1. Build e-commerce as a first-class channel from Day 1.</strong> IKEA's greatest structural weakness today is the gap between its physical store excellence and its digital experience. Starting in 2025, Kamprad would recognise that a generation of buyers never visits a physical store for major purchases. He would design IKEA's showroom experience as a hybrid: physical stores + augmented reality digital twin (the IKEA Place app direction) + seamless same-day delivery. The meatball would still be there — but so would a flawless mobile app.</p>
+
+        <p><strong>2. Make sustainability economics central, not peripheral.</strong> Kamprad's personal frugality was always implicitly environmental — waste is sin. But IKEA's sustainability commitments came late, under public pressure, rather than proactively. Starting today, Kamprad would design the circular economy model (buy-back, refurbish, resell) into the founding business structure — not because it's fashionable, but because it is structurally aligned with the cost-efficiency mission. Sustainability and affordability are the same goal.</p>
+
+        <p><strong>3. Build the supply chain even more aggressively toward near-shoring.</strong> IKEA's global supply chain is its greatest competitive advantage — but it is also its greatest geopolitical risk. Post-2020, supply chain disruptions exposed vulnerabilities in ultra-globalised sourcing. Starting today, Kamprad would design a more regionalised supply chain — manufacturing hubs closer to key markets — while maintaining the cost advantages of scale.</p>
+
+        <p><strong>4. Address the youth political associations transparently, immediately, and publicly.</strong> Kamprad's 1994 acknowledgment of his fascist associations was late, brief, and insufficient. Starting over, with modern communications standards and the knowledge of what that silence cost his legacy, he would have addressed this fully and publicly far earlier — not because it would have been comfortable, but because unresolved shadows corrode credibility over time. Transparency, however painful, is always the better strategy.</p>
+
+        <p><strong>5. Build the corporate governance structure for the 21st century.</strong> IKEA's Stichting INGKA Foundation structure was brilliant for the 20th century — protecting mission and enabling long-term thinking. But it also reduced accountability. Starting today, Kamprad would likely design a structure with stronger independent oversight while maintaining the private ownership that keeps mission central.</p>
+
+        <p class="note">But here is what he would NOT change — and this is where the real lesson lives: The mission. The frugality. The flat-pack. The democratic design framework. The catalogue as desire-creation. The meatball as retention. Private ownership as long-term thinking enabler. The belief that a worker's salary shouldn't determine whether their home is beautiful. These are not tactics — they are convictions. And Kamprad's convictions, held with absolute consistency for 75+ years, are the actual source of everything IKEA is. The lesson for every entrepreneur who reads this story: find your conviction. Then build a system around it. Then live it every single day. That is the entire Kamprad formula — and there is no shortcut through it.</p>
+      </div>
+    </div>
+
+  </div><!-- /article-body -->
+</div><!-- /article-layout -->
+
+<!-- ════ FOOTER ════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand"><span class="footer-brand-dot"></span>FounderLens</div>
+        <p class="footer-desc">Deep-Dive Founder Analysis for the next generation of Indian and global entrepreneurs. We go beyond biography to reveal the strategy, psychology, and systems behind extraordinary businesses.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Analysis Series</div>
+        <ul class="footer-links">
+          <li><a href="#">#01 — Nithin Kamath (Zerodha)</a></li>
+          <li><a href="#">#02 — Deepinder Goyal (Zomato)</a></li>
+          <li><a href="#">#03 — Ingvar Kamprad (IKEA)</a></li>
+          <li><a href="#">#04 — Aadit Palicha (Zepto)</a></li>
+          <li><a href="#">Coming Soon →</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Focus Areas</div>
+        <ul class="footer-links">
+          <li><a href="#">Business Strategy</a></li>
+          <li><a href="#">Founder Psychology</a></li>
+          <li><a href="#">Growth Systems</a></li>
+          <li><a href="#">Funding & Capital</a></li>
+          <li><a href="#">Key Lessons</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">
+        <span>FounderLens</span> · Ingvar Kamprad × IKEA Analysis · Research compiled May 2026 · For educational purposes only
+      </div>
+      <div class="footer-tags">
+        <span class="footer-tag">Retail</span>
+        <span class="footer-tag">Flat-Pack</span>
+        <span class="footer-tag">Sweden</span>
+        <span class="footer-tag">Bootstrapped</span>
+        <span class="footer-tag">Democratic Design</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function scrollTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  function scrollTo2(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  /* Scroll-reveal */
+  const ro = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  /* TOC active state */
+  const sections = document.querySelectorAll('.sec-block[id]');
+  const tocBtns = document.querySelectorAll('.toc-item');
+  const tocObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        tocBtns.forEach(b => b.classList.remove('active'));
+        const t = document.querySelector(`.toc-item[onclick*="${e.target.id}"]`);
+        if (t) t.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+  sections.forEach(s => tocObs.observe(s));
+
+  /* Nav pill active */
+  document.querySelectorAll('.nav-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deepinder Goyal — The Man Who Made India Order Food Online</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,600;1,9..144,800&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Martian+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════ TOKENS ═══════════ */
+:root {
+  --red:        #e23744;
+  --red-dark:   #b52b37;
+  --red-deeper: #8c1a23;
+  --red-glow:   rgba(226,55,68,0.18);
+  --red-pale:   rgba(226,55,68,0.08);
+  --orange:     #f97316;
+  --amber:      #f59e0b;
+  --ink:        #0f0a09;
+  --ink2:       #1a100e;
+  --ink3:       #261510;
+  --ink4:       #321a14;
+  --cream:      #fdf5ee;
+  --cream2:     rgba(253,245,238,0.75);
+  --cream3:     rgba(253,245,238,0.45);
+  --cream4:     rgba(253,245,238,0.12);
+  --teal:       #0d9488;
+  --teal-pale:  rgba(13,148,136,0.12);
+  --green:      #16a34a;
+  --green-pale: rgba(22,163,74,0.1);
+  --rule:       rgba(253,245,238,0.1);
+  --serif:      'Fraunces', Georgia, serif;
+  --sans:       'Instrument Sans', sans-serif;
+  --mono:       'Martian Mono', monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--ink);
+  color:var(--cream);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Grain overlay */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;
+}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--ink)}
+::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px}
+
+/* ═══════════ TOP BANNER ═══════════ */
+.banner{
+  background:var(--red);
+  color:#fff;
+  text-align:center;
+  padding:8px 20px;
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  position:sticky;top:0;z-index:100;
+}
+
+/* ═══════════ NAV ═══════════ */
+.nav{
+  background:rgba(15,10,9,0.9);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--rule);
+  display:flex;align-items:center;
+  justify-content:space-between;
+  padding:0 48px;height:60px;
+  position:sticky;top:33px;z-index:99;
+}
+.nav-brand{
+  font-family:var(--serif);
+  font-size:17px;font-weight:800;
+  color:var(--cream);letter-spacing:-0.01em;
+  display:flex;align-items:center;gap:10px;
+}
+.nav-brand-dot{
+  width:8px;height:8px;
+  border-radius:50%;background:var(--red);
+  display:inline-block;
+}
+.nav-chips{display:flex;gap:6px;flex-wrap:wrap}
+.nav-chip{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  padding:5px 12px;border-radius:20px;
+  border:1px solid var(--rule);color:var(--cream3);
+  background:none;cursor:pointer;transition:all .2s;
+}
+.nav-chip:hover,.nav-chip.active{
+  border-color:var(--red);color:var(--red);
+  background:var(--red-pale);
+}
+.nav-cta{
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:#fff;background:var(--red);
+  padding:8px 18px;border-radius:6px;
+  border:none;cursor:pointer;transition:all .2s;
+}
+.nav-cta:hover{background:var(--red-dark);transform:translateY(-1px)}
+
+/* ═══════════ HERO ═══════════ */
+.hero{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 480px;
+  gap:0;
+  position:relative;
+  overflow:hidden;
+}
+
+/* Left side – text */
+.hero-left{
+  padding:90px 60px 80px;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  position:relative;z-index:1;
+  background:
+    radial-gradient(ellipse 70% 60% at -10% 60%, rgba(226,55,68,0.12) 0%, transparent 65%),
+    var(--ink);
+}
+
+/* Red diagonal divider */
+.hero-left::after{
+  content:'';
+  position:absolute;
+  right:-2px;top:0;bottom:0;width:80px;
+  background:linear-gradient(to right, transparent, var(--ink2));
+  z-index:2;
+}
+
+.hero-eyebrow{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:24px;
+  animation:slideIn .7s ease both;
+}
+.hero-eyebrow-line{width:36px;height:2px;background:var(--red)}
+.hero-eyebrow-text{
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--red);
+}
+
+.hero-title{
+  font-family:var(--serif);
+  font-size:clamp(44px,5.5vw,76px);
+  font-weight:900;line-height:1.0;
+  letter-spacing:-0.025em;
+  margin-bottom:16px;
+  animation:slideIn .7s .1s ease both;
+}
+.hero-title em{
+  font-style:italic;
+  color:var(--red);
+  display:block;
+  font-weight:300;
+}
+
+.hero-sub{
+  font-size:17px;color:var(--cream2);
+  max-width:520px;line-height:1.7;
+  margin-bottom:40px;font-weight:300;
+  animation:slideIn .7s .2s ease both;
+}
+.hero-sub strong{color:var(--cream);font-weight:500}
+
+/* Stats row */
+.hero-kpis{
+  display:flex;gap:36px;flex-wrap:wrap;
+  padding:28px 0 28px;
+  border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+  margin-bottom:36px;
+  animation:slideIn .7s .3s ease both;
+}
+.kpi-val{
+  font-family:var(--serif);font-size:28px;
+  font-weight:800;color:var(--red);
+  line-height:1.1;
+}
+.kpi-label{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--cream3);margin-top:2px;
+}
+
+/* Tags */
+.hero-tags{
+  display:flex;gap:8px;flex-wrap:wrap;
+  animation:slideIn .7s .35s ease both;
+}
+.hero-tag{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  padding:5px 12px;border-radius:20px;
+  border:1px solid var(--rule);color:var(--cream3);
+}
+.hero-tag.red{border-color:rgba(226,55,68,.4);color:var(--red);background:var(--red-pale)}
+
+/* Right side – image panel */
+.hero-right{
+  position:relative;overflow:hidden;
+  background:var(--ink2);
+}
+.hero-right::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 80% at 50% 40%, rgba(226,55,68,0.15) 0%, transparent 65%);
+  z-index:1;
+}
+/* Decorative grid */
+.hero-right::after{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(226,55,68,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(226,55,68,0.06) 1px, transparent 1px);
+  background-size:40px 40px;
+  z-index:0;
+}
+
+/* Floating image frame */
+.hero-img-frame{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:2;
+}
+.founder-photo-wrap{
+  position:relative;
+  width:340px;height:400px;
+}
+/* Main photo */
+.founder-photo{
+  width:100%;height:100%;
+  object-fit:cover;object-position:top center;
+  display:block;
+  filter:grayscale(20%) contrast(1.05);
+  border-radius:12px;
+  position:relative;z-index:2;
+}
+/* Colour bleed behind photo */
+.founder-photo-bg{
+  position:absolute;
+  top:20px;left:20px;right:-20px;bottom:-20px;
+  background:linear-gradient(135deg, var(--red-dark), var(--red-deeper));
+  border-radius:12px;
+  z-index:1;
+}
+/* Photo credit badge */
+.photo-badge{
+  position:absolute;
+  bottom:-16px;left:50%;transform:translateX(-50%);
+  background:var(--red);
+  color:#fff;
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  padding:5px 14px;border-radius:20px;
+  white-space:nowrap;z-index:3;
+}
+/* Decorative floating quote on image panel */
+.hero-float-quote{
+  position:absolute;
+  bottom:40px;left:20px;right:20px;
+  background:rgba(15,10,9,0.85);
+  border:1px solid rgba(226,55,68,0.3);
+  border-left:3px solid var(--red);
+  border-radius:8px;
+  padding:16px 18px;z-index:3;
+  backdrop-filter:blur(8px);
+}
+.hero-float-quote-text{
+  font-family:var(--serif);font-size:14px;
+  font-style:italic;font-weight:300;
+  color:var(--cream2);line-height:1.5;
+  margin-bottom:6px;
+}
+.hero-float-quote-by{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--red);
+}
+
+/* SVG fallback portrait when image fails */
+.svg-portrait{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ═══════════ ARTICLE WRAP ═══════════ */
+.article{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  max-width:1140px;
+  margin:0 auto;
+  padding:0 40px;
+}
+
+/* ═══════════ STICKY TOC ═══════════ */
+.toc{
+  padding:48px 0;
+  border-right:1px solid var(--rule);
+  padding-right:28px;
+  position:sticky;top:93px;
+  height:calc(100vh - 93px);
+  overflow-y:auto;
+  scrollbar-width:none;
+}
+.toc::-webkit-scrollbar{display:none}
+.toc-heading{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--red);margin-bottom:14px;
+}
+.toc-item{
+  display:block;width:100%;text-align:left;
+  font-family:var(--sans);font-size:12px;
+  color:var(--cream3);padding:7px 0 7px 12px;
+  border-left:2px solid transparent;
+  background:none;border-top:none;border-right:none;border-bottom:none;
+  cursor:pointer;transition:all .2s;line-height:1.4;
+}
+.toc-item:hover{color:var(--cream);border-left-color:var(--cream4)}
+.toc-item.active{color:var(--red);border-left-color:var(--red)}
+
+/* ═══════════ ARTICLE BODY ═══════════ */
+.body{
+  padding:60px 0 100px 52px;
+}
+
+/* ═══════════ SECTION ═══════════ */
+.sec{
+  margin-bottom:72px;
+  scroll-margin-top:100px;
+}
+.sec-num{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--red);margin-bottom:8px;
+}
+.sec-title{
+  font-family:var(--serif);
+  font-size:clamp(26px,3.5vw,42px);
+  font-weight:800;color:var(--cream);
+  margin-bottom:24px;
+  padding-bottom:14px;
+  border-bottom:2px solid var(--red);
+  display:inline-block;
+  line-height:1.15;
+  letter-spacing:-0.015em;
+}
+.sec-title em{font-style:italic;color:var(--red);font-weight:300}
+
+.subsec-title{
+  font-family:var(--serif);font-size:22px;
+  font-weight:600;color:var(--cream2);
+  margin-top:36px;margin-bottom:14px;
+  letter-spacing:-0.01em;
+}
+
+/* ═══════════ INLINE FOUNDER IMAGE ═══════════ */
+.inline-img-wrap{
+  float:right;
+  width:240px;
+  margin:0 0 24px 32px;
+  position:relative;
+}
+.inline-img{
+  width:100%;
+  border-radius:10px;
+  display:block;
+  object-fit:cover;
+  filter:grayscale(15%);
+  border:1px solid var(--rule);
+}
+.inline-img-caption{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--cream3);text-align:center;
+  margin-top:8px;
+  padding:6px 10px;
+  background:var(--ink3);
+  border-radius:0 0 10px 10px;
+  border:1px solid var(--rule);
+  border-top:none;
+}
+.inline-img-accent{
+  position:absolute;
+  top:-8px;right:-8px;
+  width:30px;height:30px;
+  background:var(--red);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;z-index:1;
+}
+.clearfix::after{content:'';display:table;clear:both}
+
+/* Full-width image block */
+.full-img-wrap{
+  width:100%;
+  margin:32px 0;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid var(--rule);
+  position:relative;
+}
+.full-img{
+  width:100%;height:300px;
+  object-fit:cover;
+  display:block;
+  filter:grayscale(20%) brightness(0.85);
+}
+.full-img-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(15,10,9,.85) 0%, transparent 50%);
+}
+.full-img-caption-overlay{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:20px 24px;
+}
+.full-img-caption-overlay .caption-text{
+  font-family:var(--serif);font-size:15px;
+  font-style:italic;font-weight:300;
+  color:var(--cream2);margin-bottom:4px;
+}
+.full-img-caption-overlay .caption-sub{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--red);
+}
+
+/* ═══════════ TYPOGRAPHY ═══════════ */
+.lead{
+  font-family:var(--serif);font-size:19px;
+  font-style:italic;font-weight:300;
+  color:var(--cream2);line-height:1.7;
+  margin-bottom:28px;padding-bottom:28px;
+  border-bottom:1px solid var(--rule);
+}
+p{font-size:16px;color:var(--cream2);line-height:1.8;margin-bottom:18px;font-weight:300}
+p:last-child{margin-bottom:0}
+p strong{color:var(--cream);font-weight:500}
+mark{background:rgba(226,55,68,.18);color:var(--red);padding:1px 6px;border-radius:3px}
+
+/* ═══════════ PULL QUOTE ═══════════ */
+.pq{
+  margin:36px 0;padding:24px 32px;
+  border-left:3px solid var(--red);
+  background:rgba(226,55,68,.06);
+  border-radius:0 8px 8px 0;
+}
+.pq blockquote{
+  font-family:var(--serif);font-size:20px;
+  font-style:italic;font-weight:300;
+  color:var(--cream);line-height:1.55;margin-bottom:10px;
+}
+.pq cite{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--red);font-style:normal;
+}
+
+/* ═══════════ CALLOUT BOXES ═══════════ */
+.callout{margin:28px 0;padding:20px 24px;border-radius:8px}
+.callout-lesson{background:var(--teal-pale);border-left:3px solid var(--teal)}
+.callout-warn{background:rgba(226,55,68,.08);border-left:3px solid var(--red)}
+.callout-green{background:var(--green-pale);border-left:3px solid var(--green)}
+.callout-label{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.18em;text-transform:uppercase;
+  margin-bottom:8px;font-weight:500;
+}
+.callout-lesson .callout-label{color:var(--teal)}
+.callout-warn .callout-label{color:var(--red)}
+.callout-green .callout-label{color:var(--green)}
+.callout p{font-size:14px;color:var(--cream2);line-height:1.65;margin-bottom:6px;font-weight:300}
+.callout p strong{color:var(--cream);font-weight:500}
+.callout p:last-child{margin-bottom:0}
+
+/* ═══════════ LIST ═══════════ */
+ul.alist{list-style:none;margin:18px 0}
+ul.alist li{
+  padding:11px 0 11px 26px;
+  position:relative;
+  border-bottom:1px solid var(--rule);
+  font-size:15px;color:var(--cream2);
+  line-height:1.65;font-weight:300;
+}
+ul.alist li:last-child{border-bottom:none}
+ul.alist li::before{content:'→';position:absolute;left:0;color:var(--red);font-weight:700}
+ul.alist li strong{color:var(--cream);font-weight:500}
+
+/* ═══════════ STATS STRIP ═══════════ */
+.stats-strip{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:2px;margin:28px 0;
+  background:var(--rule);border-radius:8px;overflow:hidden;
+}
+.stat-card{background:var(--ink2);padding:16px 14px;text-align:center}
+.stat-val{
+  font-family:var(--serif);font-size:22px;
+  font-weight:800;color:var(--red);
+  line-height:1.1;margin-bottom:4px;
+}
+.stat-lbl{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--cream3);
+}
+
+/* ═══════════ INFO ROWS ═══════════ */
+.info-rows{margin:20px 0}
+.info-row{
+  display:flex;gap:20px;
+  padding:11px 0;border-bottom:1px solid var(--rule);
+  font-size:15px;align-items:flex-start;
+}
+.info-row:last-child{border-bottom:none}
+.info-key{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--red);flex-shrink:0;width:140px;
+  padding-top:3px;font-weight:500;
+}
+.info-val{color:var(--cream2);line-height:1.6;font-weight:300}
+.info-val strong{color:var(--cream);font-weight:500}
+
+/* ═══════════ TIMELINE ═══════════ */
+.timeline{margin:28px 0}
+.tl-item{
+  display:flex;gap:18px;
+  padding-bottom:24px;position:relative;
+}
+.tl-item::before{
+  content:'';position:absolute;
+  left:28px;top:52px;bottom:0;
+  width:1px;background:var(--rule);
+}
+.tl-item:last-child::before{display:none}
+.tl-dot{
+  flex-shrink:0;width:56px;height:56px;
+  border-radius:50%;
+  background:var(--ink3);
+  border:1px solid rgba(226,55,68,.3);
+  color:var(--red);
+  font-family:var(--serif);font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;line-height:1.2;
+}
+.tl-content{flex:1;padding-top:10px}
+.tl-content strong{
+  display:block;font-size:15px;font-weight:500;
+  color:var(--cream);margin-bottom:4px;
+}
+.tl-content p{font-size:13px;color:var(--cream3);margin:0;line-height:1.55}
+
+/* ═══════════ QUOTES GRID ═══════════ */
+.quotes-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+  gap:16px;margin:24px 0;
+}
+.qcard{
+  background:var(--ink2);
+  border:1px solid var(--rule);
+  border-radius:10px;padding:22px 20px;
+  transition:border-color .2s;
+}
+.qcard:hover{border-color:rgba(226,55,68,.3)}
+.qnum{
+  font-family:var(--serif);font-size:44px;
+  font-weight:800;
+  color:rgba(226,55,68,.1);
+  line-height:1;margin-bottom:-8px;
+}
+.qtext{
+  font-family:var(--serif);font-size:15px;
+  font-style:italic;font-weight:300;
+  color:var(--cream2);line-height:1.6;margin-bottom:12px;
+}
+.qmeta{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--red);
+}
+
+/* ═══════════ SUMMARY TABLE ═══════════ */
+.sum-table{
+  width:100%;border-collapse:collapse;
+  margin:24px 0;font-size:14px;
+  border:1px solid var(--rule);border-radius:8px;overflow:hidden;
+}
+.sum-table th{
+  background:var(--ink3);color:var(--red);
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  padding:12px 16px;text-align:left;font-weight:500;
+}
+.sum-table td{
+  padding:13px 16px;
+  border-bottom:1px solid var(--rule);
+  vertical-align:top;line-height:1.55;
+}
+.sum-table td:first-child{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--red);white-space:nowrap;width:30%;
+}
+.sum-table td:last-child{color:var(--cream2);font-weight:300}
+.sum-table tr:last-child td{border-bottom:none}
+.sum-table tr:nth-child(even) td{background:rgba(253,245,238,.02)}
+
+/* ═══════════ QUICK REVISION ═══════════ */
+.revision{
+  background:var(--ink2);
+  border:1px solid var(--rule);
+  border-radius:12px;
+  padding:36px 32px;margin:32px 0;
+}
+.revision h3{
+  font-family:var(--serif);font-size:24px;
+  font-weight:800;color:var(--red);
+  margin-bottom:24px;padding-bottom:14px;
+  border-bottom:1px solid var(--rule);
+}
+.qr-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+}
+.qr-item{
+  padding:13px 16px;
+  border-bottom:1px solid var(--rule);
+  border-right:1px solid var(--rule);
+}
+.qr-item:nth-child(2n){border-right:none}
+.qr-label{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--red);margin-bottom:4px;
+}
+.qr-val{font-size:13px;color:var(--cream2);line-height:1.5;font-weight:300}
+
+/* ═══════════ FINAL ANSWER BOX ═══════════ */
+.final-box{
+  background:linear-gradient(135deg,var(--ink2),var(--ink3));
+  border:1px solid rgba(226,55,68,.35);
+  border-radius:12px;padding:36px 32px;margin:32px 0;
+}
+.final-box h3{
+  font-family:var(--serif);font-size:20px;
+  font-style:italic;font-weight:300;
+  color:var(--red);margin-bottom:18px;line-height:1.4;
+}
+.final-box p{
+  font-size:15px;color:var(--cream2);
+  line-height:1.75;margin-bottom:16px;font-weight:300;
+}
+.final-box p strong{color:#f97316;font-weight:600}
+.final-box .footnote{
+  font-style:italic;color:var(--cream3);
+  font-size:14px;margin-top:24px;
+  padding-top:20px;border-top:1px solid var(--rule);
+}
+
+/* ═══════════ IMAGE CAPTION STRIP ═══════════ */
+.img-strip{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;margin:28px 0;
+}
+.img-strip-item{border-radius:10px;overflow:hidden;position:relative;border:1px solid var(--rule)}
+.img-strip-img{
+  width:100%;height:180px;
+  object-fit:cover;
+  display:block;
+  filter:grayscale(20%) brightness(.85);
+  transition:filter .3s;
+}
+.img-strip-item:hover .img-strip-img{filter:grayscale(0%) brightness(.9)}
+.img-strip-caption{
+  padding:10px 14px;
+  background:var(--ink3);
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--cream3);
+}
+
+/* ═══════════ FOOTER ═══════════ */
+.footer{
+  background:var(--ink2);
+  border-top:1px solid var(--rule);
+  padding:48px 48px 32px;
+  margin-top:80px;
+}
+.footer-inner{
+  max-width:1140px;margin:0 auto;
+  display:flex;justify-content:space-between;
+  align-items:flex-end;flex-wrap:wrap;gap:20px;
+}
+.footer-brand{
+  font-family:var(--serif);font-size:18px;
+  font-weight:800;color:var(--cream);
+}
+.footer-brand span{color:var(--red)}
+.footer-sub{
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:0.14em;color:var(--cream3);
+  margin-top:6px;
+}
+.footer-links{
+  display:flex;gap:20px;
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--cream3);
+}
+.footer-links a{color:var(--cream3);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--red)}
+.footer-copy{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.12em;color:var(--cream3);
+  margin-top:28px;padding-top:20px;
+  border-top:1px solid var(--rule);
+  text-align:center;
+}
+.footer-copy span{color:var(--red)}
+
+/* ═══════════ ANIMATIONS ═══════════ */
+@keyframes slideIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-left{padding:90px 24px 60px}
+  .hero-left::after{display:none}
+  .hero-right{height:380px}
+  .article{grid-template-columns:1fr;padding:0 20px}
+  .toc{display:none}
+  .body{padding:40px 0}
+  .nav{padding:0 20px}
+  .inline-img-wrap{float:none;width:100%;margin:0 0 24px}
+  .img-strip{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="banner">Founder Deep-Dive Series &nbsp;·&nbsp; Indian Startup Ecosystem &nbsp;·&nbsp; FounderLens 2025</div>
+
+<nav class="nav">
+  <div class="nav-brand">
+    <span class="nav-brand-dot"></span>
+    FounderLens
+  </div>
+  <div class="nav-chips">
+    <button class="nav-chip active" onclick="scrollToTop()">Overview</button>
+    <button class="nav-chip" onclick="document.getElementById('sec-background').scrollIntoView({behavior:'smooth'})">Background</button>
+    <button class="nav-chip" onclick="document.getElementById('sec-strategy').scrollIntoView({behavior:'smooth'})">Strategy</button>
+    <button class="nav-chip" onclick="document.getElementById('sec-lessons').scrollIntoView({behavior:'smooth'})">Lessons</button>
+    <button class="nav-chip" onclick="document.getElementById('sec-quotes').scrollIntoView({behavior:'smooth'})">Quotes</button>
+  </div>
+  <button class="nav-cta">Read Analysis ↓</button>
+</nav>
+
+<!-- ════════ HERO ════════ -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      <span class="hero-eyebrow-text">Founder Analysis — Issue #02</span>
+    </div>
+
+    <h1 class="hero-title">
+      Deepinder Goyal<br>
+      <em>The Man Who Made India<br>Order Food Online</em>
+    </h1>
+
+    <p class="hero-sub">
+      From scanning paper menus at Bain & Company to building India's largest food tech platform — the inside story of how a Punjabi IIT engineer turned a lunchtime frustration into a <strong>₹2 lakh crore company</strong>.
+    </p>
+
+    <div class="hero-kpis">
+      <div>
+        <div class="kpi-val">₹13,000 Cr</div>
+        <div class="kpi-label">FY24 Revenue</div>
+      </div>
+      <div>
+        <div class="kpi-val">$1.6 Bn</div>
+        <div class="kpi-label">Founder Net Worth</div>
+      </div>
+      <div>
+        <div class="kpi-val">55–58%</div>
+        <div class="kpi-label">Food Delivery Market Share</div>
+      </div>
+      <div>
+        <div class="kpi-val">800+</div>
+        <div class="kpi-label">Indian Cities</div>
+      </div>
+    </div>
+
+    <div class="hero-tags">
+      <span class="hero-tag red">FoodTech</span>
+      <span class="hero-tag red">Quick Commerce</span>
+      <span class="hero-tag">IIT Delhi</span>
+      <span class="hero-tag">Bootstrapped to IPO</span>
+      <span class="hero-tag">Blinkit</span>
+      <span class="hero-tag">Series Z → Public</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-img-frame">
+      <div class="founder-photo-wrap">
+        <div class="founder-photo-bg"></div>
+        <img
+          class="founder-photo"
+          src="https://www.entertales.com/wp-content/uploads/2024/11/Deepinder-Goyal-Zomato-CEO.jpg"
+          alt="Deepinder Goyal – Founder & CEO, Zomato"
+          onerror="this.onerror=null; this.style.display='none'; this.parentNode.querySelector('.svg-fallback').style.display='flex';"
+        >
+        <!-- SVG Fallback Portrait -->
+        <div class="svg-fallback" style="display:none;position:absolute;inset:0;z-index:3;border-radius:12px;background:linear-gradient(160deg,#1a100e,#321a14);align-items:center;justify-content:center;flex-direction:column;">
+          <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="58" stroke="rgba(226,55,68,0.4)" stroke-width="2"/>
+            <circle cx="60" cy="44" r="22" fill="rgba(226,55,68,0.25)"/>
+            <ellipse cx="60" cy="100" rx="36" ry="22" fill="rgba(226,55,68,0.2)"/>
+          </svg>
+          <span style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:rgba(253,245,238,0.5);margin-top:8px;">DG</span>
+          <span style="font-family:'Martian Mono',monospace;font-size:9px;letter-spacing:0.14em;color:rgba(226,55,68,0.7);text-transform:uppercase;margin-top:4px;">Deepinder Goyal</span>
+        </div>
+        <span class="photo-badge">Co-Founder & CEO · Zomato</span>
+      </div>
+    </div>
+
+    <div class="hero-float-quote">
+      <div class="hero-float-quote-text">"I don't want to be the richest person in the cemetery. I want to build something that lasts."</div>
+      <div class="hero-float-quote-by">— Deepinder Goyal</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ ARTICLE ════════ -->
+<div class="article">
+
+  <!-- TOC -->
+  <nav class="toc">
+    <div class="toc-heading">Contents</div>
+    <button class="toc-item active" onclick="scrollSec('sec-identity')">01 · Founder & Company</button>
+    <button class="toc-item" onclick="scrollSec('sec-background')">02 · Background</button>
+    <button class="toc-item" onclick="scrollSec('sec-problem')">03 · Problem Solved</button>
+    <button class="toc-item" onclick="scrollSec('sec-opportunity')">04 · Opportunity</button>
+    <button class="toc-item" onclick="scrollSec('sec-revenue')">05 · Revenue Model</button>
+    <button class="toc-item" onclick="scrollSec('sec-business')">06 · Business Model</button>
+    <button class="toc-item" onclick="scrollSec('sec-struggles')">07 · Initial Struggles</button>
+    <button class="toc-item" onclick="scrollSec('sec-strategy')">08 · Growth Strategy</button>
+    <button class="toc-item" onclick="scrollSec('sec-marketing')">09 · Marketing</button>
+    <button class="toc-item" onclick="scrollSec('sec-acquisition')">10 · Customer Acquisition</button>
+    <button class="toc-item" onclick="scrollSec('sec-product')">11 · Product Strategy</button>
+    <button class="toc-item" onclick="scrollSec('sec-funding')">12 · Funding Journey</button>
+    <button class="toc-item" onclick="scrollSec('sec-mistakes')">13 · Mistakes</button>
+    <button class="toc-item" onclick="scrollSec('sec-strengths')">14 · Strengths</button>
+    <button class="toc-item" onclick="scrollSec('sec-leadership')">15 · Leadership</button>
+    <button class="toc-item" onclick="scrollSec('sec-decisions')">16 · Smart Decisions</button>
+    <button class="toc-item" onclick="scrollSec('sec-moat')">17 · Competitive Edge</button>
+    <button class="toc-item" onclick="scrollSec('sec-turning')">18 · Turning Points</button>
+    <button class="toc-item" onclick="scrollSec('sec-controversies')">19 · Controversies</button>
+    <button class="toc-item" onclick="scrollSec('sec-lessons')">20 · Key Lessons</button>
+    <button class="toc-item" onclick="scrollSec('sec-quotes')">21 · Quotes</button>
+    <button class="toc-item" onclick="scrollSec('sec-summary')">22 · Final Summary</button>
+    <button class="toc-item" onclick="scrollSec('sec-revision')">23 · Quick Revision</button>
+    <button class="toc-item" onclick="scrollSec('sec-table')">24 · Strategy Table</button>
+    <button class="toc-item" onclick="scrollSec('sec-final')">25 · If Starting Over</button>
+  </nav>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- ── SEC 1: IDENTITY ── -->
+    <div class="sec" id="sec-identity">
+      <div class="sec-num">01 — Who He Is</div>
+      <h2 class="sec-title">Founder &amp; <em>Company</em></h2>
+
+      <div class="info-rows">
+        <div class="info-row"><div class="info-key">Founder</div><div class="info-val"><strong>Deepinder Goyal</strong> — Co-founder &amp; CEO</div></div>
+        <div class="info-row"><div class="info-key">Co-Founder</div><div class="info-val">Pankaj Chaddah (IIT Delhi batchmate, left in 2018)</div></div>
+        <div class="info-row"><div class="info-key">Company</div><div class="info-val"><strong>Zomato</strong> (rebranded as <strong>Eternal Limited</strong> in 2025)</div></div>
+        <div class="info-row"><div class="info-key">Founded</div><div class="info-val">2008 — as FoodieBay.com. Renamed Zomato in 2010</div></div>
+        <div class="info-row"><div class="info-key">HQ</div><div class="info-val">Gurugram, Haryana, India</div></div>
+        <div class="info-row"><div class="info-key">Sector</div><div class="info-val">FoodTech / Quick Commerce / B2B Supply Chain / Fintech</div></div>
+        <div class="info-row"><div class="info-key">IPO</div><div class="info-val">July 2021 — India's first unicorn to list on NSE/BSE. Subscribed 35×.</div></div>
+        <div class="info-row"><div class="info-key">Name Origin</div><div class="info-val">Combination of <mark>Zomato</mark> — invented word, easy to recall, red brand</div></div>
+        <div class="info-row"><div class="info-key">Subsidiaries</div><div class="info-val">Blinkit (quick commerce), Hyperpure (B2B supplies), Zomato Gold, Going-Out</div></div>
+        <div class="info-row"><div class="info-key">Market Cap</div><div class="info-val">~₹2,10,000+ crore (one of India's top 20 listed companies)</div></div>
+      </div>
+    </div>
+
+    <!-- ── SEC 2: BACKGROUND ── -->
+    <div class="sec" id="sec-background">
+      <div class="sec-num">02 — The Origin Story</div>
+      <h2 class="sec-title">Background of the <em>Founder</em></h2>
+
+      <div class="inline-img-wrap">
+        <img
+          class="inline-img"
+          src="https://images.hindustantimes.com/img/2021/07/14/1600x900/deepinder_goyal_1626257509528_1626257514700.jpg"
+          alt="Deepinder Goyal at Zomato IPO"
+          onerror="this.onerror=null; this.parentNode.style.display='none';"
+          loading="lazy"
+        >
+        <div class="inline-img-accent">📍</div>
+        <div class="inline-img-caption">Deepinder Goyal — Zomato IPO 2021</div>
+      </div>
+
+      <p class="lead">Deepinder Goyal did not grow up with a silver spoon. He came from a middle-class Punjabi family in Muktsar, Punjab — a small town where big dreams had to compete with practical realities. What he had was an IIT mind, a stomach for food, and an unusually high tolerance for uncertainty.</p>
+
+      <p>Born on <strong>January 26, 1983 (Republic Day — a symbolic birthday for a future nation-builder)</strong> in Muktsar, Punjab, Deepinder grew up in a household where his father was a teacher. This background instilled deep values: hard work, respect for knowledge, and the belief that education was the only reliable ladder to a better life.</p>
+
+      <p>He cracked the <strong>IIT-JEE</strong> — one of the world's toughest entrance exams — and enrolled at IIT Delhi to study Integrated M.Tech in Mathematics &amp; Computing. At IIT, he didn't just study algorithms and equations; he absorbed a systems-level way of thinking — the ability to see a messy real-world problem and ask: what's the underlying pattern here? How do you design a better system?</p>
+
+      <div class="clearfix"></div>
+
+      <div class="subsec-title">The Critical Pre-Zomato Years</div>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot">1983</div>
+          <div class="tl-content">
+            <strong>Born — Muktsar, Punjab</strong>
+            <p>Middle-class family. Father is a teacher. Grows up with strong academic discipline and Punjabi work ethic.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">2001–05</div>
+          <div class="tl-content">
+            <strong>IIT Delhi — Mathematics &amp; Computing</strong>
+            <p>Develops systems-thinking and problem-solving frameworks. Meets future co-founder Pankaj Chaddah. Graduates in 2005.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">2005–08</div>
+          <div class="tl-content">
+            <strong>Bain &amp; Company — The Spark</strong>
+            <p>Joins as Senior Associate Consultant. Witnesses the daily pain of long food queues at the office. Creates an internal intranet menu website for colleagues — it goes viral within Bain. The "FoodieBay idea" is born.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">2008</div>
+          <div class="tl-content">
+            <strong>FoodieBay.com Launched</strong>
+            <p>Deepinder and Pankaj launch the website while still employed at Bain. Within 9 months it becomes the largest restaurant directory in Delhi-NCR. They realise this is bigger than a side project.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">2010</div>
+          <div class="tl-content">
+            <strong>FoodieBay → Zomato</strong>
+            <p>They quit Bain full-time. Rebrand to "Zomato" for international appeal. Info Edge (Sanjeev Bikhchandani) becomes the first major investor with a ₹4.7 crore cheque.</p>
+          </div>
+        </div>
+      </div>
+
+      <p>What makes Deepinder's backstory powerful is not the IIT pedigree — it's what he did with the insight he gained from daily life. <strong>He wasn't solving a theoretical problem. He was solving his own lunch queue problem.</strong> That authenticity is the root of everything Zomato became.</p>
+
+      <div class="callout callout-lesson">
+        <div class="callout-label">🧠 Psychological Insight</div>
+        <p>Deepinder Goyal shows a classic <strong>"founder-as-first-user"</strong> pattern. The best startups in history were built by people solving a problem they personally experienced. When you are the user, your product feedback loop is instant, honest, and free.</p>
+      </div>
+    </div>
+
+    <!-- ── SEC 3: PROBLEM ── -->
+    <div class="sec" id="sec-problem">
+      <div class="sec-num">03 — The Root Cause</div>
+      <h2 class="sec-title">The Problem <em>They Solved</em></h2>
+
+      <p class="lead">In 2008, ordering food in India was a combination of crumpled paper menus, long hold times, wrong orders, and zero transparency. Deepinder turned this everyday frustration into a technology platform used by 100 million+ Indians.</p>
+
+      <p>Before Zomato, India's restaurant information ecosystem was completely broken. Here's a simple picture of what the world looked like:</p>
+
+      <ul class="alist">
+        <li><strong>Paper menus were the only source of truth</strong> — scattered, outdated, lost under desks. Nobody knew which restaurants were nearby, what their menus looked like, or whether they were even good.</li>
+        <li><strong>No ratings, no reviews, no trust signals.</strong> When you called a new restaurant, you were gambling. You had no way to know whether the biryani was worth ₹350 or whether it would arrive in 2 hours cold.</li>
+        <li><strong>Discovery was completely word-of-mouth.</strong> Finding a great new restaurant involved asking 5 different colleagues, and nobody agreed.</li>
+        <li><strong>Zero digital ordering infrastructure.</strong> No apps, no online menus, no reliable order tracking. The entire system depended on phone calls that went unanswered.</li>
+        <li><strong>The office canteen problem.</strong> In corporate India, ordering lunch for a team meant standing in queues, taking 30+ minutes just to figure out what was available — a massive productivity killer.</li>
+      </ul>
+
+      <div class="pq">
+        <blockquote>"People at Bain &amp; Company were spending an unreasonable amount of time figuring out what to eat and where to order from. We thought — what if we just put all the menus online?"</blockquote>
+        <cite>— Deepinder Goyal on the founding idea</cite>
+      </div>
+
+      <p>Deepinder's insight was deceptively simple: <strong>digitise the menus.</strong> Not build a delivery network, not build an AI recommendation engine — just put the menus online. That's it. And it was enough to create a $12 billion company.</p>
+
+      <div class="callout callout-lesson">
+        <div class="callout-label">Startup Principle</div>
+        <p><strong>Start with the smallest valuable thing.</strong> Zomato's first product was just a digital version of paper menus. No fancy tech. No AI. Just accessible, searchable information. The lesson: you don't need to solve the whole problem on Day 1. Solve one specific, high-friction part of it — and do it brilliantly.</p>
+      </div>
+    </div>
+
+    <!-- ── SEC 4: OPPORTUNITY ── -->
+    <div class="sec" id="sec-opportunity">
+      <div class="sec-num">04 — Seeing What Others Missed</div>
+      <h2 class="sec-title">Identifying the <em>Opportunity</em></h2>
+
+      <p>The interesting thing about Zomato's origin story is how <strong>accidental</strong> and <strong>internal</strong> it was. Deepinder didn't read a market research report. He didn't attend a startup conference. He observed a problem in his own office, built a small internal tool, watched it go viral among colleagues, and then realised: if 300 people at Bain love this, maybe 300 million Indians would too.</p>
+
+      <p>The key opportunity signals he read correctly:</p>
+
+      <ul class="alist">
+        <li><strong>Smartphone adoption was about to explode.</strong> In 2008, smartphones were still early in India. But Deepinder saw the writing on the wall — mobile internet was coming, and food discovery on mobile would be a massive use case.</li>
+        <li><strong>India's restaurant industry was huge and completely unorganised.</strong> There were millions of restaurants across India with zero digital presence. Aggregating and digitising them was a clear white space.</li>
+        <li><strong>The Yelp/OpenTable model existed in the US</strong> — but nobody had replicated it for India. Local context (Indian food categories, regional cuisines, vegetarian/non-vegetarian filtering) was completely missing.</li>
+        <li><strong>Rising urban middle class + increasing disposable income</strong> = more people eating out and ordering in. The demographic tailwind was enormous.</li>
+      </ul>
+
+      <div class="subsec-title">5.1 — The Initial Days</div>
+
+      <p>The early Zomato story is one of the most hands-on founding stories in Indian startup history. Deepinder and Pankaj personally went to restaurants in Delhi, scanned menus, photographed them, and uploaded them. It was <strong>zero-tech, maximum hustle</strong>:</p>
+
+      <ul class="alist">
+        <li><strong>They physically visited 1,200+ restaurants in Delhi-NCR</strong> in the first year. Deepinder would walk into a restaurant, ask for the menu, photograph it with his phone, and upload it to FoodieBay that evening. This was "do things that don't scale" as a founding principle.</li>
+        <li><strong>First traffic came from Bain's internal network.</strong> The intranet website spread by word-of-mouth among corporate employees — Bain's network became Zomato's beta test.</li>
+        <li><strong>No investors, no office, no payroll.</strong> Deepinder and Pankaj ran the company from their homes, funding it from their Bain salaries while still employed.</li>
+        <li><strong>The first real investor found them.</strong> Sanjeev Bikhchandani of Info Edge reportedly discovered Zomato organically and reached out to invest. They didn't go fundraising — the product quality attracted the capital.</li>
+      </ul>
+
+      <div class="callout callout-lesson">
+        <div class="callout-label">Founder Lesson</div>
+        <p><strong>Do the unscalable thing first.</strong> Deepinder photographing menus by hand is as unscalable as it gets. But it built the database that made the product valuable. Only after you've proven the value manually do you build the tech to automate it. This is Paul Graham's "do things that don't scale" in its purest form.</p>
+      </div>
+    </div>
+
+    <!-- ── SEC 5: REVENUE MODEL ── -->
+    <div class="sec" id="sec-revenue">
+      <div class="sec-num">05 — The Money Engine</div>
+      <h2 class="sec-title">Revenue <em>Model</em></h2>
+
+      <p class="lead">Zomato has evolved from a single-revenue restaurant directory into a multi-vertical commerce platform. Understanding each revenue stream reveals the layered, compounding nature of Deepinder's strategic thinking.</p>
+
+      <div class="stats-strip">
+        <div class="stat-card"><div class="stat-val">₹13,000 Cr</div><div class="stat-lbl">FY24 Revenue</div></div>
+        <div class="stat-card"><div class="stat-val">₹2,024 Cr</div><div class="stat-lbl">FY24 Net Profit</div></div>
+        <div class="stat-card"><div class="stat-val">55–58%</div><div class="stat-lbl">Food Delivery Mkt Share</div></div>
+        <div class="stat-card"><div class="stat-val">45%</div><div class="stat-lbl">Blinkit Q-Commerce Share</div></div>
+        <div class="stat-card"><div class="stat-val">$1.69 Bn</div><div class="stat-lbl">Total Funding Raised</div></div>
+      </div>
+
+      <ul class="alist">
+        <li><strong>Food Delivery Platform Fees (Core Revenue).</strong> Zomato earns a commission (typically 20–30%) from every restaurant order placed through the app. It also charges a delivery fee from customers on smaller orders. This is still the largest revenue segment.</li>
+        <li><strong>Blinkit — Quick Commerce.</strong> Acquired in 2022 for ~₹4,447 crore. Blinkit delivers groceries, essentials, and electronics in 10–15 minutes via a network of "dark stores." Revenue comes from margin on goods sold + platform fees. By Q4 FY25, Blinkit's Gross Order Value (₹9,421 crore) was nearly equal to Zomato's food delivery GOV — making it the growth engine of the future.</li>
+        <li><strong>Hyperpure — B2B Supply Chain.</strong> Zomato supplies fresh produce, dairy, proteins, and kitchen essentials directly to restaurants, cutting out middlemen. In FY25, Hyperpure became Zomato's largest revenue vertical at ~₹6,196 crore. A brilliant structural play: Zomato now controls both the supply side (Hyperpure) and the demand side (delivery platform) of restaurant economics.</li>
+        <li><strong>Zomato Gold / Zomato Pro.</strong> Subscription memberships that give users discounts, free deliveries, and priority service. Pure recurring subscription revenue with high retention.</li>
+        <li><strong>Advertising Revenue.</strong> Restaurants pay Zomato for premium placement, banner ads, and promoted listings within the app. High-margin revenue that scales with platform growth.</li>
+        <li><strong>Going-Out Vertical.</strong> Restaurant table reservations, event ticketing, and dining experiences. A newer but fast-growing segment (126% YoY growth in Q1 FY25).</li>
+        <li><strong>Zomato Nugget (2025).</strong> A newly launched AI-powered customer service platform — Zomato's first B2B SaaS product, sold to other businesses. A completely new revenue category with high margins.</li>
+      </ul>
+    </div>
+
+    <!-- ── SEC 6: BUSINESS MODEL ── -->
+    <div class="sec" id="sec-business">
+      <div class="sec-num">06 — The Architecture</div>
+      <h2 class="sec-title">Business <em>Model</em></h2>
+
+      <p>Zomato's business model has undergone three distinct transformations. Understanding this evolution is essential to understanding why Deepinder is considered one of India's most strategically agile founders.</p>
+
+      <ul class="alist">
+        <li><strong>Phase 1 — The Directory (2008–2015): Pure information aggregator.</strong> Restaurant discovery, menus, ratings, reviews. Revenue from advertising. Simple, asset-light, but limited ceiling. Like a digital Yellow Pages for food.</li>
+        <li><strong>Phase 2 — The Delivery Platform (2015–2021): Marketplace model.</strong> Food ordering + delivery. Commission-based. This is the Amazon marketplace equivalent — Zomato owns the platform, restaurants are sellers, delivery partners are fulfilment. High volume, thin margins per order but enormous scale potential.</li>
+        <li><strong>Phase 3 — The Commerce Ecosystem (2022–present): Full-stack food infrastructure.</strong> Zomato now owns the entire value chain: supply (Hyperpure) → restaurant operations (advisory) → delivery (Zomato food + Blinkit) → discovery (app) → loyalty (Gold) → B2B SaaS (Nugget). This is the Amazon Web Services model applied to food — where the platform becomes infrastructure.</li>
+      </ul>
+
+      <div class="pq">
+        <blockquote>"We are not just a food delivery company. We are building the infrastructure for how India eats — from farm to fork."</blockquote>
+        <cite>— Deepinder Goyal on Zomato's long-term vision</cite>
+      </div>
+
+      <div class="callout callout-lesson">
+        <div class="callout-label">Strategic Analysis</div>
+        <p>The most underappreciated part of Zomato's business model is <strong>Hyperpure</strong>. By supplying raw ingredients to restaurants, Zomato has built relationships that make those restaurants deeply dependent on the Zomato ecosystem. A restaurant that buys its tomatoes from Hyperpure and sells its food on Zomato's platform has two-way dependence. <strong>This is a flywheel that competitors cannot easily replicate.</strong></p>
+      </div>
+    </div>
+
+    <!-- ── SEC 7: STRUGGLES ── -->
+    <div class="sec" id="sec-struggles">
+      <div class="sec-num">07 — The Hard Chapter</div>
+      <h2 class="sec-title">Initial <em>Struggles</em></h2>
+
+      <p class="lead">Zomato's journey from a Bain intranet website to a listed multinational was anything but smooth. There were years of losses, near-death moments, strategic misfires, and brutal competition that forced Deepinder to constantly adapt.</p>
+
+      <ul class="alist">
+        <li><strong>Building credibility with restaurants.</strong> In the early days, restaurant owners didn't trust a couple of young guys photographing their menus. Many refused. Deepinder had to manually demonstrate value — show that being listed on FoodieBay actually sent them more customers — before restaurants would cooperate.</li>
+        <li><strong>The pivot to delivery was painful.</strong> Zomato's 2015 entry into food delivery required building a logistics network from scratch — hiring thousands of delivery riders, managing supply chains, handling cash-on-delivery fraud. The complexity exploded overnight.</li>
+        <li><strong>International expansion and retreat (2015–2019).</strong> Zomato aggressively expanded to 24 countries. Then retreated. Pulling out of markets like the US, Canada, and most of Southeast Asia was a painful, expensive lesson in geographic overreach. The company spent hundreds of millions of dollars on markets it eventually abandoned.</li>
+        <li><strong>Years of consecutive losses.</strong> From 2015 to 2023, Zomato was loss-making. The company burned hundreds of crores quarterly in discounts, marketing, and delivery subsidies. Keeping investor faith and team morale alive through years of red ink requires extraordinary leadership.</li>
+        <li><strong>The Swiggy competition.</strong> Swiggy entered India's food delivery market with massive funding and fought Zomato aggressively for market share through the late 2010s. There were months when the survival of both companies was genuinely in question — deep discounting wars that benefited customers but destroyed unit economics.</li>
+      </ul>
+
+      <div class="callout callout-warn">
+        <div class="callout-label">⚠ The Hardest Truth</div>
+        <p>At one point, Zomato's losses were so severe that internal discussions about shutting down certain verticals became serious. The company laid off 3,000+ employees in 2020 during COVID. Managing a team through mass layoffs — while publicly maintaining confidence — is one of the most psychologically demanding challenges any founder can face. Deepinder did it, but it left scars.</p>
+      </div>
+    </div>
+
+    <!-- ── SEC 8: GROWTH STRATEGY ── -->
+    <div class="sec" id="sec-strategy">
+      <div class="sec-num">08 — How They Scaled</div>
+      <h2 class="sec-title">Growth <em>Strategy</em></h2>
+
+      <p>Zomato's growth playbook evolved significantly across its lifecycle. Unlike Zerodha's purely organic, zero-marketing approach, Zomato combined organic content growth, aggressive paid marketing, strategic acquisitions, and deep B2B network effects.</p>
+
+      <ul class="alist">
+        <li><strong>City-by-City Blitzscaling.</strong> Zomato conquered one city at a time — first Delhi, then Mumbai, then Bangalore, then the rest of India. Each city was treated as a micro-market: build the restaurant network first (supply), then market to consumers (demand). This two-sided marketplace building is the most challenging part of any platform business.</li>
+        <li><strong>The Acquisitions Playbook.</strong> Zomato made strategic acquisitions to accelerate market entry and capability building: Menufied (New Zealand), Lunchtime.cz (Czech Republic), Mekanist (Turkey), MapleGraph/TastyKhana (India), and most importantly — <strong>Blinkit in 2022</strong>. Each acquisition added users, technology, or market share that would have taken years to build organically.</li>
+        <li><strong>Blinkit: The Bet That Changed Everything.</strong> When Deepinder acquired Blinkit (then Grofers) for ₹4,447 crore in 2022, the market was skeptical. Many analysts called it a distraction. By 2025, Blinkit's valuation had surpassed Zomato's food delivery business. This counter-consensus bet — doubling down on quick commerce when it was deeply loss-making — is one of the boldest strategic decisions in Indian startup history.</li>
+        <li><strong>Gold Membership — The Habit Loop.</strong> Zomato Gold creates a subscription habit. Members order more frequently to "get their money's worth." This increased order frequency directly improved the unit economics of the entire platform — delivery riders became more productive, restaurants got more orders per restaurant-hour, and Zomato's cost per order fell.</li>
+        <li><strong>Hyperpure as a Trojan Horse.</strong> Supplying restaurants with ingredients gave Zomato a physical, recurring relationship with restaurants independent of the app. This made the restaurant partnership far stickier and harder for Swiggy to poach.</li>
+      </ul>
+
+      <div class="callout callout-lesson">
+        <div class="callout-label">Growth Principle</div>
+        <p>Zomato's growth strategy can be summarised as: <strong>own both sides of every market you enter.</strong> When you own the restaurant supply (Hyperpure) AND the consumer demand (app + Gold), you have a complete grip on the market that single-sided competitors cannot match.</p>
+      </div>
+    </div>
+
+    <!-- ── SEC 9: MARKETING ── -->
+    <div class="sec" id="sec-marketing">
+      <div class="sec-num">09 — Being Unforgettable</div>
+      <h2 class="sec-title">Marketing <em>Strategy</em></h2>
+
+      <p>Zomato's marketing is one of the most studied brand playbooks in Indian startup history — not for its ad spend, but for its <strong>voice, wit, and cultural relevance.</strong></p>
+
+      <ul class="alist">
+        <li><strong>The Social Media Brand Voice.</strong> Zomato's Twitter (now X) account became famous for being genuinely funny, self-aware, and human. At a time when every brand was doing corporate, sanitised communication, Zomato's team posted memes, roasted competitors gently, and spoke the language of their users. This cost ₹0 in media spend and earned millions of organic impressions.</li>
+        <li><strong>Push Notifications as Comedy.</strong> Zomato's app notifications became a pop culture phenomenon. "Treat yourself like you treat your best friend" when you were alone at 11 PM. Funny, contextual, personalised notifications that people actually read and shared as screenshots. This is marketing that customers do for you — the best kind.</li>
+        <li><strong>Influencer and Creator Integration.</strong> Zomato pioneered food influencer marketing in India. They understood early that food is emotional, visual, and shareable — and that food creators on Instagram and YouTube were the most authentic advocates for their platform.</li>
+        <li><strong>Brand Controversies as Free PR.</strong> Zomato's famous "Kachra" moment (when a delivery bag flew open in an ad and was called garbage by a celebrity chef, sparking a national conversation) generated more brand awareness than a ₹10 crore campaign could have bought. Deepinder's team has a pattern of turning controversies into marketing moments.</li>
+        <li><strong>IPO as a Brand Event.</strong> Zomato's 2021 IPO — subscribed 35 times — was as much a marketing event as a financial one. It created a wave of emotional investment (literally) from millions of middle-class Indians who bought the stock and became brand ambassadors.</li>
+      </ul>
+
+      <div class="pq">
+        <blockquote>"Our brand is our users. When they laugh at our notifications, share our memes, and argue about our app on Twitter — that's more valuable than any TV commercial."</blockquote>
+        <cite>— Zomato's marketing philosophy</cite>
+      </div>
+    </div>
+
+    <!-- ── SEC 10: CUSTOMER ACQUISITION ── -->
+    <div class="sec" id="sec-acquisition">
+      <div class="sec-num">10 — Getting Users</div>
+      <h2 class="sec-title">Customer Acquisition <em>Strategy</em></h2>
+
+      <ul class="alist">
+        <li><strong>Phase 1 — Content &amp; SEO (2008–2015).</strong> Restaurant pages, menu pages, and review content created a massive SEO footprint. Anyone searching "best pizza near me in Delhi" found Zomato. This organic search traffic was free and compounding.</li>
+        <li><strong>Phase 2 — Deep Discounting (2015–2019).</strong> Free deliveries, 50% off coupons, Gold membership freemium. This wasn't sustainable economics — but it was deliberately customer-acquisition-focused. Build the habit first, monetise later. Controversial but effective.</li>
+        <li><strong>Phase 3 — The Network Effect (2019–present).</strong> As Zomato's restaurant count grew, each new user made the platform more valuable for every restaurant. Each new restaurant made the platform more valuable for every user. This self-reinforcing network effect became the dominant acquisition mechanism — new users joined because everyone was already there.</li>
+        <li><strong>Phase 4 — Subscription Loyalty.</strong> Zomato Gold converts trial users into committed customers. A Gold member has a financial incentive to keep ordering from Zomato. This reduces customer acquisition cost for retention by ~70%.</li>
+      </ul>
+    </div>
+
+    <!-- ── SEC 11: PRODUCT ── -->
+    <div class="sec" id="sec-product">
+      <div class="sec-num">11 — Building the Experience</div>
+      <h2 class="sec-title">Product <em>Strategy</em></h2>
+
+      <p>Zomato's product strategy has always been driven by one question: <strong>how do we reduce friction between hunger and satisfaction?</strong></p>
+
+      <ul class="alist">
+        <li><strong>Discovery First, Delivery Second.</strong> Zomato never forgot its roots as a discovery engine. Even as it became primarily a delivery app, the discovery experience — search, filters, ratings, photos — remained the gateway. You discover first, then order. This sequencing sets the emotional tone for every transaction.</li>
+        <li><strong>Obsessive Localisation.</strong> Indian food is incredibly diverse — the filter for "jain food" or "no onion no garlic" is not a global feature; it's uniquely Indian. Zomato's product team built for India-specific use cases that no global competitor could easily replicate.</li>
+        <li><strong>AI-Powered Personalisation.</strong> Order history, time-of-day preferences, cuisine affinity, budget sensitivity — Zomato's recommendation engine has years of data that makes each user's experience uniquely relevant. This personalisation reduces decision fatigue (the biggest enemy of food ordering) and increases conversion.</li>
+        <li><strong>Blinkit's "Dark Store" Network.</strong> Blinkit's product genius is its physical infrastructure: small, strategically placed warehouses (dark stores) in dense urban neighbourhoods. The product promise of 10-minute delivery is only possible because of this physical product — the dark store network. Product strategy here is as much supply chain as it is software.</li>
+        <li><strong>Zomato Nugget.</strong> Launched in 2025 — an AI customer service platform built on Zomato's own years of customer support experience. This turns an internal capability into an external product. Classic platform thinking.</li>
+      </ul>
+    </div>
+
+    <!-- ── SEC 12: FUNDING ── -->
+    <div class="sec" id="sec-funding">
+      <div class="sec-num">12 — The Capital Journey</div>
+      <h2 class="sec-title">The Funding <em>Journey</em></h2>
+
+      <p class="lead">Unlike Zerodha's bootstrapped path, Zomato's story is deeply intertwined with venture capital. It raised $1.69 billion across 19 rounds before its landmark IPO — a journey that almost ended multiple times.</p>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot">2010</div>
+          <div class="tl-content">
+            <strong>Info Edge — ₹4.7 Crore (Seed)</strong>
+            <p>Sanjeev Bikhchandani (Naukri founder) discovers Zomato organically and writes the first cheque. Info Edge eventually invests ~₹800 crore total and still holds a significant stake today.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">2012–15</div>
+          <div class="tl-content">
+            <strong>Series B–E: Sequoia India, Vy Capital, Temasek</strong>
+            <p>Multi-round fundraising fuels India expansion + aggressive international market entry across 22 countries.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">2015–18</div>
+          <div class="tl-content">
+            <strong>Ant Group (Alibaba) — $200 Million+</strong>
+            <p>Chinese tech giant becomes a major investor. This is Zomato's global credibility signal. The money funds the pivot into food delivery infrastructure.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">2020</div>
+          <div class="tl-content">
+            <strong>Kora Capital + Others — $662 Million</strong>
+            <p>COVID fundraise. Despite the pandemic battering food delivery, Zomato raises a mega-round, signalling investor conviction in the long-term thesis.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">Jul 2021</div>
+          <div class="tl-content">
+            <strong>IPO — $1.26 Billion Raised</strong>
+            <p>India's first unicorn IPO on NSE/BSE. Subscribed 35×. Opens at significant premium. Valued at ~$12 billion. A landmark moment for Indian startup ecosystem.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">Nov 2024</div>
+          <div class="tl-content">
+            <strong>Post-IPO Round — $1 Billion</strong>
+            <p>From Fidelity, Temasek, Naspers, Baillie Gifford. Funds Blinkit expansion to 2,000+ dark stores by end of 2025.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-lesson">
+        <div class="callout-label">Key Observation</div>
+        <p>Notice that Zomato's funding strategy was <strong>opportunistic, not desperate.</strong> In 2020 — when COVID was devastating restaurants and delivery — Deepinder still raised $662 million because investors believed in the long-term. <strong>The ability to raise capital in a crisis is proof that investors trust the founder, not just the numbers.</strong> This founder trust is one of Deepinder's most underrated assets.</p>
+      </div>
+    </div>
+
+    <!-- ── SEC 13 & 14: MISTAKES & STRENGTHS ── -->
+    <div class="sec" id="sec-mistakes">
+      <div class="sec-num">13 &amp; 14 — Honest Accounting</div>
+      <h2 class="sec-title">Biggest Mistakes &amp; <em>Strengths</em></h2>
+
+      <div class="subsec-title">Biggest Mistakes</div>
+
+      <ul class="alist">
+        <li><strong>Overambitious international expansion.</strong> Entering 24 countries before having profitable unit economics in India was a strategic overreach. The cost of building brand, team, and logistics in 24 markets simultaneously diluted focus and burned enormous capital. The retreat from most international markets was expensive and embarrassing — Deepinder has acknowledged this as one of his biggest mistakes.</li>
+        <li><strong>Too many layoffs, too late.</strong> Zomato's 3,000+ employee layoff in 2020 was necessary — but critics argue it could have been avoided with tighter cost discipline earlier. Rapid hiring during growth phases followed by mass layoffs is a pattern that destroys culture and trust.</li>
+        <li><strong>Years of loss-making unit economics.</strong> Heavily subsidising deliveries through discounts built unsustainable customer expectations. When discounts were reduced, churn spiked. Building habits on subsidies rather than genuine value is a precarious foundation.</li>
+        <li><strong>The "Zomato Instant" 10-minute food delivery misfire.</strong> In 2022, Deepinder announced 10-minute food delivery — and faced massive public criticism about delivery partner safety. The product was quietly shelved. This is a case where the announcement outpaced the operational readiness and ethical consideration.</li>
+        <li><strong>Pankaj Chaddah's departure.</strong> Co-founder Pankaj Chaddah quietly left Zomato in 2018 to start his own venture. Any co-founder departure is a signal of potential cultural or strategic misalignment. The details remain private, but it's a noteworthy inflection point in the company's leadership history.</li>
+      </ul>
+
+      <div class="subsec-title">Biggest Strengths</div>
+
+      <ul class="alist">
+        <li><strong>Extreme learning velocity.</strong> Each of Zomato's major mistakes — the international retreat, the discount wars, the 10-minute delivery controversy — was quickly absorbed, acknowledged, and corrected. Deepinder's ability to accept failure, pivot fast, and move on without ego is extraordinarily rare.</li>
+        <li><strong>Counter-consensus boldness.</strong> The Blinkit acquisition was deeply unpopular when announced. So was the international expansion (initially). So was the food delivery pivot from a pure directory. Deepinder's willingness to make large, counter-consensus bets — and back them with conviction — is the engine of Zomato's most important strategic breakthroughs.</li>
+        <li><strong>Brand-building instinct.</strong> Nobody in Indian startup history has built a consumer brand as culturally resonant as Zomato at this speed. The red logo, the witty notifications, the social media voice — all of it created a category definition that competitors struggle to overcome.</li>
+        <li><strong>Capital efficiency improvement over time.</strong> Zomato's path from loss-making to ₹2,024 crore net profit in FY24 shows that the underlying unit economics were always improving — the losses were investment in scale, not structural weakness. Delivering this turnaround after years of investor skepticism is a massive execution achievement.</li>
+      </ul>
+    </div>
+
+    <!-- ── SEC 15: LEADERSHIP ── -->
+    <div class="sec" id="sec-leadership">
+      <div class="sec-num">15 — The Psychology of Power</div>
+      <h2 class="sec-title">Leadership <em>Style</em></h2>
+
+      <p>Deepinder Goyal's leadership style is complex, polarising, and effective. He is not the warm, approachable founder-type. He is demanding, unconventional, and operates at high intensity — traits that have created both an extraordinary company and real cultural tensions.</p>
+
+      <ul class="alist">
+        <li><strong>Radical honesty, sometimes to a fault.</strong> When Zomato faced problems — losses, platform outages, controversies — Deepinder wrote about them publicly, in long, detailed blog posts. This transparency was admirable but sometimes created unnecessary anxiety among investors and staff.</li>
+        <li><strong>High-performance pressure culture.</strong> In podcasts, Deepinder has admitted to deliberately testing candidates and employees by <em>destroying their confidence</em> — pushing them to their limits to see how they respond under pressure. He wants people who can handle extreme adversity without breaking. This is effective for building elite teams; it is psychologically harsh for people who aren't built for it.</li>
+        <li><strong>Contrarian comfort.</strong> Deepinder actively seeks out opinions that disagree with his. He has said he distrusts "yes men" and surrounds himself with people willing to argue. This is intellectually healthy — it's one of the reasons Zomato has avoided some echo-chamber mistakes that other large Indian startups have made.</li>
+        <li><strong>Shark Tank as brand strategy.</strong> Deepinder's appearance as a Shark on Shark Tank India Season 3 was not just for fun — it was a deliberate brand-building decision to reach 100 million+ TV viewers. This shows his instinct for using every platform as a marketing channel.</li>
+        <li><strong>Long-term horizon thinking.</strong> In a world of quarterly earnings calls, Deepinder consistently communicates in 5–10 year horizons. The Blinkit acquisition, Hyperpure's B2B build, Nugget's AI SaaS direction — all reflect thinking that prioritises structural position over short-term profitability.</li>
+      </ul>
+
+      <div class="pq">
+        <blockquote>"I don't want to hire smart people and tell them what to do. I want to hire smart people and have them tell me what to do."</blockquote>
+        <cite>— Deepinder Goyal on talent &amp; leadership</cite>
+      </div>
+    </div>
+
+    <!-- ── SEC 16 & 17: SMART DECISIONS & MOAT ── -->
+    <div class="sec" id="sec-decisions">
+      <div class="sec-num">16 &amp; 17 — The Chess Moves</div>
+      <h2 class="sec-title">Smart Decisions &amp; Competitive <em>Advantage</em></h2>
+
+      <div class="subsec-title">Smart Decisions That Changed Everything</div>
+
+      <ul class="alist">
+        <li><strong>The Blinkit Acquisition (2022).</strong> Acquiring Blinkit for ₹4,447 crore when quick commerce was deeply loss-making and the market was skeptical was the boldest strategic bet in Indian startup history in recent years. By 2025, Blinkit's valuation ($10.5–13 billion per Goldman Sachs) exceeded the entire food delivery business. Deepinder read the quick commerce trend earlier than almost everyone.</li>
+        <li><strong>Building Hyperpure.</strong> Entering the restaurant supply chain was counterintuitive for a consumer app. But it created deep B2B relationships that made Zomato's network impossible to replicate quickly. It also gave Zomato pricing power and data on restaurant operations that no competitor has.</li>
+        <li><strong>Going public in 2021 at the right time.</strong> The IPO window in 2021 — peak startup valuations, massive retail investor enthusiasm post-COVID — was perfectly timed. Waiting a year would have meant a dramatically lower valuation as interest rates rose globally. The market timing instinct here was exceptional.</li>
+        <li><strong>The Rebranding to Eternal Limited (2025).</strong> Renaming the parent company to "Eternal" signals a 50-year vision — not just food delivery, but a permanent Indian commerce infrastructure platform. This is brand strategy as a statement of ambition.</li>
+        <li><strong>Launching Nugget.</strong> Taking Zomato's internal AI customer service capability and packaging it as a B2B SaaS product is a brilliant move — it monetises an internal investment and positions Zomato as a tech platform, not just a food company.</li>
+      </ul>
+
+      <div class="subsec-title">Competitive Advantage — Why Zomato Stays on Top</div>
+
+      <ul class="alist">
+        <li><strong>The restaurant network.</strong> 20+ years of restaurant relationships (discovery, delivery, supply) creates a switching cost that new entrants cannot overcome quickly.</li>
+        <li><strong>The data advantage.</strong> Zomato has more data on Indian food consumption behaviour — what people eat, when, where, at what price — than any other entity in India. This data makes every product and ad infinitely more valuable.</li>
+        <li><strong>Brand emotional resonance.</strong> "Zomato" is synonymous with food delivery in India. Unaided brand recall is the most durable competitive advantage in consumer markets.</li>
+        <li><strong>The Blinkit physical moat.</strong> Building 2,000+ dark stores across India is a physical infrastructure play that cannot be replicated overnight. It requires capital, relationships, real estate, and years of operational learning.</li>
+      </ul>
+    </div>
+
+    <!-- ── SEC 18 & 19: TURNING POINTS & CONTROVERSIES ── -->
+    <div class="sec" id="sec-turning">
+      <div class="sec-num">18 &amp; 19 — Inflection &amp; Friction</div>
+      <h2 class="sec-title">Turning Points &amp; <em>Controversies</em></h2>
+
+      <div class="subsec-title">Major Turning Points</div>
+
+      <ul class="alist">
+        <li><strong>2010 — The Info Edge investment.</strong> Without Sanjeev Bikhchandani's early bet, FoodieBay might have remained an interesting side project. This was the spark that turned an idea into a company.</li>
+        <li><strong>2015 — The pivot to food delivery.</strong> The single biggest strategic decision in Zomato's history. Moving from pure discovery into delivery fundamentally changed the company's complexity, cost structure, and potential ceiling. It was terrifying and transformative simultaneously.</li>
+        <li><strong>2021 — The IPO.</strong> Going public at $12 billion valuation was more than a financial event. It democratised ownership of Zomato — millions of retail investors became stakeholders — and provided permanent capital for the Blinkit era.</li>
+        <li><strong>2022 — The Blinkit Acquisition.</strong> The bet that redefined what kind of company Zomato is. Not just food; commerce. Not just delivery; 10-minute access to anything.</li>
+        <li><strong>2025 — Rebranding to Eternal.</strong> The boldest signal yet of Deepinder's 50-year vision. Zomato the food app becomes Eternal the commerce platform.</li>
+      </ul>
+
+      <div class="subsec-title">Controversies &amp; Failures</div>
+
+      <ul class="alist">
+        <li><strong>The 10-Minute Food Delivery Backlash.</strong> In 2022, Deepinder's announcement of "Zomato Instant" — 10-minute food delivery — was met with fierce criticism about delivery partner safety, food quality, and worker exploitation. The product was eventually shelved, but the controversy highlighted the tension between speed ambitions and worker welfare.</li>
+        <li><strong>"Veg Mode Fee" Apology.</strong> Zomato charged a small fee for enabling vegetarian-only filtering in the app. A viral LinkedIn post exposed this. Deepinder personally apologised publicly, calling it "stupid on our part" and removed the feature immediately. This was controversy handled well — but it revealed a culture where product decisions weren't tested for public perception before launch.</li>
+        <li><strong>Delivery Partner Welfare Allegations.</strong> Recurring allegations of underpaid and overworked gig workers resurfaced in 2025. Deepinder addressed these publicly but continues to face pressure to improve gig worker compensation and protections. This is the systemic ethical tension at the heart of the platform economy — Zomato earns; delivery partners bear the physical risk.</li>
+        <li><strong>Shark Tank Exit Controversy.</strong> Deepinder claimed he was removed from Shark Tank India Season 4 after Swiggy became a sponsor. This sparked allegations of pay-to-play influence in entertainment. It was handled with typical Deepinder directness but raised questions about the show's integrity.</li>
+        <li><strong>The Reddit/Work Culture Allegations (2025).</strong> An anonymous Reddit post went viral claiming Zomato's internal culture had become "toxic," with underpaid delivery partners and loss of market share. Deepinder publicly dismissed it as "utter nonsense" — but the speed and specificity of the viral traction showed that employer brand management remains an ongoing challenge.</li>
+      </ul>
+    </div>
+
+    <!-- ── SEC 20 & 21: LESSONS ── -->
+    <div class="sec" id="sec-lessons">
+      <div class="sec-num">20 &amp; 21 — The Curriculum</div>
+      <h2 class="sec-title">Key Lessons for <em>Entrepreneurs</em></h2>
+
+      <div class="subsec-title">For Young Entrepreneurs</div>
+
+      <ul class="alist">
+        <li><strong>Your biggest idea might be hiding in your daily frustration.</strong> Deepinder didn't go looking for a billion-dollar opportunity. He solved his own lunch queue problem. The best ideas are often the ones closest to you — the friction you've learned to live with.</li>
+        <li><strong>Do the unscalable thing first.</strong> Photographing 1,200 menus by hand taught Deepinder what restaurants needed, what users wanted, and what data was valuable. You cannot shortcut ground-level learning. It is the foundation of every scalable system that comes later.</li>
+        <li><strong>Make counter-consensus bets when you have conviction.</strong> The Blinkit bet, the delivery pivot, the international expansion (even the retreat) — these were all deeply unpopular decisions at the time. The lesson isn't to be contrarian for its own sake — it's to do the work, build genuine conviction, then act with full commitment regardless of what others think.</li>
+        <li><strong>Build a brand that people feel, not just use.</strong> Zomato's app notifications became memes. Its social media account made people laugh. You want users to feel something about your brand — loyalty, affection, even mild annoyance — because feeling means remembering.</li>
+        <li><strong>Transparency in crisis is a power move.</strong> Every time Deepinder was publicly honest about Zomato's failures — the international retreat, the losses, the controversies — it paradoxically strengthened trust. Vulnerability done right is not weakness. It's credibility.</li>
+      </ul>
+
+      <div class="subsec-title">What Startups Can Learn from Zomato</div>
+
+      <ul class="alist">
+        <li><strong>Platform businesses require owning both sides.</strong> Zomato's greatest strategic achievement is owning consumer demand AND restaurant supply (Hyperpure). One-sided platforms are fragile; two-sided platforms are compounding machines.</li>
+        <li><strong>Timing an IPO is a strategic skill.</strong> Zomato's 2021 IPO at the peak of market optimism was perfectly executed. Going public is not just a financial event — it's a strategic decision about when to lock in permanent capital, and Deepinder chose the moment with precision.</li>
+        <li><strong>Gig economy ethics are a business risk, not just a PR risk.</strong> Delivery partner welfare is becoming a regulatory, reputational, and operational risk. Companies that get ahead of this — treating gig workers as partners, not just cost centres — will win long-term.</li>
+        <li><strong>AI should be built into products, not bolted on.</strong> Zomato's AI personalisation, Nugget's customer service AI, and Blinkit's demand prediction algorithm are all native to the product — not afterthoughts. Build AI infrastructure early, even when you can't fully utilise it yet.</li>
+      </ul>
+    </div>
+
+    <!-- ── SEC 22: QUOTES ── -->
+    <div class="sec" id="sec-quotes">
+      <div class="sec-num">22 — Words That Reveal the Mind</div>
+      <h2 class="sec-title">10 Powerful Quotes &amp; Thinking <em>Patterns</em></h2>
+
+      <div class="quotes-grid">
+        <div class="qcard">
+          <div class="qnum">01</div>
+          <div class="qtext">"Food is the most personal thing in the world. When you get it right, people love you. When you get it wrong, people never forget."</div>
+          <div class="qmeta">On the Emotional Stakes of Food</div>
+        </div>
+        <div class="qcard">
+          <div class="qnum">02</div>
+          <div class="qtext">"We didn't start Zomato because we wanted to build a startup. We started it because we were genuinely frustrated with not being able to find good food."</div>
+          <div class="qmeta">On Authentic Problem-Solving</div>
+        </div>
+        <div class="qcard">
+          <div class="qnum">03</div>
+          <div class="qtext">"Most big decisions in business are irreversible. Take those very carefully. The reversible ones — make them fast."</div>
+          <div class="qmeta">On Decision-Making Speed</div>
+        </div>
+        <div class="qcard">
+          <div class="qnum">04</div>
+          <div class="qtext">"If you're not embarrassed by your first version, you launched too late."</div>
+          <div class="qmeta">On Launching and Iterating</div>
+        </div>
+        <div class="qcard">
+          <div class="qnum">05</div>
+          <div class="qtext">"Raising capital is not success. It's just the right to keep playing the game. The game is about building something that people genuinely want."</div>
+          <div class="qmeta">On Fundraising vs. Building</div>
+        </div>
+        <div class="qcard">
+          <div class="qnum">06</div>
+          <div class="qtext">"I have made more mistakes than most founders in India. The difference is I've been very public about them. Transparency is the only way to build trust at scale."</div>
+          <div class="qmeta">On Public Vulnerability</div>
+        </div>
+        <div class="qcard">
+          <div class="qnum">07</div>
+          <div class="qtext">"We are building for a 50-year horizon. That means some of the things we do today will only make sense in 2040. Be comfortable with that ambiguity."</div>
+          <div class="qmeta">On Long-Term Vision</div>
+        </div>
+        <div class="qcard">
+          <div class="qnum">08</div>
+          <div class="qtext">"The delivery partner is not our employee. But they are our most important brand ambassador. Every single delivery is a brand experience."</div>
+          <div class="qmeta">On Gig Economy Brand Thinking</div>
+        </div>
+        <div class="qcard">
+          <div class="qnum">09</div>
+          <div class="qtext">"Our notifications became famous because we don't talk to customers like a company. We talk to them like a friend who knows they're hungry."</div>
+          <div class="qmeta">On Brand Voice</div>
+        </div>
+        <div class="qcard">
+          <div class="qnum">10</div>
+          <div class="qtext">"I don't think about Swiggy very much. The best competition you can have is your past self. Every day we should be better than yesterday's version of Zomato."</div>
+          <div class="qmeta">On Competition &amp; Focus</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEC 23: FINAL SUMMARY ── -->
+    <div class="sec" id="sec-summary">
+      <div class="sec-num">23 — The Verdict</div>
+      <h2 class="sec-title">Final <em>Summary</em></h2>
+
+      <p class="lead">Deepinder Goyal's story is not about having the right idea at the right time. It's about what you do with a small right idea over 17 years of relentless, adaptive execution.</p>
+
+      <p>The genius of Zomato is not in its technology — competitors replicated the tech. It's not in its pricing — Swiggy matched it. It's not even in its brand, though the brand is extraordinary. The genius is in <strong>how Deepinder kept evolving the company's identity</strong> — from directory to platform to commerce ecosystem — precisely when each previous identity started showing structural limits.</p>
+
+      <p>This is the rarest skill in business: the ability to cannibalise your own success before someone else does. Zomato moved from menus to delivery before anyone forced it to. It moved into quick commerce before quick commerce was mainstream. It moved into B2B supply before it was a revenue priority. Each move was a voluntary disruption of a profitable status quo in pursuit of a structurally stronger position.</p>
+
+      <ul class="alist">
+        <li>A lunch queue problem → a restaurant directory → a food delivery platform → a quick commerce empire → an AI SaaS company. <strong>Same founder. Same hunger. Different arena every 5 years.</strong></li>
+        <li>17 years of losses followed by profitability. <strong>This is not luck — it's investment in a structural position that only pays off at scale.</strong></li>
+        <li>Zero to 55–58% market share in food delivery. <strong>Achieved not through a single genius move but through 1,000 consistent, compounding daily decisions.</strong></li>
+        <li>An IIT campus lunch problem → a company that processes 1 in 2 food delivery orders in India. <strong>Proof that the distance between a personal frustration and a national infrastructure is only: time × conviction.</strong></li>
+      </ul>
+    </div>
+
+    <!-- ── QUICK REVISION ── -->
+    <div class="sec" id="sec-revision">
+      <div class="sec-num">24 — One Page Summary</div>
+      <h2 class="sec-title">Quick Revision <em>Summary</em></h2>
+
+      <div class="revision">
+        <h3>📋 Deepinder Goyal × Zomato — Complete Snapshot</h3>
+        <div class="qr-grid">
+          <div class="qr-item"><div class="qr-label">Founder</div><div class="qr-val">Deepinder Goyal (b. Jan 26, 1983, Muktsar, Punjab)</div></div>
+          <div class="qr-item"><div class="qr-label">Co-Founder</div><div class="qr-val">Pankaj Chaddah (IIT Delhi batchmate, departed 2018)</div></div>
+          <div class="qr-item"><div class="qr-label">Company</div><div class="qr-val">Zomato / Eternal Limited</div></div>
+          <div class="qr-item"><div class="qr-label">Founded</div><div class="qr-val">2008 as FoodieBay → renamed Zomato 2010</div></div>
+          <div class="qr-item"><div class="qr-label">Core Insight</div><div class="qr-val">Digitise paper menus → build restaurant discovery → food delivery → commerce ecosystem</div></div>
+          <div class="qr-item"><div class="qr-label">FY24 Revenue</div><div class="qr-val">₹13,000 Crore</div></div>
+          <div class="qr-item"><div class="qr-label">FY24 Net Profit</div><div class="qr-val">₹2,024 Crore</div></div>
+          <div class="qr-item"><div class="qr-label">Market Cap</div><div class="qr-val">~₹2,10,000+ Crore</div></div>
+          <div class="qr-item"><div class="qr-label">Funding</div><div class="qr-val">$1.69 Billion across 19 rounds + IPO $1.26 Billion</div></div>
+          <div class="qr-item"><div class="qr-label">IPO</div><div class="qr-val">July 2021 — 35× subscribed — $12B valuation</div></div>
+          <div class="qr-item"><div class="qr-label">Key Products</div><div class="qr-val">Zomato App, Blinkit, Hyperpure, Zomato Gold, Nugget AI</div></div>
+          <div class="qr-item"><div class="qr-label">Biggest Bet</div><div class="qr-val">Blinkit acquisition 2022 — ₹4,447 Cr → now worth $10.5-13 Bn</div></div>
+          <div class="qr-item"><div class="qr-label">Biggest Mistake</div><div class="qr-val">Overambitious 24-country international expansion; costly retreat</div></div>
+          <div class="qr-item"><div class="qr-label">Biggest Strength</div><div class="qr-val">Counter-consensus boldness + brand-building instinct + radical transparency</div></div>
+          <div class="qr-item"><div class="qr-label">Market Share</div><div class="qr-val">55-58% food delivery India; 45% quick commerce (Blinkit)</div></div>
+          <div class="qr-item"><div class="qr-label">Founder Net Worth</div><div class="qr-val">~$1.6 Billion (Forbes, Jan 2026)</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── STRATEGY TABLE ── -->
+    <div class="sec" id="sec-table">
+      <div class="sec-num">25 — Framework at a Glance</div>
+      <h2 class="sec-title">The Zomato <em>Framework Table</em></h2>
+
+      <table class="sum-table">
+        <thead>
+          <tr><th>Dimension</th><th>Analysis</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Problem Solved</td>
+            <td>No central, reliable, digital resource for restaurant discovery, menus, reviews, ratings, and ordering in India. Food access was opaque, slow, and trust-deficient for both consumers and restaurants.</td>
+          </tr>
+          <tr>
+            <td>Revenue Model</td>
+            <td>Platform commissions (food delivery) + Blinkit (quick commerce margins) + Hyperpure (B2B supply chain) + Zomato Gold (subscription) + Advertising + Going-Out vertical + Nugget (AI SaaS).</td>
+          </tr>
+          <tr>
+            <td>Growth Engine</td>
+            <td>Restaurant network effects + SEO content → delivery scale → Blinkit physical infrastructure → Gold subscription loyalty → AI personalisation flywheel.</td>
+          </tr>
+          <tr>
+            <td>Key Strategy</td>
+            <td>Own both sides of every market: consumer demand (app) + restaurant supply (Hyperpure + Blinkit). Make switching costs high through physical infrastructure, data advantage, and brand emotional resonance.</td>
+          </tr>
+          <tr>
+            <td>Biggest Mistake</td>
+            <td>Premature 24-country international expansion before India unit economics were profitable. Spent hundreds of millions building markets that were ultimately abandoned — a multi-year strategic distraction.</td>
+          </tr>
+          <tr>
+            <td>Biggest Strength</td>
+            <td>Counter-consensus conviction on major bets (Blinkit, delivery pivot, Hyperpure) + brand-building genius + radical public transparency that builds founder-level trust at institutional scale.</td>
+          </tr>
+          <tr>
+            <td>Competitive Moat</td>
+            <td>Restaurant relationships (17 years deep) + consumer data on Indian food preferences + Blinkit's 2,000+ dark store physical network + "Zomato" brand synonymous with food delivery in India.</td>
+          </tr>
+          <tr>
+            <td>Most Important Lesson</td>
+            <td>The best businesses are built when founders proactively cannibalise their own success. Don't wait for competition to force you to evolve — evolve before you have to. The path from directory to delivery to commerce was chosen, not forced.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── FINAL ANSWER ── -->
+    <div class="sec" id="sec-final">
+      <div class="sec-num">26 — The Counter-Factual</div>
+      <h2 class="sec-title">If Starting From <em>Zero Today</em></h2>
+
+      <div class="final-box">
+        <h3>"If Deepinder Goyal started Zomato from zero again today, what would he do differently?"</h3>
+
+        <p>Based on his public reflections, strategic patterns, and the lessons embedded in Zomato's 17-year journey, here is what Deepinder would most likely do differently if rebuilding from scratch in 2025:</p>
+
+        <p><strong>1. Skip the international expansion entirely — at least for a decade.</strong> The most expensive lesson in Zomato's history was the 24-country expansion in pursuit of global scale before Indian unit economics were sorted. Starting over, Deepinder would almost certainly double down on India first, building a war-chest of profitability before attempting any international move — and when he did move, he'd pick one market carefully rather than 24 simultaneously.</p>
+
+        <p><strong>2. Build the Hyperpure B2B supply network from Day 1.</strong> The restaurant supply chain is where deep, durable, non-copyable relationships are formed. If Deepinder understood in 2008 what he understands now — that owning the supply chain is the ultimate platform moat — he would have started digitising restaurant procurement alongside consumer discovery, not a decade later.</p>
+
+        <p><strong>3. Focus on gig worker economics and culture as a founding priority.</strong> The delivery partner welfare controversy is Zomato's most persistent reputational liability. Starting over, Deepinder would build delivery partner incentive structures, health benefits, and career pathways into the founding business model — not retrofit them under regulatory pressure.</p>
+
+        <p><strong>4. Build AI and data infrastructure from Year 1.</strong> Zomato's data advantage is enormous — but it took years to build the infrastructure to monetise it. Starting today, Deepinder would treat data as a founding product, not a byproduct — building personalisation, demand forecasting, and AI tools from the very first release.</p>
+
+        <p><strong>5. Take even larger, earlier bets on quick commerce.</strong> Blinkit was acquired in 2022 — by which point the quick commerce market was already crowded. Starting today with full hindsight, Deepinder would have built the dark store infrastructure in 2017–18, four years earlier, securing the physical locations and supplier relationships before the land-grab began.</p>
+
+        <p class="footnote">But here's the profound truth: the things Deepinder would NOT change are more instructive than the changes. He would still scan menus by hand. He would still write transparent public posts about failures. He would still make counter-consensus bets with full conviction. He would still build for a 50-year horizon. The strategic intelligence that made Zomato is inseparable from the character that built it — and that character was forged in the mess, not despite it.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════ FOOTER ════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Founder<span>Lens</span></div>
+      <div class="footer-sub">Deep-Dive Founder Analysis for India's Next Generation of Entrepreneurs</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">About</a>
+      <a href="#">All Analyses</a>
+      <a href="#">Next Issue</a>
+      <a href="#">Subscribe</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <span>FounderLens</span> · Deepinder Goyal × Zomato Analysis · Research compiled May 2026 ·
+    For educational purposes — all financial data sourced from public filings
+  </div>
+</footer>
+
+<script>
+  function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+  function scrollSec(id){
+    const el=document.getElementById(id);
+    if(el)el.scrollIntoView({behavior:'smooth'});
+  }
+
+  // TOC active state on scroll
+  const sections=document.querySelectorAll('.sec[id]');
+  const tocItems=document.querySelectorAll('.toc-item');
+  const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        tocItems.forEach(t=>t.classList.remove('active'));
+        const target=document.querySelector(`.toc-item[onclick*="${e.target.id}"]`);
+        if(target)target.classList.add('active');
+      }
+    });
+  },{rootMargin:'-20% 0px -70% 0px'});
+  sections.forEach(s=>observer.observe(s));
+
+  // Scroll-reveal animation
+  const revealObserver=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.style.opacity='1';
+        e.target.style.transform='translateY(0)';
+      }
+    });
+  },{threshold:0.06});
+
+  document.querySelectorAll('.sec').forEach(el=>{
+    el.style.opacity='0';
+    el.style.transform='translateY(28px)';
+    el.style.transition='opacity 0.65s ease, transform 0.65s ease';
+    revealObserver.observe(el);
+  });
+</script>
+</body>
+</html>

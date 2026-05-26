@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FounderLens — Deep Founder Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">Founder<span>Lens</span></a>
+  <ul class="nav-links">
+    <li><a href="founders.html" class="nav-link" target="_blank">Founder </a> </li>
+    <li><a href="company.html" class="nav-link" target="_blank">Company </a> </li>
+    <li><a href="blog.html" class="nav-link" target="_blank">Blog </a> </li>
+    
+  </ul>
+</nav>
+ 
+<!-- HOME PAGE -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-left">
+      <p class="hero-tag">Founder Intelligence Platform</p>
+      <h1 class="hero-title">Learn how great<br>companies were<br><em>really</em> built.</h1>
+      <p class="hero-sub">
+        <pre> 
+        Deep-dive founder analysis, not biographies. 
+        We decode business thinking, 
+        startup strategy, 
+        psychology, and execution playbooks 
+        <strong>for students, entrepreneurs, and curious minds.  </strong> 
+      </pre>
+      </p>
+      <div class="hero-cta-row">
+  
+        <button> <a href="founders.html" class="nav-link" target="_blank">Search a Founder </a></button>
+        <button> <a href="Blog.html" class="nav-link" target="_blank">Browse Articles </a></button>
+        
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="featured-card" onclick="runSearch('founder','Elon Musk')">
+        <p class="fc-tag">Tesla · SpaceX · X</p>
+        <p class="fc-name">Elon Musk</p>
+        <p class="fc-company">The Contrarian Operator</p>
+        <p class="fc-preview">How a South African kid built multiple trillion-dollar companies by betting on what the world laughed at.</p>
+      </div>
+      <div class="featured-card" onclick="runSearch('founder','Sam Walton')">
+        <p class="fc-tag">Walmart</p>
+        <p class="fc-name">Sam Walton</p>
+        <p class="fc-company">The Frugal Revolutionary</p>
+        <p class="fc-preview">How obsessive low prices and deep retail psychology created the world's largest retailer from a small-town store.</p>
+      </div>
+      <div class="featured-card" onclick="runSearch('founder','Nikhil Kamath')">
+        <p class="fc-tag">Zerodha · True Beacon</p>
+        <p class="fc-name">Nikhil Kamath</p>
+        <p class="fc-company">The Market Maverick</p>
+        <p class="fc-preview">A school dropout who disrupted Indian finance, built a profitable bootstrapped billion-dollar firm, and never raised VC money.</p>
+      </div>
+    </div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-num">100+</div>
+      <div class="stat-label">Founders Analyzed</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">24</div>
+      <div class="stat-label">Deep Sections Per Analysis</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">Free</div>
+      <div class="stat-label">Always & Forever</div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- COMPANY SEARCH PAGE -->
+<div class="page" id="page-company">
+  <div class="search-page">
+    <div class="search-header">
+      <h2>Search by Company</h2>
+      <p>Search by company name to discover the founder's story and the thinking behind the business.</p>
+    </div>
+    <div class="search-bar-wrap">
+      <input class="search-input" id="company-input" type="text" placeholder="e.g. Apple, Zerodha, Airbnb, Reliance…" onkeydown="if(event.key==='Enter') triggerSearch('company')">
+      <button class="search-btn" id="company-btn" onclick="triggerSearch('company')">Analyse →</button>
+    </div>
+    <div class="filter-row" id="company-filters">
+      <span style="font-size:0.8rem;color:var(--ink-3);align-self:center;">Strategy:</span>
+      <button class="filter-chip active" onclick="toggleFilter(this,'company')">All</button>
+      <button class="filter-chip" onclick="toggleFilter(this,'company')">Bootstrapped</button>
+      <button class="filter-chip" onclick="toggleFilter(this,'company')">VC-backed</button>
+      <button class="filter-chip" onclick="toggleFilter(this,'company')">D2C Marketing</button>
+      <button class="filter-chip" onclick="toggleFilter(this,'company')">Network Effects</button>
+      <button class="filter-chip" onclick="toggleFilter(this,'company')">Platform Model</button>
+      <button class="filter-chip" onclick="toggleFilter(this,'company')">Disruptors</button>
+    </div>
+    <div class="result-area" id="company-result">
+      <div class="result-placeholder">
+        <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        <p>Type a company name and click <strong>Analyse</strong> to learn the founder's story.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BLOG PAGE -->
+<div class="page" id="page-blog">
+  <div class="blog-page">
+    <div class="blog-header">
+      <h2>Latest Analyses</h2>
+      <p style="color:var(--ink-3);font-size:0.9rem;">Deep-dives, lessons, and frameworks from the world's best builders.</p>
+    </div>
+    <div class="blog-toolbar">
+      <div class="filter-row" style="margin:0;flex:1;">
+        <span style="font-size:0.8rem;color:var(--ink-3);align-self:center;">Filter:</span>
+        <button class="filter-chip active" onclick="filterBlog(this,'all')">All</button>
+        <button class="filter-chip" onclick="filterBlog(this,'tech')">Tech</button>
+        <button class="filter-chip" onclick="filterBlog(this,'finance')">Finance</button>
+        <button class="filter-chip" onclick="filterBlog(this,'retail')">Retail</button>
+        <button class="filter-chip" onclick="filterBlog(this,'bootstrapped')">Bootstrapped</button>
+        <button class="filter-chip" onclick="filterBlog(this,'d2c')">D2C Marketing</button>
+      </div>
+      <div class="blog-sort">
+        <select onchange="sortBlog(this.value)">
+          <option value="latest">Latest</option>
+          <option value="mostread">Most Read</option>
+          <option value="az">A–Z</option>
+        </select>
+      </div>
+    </div>
+    <div class="blog-grid" id="blog-grid"></div>
+  </div>
+</div>
+
+<script>
+const BLOG_DATA = [
+  { name:"Elon Musk", company:"Tesla, SpaceX, X", industry:"tech", tag:"First Principles Thinker", reads:48200, date:"2024-12-01", tags:["tech"] },
+  { name:"Sam Walton", company:"Walmart", industry:"retail", tag:"Retail Revolutionary", reads:31500, date:"2024-11-20", tags:["retail","bootstrapped"] },
+  { name:"Nikhil Kamath", company:"Zerodha", industry:"finance", tag:"Bootstrapped Billionaire", reads:29100, date:"2024-11-10", tags:["finance","bootstrapped"] },
+  { name:"Reed Hastings", company:"Netflix", industry:"tech", tag:"Culture-First Leader", reads:22400, date:"2024-10-28", tags:["tech"] },
+  { name:"Ritesh Agarwal", company:"OYO", industry:"tech", tag:"Hustle Architect", reads:19800, date:"2024-10-15", tags:["tech"] },
+  { name:"Sara Blakely", company:"Spanx", industry:"retail", tag:"Self-Made Disruptor", reads:17200, date:"2024-10-01", tags:["retail","bootstrapped","d2c"] },
+  { name:"Byju Raveendran", company:"BYJU'S", industry:"tech", tag:"EdTech Pioneer", reads:15600, date:"2024-09-18", tags:["tech","d2c"] },
+  { name:"Zeynep Ton", company:"MIT/Operations", industry:"finance", tag:"Good Jobs Strategist", reads:9400, date:"2024-09-05", tags:["finance"] },
+];
+
+let currentBlogFilter = 'all';
+let currentBlogSort = 'latest';
+
+function renderBlog() {
+  let data = [...BLOG_DATA];
+  if (currentBlogFilter !== 'all') {
+    data = data.filter(d => d.tags.includes(currentBlogFilter));
+  }
+  if (currentBlogSort === 'mostread') data.sort((a,b) => b.reads - a.reads);
+  else if (currentBlogSort === 'az') data.sort((a,b) => a.name.localeCompare(b.name));
+  else data.sort((a,b) => new Date(b.date) - new Date(a.date));
+
+  const grid = document.getElementById('blog-grid');
+  grid.innerHTML = data.map(d => `
+    <div class="blog-card" onclick="runSearch('founder','${d.name}')">
+      <div class="bc-stripe"></div>
+      <div class="bc-body">
+        <p class="bc-industry">${d.industry} · ${d.tag}</p>
+        <p class="bc-title">${d.name}: How ${d.company} Changed the Game</p>
+        <div class="bc-meta">
+          <span class="bc-reads">${d.reads.toLocaleString()} reads</span>
+          <span>${new Date(d.date).toLocaleDateString('en-IN',{month:'short',year:'numeric'})}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterBlog(btn, tag) {
+  document.querySelectorAll('#page-blog .filter-chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentBlogFilter = tag;
+  renderBlog();
+}
+
+function sortBlog(val) {
+  currentBlogSort = val;
+  renderBlog();
+}
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  if (name !== 'home') document.getElementById('nav-' + name).classList.add('active');
+  window.scrollTo(0,0);
+  if (name === 'blog') renderBlog();
+}
+
+function toggleFilter(btn, type) {
+  document.querySelectorAll(`#${type}-filters .filter-chip`).forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function triggerSearch(type) {
+  const val = document.getElementById(type + '-input').value.trim();
+  if (!val) return;
+  runSearch(type, val);
+}
+
+function runSearch(type, query) {
+  if (type === 'founder') {
+    showPage('founder');
+    document.getElementById('founder-input').value = query;
+  } else {
+    showPage('company');
+    document.getElementById('company-input').value = query;
+  }
+  setTimeout(() => doSearch(type, query), 50);
+}
+
+async function doSearch(type, query) {
+  const resultDiv = document.getElementById(type + '-result');
+  const btn = document.getElementById(type + '-btn');
+  resultDiv.innerHTML = `<div class="loading-wrap"><div class="spinner"></div><p>Generating deep analysis for "${query}"…<br><small style="color:var(--ink-3)">This takes 20–40 seconds. Brewing insights…</small></p></div>`;
+  btn.disabled = true;
+
+  const prompt = type === 'founder'
+    ? `You are FounderLens, a founder analysis expert. Write a comprehensive, beginner-friendly founder analysis for: ${query}. Use very simple language — suitable for commerce students, startup enthusiasts, and non-business people. DO NOT write a biography. Focus on business thinking, strategy, decision-making, growth systems, psychology of success, and lessons from failures.
+
+Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
+{
+  "founderName": "...",
+  "companyName": "...",
+  "tagline": "3-5 word punchy tagline",
+  "background": "paragraph",
+  "problemSolved": "paragraph",
+  "opportunityIdentified": "paragraph",
+  "initialDays": "paragraph",
+  "revenueModel": "paragraph",
+  "businessModel": "paragraph",
+  "initialStruggles": "paragraph",
+  "growthStrategy": "paragraph",
+  "marketingStrategy": "paragraph",
+  "customerAcquisition": "paragraph",
+  "productStrategy": "paragraph",
+  "fundingJourney": "paragraph",
+  "biggestMistakes": "paragraph",
+  "biggestStrengths": "paragraph",
+  "leadershipStyle": "paragraph",
+  "smartDecisions": "paragraph",
+  "competitiveAdvantage": "paragraph",
+  "majorTurningPoints": "paragraph",
+  "controversies": "paragraph",
+  "lessonsForEntrepreneurs": ["lesson1","lesson2","lesson3","lesson4","lesson5"],
+  "startupsCanLearn": "paragraph",
+  "quotes": ["quote1","quote2","quote3","quote4","quote5","quote6","quote7","quote8","quote9","quote10"],
+  "finalSummary": "paragraph"
+}`
+    : `You are FounderLens. The user searched for a company: "${query}". Identify the main founder(s) of this company and write a beginner-friendly founder analysis. Use very simple language. DO NOT write a biography. Focus on business thinking, strategy, decision-making, growth systems, and lessons.
+
+Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
+{
+  "founderName": "...",
+  "companyName": "...",
+  "tagline": "3-5 word punchy tagline",
+  "background": "paragraph",
+  "problemSolved": "paragraph",
+  "opportunityIdentified": "paragraph",
+  "initialDays": "paragraph",
+  "revenueModel": "paragraph",
+  "businessModel": "paragraph",
+  "initialStruggles": "paragraph",
+  "growthStrategy": "paragraph",
+  "marketingStrategy": "paragraph",
+  "customerAcquisition": "paragraph",
+  "productStrategy": "paragraph",
+  "fundingJourney": "paragraph",
+  "biggestMistakes": "paragraph",
+  "biggestStrengths": "paragraph",
+  "leadershipStyle": "paragraph",
+  "smartDecisions": "paragraph",
+  "competitiveAdvantage": "paragraph",
+  "majorTurningPoints": "paragraph",
+  "controversies": "paragraph",
+  "lessonsForEntrepreneurs": ["lesson1","lesson2","lesson3","lesson4","lesson5"],
+  "startupsCanLearn": "paragraph",
+  "quotes": ["quote1","quote2","quote3","quote4","quote5","quote6","quote7","quote8","quote9","quote10"],
+  "finalSummary": "paragraph"
+}`;
+
+  try {
+    const resp = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 4000,
+        messages: [{ role: "user", content: prompt }]
+      })
+    });
+    const data = await resp.json();
+    const raw = data.content.map(c => c.text || '').join('');
+    const clean = raw.replace(/```json|```/g, '').trim();
+    const d = JSON.parse(clean);
+    renderAnalysis(resultDiv, d);
+  } catch(e) {
+    resultDiv.innerHTML = `<div class="result-placeholder"><p style="color:var(--accent)">⚠ Could not load analysis. Please try again.<br><small>${e.message}</small></p></div>`;
+  }
+  btn.disabled = false;
+}
+
+function renderAnalysis(container, d) {
+  const lessons = (d.lessonsForEntrepreneurs || []).map((l,i) => `
+    <div class="lesson-card">
+      <div class="lesson-num">0${i+1}</div>
+      <div class="lesson-text">${l}</div>
+    </div>`).join('');
+
+  const quotes = (d.quotes || []).map(q => `<div class="quote-block">"${q}"</div>`).join('');
+
+  container.innerHTML = `
+    <div class="analysis-wrap">
+      <button class="back-btn" onclick="resetResult('${container.id}')">← Back</button>
+      <div class="analysis-header">
+        <p class="ah-tag">Founder Analysis</p>
+        <h1 class="ah-name">${d.founderName}</h1>
+        <p class="ah-company">${d.companyName} · ${d.tagline}</p>
+      </div>
+      <div class="analysis-body">
+        ${sec("1. Background", d.background)}
+        ${sec("2. Problem They Solved", d.problemSolved)}
+        ${sec("3. How They Identified the Opportunity", d.opportunityIdentified)}
+        ${sec("3.1 Initial Days of Business", d.initialDays)}
+        ${sec("4. Revenue Model", d.revenueModel)}
+        ${sec("5. Business Model", d.businessModel)}
+        ${sec("6. Initial Struggles", d.initialStruggles)}
+        ${sec("7. Growth Strategy", d.growthStrategy)}
+        ${sec("8. Marketing Strategy", d.marketingStrategy)}
+        ${sec("9. Customer Acquisition", d.customerAcquisition)}
+        ${sec("10. Product Strategy", d.productStrategy)}
+        ${sec("11. Funding Journey", d.fundingJourney)}
+        ${sec("12. Biggest Mistakes", d.biggestMistakes)}
+        ${sec("13. Biggest Strengths", d.biggestStrengths)}
+        ${sec("14. Leadership Style", d.leadershipStyle)}
+        ${sec("15. Smart Decisions That Changed the Company", d.smartDecisions)}
+        ${sec("16. Competitive Advantage", d.competitiveAdvantage)}
+        ${sec("17. Major Turning Points", d.majorTurningPoints)}
+        ${sec("18. Controversies or Failures", d.controversies)}
+
+        <div class="section-block">
+          <h3>19. Key Lessons for Young Entrepreneurs</h3>
+          <div class="lessons-grid">${lessons}</div>
+        </div>
+
+        ${sec("20. What Startups Can Learn", d.startupsCanLearn)}
+
+        <div class="section-block">
+          <h3>21. Powerful Quotes & Thinking Patterns</h3>
+          ${quotes}
+        </div>
+
+        ${sec("22. Final Summary", d.finalSummary)}
+      </div>
+    </div>`;
+}
+
+function sec(title, content) {
+  if (!content) return '';
+  return `<div class="section-block"><h3>${title}</h3><p>${content}</p></div>`;
+}
+
+function resetResult(id) {
+  const isFounder = id === 'founder-result';
+  document.getElementById(id).innerHTML = `<div class="result-placeholder">
+    <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+    <p>Type a ${isFounder ? "founder's name" : "company name"} and click <strong>Analyse</strong>.</p>
+  </div>`;
+  document.getElementById(isFounder ? 'founder-input' : 'company-input').value = '';
+}
+
+renderBlog();
+</script>
+</body>
+</html>

@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sam Altman — The Man Who Put AI in Every Hand on Earth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,600;1,9..144,800&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Martian+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════ TOKENS ═══════════ */
+:root {
+  --blue:        #3b82f6;
+  --blue-dark:   #1d4ed8;
+  --blue-deeper: #1e3a8a;
+  --blue-glow:   rgba(59,130,246,0.18);
+  --blue-pale:   rgba(59,130,246,0.08);
+  --cyan:        #06b6d4;
+  --violet:      #7c3aed;
+  --ink:         #07090f;
+  --ink2:        #0d1117;
+  --ink3:        #111827;
+  --ink4:        #1f2937;
+  --cream:       #eef2ff;
+  --cream2:      rgba(238,242,255,0.78);
+  --cream3:      rgba(238,242,255,0.45);
+  --cream4:      rgba(238,242,255,0.12);
+  --teal:        #0d9488;
+  --teal-pale:   rgba(13,148,136,0.12);
+  --green:       #10b981;
+  --green-pale:  rgba(16,185,129,0.1);
+  --amber:       #f59e0b;
+  --amber-pale:  rgba(245,158,11,0.1);
+  --rule:        rgba(238,242,255,0.08);
+  --serif:       'Fraunces', Georgia, serif;
+  --sans:        'Instrument Sans', sans-serif;
+  --mono:        'Martian Mono', monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--ink);
+  color:var(--cream);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Grain overlay */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;
+}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--ink)}
+::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px}
+
+/* ═══════════ TOP BANNER ═══════════ */
+.banner{
+  background:linear-gradient(90deg,var(--blue-dark),var(--violet));
+  color:#fff;
+  text-align:center;
+  padding:8px 20px;
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  position:sticky;top:0;z-index:100;
+}
+
+/* ═══════════ NAV ═══════════ */
+.nav{
+  background:rgba(7,9,15,0.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--rule);
+  display:flex;align-items:center;
+  justify-content:space-between;
+  padding:0 48px;height:60px;
+  position:sticky;top:33px;z-index:99;
+}
+.nav-brand{
+  font-family:var(--serif);
+  font-size:17px;font-weight:800;
+  color:var(--cream);letter-spacing:-0.01em;
+  display:flex;align-items:center;gap:10px;
+}
+.nav-brand-dot{
+  width:8px;height:8px;
+  border-radius:50%;background:var(--blue);
+  display:inline-block;
+  box-shadow:0 0 10px rgba(59,130,246,0.6);
+}
+.nav-chips{display:flex;gap:6px;flex-wrap:wrap}
+.nav-chip{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  padding:5px 12px;border-radius:20px;
+  border:1px solid var(--rule);color:var(--cream3);
+  background:none;cursor:pointer;transition:all .2s;
+}
+.nav-chip:hover,.nav-chip.active{
+  border-color:var(--blue);color:var(--blue);
+  background:var(--blue-pale);
+}
+.nav-cta{
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:#fff;background:linear-gradient(135deg,var(--blue),var(--violet));
+  padding:8px 18px;border-radius:6px;
+  border:none;cursor:pointer;transition:all .2s;
+}
+.nav-cta:hover{opacity:.85;transform:translateY(-1px)}
+
+/* ═══════════ HERO ═══════════ */
+.hero{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 480px;
+  gap:0;
+  position:relative;
+  overflow:hidden;
+}
+
+.hero-left{
+  padding:90px 60px 80px;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  position:relative;z-index:1;
+  background:
+    radial-gradient(ellipse 70% 60% at -10% 60%, rgba(59,130,246,0.10) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 90% 10%, rgba(124,58,237,0.07) 0%, transparent 55%),
+    var(--ink);
+}
+.hero-left::after{
+  content:'';
+  position:absolute;
+  right:-2px;top:0;bottom:0;width:80px;
+  background:linear-gradient(to right, transparent, var(--ink2));
+  z-index:2;
+}
+
+.hero-eyebrow{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:24px;
+  animation:slideIn .7s ease both;
+}
+.hero-eyebrow-line{width:36px;height:2px;background:linear-gradient(90deg,var(--blue),var(--violet))}
+.hero-eyebrow-text{
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--blue);
+}
+
+.hero-title{
+  font-family:var(--serif);
+  font-size:clamp(44px,5.5vw,76px);
+  font-weight:900;line-height:1.0;
+  letter-spacing:-0.025em;
+  margin-bottom:16px;
+  animation:slideIn .7s .1s ease both;
+}
+.hero-title em{
+  font-style:italic;
+  color:var(--blue);
+  display:block;
+  font-weight:300;
+}
+
+.hero-sub{
+  font-size:17px;color:var(--cream2);
+  max-width:520px;line-height:1.7;
+  margin-bottom:40px;font-weight:300;
+  animation:slideIn .7s .2s ease both;
+}
+.hero-sub strong{color:var(--cream);font-weight:500}
+
+.hero-kpis{
+  display:flex;gap:36px;flex-wrap:wrap;
+  padding:28px 0 28px;
+  border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+  margin-bottom:36px;
+  animation:slideIn .7s .3s ease both;
+}
+.kpi-val{
+  font-family:var(--serif);font-size:28px;
+  font-weight:800;color:var(--blue);
+  line-height:1.1;
+}
+.kpi-label{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--cream3);margin-top:2px;
+}
+
+.hero-tags{
+  display:flex;gap:8px;flex-wrap:wrap;
+  animation:slideIn .7s .35s ease both;
+}
+.hero-tag{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  padding:5px 12px;border-radius:20px;
+  border:1px solid var(--rule);color:var(--cream3);
+}
+.hero-tag.blue{border-color:rgba(59,130,246,.4);color:var(--blue);background:var(--blue-pale)}
+.hero-tag.violet{border-color:rgba(124,58,237,.35);color:#a78bfa;background:rgba(124,58,237,.08)}
+
+.hero-right{
+  position:relative;overflow:hidden;
+  background:var(--ink2);
+}
+.hero-right::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 80% at 50% 40%, rgba(59,130,246,0.12) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 60% at 80% 80%, rgba(124,58,237,0.08) 0%, transparent 55%);
+  z-index:1;
+}
+.hero-right::after{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(59,130,246,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,130,246,0.05) 1px, transparent 1px);
+  background-size:40px 40px;
+  z-index:0;
+}
+
+.hero-img-frame{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:2;
+}
+.founder-photo-wrap{
+  position:relative;
+  width:340px;height:400px;
+}
+.founder-photo{
+  width:100%;height:100%;
+  object-fit:cover;object-position:top center;
+  display:block;
+  filter:grayscale(15%) contrast(1.05);
+  border-radius:12px;
+  position:relative;z-index:2;
+}
+.founder-photo-bg{
+  position:absolute;
+  top:20px;left:20px;right:-20px;bottom:-20px;
+  background:linear-gradient(135deg, var(--blue-dark), var(--blue-deeper));
+  border-radius:12px;
+  z-index:1;
+}
+.photo-badge{
+  position:absolute;
+  bottom:-16px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(135deg,var(--blue),var(--violet));
+  color:#fff;
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  padding:5px 14px;border-radius:20px;
+  white-space:nowrap;z-index:3;
+}
+.hero-float-quote{
+  position:absolute;
+  bottom:40px;left:20px;right:20px;
+  background:rgba(7,9,15,0.88);
+  border:1px solid rgba(59,130,246,0.3);
+  border-left:3px solid var(--blue);
+  border-radius:8px;
+  padding:16px 18px;z-index:3;
+  backdrop-filter:blur(8px);
+}
+.hero-float-quote-text{
+  font-family:var(--serif);font-size:14px;
+  font-style:italic;font-weight:300;
+  color:var(--cream2);line-height:1.5;
+  margin-bottom:6px;
+}
+.hero-float-quote-by{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--blue);
+}
+
+.svg-portrait{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ═══════════ ARTICLE WRAP ═══════════ */
+.article{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  max-width:1140px;
+  margin:0 auto;
+  padding:0 40px;
+}
+
+/* ═══════════ STICKY TOC ═══════════ */
+.toc{
+  padding:48px 0;
+  border-right:1px solid var(--rule);
+  padding-right:28px;
+  position:sticky;top:93px;
+  height:calc(100vh - 93px);
+  overflow-y:auto;
+  scrollbar-width:none;
+}
+.toc::-webkit-scrollbar{display:none}
+.toc-heading{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--blue);margin-bottom:14px;
+}
+.toc-item{
+  display:block;width:100%;text-align:left;
+  font-family:var(--sans);font-size:12px;
+  color:var(--cream3);padding:7px 0 7px 12px;
+  border-left:2px solid transparent;
+  background:none;border-top:none;border-right:none;border-bottom:none;
+  cursor:pointer;transition:all .2s;line-height:1.4;
+}
+.toc-item:hover{color:var(--cream);border-left-color:var(--cream4)}
+.toc-item.active{color:var(--blue);border-left-color:var(--blue)}
+
+/* ═══════════ ARTICLE BODY ═══════════ */
+.body{
+  padding:60px 0 100px 52px;
+}
+
+/* ═══════════ SECTION ═══════════ */
+.sec{
+  margin-bottom:72px;
+  scroll-margin-top:100px;
+}
+.sec-num{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--blue);margin-bottom:8px;
+}
+.sec-title{
+  font-family:var(--serif);
+  font-size:clamp(26px,3.5vw,42px);
+  font-weight:800;color:var(--cream);
+  margin-bottom:24px;
+  padding-bottom:14px;
+  border-bottom:2px solid var(--blue);
+  display:inline-block;
+  line-height:1.15;
+  letter-spacing:-0.015em;
+}
+.sec-title em{font-style:italic;color:var(--blue);font-weight:300}
+
+.subsec-title{
+  font-family:var(--serif);font-size:22px;
+  font-weight:600;color:var(--cream2);
+  margin-top:36px;margin-bottom:14px;
+  letter-spacing:-0.01em;
+}
+
+/* ═══════════ INLINE FOUNDER IMAGE ═══════════ */
+.inline-img-wrap{
+  float:right;
+  width:240px;
+  margin:0 0 24px 32px;
+  position:relative;
+}
+.inline-img{
+  width:100%;
+  border-radius:10px;
+  display:block;
+  object-fit:cover;
+  filter:grayscale(15%);
+  border:1px solid var(--rule);
+}
+.inline-img-caption{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--cream3);text-align:center;
+  margin-top:8px;
+  padding:6px 10px;
+  background:var(--ink3);
+  border-radius:0 0 10px 10px;
+  border:1px solid var(--rule);
+  border-top:none;
+}
+.inline-img-accent{
+  position:absolute;
+  top:-8px;right:-8px;
+  width:30px;height:30px;
+  background:linear-gradient(135deg,var(--blue),var(--violet));
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;z-index:1;
+}
+.clearfix::after{content:'';display:table;clear:both}
+
+/* ═══════════ TYPOGRAPHY ═══════════ */
+.lead{
+  font-family:var(--serif);font-size:19px;
+  font-style:italic;font-weight:300;
+  color:var(--cream2);line-height:1.7;
+  margin-bottom:28px;padding-bottom:28px;
+  border-bottom:1px solid var(--rule);
+}
+p{font-size:16px;color:var(--cream2);line-height:1.8;margin-bottom:18px;font-weight:300}
+p:last-child{margin-bottom:0}
+p strong{color:var(--cream);font-weight:500}
+mark{background:rgba(59,130,246,.15);color:var(--blue);padding:1px 6px;border-radius:3px}
+
+/* ═══════════ PULL QUOTE ═══════════ */
+.pq{
+  margin:36px 0;padding:24px 32px;
+  border-left:3px solid var(--blue);
+  background:rgba(59,130,246,.05);
+  border-radius:0 8px 8px 0;
+}
+.pq blockquote{
+  font-family:var(--serif);font-size:20px;
+  font-style:italic;font-weight:300;
+  color:var(--cream);line-height:1.55;margin-bottom:10px;
+}
+.pq cite{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--blue);font-style:normal;
+}
+
+/* ═══════════ CALLOUT BOXES ═══════════ */
+.callout{margin:28px 0;padding:20px 24px;border-radius:8px}
+.callout-lesson{background:var(--teal-pale);border-left:3px solid var(--teal)}
+.callout-warn{background:rgba(245,158,11,.08);border-left:3px solid var(--amber)}
+.callout-blue{background:var(--blue-pale);border-left:3px solid var(--blue)}
+.callout-green{background:var(--green-pale);border-left:3px solid var(--green)}
+.callout-label{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.18em;text-transform:uppercase;
+  margin-bottom:8px;font-weight:500;
+}
+.callout-lesson .callout-label{color:var(--teal)}
+.callout-warn .callout-label{color:var(--amber)}
+.callout-blue .callout-label{color:var(--blue)}
+.callout-green .callout-label{color:var(--green)}
+.callout p{font-size:14px;color:var(--cream2);line-height:1.65;margin-bottom:6px;font-weight:300}
+.callout p strong{color:var(--cream);font-weight:500}
+.callout p:last-child{margin-bottom:0}
+
+/* ═══════════ LIST ═══════════ */
+ul.alist{list-style:none;margin:18px 0}
+ul.alist li{
+  padding:11px 0 11px 26px;
+  position:relative;
+  border-bottom:1px solid var(--rule);
+  font-size:15px;color:var(--cream2);
+  line-height:1.65;font-weight:300;
+}
+ul.alist li:last-child{border-bottom:none}
+ul.alist li::before{content:'→';position:absolute;left:0;color:var(--blue);font-weight:700}
+ul.alist li strong{color:var(--cream);font-weight:500}
+
+/* ═══════════ STATS STRIP ═══════════ */
+.stats-strip{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:2px;margin:28px 0;
+  background:var(--rule);border-radius:8px;overflow:hidden;
+}
+.stat-card{background:var(--ink2);padding:16px 14px;text-align:center}
+.stat-val{
+  font-family:var(--serif);font-size:22px;
+  font-weight:800;color:var(--blue);
+  line-height:1.1;margin-bottom:4px;
+}
+.stat-lbl{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--cream3);
+}
+
+/* ═══════════ INFO ROWS ═══════════ */
+.info-rows{margin:20px 0}
+.info-row{
+  display:flex;gap:20px;
+  padding:11px 0;border-bottom:1px solid var(--rule);
+  font-size:15px;align-items:flex-start;
+}
+.info-row:last-child{border-bottom:none}
+.info-key{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--blue);flex-shrink:0;width:140px;
+  padding-top:3px;font-weight:500;
+}
+.info-val{color:var(--cream2);line-height:1.6;font-weight:300}
+.info-val strong{color:var(--cream);font-weight:500}
+
+/* ═══════════ TIMELINE ═══════════ */
+.timeline{margin:28px 0}
+.tl-item{
+  display:flex;gap:18px;
+  padding-bottom:24px;position:relative;
+}
+.tl-item::before{
+  content:'';position:absolute;
+  left:28px;top:52px;bottom:0;
+  width:1px;background:var(--rule);
+}
+.tl-item:last-child::before{display:none}
+.tl-dot{
+  flex-shrink:0;width:56px;height:56px;
+  border-radius:50%;
+  background:var(--ink3);
+  border:1px solid rgba(59,130,246,.3);
+  color:var(--blue);
+  font-family:var(--serif);font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;line-height:1.2;
+}
+.tl-content{flex:1;padding-top:10px}
+.tl-content strong{
+  display:block;font-size:15px;font-weight:500;
+  color:var(--cream);margin-bottom:4px;
+}
+.tl-content p{font-size:13px;color:var(--cream3);margin:0;line-height:1.55}
+
+/* ═══════════ QUOTES GRID ═══════════ */
+.quotes-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+  gap:16px;margin:24px 0;
+}
+.qcard{
+  background:var(--ink2);
+  border:1px solid var(--rule);
+  border-radius:10px;padding:22px 20px;
+  transition:border-color .2s;
+}
+.qcard:hover{border-color:rgba(59,130,246,.3)}
+.qnum{
+  font-family:var(--serif);font-size:44px;
+  font-weight:800;
+  color:rgba(59,130,246,.1);
+  line-height:1;margin-bottom:-8px;
+}
+.qtext{
+  font-family:var(--serif);font-size:15px;
+  font-style:italic;font-weight:300;
+  color:var(--cream2);line-height:1.6;margin-bottom:12px;
+}
+.qmeta{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--blue);
+}
+
+/* ═══════════ TWO-COL GRID ═══════════ */
+.two-col{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:16px;margin:24px 0;
+}
+.col-card{
+  background:var(--ink2);
+  border:1px solid var(--rule);
+  border-radius:10px;
+  padding:20px;
+}
+.col-card-label{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--blue);margin-bottom:10px;font-weight:500;
+}
+.col-card h4{
+  font-family:var(--serif);font-size:17px;
+  font-weight:600;color:var(--cream);
+  margin-bottom:10px;
+}
+.col-card p{font-size:14px;line-height:1.65;color:var(--cream2);margin-bottom:0}
+
+/* ═══════════ FUNDING TABLE ═══════════ */
+.fund-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+.fund-table th{
+  background:var(--ink3);color:var(--blue);
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  padding:10px 14px;text-align:left;
+}
+.fund-table td{
+  padding:11px 14px;
+  border-bottom:1px solid var(--rule);
+  color:var(--cream2);font-weight:300;
+  vertical-align:top;line-height:1.5;
+}
+.fund-table tr:last-child td{border-bottom:none}
+.fund-table td:first-child{color:var(--blue);font-family:var(--mono);font-size:10px;letter-spacing:.05em}
+.fund-table tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+
+/* ═══════════ SUMMARY TABLE ═══════════ */
+.sum-table{
+  width:100%;border-collapse:collapse;
+  margin:24px 0;font-size:14px;
+  border:1px solid var(--rule);border-radius:8px;overflow:hidden;
+}
+.sum-table th{
+  background:var(--ink3);color:var(--blue);
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;text-transform:uppercase;
+  padding:12px 16px;text-align:left;font-weight:500;
+}
+.sum-table td{
+  padding:13px 16px;
+  border-bottom:1px solid var(--rule);
+  vertical-align:top;line-height:1.55;
+}
+.sum-table td:first-child{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--blue);white-space:nowrap;width:30%;
+}
+.sum-table td:last-child{color:var(--cream2);font-weight:300}
+.sum-table tr:last-child td{border-bottom:none}
+.sum-table tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+
+/* ═══════════ QUICK REVISION ═══════════ */
+.revision{
+  background:var(--ink2);
+  border:1px solid var(--rule);
+  border-radius:12px;
+  padding:36px 32px;margin:32px 0;
+}
+.revision h3{
+  font-family:var(--serif);font-size:24px;
+  font-weight:800;color:var(--blue);
+  margin-bottom:24px;padding-bottom:14px;
+  border-bottom:1px solid var(--rule);
+}
+.qr-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+}
+.qr-item{
+  padding:13px 16px;
+  border-bottom:1px solid var(--rule);
+  border-right:1px solid var(--rule);
+}
+.qr-item:nth-child(2n){border-right:none}
+.qr-label{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--blue);margin-bottom:4px;
+}
+.qr-val{font-size:13px;color:var(--cream2);line-height:1.5;font-weight:300}
+
+/* ═══════════ FINAL ANSWER BOX ═══════════ */
+.final-box{
+  background:linear-gradient(135deg,var(--ink2),var(--ink3));
+  border:1px solid rgba(59,130,246,.35);
+  border-radius:12px;padding:36px 32px;margin:32px 0;
+}
+.final-box h3{
+  font-family:var(--serif);font-size:20px;
+  font-style:italic;font-weight:300;
+  color:var(--blue);margin-bottom:18px;line-height:1.4;
+}
+.final-box p{
+  font-size:15px;color:var(--cream2);
+  line-height:1.75;margin-bottom:16px;font-weight:300;
+}
+.final-box p strong{color:var(--cyan);font-weight:600}
+.final-box .footnote{
+  font-style:italic;color:var(--cream3);
+  font-size:14px;margin-top:24px;
+  padding-top:20px;border-top:1px solid var(--rule);
+}
+
+/* ═══════════ FOOTER ═══════════ */
+.footer{
+  background:var(--ink2);
+  border-top:1px solid var(--rule);
+  padding:48px 48px 32px;
+  margin-top:80px;
+}
+.footer-inner{
+  max-width:1140px;margin:0 auto;
+  display:flex;justify-content:space-between;
+  align-items:flex-end;flex-wrap:wrap;gap:20px;
+}
+.footer-brand{
+  font-family:var(--serif);font-size:18px;
+  font-weight:800;color:var(--cream);
+}
+.footer-brand span{color:var(--blue)}
+.footer-sub{
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:0.14em;color:var(--cream3);
+  margin-top:6px;
+}
+.footer-links{
+  display:flex;gap:20px;
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--cream3);
+}
+.footer-links a{color:var(--cream3);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--blue)}
+.footer-copy{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:0.12em;color:var(--cream3);
+  margin-top:28px;padding-top:20px;
+  border-top:1px solid var(--rule);
+  text-align:center;
+}
+.footer-copy span{color:var(--blue)}
+
+/* ═══════════ ANIMATIONS ═══════════ */
+@keyframes slideIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-left{padding:90px 24px 60px}
+  .hero-left::after{display:none}
+  .hero-right{height:380px}
+  .article{grid-template-columns:1fr;padding:0 20px}
+  .toc{display:none}
+  .body{padding:40px 0}
+  .nav{padding:0 20px}
+  .inline-img-wrap{float:none;width:100%;margin:0 0 24px}
+}
+</style>
+</head>
+<body>
+
+<div class="banner">Founder Deep-Dive Series &nbsp;·&nbsp; Global AI & Tech Ecosystem &nbsp;·&nbsp; FounderLens 2025</div>
+
+<nav class="nav">
+  <div class="nav-brand">
+    <span class="nav-brand-dot"></span>
+    FounderLens
+  </div>
+  <div class="nav-chips">
+    <button class="nav-chip active" onclick="scrollToTop()">Overview</button>
+    <button class="nav-chip" onclick="document.getElementById('sec-background').scrollIntoView({behavior:'smooth'})">Background</button>
+    <button class="nav-chip" onclick="document.getElementById('sec-strategy').scrollIntoView({behavior:'smooth'})">Strategy</button>
+    <button class="nav-chip" onclick="document.getElementById('sec-lessons').scrollIntoView({behavior:'smooth'})">Lessons</button>
+    <button class="nav-chip" onclick="document.getElementById('sec-quotes').scrollIntoView({behavior:'smooth'})">Quotes</button>
+  </div>
+  <button class="nav-cta" onclick="document.getElementById('sec-identity').scrollIntoView({behavior:'smooth'})">Read Analysis ↓</button>
+</nav>
+
+<!-- ════════ HERO ════════ -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      <span class="hero-eyebrow-text">Founder Analysis — Issue #03</span>
+    </div>
+
+    <h1 class="hero-title">
+      Sam Altman<br>
+      <em>The Man Who Put AI<br>in Every Hand on Earth</em>
+    </h1>
+
+    <p class="hero-sub">
+      From a Stanford dropout building a location app, to shepherding the most important technology of our century — the inside story of how a <strong>Silicon Valley dealmaker became the most consequential person in AI</strong>.
+    </p>
+
+    <div class="hero-kpis">
+      <div>
+        <div class="kpi-val">$500 Bn</div>
+        <div class="kpi-label">OpenAI Valuation</div>
+      </div>
+      <div>
+        <div class="kpi-val">700M+</div>
+        <div class="kpi-label">ChatGPT Weekly Users</div>
+      </div>
+      <div>
+        <div class="kpi-val">$20 Bn</div>
+        <div class="kpi-label">2025 Revenue</div>
+      </div>
+      <div>
+        <div class="kpi-val">$6.5 Bn</div>
+        <div class="kpi-label">Altman Net Worth (Dec 2025)</div>
+      </div>
+    </div>
+
+    <div class="hero-tags">
+      <span class="hero-tag blue">Artificial Intelligence</span>
+      <span class="hero-tag blue">ChatGPT</span>
+      <span class="hero-tag violet">AGI</span>
+      <span class="hero-tag">Y Combinator</span>
+      <span class="hero-tag">Stanford Dropout</span>
+      <span class="hero-tag violet">GPT-4 · GPT-5</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-img-frame">
+      <div class="founder-photo-wrap">
+        <div class="founder-photo-bg"></div>
+        <img
+          class="founder-photo"
+          src="https://image.cnbcfm.com/api/v1/image/108130012-1744294170118-gettyimages-2198348663-AFP_36XM7KW.jpeg?v=1744294185&w=800&h=600&ffmt=webp"
+          alt="Sam Altman – CEO, OpenAI"
+          onerror="this.onerror=null; this.style.display='none'; this.parentNode.querySelector('.svg-fallback').style.display='flex';"
+        >
+        <div class="svg-fallback" style="display:none;position:absolute;inset:0;z-index:3;border-radius:12px;background:linear-gradient(160deg,#0d1117,#1e3a8a);align-items:center;justify-content:center;flex-direction:column;">
+          <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="58" stroke="rgba(59,130,246,0.4)" stroke-width="2"/>
+            <circle cx="60" cy="44" r="22" fill="rgba(59,130,246,0.25)"/>
+            <ellipse cx="60" cy="100" rx="36" ry="22" fill="rgba(59,130,246,0.2)"/>
+          </svg>
+          <span style="font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:rgba(238,242,255,0.5);margin-top:8px;">SA</span>
+          <span style="font-family:'Martian Mono',monospace;font-size:9px;letter-spacing:0.14em;color:rgba(59,130,246,0.7);text-transform:uppercase;margin-top:4px;">Sam Altman</span>
+        </div>
+        <div class="photo-badge">CEO — OpenAI</div>
+      </div>
+    </div>
+    <div class="hero-float-quote">
+      <div class="hero-float-quote-text">"The development of superintelligence will be the most important — and potentially most dangerous — technology in human history. We think it's better to have safety-focused labs at the frontier than to cede that ground."</div>
+      <div class="hero-float-quote-by">— Sam Altman, 2023</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ ARTICLE ════════ -->
+<div class="article">
+
+  <!-- TOC -->
+  <nav class="toc">
+    <div class="toc-heading">Contents</div>
+    <button class="toc-item active" onclick="scrollSec('sec-identity')">01 · Founder & Company</button>
+    <button class="toc-item" onclick="scrollSec('sec-background')">02 · Background</button>
+    <button class="toc-item" onclick="scrollSec('sec-problem')">03 · Problem Solved</button>
+    <button class="toc-item" onclick="scrollSec('sec-opportunity')">04 · Opportunity Identified</button>
+    <button class="toc-item" onclick="scrollSec('sec-revenue')">05 · Revenue Model</button>
+    <button class="toc-item" onclick="scrollSec('sec-business')">06 · Business Model</button>
+    <button class="toc-item" onclick="scrollSec('sec-struggles')">07 · Initial Struggles</button>
+    <button class="toc-item" onclick="scrollSec('sec-strategy')">08 · Growth Strategy</button>
+    <button class="toc-item" onclick="scrollSec('sec-marketing')">09 · Marketing</button>
+    <button class="toc-item" onclick="scrollSec('sec-acquisition')">10 · Customer Acquisition</button>
+    <button class="toc-item" onclick="scrollSec('sec-product')">11 · Product Strategy</button>
+    <button class="toc-item" onclick="scrollSec('sec-funding')">12 · Funding Journey</button>
+    <button class="toc-item" onclick="scrollSec('sec-mistakes')">13 · Biggest Mistakes</button>
+    <button class="toc-item" onclick="scrollSec('sec-strengths')">14 · Biggest Strengths</button>
+    <button class="toc-item" onclick="scrollSec('sec-leadership')">15 · Leadership Style</button>
+    <button class="toc-item" onclick="scrollSec('sec-decisions')">16 · Smart Decisions</button>
+    <button class="toc-item" onclick="scrollSec('sec-moat')">17 · Competitive Advantage</button>
+    <button class="toc-item" onclick="scrollSec('sec-turning')">18 · Turning Points</button>
+    <button class="toc-item" onclick="scrollSec('sec-controversies')">19 · Controversies</button>
+    <button class="toc-item" onclick="scrollSec('sec-lessons')">20 · Key Lessons</button>
+    <button class="toc-item" onclick="scrollSec('sec-startups')">21 · What Startups Can Learn</button>
+    <button class="toc-item" onclick="scrollSec('sec-quotes')">22 · Quotes & Thinking</button>
+    <button class="toc-item" onclick="scrollSec('sec-summary')">23 · Final Summary</button>
+    <button class="toc-item" onclick="scrollSec('sec-revision')">24 · Quick Revision</button>
+    <button class="toc-item" onclick="scrollSec('sec-table')">25 · Strategy Table</button>
+    <button class="toc-item" onclick="scrollSec('sec-final')">26 · If Starting Over</button>
+  </nav>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- ── SEC 1: IDENTITY ── -->
+    <div class="sec" id="sec-identity">
+      <div class="sec-num">01 — Who He Is</div>
+      <h2 class="sec-title">Founder &amp; <em>Company</em></h2>
+
+      <div class="info-rows">
+        <div class="info-row"><div class="info-key">Founder</div><div class="info-val"><strong>Samuel Harris Altman</strong> — Co-founder &amp; CEO, OpenAI</div></div>
+        <div class="info-row"><div class="info-key">Co-Founders</div><div class="info-val">Greg Brockman, Ilya Sutskever, Elon Musk (departed 2018), Wojciech Zaremba, John Schulman, and others</div></div>
+        <div class="info-row"><div class="info-key">Company</div><div class="info-val"><strong>OpenAI</strong> — restructured to a Public Benefit Corporation in 2025</div></div>
+        <div class="info-row"><div class="info-key">Founded</div><div class="info-val">December 2015 — as a non-profit AI safety research lab</div></div>
+        <div class="info-row"><div class="info-key">HQ</div><div class="info-val">San Francisco, California, United States</div></div>
+        <div class="info-row"><div class="info-key">Sector</div><div class="info-val">Artificial Intelligence / Generative AI / Enterprise SaaS / AI Infrastructure</div></div>
+        <div class="info-row"><div class="info-key">Key Products</div><div class="info-val">ChatGPT, GPT-4o, GPT-5, DALL-E, Sora (video), Whisper (speech), Codex, OpenAI API</div></div>
+        <div class="info-row"><div class="info-key">Structure</div><div class="info-val">Public Benefit Corporation (2025), previously a capped-profit hybrid. OpenAI Foundation (non-profit) holds governance oversight.</div></div>
+        <div class="info-row"><div class="info-key">Valuation</div><div class="info-val">$500 Billion (Oct 2025 secondary sale) — <strong>World's most valuable private company</strong></div></div>
+        <div class="info-row"><div class="info-key">Key Investor</div><div class="info-val">Microsoft ($13B+), SoftBank ($30B lead in March 2025 round), Thrive Capital, Khosla Ventures</div></div>
+      </div>
+
+      <div class="stats-strip">
+        <div class="stat-card"><div class="stat-val">700M+</div><div class="stat-lbl">Weekly ChatGPT Users</div></div>
+        <div class="stat-card"><div class="stat-val">$20 Bn</div><div class="stat-lbl">2025 Annual Revenue</div></div>
+        <div class="stat-card"><div class="stat-val">$40 Bn</div><div class="stat-lbl">Largest-Ever Private Round</div></div>
+        <div class="stat-card"><div class="stat-val">50M+</div><div class="stat-lbl">Paying Subscribers</div></div>
+        <div class="stat-card"><div class="stat-val">3,628×</div><div class="stat-lbl">Revenue Growth 2020–2025</div></div>
+      </div>
+    </div>
+
+    <!-- ── SEC 2: BACKGROUND ── -->
+    <div class="sec" id="sec-background">
+      <div class="sec-num">02 — The Origin Story</div>
+      <h2 class="sec-title">Background of the <em>Founder</em></h2>
+
+      <div class="inline-img-wrap">
+        <img
+          class="inline-img"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Sam_Altman_at_TechCrunch_Disrupt_SF_2019_-_Day_2_%2848838377023%29.jpg/640px-Sam_Altman_at_TechCrunch_Disrupt_SF_2019_-_Day_2_%2848838377023%29.jpg"
+          alt="Sam Altman at TechCrunch Disrupt"
+          onerror="this.onerror=null; this.parentNode.style.display='none';"
+          loading="lazy"
+        >
+        <div class="inline-img-accent">🧠</div>
+        <div class="inline-img-caption">Sam Altman — TechCrunch Disrupt</div>
+      </div>
+
+      <p class="lead">Sam Altman did not start as an AI visionary. He started as a kid in St. Louis who got a Macintosh computer at age eight and never looked back. The path from a suburban Missouri childhood to steering humanity's most consequential technology is a masterclass in capitalising on the right moment with the right relationships.</p>
+
+      <p>Born on <strong>April 22, 1985</strong> in Chicago, Illinois, and raised in St. Louis, Missouri, Altman was the eldest of four siblings. His mother was a dermatologist and his father a real estate agent — a middle-class household where both discipline and intellectual curiosity were encouraged. At age eight, he received his first Macintosh computer. By high school, he was already teaching himself to program.</p>
+
+      <p>He attended <strong>John Burroughs School</strong>, an elite St. Louis prep school, where he made a courageous public decision: he came out as gay before a school assembly and advocated for "Safe Space" placards in classrooms. This act of early public courage reveals something psychologically important — Altman has <strong>never been afraid to take unpopular positions in public</strong>. It is a character trait that would later define his leadership style at OpenAI.</p>
+
+      <div class="clearfix"></div>
+
+      <div class="subsec-title">The Critical Pre-OpenAI Years</div>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot">1985</div>
+          <div class="tl-content">
+            <strong>Born — Chicago, raised in St. Louis, Missouri</strong>
+            <p>Middle-class family. Gets first Mac at age 8. Teaches himself to code through high school. Comes out publicly at school assembly — early evidence of his comfort with risk.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">2003</div>
+          <div class="tl-content">
+            <strong>Stanford University — Computer Science</strong>
+            <p>Enrolls to study CS. Quickly finds that the startup world outside campus is moving faster than any lecture hall. After one to two years, makes the call to drop out to chase a real opportunity.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">2005</div>
+          <div class="tl-content">
+            <strong>Co-founds Loopt — Location-Sharing App</strong>
+            <p>At 19, co-founds Loopt with his Stanford classmates. The app lets users share their real-time location with friends — a concept 5 years ahead of its time. It becomes one of the very first companies funded by Y Combinator.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">2011</div>
+          <div class="tl-content">
+            <strong>Joins Y Combinator as Partner</strong>
+            <p>While Loopt struggles to gain users, Altman joins YC part-time. He is a natural — incisive, fast-thinking, and able to identify company-killing problems in minutes. Paul Graham notices.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">2012</div>
+          <div class="tl-content">
+            <strong>Loopt Acquired by Green Dot — $43.4 Million</strong>
+            <p>Loopt never found its mass-market moment. Green Dot buys it for $43.4M — a modest but dignified exit for a premature idea. Altman calls it a "failure of timing." He reinvests his proceeds into startups including Reddit, Stripe, and Airbnb.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">2014</div>
+          <div class="tl-content">
+            <strong>President of Y Combinator</strong>
+            <p>Paul Graham asks him to take over YC's presidency — one of the most powerful roles in startup investing. Over five years, Altman oversees YC as it funds Airbnb, Stripe, DoorDash, and hundreds of world-changing companies. He triples YC's batch sizes and builds its international reputation.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">2015</div>
+          <div class="tl-content">
+            <strong>Co-founds OpenAI — $1 Billion Pledge</strong>
+            <p>Together with Elon Musk, Greg Brockman, Ilya Sutskever, and others, Altman co-founds OpenAI as a non-profit AI safety lab. Initial pledge of $1 billion from backers including Musk, Thiel, Hoffman, and Altman. The mission: build AGI safely for humanity's benefit.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">2019</div>
+          <div class="tl-content">
+            <strong>Becomes CEO of OpenAI</strong>
+            <p>Leaves Y Combinator to focus full-time on OpenAI. Lands Microsoft's historic $1 billion investment, converting OpenAI into a "capped-profit" hybrid. The AGI race is on.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-lesson">
+        <div class="callout-label">🧠 Psychological Insight</div>
+        <p>Altman's career before OpenAI looks like a series of stepping stones, not accidents. Loopt taught him what it means to build too early. Y Combinator taught him the full spectrum of startup failure modes at scale. He arrived at OpenAI with a pattern-recognition database that almost no other AI founder possessed. <strong>The best preparation for building the most important company in the world was running the school that trained most of Silicon Valley.</strong></p>
+      </div>
+    </div>
+
+    <!-- ── SEC 3: PROBLEM ── -->
+    <div class="sec" id="sec-problem">
+      <div class="sec-num">03 — The Root Cause</div>
+      <h2 class="sec-title">The Problem <em>They Solved</em></h2>
+
+      <p class="lead">In 2015, the world's most powerful AI research was locked inside Google DeepMind and Facebook AI Research (FAIR). It was controlled by private corporations with commercial incentives. Sam Altman and co-founders believed this was dangerous — and that the solution was to build AI openly, safely, and for all of humanity.</p>
+
+      <p>Here is a simple picture of the problem Sam Altman saw in 2015 — and the bigger problem humanity now faces:</p>
+
+      <ul class="alist">
+        <li><strong>AI safety was not the priority at Big Tech.</strong> Google, Meta, and Amazon were building AI to maximise ads, engagement, and commerce — not to ensure it was safe for humanity. The people doing safety-focused AI research had nowhere mission-first to work.</li>
+        <li><strong>AGI — Artificial General Intelligence — was coming, ready or not.</strong> The consensus in 2015 among leading researchers was that machines would match or exceed human intelligence within decades. The question was not <em>if</em>, but <em>who builds it and how</em>.</li>
+        <li><strong>The benefits of AI were flowing to a tiny group.</strong> The fruits of machine learning — better search, smarter recommendations, diagnostic AI — were owned by a handful of corporations. Ordinary people had no access to frontier AI capabilities.</li>
+        <li><strong>There was no open, safety-focused AI research body.</strong> Academia was underfunded. Big Tech was commercial. There was a missing institution in the world: a serious AI lab that prioritised safety AND capability, openly published research, AND was not beholden to shareholder value. OpenAI was designed to be that institution.</li>
+        <li><strong>ChatGPT (2022) solved a second, simpler problem:</strong> interacting with AI required being a programmer or researcher. ChatGPT made AI conversational and usable by everyone — democratising access in a way that no product had before.</li>
+      </ul>
+
+      <div class="callout callout-blue">
+        <div class="callout-label">💡 Simple Explanation</div>
+        <p>Think of it this way: AI was like electricity in 1900. Powerful, transformative — but only available to factories and industrial players. <strong>ChatGPT was the moment electricity reached every home.</strong> Sam Altman built the power grid that the rest of the world plugs into.</p>
+      </div>
+    </div>
+
+    <!-- ── SEC 4: OPPORTUNITY ── -->
+    <div class="sec" id="sec-opportunity">
+      <div class="sec-num">04 — Spotting the Signal</div>
+      <h2 class="sec-title">How They Identified the <em>Opportunity</em></h2>
+
+      <p class="lead">The opportunity Altman identified was not just commercial — it was civilisational. He believed that whoever built safe AGI first would determine the future of human civilisation. That conviction was the engine behind every strategic decision.</p>
+
+      <p>Altman's opportunity identification pattern follows a clear logic: <strong>identify the most important problem in the world, then put yourself at the centre of solving it.</strong> As YC president, he had front-row seats to every major technological shift. He saw how quickly AI capabilities were advancing — and he saw that no safety-focused institution was racing to be at the frontier.</p>
+
+      <div class="pq">
+        <blockquote>"If I were thinking about what to work on, I would ask myself: what is the most important problem in the world and can I make progress on it? For me, that's been AI."</blockquote>
+        <cite>— Sam Altman, Stanford lecture, 2015</cite>
+      </div>
+
+      <div class="subsec-title">5.1 — Initial Days of Business</div>
+
+      <p>OpenAI's early days (2015–2019) were surprisingly quiet compared to its eventual impact. The lab published landmark research papers — on reinforcement learning, language models, and robotic dexterity — but had no commercial products. This was intentional: <strong>Altman's theory was that safety research required credibility in capability first.</strong></p>
+
+      <ul class="alist">
+        <li><strong>2015–2017 — Pure research phase:</strong> OpenAI published influential papers on reinforcement learning and safety. GPT-1 was released in 2018 — a small, early language model that few people noticed.</li>
+        <li><strong>2018 — GPT-1:</strong> OpenAI releases the first Generative Pre-trained Transformer. The AI world pays attention; the public does not. But internally, the team realises they have found something important.</li>
+        <li><strong>2019 — GPT-2 "too dangerous to release":</strong> OpenAI initially withheld GPT-2, citing fears about misuse. This created a media storm — and paradoxically massive publicity for the lab's capabilities. Smart or lucky? Probably both.</li>
+        <li><strong>2019 — Microsoft's $1 Billion investment:</strong> Altman converts OpenAI into a "capped-profit" structure and lands Microsoft's landmark cheque. The era of serious commercial AI begins.</li>
+        <li><strong>2020 — GPT-3 via API:</strong> OpenAI releases GPT-3 via a waitlisted API. Thousands of developers build products on top of it. The commercial ecosystem begins. This is the moment Altman's API-first strategy starts to pay off.</li>
+        <li><strong>November 2022 — ChatGPT launch:</strong> Launched as a "low-key research preview." Becomes the fastest-growing consumer product in history. 1 million users in 5 days. 100 million users in 2 months. The world changes.</li>
+      </ul>
+
+      <div class="callout callout-lesson">
+        <div class="callout-label">⭐ Startup Lesson</div>
+        <p>OpenAI's first years were research-heavy with no revenue — a pattern most startup advisors would call catastrophic. But Altman understood that <strong>in platform-level technology, the path to commercial dominance runs through research credibility</strong>. You have to be the best in the world at the underlying technology before you can build a business on top of it. Trying to commercialise before you are genuinely best-in-class invites better-resourced competitors to copy and crush you.</p>
+      </div>
+    </div>
+
+    <!-- ── SEC 5: REVENUE MODEL ── -->
+    <div class="sec" id="sec-revenue">
+      <div class="sec-num">05 — The Money Engine</div>
+      <h2 class="sec-title">Revenue <em>Model</em></h2>
+
+      <p>OpenAI's revenue grew from <mark>$3.5 million in 2020</mark> to <mark>$20 billion in 2025</mark> — a 3,628× increase in five years. No company in history has grown revenue at this speed at this scale. Here is how the money actually flows in:</p>
+
+      <div class="two-col">
+        <div class="col-card">
+          <div class="col-card-label">Stream 01</div>
+          <h4>Consumer Subscriptions (ChatGPT)</h4>
+          <p>ChatGPT Free → ChatGPT Plus ($20/month) → ChatGPT Pro ($200/month). Over 50 million paying subscribers globally. The free tier serves as a funnel — users discover value, then upgrade. This is the classic "freemium" model applied at civilisational scale.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Stream 02</div>
+          <h4>Enterprise Subscriptions</h4>
+          <p>ChatGPT Enterprise and Team plans ($25–$60 per user/month). Enterprise accounts for 40%+ of revenue and growing. A company with 10,000 employees can generate millions in annual revenue for OpenAI. Enterprise was Altman's deliberate Q4 2023 pivot after ChatGPT's consumer explosion.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Stream 03</div>
+          <h4>API Metered Usage</h4>
+          <p>Developers and companies pay per token (unit of text) consumed. Every startup, app, and service built on GPT-4 or GPT-4o pays OpenAI usage fees. This API model means OpenAI earns from competitors building products on its rails — like a toll road on AI infrastructure.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Stream 04</div>
+          <h4>Microsoft Licensing</h4>
+          <p>Microsoft integrated OpenAI models into Azure (Microsoft's cloud), Bing, Copilot (Windows), and Office 365. Microsoft pays OpenAI licensing fees and has commercial rights to OpenAI's technology. In exchange, Microsoft provides compute credits worth billions. A strategic symbiosis, not just a financial deal.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Stream 05</div>
+          <h4>AI Agents & Codex</h4>
+          <p>Codex (AI coding agent) reached 2 million weekly users by 2025, growing 70% month-over-month. Agentic AI — where AI does multi-step tasks autonomously — is the next major revenue category. OpenAI is building agent products that can replace knowledge workers for specific tasks.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Stream 06</div>
+          <h4>Sora, DALL-E, Whisper</h4>
+          <p>Video generation (Sora), image generation (DALL-E 3), and speech transcription (Whisper) are sold as API products. Creative industries — advertising, film, design — represent major enterprise revenue pools that OpenAI is only beginning to tap.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-warn">
+        <div class="callout-label">⚠️ The Burn Rate Reality</div>
+        <p>Despite $20B in 2025 revenue, OpenAI is deeply loss-making. It spent approximately <strong>$16 billion on R&D</strong> in 2025 alone, plus billions on compute (running AI models costs extraordinary amounts of electricity and chips). The company projects losses through 2028 and expects cash flow positive status only around 2029. This is not a traditional business — it is a technology race being run with venture capital and compute budgets that make startups look like garage projects.</p>
+      </div>
+    </div>
+
+    <!-- ── SEC 6: BUSINESS MODEL ── -->
+    <div class="sec" id="sec-business">
+      <div class="sec-num">06 — How the System Works</div>
+      <h2 class="sec-title">Business <em>Model</em></h2>
+
+      <p>OpenAI's business model is best understood as a <strong>platform business with a research moat</strong>. The model has three layers:</p>
+
+      <div class="two-col">
+        <div class="col-card">
+          <div class="col-card-label">Layer 01 — The Research Layer</div>
+          <h4>Being Best-in-Class at AI</h4>
+          <p>OpenAI spends enormously on frontier research. Every new capability (GPT-5, o1 reasoning, Sora video) widens the gap between OpenAI's models and competitors. The better the model, the more API usage, the more enterprise contracts, the more consumers pay to upgrade. Research is not a cost centre — it is a revenue multiplier.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Layer 02 — The Platform Layer</div>
+          <h4>API-First Ecosystem</h4>
+          <p>By opening the GPT API, OpenAI allowed thousands of companies to build products on its models. Those companies become dependent on OpenAI's infrastructure — and switching costs grow over time. Every startup that builds on the GPT API is, in effect, a distribution partner for OpenAI. This is the same playbook as AWS for cloud computing.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Layer 03 — The Consumer Layer</div>
+          <h4>ChatGPT as the Front Door</h4>
+          <p>ChatGPT is the world's first AI brand that ordinary people know and love. This brand is an enormous economic asset — it generates data (which improves models), generates revenue (subscriptions), and generates press (free marketing). No competitor has a consumer brand even close.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">The Microsoft Flywheel</div>
+          <h4>Cloud + Distribution Deal</h4>
+          <p>OpenAI's deal with Microsoft is a flywheel. Microsoft provides Azure compute (which OpenAI cannot afford to build itself) in exchange for exclusive cloud rights and commercial licensing. This arrangement gave OpenAI runway to survive while Microsoft got an 8-year head start on every competitor in enterprise AI. Both sides won enormously.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-lesson">
+        <div class="callout-label">⭐ Startup Lesson</div>
+        <p>Altman made OpenAI's models available as an API before they had a consumer product. This was counterintuitive — most companies launch a product first, then open the API. <strong>By going API-first, he built an ecosystem of dependent developers that created switching costs before competitors even had products to compete with.</strong> Build the infrastructure layer before the application layer if you want to own a market.</p>
+      </div>
+    </div>
+
+    <!-- ── SEC 7: STRUGGLES ── -->
+    <div class="sec" id="sec-struggles">
+      <div class="sec-num">07 — Fire and Survival</div>
+      <h2 class="sec-title">Initial <em>Struggles</em></h2>
+
+      <p class="lead">Before the world saw ChatGPT, OpenAI nearly fell apart — multiple times. The struggles were financial, structural, and deeply personal. Understanding them is essential to understanding why Altman is the CEO he is today.</p>
+
+      <div class="two-col">
+        <div class="col-card">
+          <div class="col-card-label">Struggle 01</div>
+          <h4>Loopt — An Idea Too Early</h4>
+          <p>Altman's first company, Loopt, was a location-sharing social app in 2005 — before smartphones were mainstream and before GPS was reliable. The idea was correct. The timing was off by 7 years. Foursquare, Snapchat, and Instagram all later succeeded with similar social-location ideas. <strong>Altman learned: being right but early is often indistinguishable from being wrong.</strong> Loopt sold for $43.4M in 2012 — a functional but undramatic outcome for 7 years of work.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Struggle 02</div>
+          <h4>OpenAI's Non-Profit Funding Crisis</h4>
+          <p>As a non-profit (2015–2019), OpenAI could not offer equity to researchers. DeepMind (Google) and FAIR (Meta) were offering research scientists million-dollar packages. OpenAI was losing talented people to commercial labs. Altman had to restructure OpenAI as a "capped-profit" entity — a controversial, first-of-its-kind structure that allowed limited investor returns — just to stay in the talent race.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Struggle 03</div>
+          <h4>Elon Musk's Departure (2018)</h4>
+          <p>Elon Musk — a co-founder and major donor — left OpenAI's board in 2018, citing potential conflicts with Tesla's own AI work. He later claimed OpenAI had "abandoned its non-profit mission." The departure created internal uncertainty and reputational questions. Musk subsequently founded his own AI lab (xAI) and filed lawsuits against OpenAI — a distracting, expensive, and public battle that Altman has had to manage for years.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Struggle 04</div>
+          <h4>The 5-Day Firing (November 2023)</h4>
+          <p>On November 17, 2023, OpenAI's board fired Sam Altman without warning, citing "not being consistently candid in his communications." This triggered the most dramatic CEO crisis in Silicon Valley history. Over 700 of OpenAI's 770 employees signed a letter threatening to resign if he was not reinstated. Microsoft offered Altman a role immediately. Within 5 days, Altman was back as CEO, and the board members who had fired him were gone. The company emerged structurally stronger — but internally scarred.</p>
+        </div>
+      </div>
+
+      <div class="pq">
+        <blockquote>"It felt so unfair. It was just a crazy thing to have to go through. The house was on fire and I had to clean up the mess they made."</blockquote>
+        <cite>— Sam Altman, Bloomberg Interview, 2024 — on his firing and return</cite>
+      </div>
+
+      <div class="callout callout-lesson">
+        <div class="callout-label">⭐ Startup Lesson</div>
+        <p>The 2023 crisis revealed something profound: <strong>Altman's greatest asset was not his vision or his fundraising — it was the loyalty of his team.</strong> 700+ people willing to resign rather than work without him is a form of organisational power that no board can easily override. The way you treat people in good times determines who shows up to fight for you in bad times.</p>
+      </div>
+    </div>
+
+    <!-- ── SEC 8: GROWTH STRATEGY ── -->
+    <div class="sec" id="sec-strategy">
+      <div class="sec-num">08 — The Expansion Playbook</div>
+      <h2 class="sec-title">Growth <em>Strategy</em></h2>
+
+      <p>OpenAI's growth from a research lab to the world's most valuable private company is one of the fastest in technology history. The strategy has five pillars:</p>
+
+      <ul class="alist">
+        <li><strong>Research Superiority as the Moat:</strong> Every time a competitor catches up to GPT-4, OpenAI releases GPT-5. The strategy is to always be one generation ahead — which only works if you have the best researchers, the most compute, and the best research culture. Altman has invested disproportionately in all three. The moat is not the product — it is the capability engine that produces the product.</li>
+        <li><strong>Microsoft as the Distribution Engine:</strong> By partnering with Microsoft, OpenAI gained distribution into 1 billion+ Office 365 users instantly through Copilot. No startup could build that distribution channel. Altman understood that the fastest path to enterprise scale was through an existing enterprise platform — not fighting Microsoft for those customers.</li>
+        <li><strong>Iterative Public Deployment — "Deploy to Learn":</strong> Altman's philosophy is that you cannot make AI safe in a laboratory. You have to deploy it to the world, observe failures, and iterate. ChatGPT launched as a "research preview" — deliberately low-key, so that bugs could be found and fixed at scale without catastrophic consequences. This iterative approach accelerated improvement far faster than any internal testing could.</li>
+        <li><strong>The API Ecosystem as a Growth Multiplier:</strong> By opening the GPT API, OpenAI created an army of external developers building products. Every app built on GPT is a distribution channel for OpenAI. Every developer building on GPT is testing the model and providing feedback. The ecosystem grows the product.</li>
+        <li><strong>Safety as a Marketing Strategy:</strong> Counterintuitively, OpenAI's emphasis on AI safety — publishing safety research, forming an Alignment team — attracted the most safety-conscious governments, enterprises, and researchers. Being "the responsible AI company" is a brand positioning that has enormous commercial value with risk-averse enterprise buyers and regulators.</li>
+      </ul>
+
+      <div class="stats-strip">
+        <div class="stat-card"><div class="stat-val">5 days</div><div class="stat-lbl">1M users after ChatGPT launch</div></div>
+        <div class="stat-card"><div class="stat-val">2 months</div><div class="stat-lbl">100M users</div></div>
+        <div class="stat-card"><div class="stat-val">3 years</div><div class="stat-lbl">$200M → $20B revenue</div></div>
+        <div class="stat-card"><div class="stat-val">15B+</div><div class="stat-lbl">API tokens processed/minute</div></div>
+      </div>
+    </div>
+
+    <!-- ── SEC 9: MARKETING ── -->
+    <div class="sec" id="sec-marketing">
+      <div class="sec-num">09 — The Awareness Machine</div>
+      <h2 class="sec-title">Marketing <em>Strategy</em></h2>
+
+      <p>OpenAI has never run traditional advertising. There are no TV commercials for ChatGPT. No billboard campaigns. No influencer marketing. And yet ChatGPT is arguably the most talked-about product of the 2020s. Here is how Altman built a $500 billion brand without a marketing budget:</p>
+
+      <div class="two-col">
+        <div class="col-card">
+          <div class="col-card-label">Tactic 01</div>
+          <h4>The "Research Preview" Launch</h4>
+          <p>ChatGPT was not launched as a product. It was released as a quiet "research preview" in November 2022. This framing reduced expectations, invited curiosity, and produced an authentic viral response — people discovered it themselves and shared it as a personal discovery, not a branded campaign. <strong>No product launch in history produced more organic word-of-mouth.</strong></p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Tactic 02</div>
+          <h4>The Founder as the Brand</h4>
+          <p>Sam Altman gives keynotes at Davos, testifies before the US Congress, appears on leading podcasts, and publishes blog posts that shape global AI policy debates. He is simultaneously the CEO of a company and one of the world's most visible public intellectuals on AI — a combination that earns press coverage worth hundreds of millions annually.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Tactic 03</div>
+          <h4>Drama as Earned Media</h4>
+          <p>Every OpenAI event — GPT-4 release, the Altman firing, GPT-5 launch — becomes a global media event. The 5-day boardroom crisis generated more press than any AI product launch ever could. Altman has demonstrated, intentionally or not, that <strong>controversy at the frontier generates attention that shapes the AI narrative</strong>.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Tactic 04</div>
+          <h4>Safety and Mission as Positioning</h4>
+          <p>OpenAI's repeated emphasis on "responsible AI," safety research, and its mission to "benefit all of humanity" differentiates it from Google and Meta, which are perceived as prioritising commercial AI. This positioning wins trust with governments, regulators, universities, and risk-averse enterprise buyers — audiences that do not respond to traditional marketing.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Tactic 05</div>
+          <h4>Product Launches as Events</h4>
+          <p>GPT-4o's launch (May 2024) with its real-time voice and vision features was livestreamed globally. The Scarlett Johansson voice controversy generated more coverage than any ad could buy. Sora's cinematic video generation stunned the film industry. Each model release is carefully staged as a cultural event — <strong>product demos as theatre</strong>.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Tactic 06</div>
+          <h4>Network Effects from Developers</h4>
+          <p>Every developer who builds on the OpenAI API becomes a promoter of OpenAI's capabilities. When your customers are also your channel partners and your evangelists, marketing becomes a self-sustaining system. Altman seeded this by making the API accessible, well-documented, and competitively priced for early builders.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEC 10: CUSTOMER ACQUISITION ── -->
+    <div class="sec" id="sec-acquisition">
+      <div class="sec-num">10 — Getting &amp; Keeping Users</div>
+      <h2 class="sec-title">Customer Acquisition <em>Strategy</em></h2>
+
+      <p>ChatGPT reached 100 million users faster than any product in history. Here is why people signed up and stayed:</p>
+
+      <ul class="alist">
+        <li><strong>Zero friction at the top of the funnel:</strong> ChatGPT requires no credit card, no app download, and no account creation to try the free tier. The first interaction is effortless. The product earns trust before asking for payment. This is classic "give before you take" freemium strategy.</li>
+        <li><strong>The "I can't believe this is free" moment:</strong> ChatGPT's capabilities in 2022 felt so far beyond anything previously available that users spontaneously became evangelists. The gap between expectation and experience was so large that sharing it became a social behaviour. People wanted to show friends what it could do.</li>
+        <li><strong>Workplace entry through individuals:</strong> Employees adopted ChatGPT personally, then introduced it to colleagues and managers. Individual B2C adoption became corporate B2B adoption — the same path that drove Slack, Dropbox, and Zoom into enterprises. Altman accelerated this by launching ChatGPT Teams and Enterprise products to capture companies whose employees had already self-selected in.</li>
+        <li><strong>The Microsoft distribution funnel:</strong> Copilot (powered by OpenAI) was shipped into Windows, Bing, and Office 365 — reaching 1+ billion users through Microsoft's existing distribution without OpenAI spending a dollar. This is customer acquisition at a scale no startup has ever achieved.</li>
+        <li><strong>Upgrade economics through value demonstration:</strong> Free users who experience ChatGPT's value regularly hit the usage limit — which converts them to $20/month Plus. Power users hit Plus limits and convert to $200/month Pro. The product builds desire, then charges for access. This is how Spotify, Netflix, and every successful SaaS has grown.</li>
+      </ul>
+    </div>
+
+    <!-- ── SEC 11: PRODUCT ── -->
+    <div class="sec" id="sec-product">
+      <div class="sec-num">11 — Building What Matters</div>
+      <h2 class="sec-title">Product <em>Strategy</em></h2>
+
+      <p>Altman's product philosophy is deceptively simple: <strong>make the AI dramatically more capable with every generation, then make accessing that capability dramatically easier.</strong> The two forces compound each other.</p>
+
+      <div class="two-col">
+        <div class="col-card">
+          <div class="col-card-label">Principle 01</div>
+          <h4>Scale is the Strategy</h4>
+          <p>OpenAI bet — correctly — that simply making language models larger, with more data and compute, would produce dramatically better results. This "scaling hypothesis" was controversial in 2018. By 2022, it was proven definitively. Altman's job was to fund compute at scale when others thought it was wasteful. Scale is not a strategy in hindsight — it was a conviction maintained against scepticism.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Principle 02</div>
+          <h4>Multimodal by Design</h4>
+          <p>GPT-4o ("omni") processes text, images, and audio simultaneously in real time. Sora generates video. DALL-E generates images. Whisper transcribes speech. Altman's product roadmap has consistently pushed toward the full range of human communication modes — not just text. The eventual product is an AI that can perceive and respond to the world as humans do.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Principle 03</div>
+          <h4>Agents as the Next Platform</h4>
+          <p>Altman publicly stated in 2025: "AI agents will join the workforce this year." Codex, OpenAI's coding agent, grew 5× in three months. Agents that autonomously complete multi-step tasks — researching, writing, coding, emailing — represent OpenAI's next product frontier. The shift from "chatbot" to "autonomous worker" is the largest product evolution in OpenAI's history.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Principle 04</div>
+          <h4>Hardware Ambitions</h4>
+          <p>In May 2025, OpenAI acquired IO — an AI hardware startup co-founded by Apple's legendary designer Jony Ive — for $6.5 billion. The goal: create a new category of AI-native personal computing devices. This signals Altman's ambition to own the hardware layer, not just the software — following Apple's playbook of controlling the full experience.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-lesson">
+        <div class="callout-label">⭐ Startup Lesson</div>
+        <p>OpenAI's early research papers were the product. Publishing GPT-1, GPT-2, and GPT-3 research attracted the world's best AI researchers to work at or collaborate with OpenAI. <strong>In deep-tech industries, the research community is the first customer — and their respect is the first market to win.</strong> Altman understood that being credible to researchers before being credible to consumers was the correct sequencing.</p>
+      </div>
+    </div>
+
+    <!-- ── SEC 12: FUNDING ── -->
+    <div class="sec" id="sec-funding">
+      <div class="sec-num">12 — The Capital Stack</div>
+      <h2 class="sec-title">Funding <em>Journey</em></h2>
+
+      <p>OpenAI's funding history is extraordinary — it has raised more money than most countries' space programmes, at a faster pace, with a longer roadmap. This is what raising capital for an AGI lab looks like:</p>
+
+      <table class="fund-table">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Round / Event</th>
+            <th>Amount</th>
+            <th>Key Investors</th>
+            <th>Valuation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2015</td>
+            <td>Non-Profit Pledge</td>
+            <td>$1 Billion (pledge)</td>
+            <td>Elon Musk, Reid Hoffman, Peter Thiel, Sam Altman</td>
+            <td>N/A (non-profit)</td>
+          </tr>
+          <tr>
+            <td>2019</td>
+            <td>Series A (Capped-Profit Conversion)</td>
+            <td>$1 Billion</td>
+            <td>Microsoft</td>
+            <td>~$1 Billion</td>
+          </tr>
+          <tr>
+            <td>2021</td>
+            <td>Series B</td>
+            <td>$1 Billion</td>
+            <td>Khosla Ventures, Tiger Global, others</td>
+            <td>~$14 Billion</td>
+          </tr>
+          <tr>
+            <td>2023 (Jan)</td>
+            <td>Strategic Investment</td>
+            <td>$10 Billion</td>
+            <td>Microsoft (expanded partnership)</td>
+            <td>~$29 Billion</td>
+          </tr>
+          <tr>
+            <td>2023 (Oct)</td>
+            <td>Secondary Share Sale</td>
+            <td>$86M (employee liquidity)</td>
+            <td>Various</td>
+            <td>~$86 Billion</td>
+          </tr>
+          <tr>
+            <td>2024 (Oct)</td>
+            <td>Series C</td>
+            <td>$6.6 Billion</td>
+            <td>Microsoft, Nvidia, SoftBank, Thrive Capital</td>
+            <td>$157 Billion</td>
+          </tr>
+          <tr>
+            <td>2025 (Mar)</td>
+            <td>Series D — Largest Private Round in History</td>
+            <td>$40 Billion</td>
+            <td>SoftBank ($30B lead), others</td>
+            <td>$300 Billion</td>
+          </tr>
+          <tr>
+            <td>2025 (Oct)</td>
+            <td>Secondary Share Sale</td>
+            <td>$6.6 Billion (insider liquidity)</td>
+            <td>Sovereign wealth funds, institutional</td>
+            <td><strong>$500 Billion — World's Most Valuable Private Co.</strong></td>
+          </tr>
+          <tr>
+            <td>2026 (Mar)</td>
+            <td>New Round Announced</td>
+            <td>$122 Billion (reported)</td>
+            <td>Amazon ($50B), others</td>
+            <td>Pending / Record</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-blue">
+        <div class="callout-label">💡 Key Insight</div>
+        <p>Sam Altman does not personally own equity in OpenAI — a unique situation for a CEO of a $500 billion company. His $6.5 billion net worth comes entirely from his personal investments in other companies (Stripe, Helion Energy, Reddit, Airbnb, Retro Biosciences). <strong>He is running the world's most valuable AI company for a salary, not equity</strong> — which is either admirable altruism or a governance structure that will need to change if OpenAI goes public.</p>
+      </div>
+    </div>
+
+    <!-- ── SEC 13: MISTAKES ── -->
+    <div class="sec" id="sec-mistakes">
+      <div class="sec-num">13 — Where He Got It Wrong</div>
+      <h2 class="sec-title">Biggest <em>Mistakes</em></h2>
+
+      <ul class="alist">
+        <li><strong>Governance failure — the November 2023 crisis:</strong> The board's ability to fire Altman without warning exposed a catastrophic governance gap. OpenAI's unusual non-profit/capped-profit structure created a board with fiduciary obligations to the non-profit mission — not to employees or commercial stakeholders. Altman reportedly did not manage his relationship with the board adequately, and the 5-day crisis cost OpenAI in talent, press, and institutional trust. <strong>Even if the board was wrong, it happened — which means the governance structure was wrong.</strong></li>
+        <li><strong>Losing key co-founders and researchers:</strong> OpenAI has experienced a remarkable exodus of top talent. Ilya Sutskever (co-founder), Mira Murati (CTO), Alec Radford (GPT's lead researcher), and many safety researchers departed between 2023–2025. Each departure raised questions about OpenAI's culture, safety commitment, and internal dynamics. Building a team brilliant enough to build AGI and keeping them is one of the hardest problems in the world — Altman has not fully solved it.</li>
+        <li><strong>The Scarlett Johansson voice controversy (2024):</strong> When GPT-4o launched its voice mode, users immediately noted that one of the voices sounded extremely similar to Scarlett Johansson — who had previously declined OpenAI's request to use her voice. Johansson's lawyers contacted OpenAI and the voice was pulled within days. This episode suggested that the aggressive product release culture was outpacing ethical review processes — a serious reputational misstep for a company that presents itself as safety-first.</li>
+        <li><strong>Conflict of interest concerns — personal investments:</strong> In 2025, it emerged that Altman had significant personal investments in companies (Helion Energy, Stripe, Retro Biosciences) that had commercial deals with OpenAI. A US Congressional committee and multiple attorneys general raised conflict-of-interest questions. While Altman maintained these were disclosed and approved, the optics of a CEO with no equity enriching himself through side investments in OpenAI's partners is a governance concern that will likely become a legal one if OpenAI goes public.</li>
+        <li><strong>Underestimating the safety–speed tension:</strong> OpenAI was founded on a safety-first mission. But commercial pressure to keep up with GPT releases, enterprise customers, and investor expectations has forced product decisions that critics say have deprioritised safety. The disbanding of the Alignment Science team in 2024 and the departure of multiple safety researchers are the most visible symptoms of this tension. Altman's "iterative deployment" philosophy may be commercially sound but is philosophically in tension with the lab's founding mission.</li>
+      </ul>
+    </div>
+
+    <!-- ── SEC 14: STRENGTHS ── -->
+    <div class="sec" id="sec-strengths">
+      <div class="sec-num">14 — What Makes Him Exceptional</div>
+      <h2 class="sec-title">Biggest <em>Strengths</em></h2>
+
+      <div class="two-col">
+        <div class="col-card">
+          <div class="col-card-label">Strength 01</div>
+          <h4>Pattern Recognition at Scale</h4>
+          <p>Five years at YC exposed Altman to hundreds of startups across every sector. He developed the rare ability to identify which problems are worth solving, which teams can execute, and which markets are ready — all very quickly. This "calibration" is why his personal investment track record (Reddit, Stripe, Airbnb) is exceptional. He brings this same calibration to OpenAI's product and research decisions.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Strength 02</div>
+          <h4>Missionary Fundraising</h4>
+          <p>Altman convinced Microsoft, SoftBank, and a generation of sovereign wealth funds to invest in a company that is losing billions annually in pursuit of a technology that may or may not exist. That is extraordinary persuasion. His ability to frame OpenAI's mission — not as a tech bet but as a civilisational imperative — converts sceptics into believers. SoftBank's $30B bet on OpenAI is one of the largest single investments in private tech history. That money followed Altman's narrative.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Strength 03</div>
+          <h4>Political & Regulatory Navigation</h4>
+          <p>Altman has testified before the US Senate, met with the EU on AI regulation, engaged with the UK's AI Safety Institute, and visited governments across Asia. He has proactively shaped AI regulation rather than fighting it — positioning OpenAI as the adult in the room. This political capital is an enormous strategic asset as AI regulation becomes one of the most important policy arenas of the decade.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Strength 04</div>
+          <h4>Strategic Patience</h4>
+          <p>Altman spent 4 years at OpenAI (2015–2019) as a board member without a commercial product. Then 3 more years building GPT models that the public mostly ignored. <strong>He was willing to wait 7 years for a product moment that lasted 5 days and changed everything.</strong> This combination of long-term patience with explosive tactical speed when the moment arrives is extraordinarily rare.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Strength 05</div>
+          <h4>Team Loyalty Cultivation</h4>
+          <p>The fact that 700+ OpenAI employees threatened to resign en masse rather than work for a different CEO demonstrates a depth of personal loyalty that is almost unparalleled in tech. Altman has cultivated this through genuine investment in the people around him — not just mission alignment, but personal relationships, intellectual respect, and the sense that working at OpenAI is working on the most important thing in the world.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Strength 06</div>
+          <h4>Comfort with Civilisational Stakes</h4>
+          <p>Most people are psychologically incapable of working on something they genuinely believe could end or transform human civilisation. The cognitive weight of "I am building something that might be the most dangerous or the most beneficial technology in history" is paralysing for most humans. Altman seems to thrive in this environment — not recklessly, but with a calm that allows clear thinking under extraordinary pressure.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEC 15: LEADERSHIP ── -->
+    <div class="sec" id="sec-leadership">
+      <div class="sec-num">15 — How He Leads</div>
+      <h2 class="sec-title">Leadership <em>Style</em></h2>
+
+      <p class="lead">Sam Altman leads through narrative, relationship, and strategic clarity — not through operational micromanagement. His style is closer to a statesman than a traditional tech CEO, which is exactly what running an AGI lab requires.</p>
+
+      <p><strong>Consensus-first, then decisive:</strong> Former colleagues describe Altman as someone who spends significant time listening and building consensus — until a decision must be made, at which point he moves with remarkable speed and clarity. He is not impulsive, but he is also not paralysed by process.</p>
+
+      <p><strong>The "long blog post" CEO:</strong> Altman regularly publishes detailed long-form posts on his personal blog and social media, explaining OpenAI's thinking on safety, AGI timelines, economic impacts of AI, and policy. This is an unusual leadership behaviour — most tech CEOs are coached to say very little. Altman says a great deal, and shapes the conversation as a result.</p>
+
+      <p><strong>Intellectual generosity:</strong> YC alumni consistently describe Altman as someone who gives freely of his time and thinking. He is known for detailed, honest feedback — not performative encouragement. This intellectual honesty builds deep loyalty among high-performers, who value directness over diplomatic management.</p>
+
+      <p><strong>The weakness — internal opacity:</strong> The November 2023 crisis revealed that Altman's management of his relationship with the board was flawed. The board (some members) felt he was managing them rather than informing them. Former CTO Mira Murati raised concerns about communication dynamics. There is a pattern here — the person who is most persuasive publicly may sometimes communicate least transparently internally. This is Altman's leadership shadow.</p>
+
+      <div class="callout callout-lesson">
+        <div class="callout-label">⭐ Startup Lesson</div>
+        <p>Altman's leadership shows that <strong>the most important audiences for a CEO are not customers or investors — they are the research team and the board.</strong> His public communication excellence was matched by private communication failures that nearly destroyed the company. As a founder, always invest at least as much in internal trust as in external narrative.</p>
+      </div>
+    </div>
+
+    <!-- ── SEC 16: SMART DECISIONS ── -->
+    <div class="sec" id="sec-decisions">
+      <div class="sec-num">16 — The Moves That Changed Everything</div>
+      <h2 class="sec-title">Smart Decisions That <em>Changed the Company</em></h2>
+
+      <ul class="alist">
+        <li><strong>The Microsoft Partnership (2019):</strong> Altman's decision to partner with Microsoft — giving them commercial rights in exchange for Azure compute — was initially criticised as surrendering OpenAI's independence. In hindsight, it gave OpenAI the compute infrastructure to train GPT-4 and the distribution to reach 1 billion+ users through Copilot. Without Microsoft's compute, ChatGPT might never have existed. <strong>This single deal may be the most important strategic decision in AI history.</strong></li>
+        <li><strong>Launching ChatGPT as a Free Product (2022):</strong> OpenAI could have launched ChatGPT as a premium enterprise product. Instead, Altman launched it free to the public as a "research preview." This decision produced 100 million users in 60 days, a dataset of real-world conversations that improved the model, and a brand that Google has spent billions trying to replicate. The free launch was not charity — it was the most efficient user acquisition in technology history.</li>
+        <li><strong>Restructuring to Capped-Profit (2019):</strong> Converting OpenAI from a pure non-profit to a "capped-profit" structure — where investors could earn returns up to 100× but no more — was a legal and governance innovation that did not exist before Altman needed it. This structure allowed equity to be offered to researchers and investment to be raised while preserving the mission. Altman invented a corporate structure when existing ones did not fit.</li>
+        <li><strong>The Jony Ive Acquisition (2025):</strong> Paying $6.5 billion to acquire Jony Ive's AI hardware startup IO signals Altman's intention to own the physical interface layer of the AI era. If successful, this could be as consequential as Apple's decision to build its own chips — bringing hardware design excellence into software's most important company.</li>
+        <li><strong>Staying after the firing:</strong> Altman's decision to return to OpenAI after being unceremoniously fired — rather than building a competing lab (which Microsoft was offering to fund) — was not obvious. He returned because he believed OpenAI's mission was too important to abandon. That decision preserved the talent base, the Microsoft partnership, and the institutional momentum that has made OpenAI $500 billion. Coming back was braver than leaving.</li>
+      </ul>
+    </div>
+
+    <!-- ── SEC 17: COMPETITIVE ADVANTAGE ── -->
+    <div class="sec" id="sec-moat">
+      <div class="sec-num">17 — The Unfair Edge</div>
+      <h2 class="sec-title">Competitive <em>Advantage</em></h2>
+
+      <p>OpenAI competes against Google DeepMind (with its 100,000 researchers and advertising profits), Meta AI (with its 3 billion social users), Anthropic (founded by former OpenAI researchers), and xAI (Musk's lab). Here is why OpenAI maintains its lead:</p>
+
+      <ul class="alist">
+        <li><strong>Brand recognition:</strong> "ChatGPT" is to AI what "Google" is to search. It is the only AI brand that ordinary people know and default to. This brand advantage compounds — the more people use it, the more comfortable AI becomes, the more their data trains the model, the better the model gets.</li>
+        <li><strong>The Microsoft distribution moat:</strong> Access to 1+ billion Office 365 users via Copilot, Bing integration, and Azure deployment is a distribution channel that Anthropic, xAI, and Mistral cannot replicate without a comparable partner. Microsoft's sales force alone is a more powerful enterprise distribution engine than most AI companies' entire operations.</li>
+        <li><strong>Data at scale:</strong> Every ChatGPT conversation — 700 million weekly users — generates feedback that improves the model. This creates a compounding data advantage. Competitors can match the architecture; they cannot easily replicate 3+ years of real-world interaction data at ChatGPT's scale.</li>
+        <li><strong>Research talent density:</strong> Despite talent departures, OpenAI retains the highest concentration of top AI researchers outside Google DeepMind. The reputation of working on "the most important problem in the world" continues to attract people who could work anywhere.</li>
+        <li><strong>Political and regulatory positioning:</strong> Altman's proactive engagement with governments has positioned OpenAI as the "trusted" AI company — the one regulators call first, the one enterprises cite when they need to justify AI adoption to boards. This soft power is a formidable competitive advantage that no research paper can create.</li>
+      </ul>
+    </div>
+
+    <!-- ── SEC 18: TURNING POINTS ── -->
+    <div class="sec" id="sec-turning">
+      <div class="sec-num">18 — The Moments That Bent History</div>
+      <h2 class="sec-title">Major <em>Turning Points</em></h2>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot">2019</div>
+          <div class="tl-content">
+            <strong>Microsoft's $1B Investment — The Survival Moment</strong>
+            <p>Without Microsoft's compute funding, OpenAI could not have trained GPT-3 or GPT-4. This deal, brokered personally by Altman, changed OpenAI from a well-intentioned research lab into a credible AI company. It was the capital injection that made everything else possible.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">Nov 2022</div>
+          <div class="tl-content">
+            <strong>ChatGPT Launch — The Moment the World Changed</strong>
+            <p>ChatGPT reaches 1 million users in 5 days. 100 million in 2 months. The fastest product adoption in history. Governments, schools, corporations — every institution on earth began simultaneously trying to understand what had happened and what to do about it. This was not a product launch. It was a cultural moment.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">Nov 2023</div>
+          <div class="tl-content">
+            <strong>The Firing and Return — The Resilience Test</strong>
+            <p>Altman is fired Friday. 700 employees rally to his defence. Microsoft offers him a job. He negotiates his return. He is back as CEO by Tuesday. The board that fired him is gone. OpenAI emerges with a reconstituted board and a restructuring toward a public benefit corporation. The crisis hardened OpenAI's governance and, paradoxically, strengthened Altman's position.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">Mar 2025</div>
+          <div class="tl-content">
+            <strong>$40 Billion Round — The Largest Private Raise in History</strong>
+            <p>SoftBank leads a $40B round at a $300B valuation. This is not just funding — it is a declaration that the AI race has chosen OpenAI as its front-runner. The capital gives OpenAI the runway to build the next generation of models and compete with Google and Meta for the next decade.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">May 2025</div>
+          <div class="tl-content">
+            <strong>GPT-5 and the Jony Ive Acquisition</strong>
+            <p>GPT-5 launches, described by Altman as "a significant step toward AGI." The simultaneous acquisition of Jony Ive's hardware startup signals OpenAI's ambition to build the physical device that sits at the centre of the AI era. Both moves, in the same month, signal that OpenAI is playing for the next 20 years, not the next quarter.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEC 19: CONTROVERSIES ── -->
+    <div class="sec" id="sec-controversies">
+      <div class="sec-num">19 — The Shadow Side</div>
+      <h2 class="sec-title">Controversies &amp; <em>Failures</em></h2>
+
+      <ul class="alist">
+        <li><strong>The November 2023 Firing — Governance Chaos:</strong> OpenAI's board cited "not being consistently candid in his communications" as the reason for firing Altman. Ilya Sutskever's 2025 deposition revealed a memo calling Altman's behaviour "a consistent pattern of lying, undermining execs, and pitting them against one another." Altman denies these characterisations. The truth is disputed — but the fact that four board members felt this strongly about their own CEO is a serious leadership indictment.</li>
+        <li><strong>Conflict of Interest — Personal Investments:</strong> Altman's personal stakes in Helion Energy ($1.7B stake), Stripe ($633M), and Retro Biosciences ($258M) — all of which have commercial relationships with OpenAI — became the subject of Congressional inquiry in 2025. While Altman says conflicts were disclosed and managed, the combination of no personal equity in OpenAI plus large personal stakes in OpenAI's commercial partners is a structural governance problem.</li>
+        <li><strong>The Scarlett Johansson Voice Incident (2024):</strong> OpenAI released a ChatGPT voice called "Sky" that sounded remarkably like Scarlett Johansson — who had previously declined to license her voice to OpenAI. Johansson's legal team engaged OpenAI, which pulled the voice. The incident raised serious questions about whether OpenAI's product culture is adequately supervised for ethical considerations before launch.</li>
+        <li><strong>Safety vs. Speed — The Researcher Exodus:</strong> Multiple senior safety researchers left OpenAI in 2024–2025, citing a culture that had shifted away from safety toward product velocity. The disbanding of the Superalignment team — which was tasked with controlling superintelligent systems — prompted an open letter from current and former employees calling for greater transparency about AI risks. For a company founded on safety, these departures represent a crisis of mission credibility.</li>
+        <li><strong>Elon Musk Lawsuit:</strong> Musk sued OpenAI in 2024, claiming it had abandoned its non-profit mission and become a de facto Microsoft subsidiary. The lawsuit was later withdrawn, but the public allegations — that OpenAI had betrayed its founding principles — were read by millions and have permanently complicated OpenAI's "mission-first" brand positioning.</li>
+        <li><strong>Global AI Governance Disputes:</strong> OpenAI's decisions on model safety, content policy, and deployment have put it in conflict with regulators in Italy (briefly banned), the EU (under AI Act scrutiny), and various US state attorneys general. Managing a global regulatory environment while simultaneously trying to build and deploy the world's most powerful AI is a governance challenge without historical precedent.</li>
+      </ul>
+    </div>
+
+    <!-- ── SEC 20: KEY LESSONS ── -->
+    <div class="sec" id="sec-lessons">
+      <div class="sec-num">20 — What the Journey Teaches</div>
+      <h2 class="sec-title">Key Lessons for Young <em>Entrepreneurs</em></h2>
+
+      <div class="two-col">
+        <div class="col-card">
+          <div class="col-card-label">Lesson 01</div>
+          <h4>Timing is as important as idea quality</h4>
+          <p>Loopt was a great idea in 2005 — 7 years too early. ChatGPT was a great product in 2022 — exactly on time. Altman's career shows that the same person, with the same intelligence, can fail with one venture and redefine the world with another based largely on when they act. <strong>Market timing is not luck — it is a skill that can be developed by studying technology adoption curves.</strong></p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Lesson 02</div>
+          <h4>Be the connector, not just the creator</h4>
+          <p>Altman did not create the GPT architecture. He did not invent the transformer. What he did was assemble the team, secure the capital, build the partnerships, and navigate the politics that allowed those inventions to reach the world. <strong>The builder of the cathedral matters as much as the architect of the plans.</strong></p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Lesson 03</div>
+          <h4>Free is the most powerful pricing strategy in history</h4>
+          <p>Launching ChatGPT free produced 100 million users in 60 days — something no paid product has ever achieved. Free builds brand, builds data, builds trust, and builds the conversion funnel for premium products. If your product is good enough, giving it away first is often the fastest path to market dominance.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Lesson 04</div>
+          <h4>Governance is not bureaucracy — it is survival infrastructure</h4>
+          <p>The November 2023 crisis happened because OpenAI's governance structure was inadequate for a $90B company. Altman learned the hard way that governance — who has power, how decisions are made, how conflicts are resolved — is not administrative overhead. It is the structural immune system that keeps the company alive. Build it before you need it.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Lesson 05</div>
+          <h4>Mission attracts talent that money cannot buy</h4>
+          <p>The researchers who built GPT-4 could earn more at Google DeepMind. Many of them chose OpenAI anyway — because the mission of building safe AGI for humanity felt more important than an extra zero on a salary. <strong>The right mission is the most powerful recruitment tool ever built.</strong></p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Lesson 06</div>
+          <h4>Strategic partnerships beat organic growth in platform wars</h4>
+          <p>OpenAI could have tried to build its own cloud infrastructure and its own distribution network. Instead, Altman partnered with Microsoft — trading some autonomy for 1 billion users and the compute to train frontier models. In platform wars, the right partner can give you a decade's head start. Find them early.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Lesson 07</div>
+          <h4>Research credibility precedes commercial credibility</h4>
+          <p>OpenAI published breakthrough research for 7 years before it had a mass-market product. Those papers attracted researchers, established the brand in the technical community, and created a pipeline of ideas that ChatGPT was built on. In deep tech, <strong>be the most respected lab first, the biggest company second</strong>.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Lesson 08</div>
+          <h4>Internal trust must match external narrative</h4>
+          <p>Altman was one of the most respected tech communicators in the world — and nearly lost his company because his own board did not trust him. <strong>Every hour you spend on external communication must be matched by investment in internal trust.</strong> Your employees and your board are your most important audience.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Lesson 09</div>
+          <h4>Never underestimate the power of employee loyalty</h4>
+          <p>700 people were willing to resign rather than work without their CEO. That is not standard employee behaviour — it is the result of years of building genuine relationships, intellectual investment, and a culture where people feel that their work matters. The loyalty that saved OpenAI was built before it was needed.</p>
+        </div>
+        <div class="col-card">
+          <div class="col-card-label">Lesson 10</div>
+          <h4>Regulate yourself before regulators regulate you</h4>
+          <p>Altman testified before Congress, engaged with EU regulators, and publicly advocated for AI regulation — before any major regulation existed. This proactive posture positioned OpenAI as a trustworthy actor rather than a dangerous one. <strong>In industries that governments will eventually regulate, being the loudest advocate for thoughtful regulation is the best defence against bad regulation.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEC 21: WHAT STARTUPS CAN LEARN ── -->
+    <div class="sec" id="sec-startups">
+      <div class="sec-num">21 — The Playbook for Builders</div>
+      <h2 class="sec-title">What Startups Can <em>Learn from OpenAI</em></h2>
+
+      <ul class="alist">
+        <li><strong>The research preview launch strategy:</strong> Launching an imperfect product as a "preview" manages expectations, invites user feedback, and creates authenticity. Users feel they are participating in something being built, not being sold a finished product. This emotional participation creates advocacy. Apply it to your next product launch: call it a beta, a preview, an early access — then treat user feedback as co-development.</li>
+        <li><strong>Build the API layer before the application layer:</strong> OpenAI made its models available to developers years before it had a mass-market consumer product. This created an ecosystem of dependent builders — who also became distributors. If your technology can be an API, open it to developers first. The applications they build will show you which markets matter most.</li>
+        <li><strong>Freemium is not a pricing strategy — it is a user education strategy:</strong> ChatGPT free did not exist to grow revenue. It existed to teach 500 million people that AI is safe, useful, and indispensable. Once that belief was established, premium conversion followed naturally. Use your free tier to change beliefs, not just acquire users.</li>
+        <li><strong>The speed of ChatGPT's growth reveals the power of "one more thing":</strong> ChatGPT did not invent the chatbot — Google, Apple, and Amazon all had voice assistants. What ChatGPT added was genuine conversational intelligence — the sense that something on the other side was actually understanding you. <strong>The best new products are not entirely new. They are existing categories with one more thing that makes the category's purpose finally achievable.</strong></li>
+        <li><strong>Invest in your personal brand before you need it:</strong> Altman's pre-existing credibility as YC president meant that when OpenAI needed investors, partners, and policy influence, he had an address book and a reputation that could open every door. <strong>Your personal brand is the longest-lead-time asset in your startup toolkit. Start building it before you have a company to build it around.</strong></li>
+      </ul>
+    </div>
+
+    <!-- ── SEC 22: QUOTES ── -->
+    <div class="sec" id="sec-quotes">
+      <div class="sec-num">22 — How He Thinks</div>
+      <h2 class="sec-title">10 Powerful Quotes &amp; <em>Thinking Patterns</em></h2>
+
+      <div class="quotes-grid">
+        <div class="qcard">
+          <div class="qnum">01</div>
+          <div class="qtext">"In what is now a very dynamic world, the risky thing is to not go try the things that might really work out."</div>
+          <div class="qmeta">On Leaving Stanford · Risk Philosophy</div>
+        </div>
+        <div class="qcard">
+          <div class="qnum">02</div>
+          <div class="qtext">"The development of superhuman machine intelligence is probably the greatest threat to the continued existence of humanity — and also potentially the greatest opportunity."</div>
+          <div class="qmeta">2015 Essay · Dual-Use Thinking</div>
+        </div>
+        <div class="qcard">
+          <div class="qnum">03</div>
+          <div class="qtext">"The most important decision you make is what to work on. If you work on the wrong thing, nothing else matters."</div>
+          <div class="qmeta">YC Lectures · Priority Framework</div>
+        </div>
+        <div class="qcard">
+          <div class="qnum">04</div>
+          <div class="qtext">"I think it's possible… in 2025 we will have systems that we look at and say, 'Wow, that changes what I expected.' It will be more intense than people think."</div>
+          <div class="qmeta">Davos 2024 · AGI Timeline</div>
+        </div>
+        <div class="qcard">
+          <div class="qnum">05</div>
+          <div class="qtext">"We believe it's possible to build an AI that is both safe and genuinely helpful. These are not in conflict. Safety is how you build systems people can actually trust to do important things."</div>
+          <div class="qmeta">OpenAI Mission · Safety-First Framing</div>
+        </div>
+        <div class="qcard">
+          <div class="qnum">06</div>
+          <div class="qtext">"It felt so unfair. The house was on fire and I had to clean up the mess. And I just had no time to recover."</div>
+          <div class="qmeta">Bloomberg 2024 · On Being Fired</div>
+        </div>
+        <div class="qcard">
+          <div class="qnum">07</div>
+          <div class="qtext">"Most people overestimate what AI will do in two years and dramatically underestimate what it will do in ten. We are in a period of compounding returns."</div>
+          <div class="qmeta">2023 Interview · Compounding Belief</div>
+        </div>
+        <div class="qcard">
+          <div class="qnum">08</div>
+          <div class="qtext">"The most powerful force in the world is a small team of brilliant people working on a clearly articulated mission. That has been true forever. AI just lets the team punch 100× harder."</div>
+          <div class="qmeta">Blog Post · Team Philosophy</div>
+        </div>
+        <div class="qcard">
+          <div class="qnum">09</div>
+          <div class="qtext">"We are now confident we know how to build AGI as we have traditionally understood it. The work now is to figure out what comes after — and to make sure it goes well."</div>
+          <div class="qmeta">Reflections Blog · January 2025</div>
+        </div>
+        <div class="qcard">
+          <div class="qnum">10</div>
+          <div class="qtext">"It's like talking to an expert — a legitimate PhD-level expert in anything, any area you need, on demand. That is what GPT-5 is. And it is only the beginning."</div>
+          <div class="qmeta">GPT-5 Launch Event · 2025</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEC 23: FINAL SUMMARY ── -->
+    <div class="sec" id="sec-summary">
+      <div class="sec-num">23 — The Verdict</div>
+      <h2 class="sec-title">Final <em>Summary</em></h2>
+
+      <p class="lead">Sam Altman is not an AI researcher. He is not a programmer building models. He is the person who understood, earlier than almost anyone else, that the most important technology in human history was about to be built — and who positioned himself, and his organisation, to be at the centre of it.</p>
+
+      <p>His career is a study in recognising inflection points. The internet inflection in 2005 (Loopt). The startup ecosystem inflection in 2011 (Y Combinator). The AI inflection in 2015 (OpenAI). And the generative AI inflection in 2022 (ChatGPT). Each time, he moved faster than the consensus, took more risk than comfortable, and built relationships that compounded his influence at each stage.</p>
+
+      <p>He has made serious mistakes. The governance failures that produced the November 2023 crisis. The talent departures that raised questions about OpenAI's safety culture. The conflict-of-interest concerns that now follow him publicly. These are not trivial. They are the fault lines of a leader operating at the edge of human institutional capacity — trying to build the most important technology in history while managing a $500 billion company, a global regulatory environment, and a mission that has no precedent.</p>
+
+      <p>What makes Altman genuinely extraordinary is not his IQ or his connections. It is his <strong>ability to hold the weight of civilisational stakes without being crushed by it</strong> — and to use that weight as a motivational engine rather than an excuse for paralysis. Very few humans can do that. He is one of them.</p>
+
+      <div class="pq">
+        <blockquote>"The lesson from Sam Altman is not 'be an elite networker' or 'build the right connections.' It is: identify the most important problem in the world clearly enough, early enough, and act on that identification with everything you have."</blockquote>
+        <cite>— FounderLens synthesis, May 2026</cite>
+      </div>
+
+      <ul class="alist">
+        <li>From a location-sharing app that sold for $43M to running the world's most valuable private company. <strong>The distance between those two outcomes is not talent — it is timing, learning, and relentless iteration.</strong></li>
+        <li>From a non-profit research lab with no revenue to $20 billion in annual sales in 10 years. <strong>The fastest revenue scaling in technology history — built by betting on a technology that most investors called science fiction.</strong></li>
+        <li>From being fired on a Friday to being rehired by Tuesday, more powerful than before. <strong>The ultimate demonstration that in AI's defining company, the person matters more than the board.</strong></li>
+      </ul>
+    </div>
+
+    <!-- ── QUICK REVISION ── -->
+    <div class="sec" id="sec-revision">
+      <div class="sec-num">24 — One Page Summary</div>
+      <h2 class="sec-title">Quick Revision <em>Summary</em></h2>
+
+      <div class="revision">
+        <h3>📋 Sam Altman × OpenAI — Complete Snapshot</h3>
+        <div class="qr-grid">
+          <div class="qr-item"><div class="qr-label">Founder</div><div class="qr-val">Sam Altman (b. April 22, 1985, Chicago → raised St. Louis, Missouri)</div></div>
+          <div class="qr-item"><div class="qr-label">Key Co-Founders</div><div class="qr-val">Greg Brockman, Ilya Sutskever, Elon Musk (departed 2018), Wojciech Zaremba, John Schulman</div></div>
+          <div class="qr-item"><div class="qr-label">Company</div><div class="qr-val">OpenAI — Public Benefit Corporation (restructured 2025)</div></div>
+          <div class="qr-item"><div class="qr-label">Founded</div><div class="qr-val">December 2015 as non-profit AI safety research lab</div></div>
+          <div class="qr-item"><div class="qr-label">Core Insight</div><div class="qr-val">Safety-focused research lab → GPT models → ChatGPT consumer product → API ecosystem → Enterprise AI platform</div></div>
+          <div class="qr-item"><div class="qr-label">2025 Revenue</div><div class="qr-val">~$20 Billion (10× growth from 2023)</div></div>
+          <div class="qr-item"><div class="qr-label">2025 Valuation</div><div class="qr-val">$500 Billion — World's most valuable private company</div></div>
+          <div class="qr-item"><div class="qr-label">Largest Funding Round</div><div class="qr-val">$40 Billion (March 2025, led by SoftBank) — Largest private round in history</div></div>
+          <div class="qr-item"><div class="qr-label">ChatGPT Users</div><div class="qr-val">700M+ weekly active users; 50M+ paying subscribers</div></div>
+          <div class="qr-item"><div class="qr-label">Key Products</div><div class="qr-val">ChatGPT, GPT-4o, GPT-5, DALL-E, Sora, Whisper, Codex, OpenAI API</div></div>
+          <div class="qr-item"><div class="qr-label">Microsoft Partnership</div><div class="qr-val">$13B+ total investment; Azure compute provider; Copilot & Office distribution</div></div>
+          <div class="qr-item"><div class="qr-label">Biggest Bet</div><div class="qr-val">Jony Ive hardware acquisition ($6.5B, 2025) — building AI-native personal devices</div></div>
+          <div class="qr-item"><div class="qr-label">Biggest Crisis</div><div class="qr-val">Fired by board Nov 17, 2023 → 700+ employees revolt → reinstated Nov 21, 2023</div></div>
+          <div class="qr-item"><div class="qr-label">Biggest Mistake</div><div class="qr-val">Governance failures + talent exodus + conflict-of-interest concerns on personal investments</div></div>
+          <div class="qr-item"><div class="qr-label">Biggest Strength</div><div class="qr-val">Civilisational narrative + missionary fundraising + political navigation + team loyalty cultivation</div></div>
+          <div class="qr-item"><div class="qr-label">Altman Net Worth</div><div class="qr-val">~$6.5 Billion (Dec 2025) — entirely from personal investments, NOT from OpenAI equity</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── STRATEGY TABLE ── -->
+    <div class="sec" id="sec-table">
+      <div class="sec-num">25 — Framework at a Glance</div>
+      <h2 class="sec-title">The OpenAI <em>Framework Table</em></h2>
+
+      <table class="sum-table">
+        <thead>
+          <tr><th>Dimension</th><th>Analysis</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Problem Solved</td>
+            <td>AI was being built by commercial labs without safety-first mandates; frontier AI capabilities were inaccessible to ordinary people; no institution existed to build AGI openly for humanity's benefit. ChatGPT solved the access problem — making frontier AI conversational and free for anyone.</td>
+          </tr>
+          <tr>
+            <td>Revenue Model</td>
+            <td>Consumer subscriptions (ChatGPT Free/Plus/Pro) + Enterprise subscriptions ($25–60/user/month) + API metered usage (pay per token) + Microsoft licensing + AI agent products (Codex) + Multimodal APIs (Sora, DALL-E, Whisper). Total 2025 revenue: ~$20 billion.</td>
+          </tr>
+          <tr>
+            <td>Growth Engine</td>
+            <td>Free consumer product → viral word-of-mouth → massive user base → data flywheel → better models → enterprise conversion → API ecosystem of dependent developers → Microsoft distribution into 1B+ Office users → research superiority → next model generation → repeat.</td>
+          </tr>
+          <tr>
+            <td>Key Strategy</td>
+            <td>Research superiority as the unassailable moat + Microsoft as distribution partner + API-first ecosystem building + safety narrative as enterprise trust builder + freemium consumer funnel + proactive regulatory engagement as competitive positioning.</td>
+          </tr>
+          <tr>
+            <td>Biggest Mistake</td>
+            <td>Governance failures leading to the November 2023 boardroom crisis; conflict-of-interest concerns from personal investments in OpenAI commercial partners; safety researcher exodus that created mission credibility questions; inadequate management of board relationships despite exceptional public communication.</td>
+          </tr>
+          <tr>
+            <td>Biggest Strength</td>
+            <td>Civilisational narrative that attracts mission-driven talent and investors money cannot buy + extraordinary team loyalty (700 employees willing to resign to support him) + political and regulatory navigation skill + ability to identify and act on technology inflection points a generation early.</td>
+          </tr>
+          <tr>
+            <td>Competitive Moat</td>
+            <td>ChatGPT brand recognition (only mass-market AI brand) + Microsoft distribution (1B+ users) + real-world training data at unparalleled scale (700M weekly users) + research talent density + political goodwill with governments globally + Jony Ive hardware pipeline for next device category.</td>
+          </tr>
+          <tr>
+            <td>Most Important Lesson</td>
+            <td>The person who coordinates the effort to build civilisation-defining technology matters as much as the researchers building it. Altman did not write GPT-4 — he assembled the team, secured the compute, built the partnerships, and navigated the politics that allowed GPT-4 to exist and reach the world. The orchestrator is as valuable as the inventor.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── FINAL ANSWER ── -->
+    <div class="sec" id="sec-final">
+      <div class="sec-num">26 — The Counter-Factual</div>
+      <h2 class="sec-title">If Starting From <em>Zero Today</em></h2>
+
+      <div class="final-box">
+        <h3>"If Sam Altman started OpenAI from zero again today — in 2026 — what would he do differently?"</h3>
+
+        <p>Based on the full arc of Altman's career, his public reflections on OpenAI's crises, and the strategic landscape of AI in 2026, here is what he would most likely change:</p>
+
+        <p><strong>1. Build the governance structure first, not as a retrofit.</strong> The November 2023 crisis was a governance failure — a board with power but without accountability, and a CEO without the institutional protection to manage it. Starting over in 2026, Altman would design a governance structure purpose-built for a world-changing company from Day 1. Not a standard corporate board, not a pure non-profit committee — but something genuinely designed for a company whose decisions affect billions of people and whose CEO must be protected from short-term internal politics while remaining accountable to the long-term mission.</p>
+
+        <p><strong>2. Establish clear conflict-of-interest boundaries before they become headlines.</strong> The Congressional scrutiny over Altman's personal investments in OpenAI commercial partners is a problem that was entirely predictable — and could have been avoided with a strict, public, arms-length policy from the beginning. Starting over, Altman would either hold no external investments in OpenAI-adjacent companies, or disclose them with extraordinary transparency from the first day. Clean governance is cheaper than defending messy governance in front of Congress.</p>
+
+        <p><strong>3. Move even faster on hardware.</strong> The Jony Ive acquisition in 2025 — building AI-native personal devices — might be the most consequential move in OpenAI's history. But it happened after ChatGPT was already three years old. Starting from scratch, Altman would begin the hardware work in parallel with the software — not waiting for the software to dominate before thinking about the physical interface layer. Apple understood this: the iPhone was not just software; it was the software and the device together.</p>
+
+        <p><strong>4. Design a talent retention architecture as robust as the research architecture.</strong> The loss of Ilya Sutskever, Mira Murati, Alec Radford, and multiple safety researchers represents a talent exodus that no research lab should accept. Starting over, Altman would build long-term incentive structures — equity, mission alignment, career pathways, and governance participation rights — that make staying at OpenAI the most obviously right decision for the best AI researchers in the world.</p>
+
+        <p><strong>5. Launch a consumer product earlier in the research cycle.</strong> OpenAI spent 7 years publishing papers before reaching ordinary people with ChatGPT. In hindsight, the pattern of "research first, product later" was right — but the gap was too long. Starting over, Altman would target a consumer research preview by Year 3, not Year 7. The feedback loops from real-world users are more valuable than any internal testing — and reaching people earlier builds the data advantage and the brand moat faster.</p>
+
+        <p><strong>6. Build global compute infrastructure independently.</strong> The Microsoft dependency — while strategically brilliant — creates a structural constraint on OpenAI's long-term independence. Altman is now trying to build independent compute capacity (the Stargate AI infrastructure project, $500B in US AI infrastructure). Starting over with 2026 hindsight, he would begin building owned compute capacity from Year 3 onward, reducing Microsoft dependency before it becomes a negotiating leverage problem.</p>
+
+        <p class="footnote">But here is the profound truth about what Altman would NOT change: he would still found a non-profit first — because the non-profit origin gave OpenAI a mission credibility that no commercial company could have built. He would still launch ChatGPT free — because the 100 million users in 60 days changed the world's relationship with AI in a way no paid product could. He would still bet on AGI when the consensus said it was science fiction — because the most important opportunities in history always look wrong before they look right. The strategic intelligence that made OpenAI is inseparable from the conviction that makes Altman. And that conviction was not produced by his strategy — it was the source of it.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════ FOOTER ════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Founder<span>Lens</span></div>
+      <div class="footer-sub">Deep-Dive Founder Analysis for the Next Generation of Entrepreneurs</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">About</a>
+      <a href="#">All Analyses</a>
+      <a href="#">Next Issue</a>
+      <a href="#">Subscribe</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <span>FounderLens</span> · Sam Altman × OpenAI Analysis · Research compiled May 2026 ·
+    For educational purposes — all financial data sourced from public filings, press reports &amp; SEC disclosures
+  </div>
+</footer>
+
+<script>
+  function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+  function scrollSec(id){
+    const el=document.getElementById(id);
+    if(el)el.scrollIntoView({behavior:'smooth'});
+  }
+
+  // TOC active state on scroll
+  const sections=document.querySelectorAll('.sec[id]');
+  const tocItems=document.querySelectorAll('.toc-item');
+  const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        tocItems.forEach(t=>t.classList.remove('active'));
+        const target=document.querySelector(`.toc-item[onclick*="${e.target.id}"]`);
+        if(target)target.classList.add('active');
+      }
+    });
+  },{rootMargin:'-20% 0px -70% 0px'});
+  sections.forEach(s=>observer.observe(s));
+
+  // Scroll-reveal animation
+  const revealObserver=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.style.opacity='1';
+        e.target.style.transform='translateY(0)';
+      }
+    });
+  },{threshold:0.06});
+
+  document.querySelectorAll('.sec').forEach(el=>{
+    el.style.opacity='0';
+    el.style.transform='translateY(28px)';
+    el.style.transition='opacity 0.65s ease, transform 0.65s ease';
+    revealObserver.observe(el);
+  });
+</script>
+</body>
+</html>

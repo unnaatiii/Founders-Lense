@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Founders — FounderLens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="index.html">Founder<span>Lens</span></a>
+  <button class="nav-search-btn" onclick="openSearch()">
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+    Search founders…
+  </button>
+  <div class="nav-right">
+    <a class="nav-btn home" href="index.html">← Home</a>
+  </div>
+</nav>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay" onclick="handleOverlayClick(event)">
+  <div class="search-box" id="searchBox">
+    <div class="search-input-row">
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+      <input class="search-real-input" id="searchInput" type="text" placeholder="Search founders or companies…" oninput="onSearchInput()" onkeydown="onSearchKey(event)">
+      <button class="search-close" onclick="closeSearch()">ESC</button>
+    </div>
+    <div class="search-results" id="searchResults">
+      <!-- default state -->
+      <p class="search-section-label">Recent Additions</p>
+      <div id="recentList"></div>
+      <p class="search-section-label">Browse by Industry</p>
+      <div class="search-industry-grid" id="industryGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SHELL -->
+<div class="shell">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="aside-section">
+      <p class="aside-label">Browse</p>
+      <a class="aside-link active" onclick="filterBy('all',this)">All Founders</a>
+      <a class="aside-link" onclick="filterBy('recent',this)">Recently Added</a>
+    </div>
+    <div class="aside-section">
+      <p class="aside-label">Industry</p>
+      <div id="sidebarIndustry"></div>
+    </div>
+    <div class="aside-section">
+      <p class="aside-label">Strategy</p>
+      <a class="aside-link" onclick="filterBy('bootstrapped',this)">Bootstrapped</a>
+      <a class="aside-link" onclick="filterBy('vc-backed',this)">VC-Backed</a>
+      <a class="aside-link" onclick="filterBy('d2c',this)">D2C Marketing</a>
+      <a class="aside-link" onclick="filterBy('network-effects',this)">Network Effects</a>
+      <a class="aside-link" onclick="filterBy('platform',this)">Platform Model</a>
+      <a class="aside-link" onclick="filterBy('disruptor',this)">Disruptors</a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+    <div class="main-header">
+      <p class="main-tag" id="mainTag">All Founders</p>
+      <h1 class="main-title" id="mainTitle">FOUNDERS</h1>
+    </div>
+    <div class="divider"></div>
+    <div class="founders-grid" id="foundersGrid"></div>
+
+
+  </main>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   FOUNDER DATA — Edit this array to add more founders
+   ═══════════════════════════════════════════════════
+   Fields:
+     name      : Full name
+     company   : Company name(s)
+     industry  : Primary industry key (must match an industry below)
+     tags      : Array of strategy/filter tags
+     color     : Card background color (pick something brand-relevant)
+     textColor : Color of initials text on card (usually white or dark)
+     initials  : 2-3 letters shown on card
+     tagline   : Short punchy descriptor
+     file      : Path to their HTML page (relative, same folder)
+     added     : Date added YYYY-MM-DD (for "Recently Added" sort)
+*/
+const FOUNDERS = [
+  {
+    name: "Elon Musk",
+    company: "Tesla, SpaceX, X",
+    industry: "tech",
+    tags: ["disruptor","vc-backed","network-effects"],
+    color: "#430c7a",
+    textColor: "#fff",
+    initials: "EM",
+    tagline: "First Principles Operator",
+    file: "Founders/elon-musk.html",
+    added: "2024-12-01"
+  },
+ /* {
+    name: "Steve Jobs",
+    company: "Apple",
+    industry: "tech",
+    tags: ["disruptor","platform","d2c"],
+    color: "#1a1a1a",
+    textColor: "#fff",
+    initials: "SJ",
+    tagline: "Design Supremacist",
+    file: "steve-jobs.html",
+    added: "2024-11-25"
+  },*/
+   {
+    name: "Sam Altman",
+    company: "OpenAI, Y Combinator",
+    industry: "tech",
+    tags: ["vc-backed","platform","disruptor"],
+    color: "#081759",
+    textColor: "#fff",
+    initials: "SA",
+    tagline: "AI Revolution Architect",
+    file: "Founders/sam-altman.html",
+    added: "2024-11-20"
+  },
+  {
+    name: "Nithin Kamath",
+    company: "Zerodha, True Beacon",
+    industry: "finance",
+    tags: ["bootstrapped","disruptor"],
+    color: "#1a3a5c",
+    textColor: "#fff",
+    initials: "NK",
+    tagline: "Bootstrapped Billionaire",
+    file: "Founders/nithin-kamath.html",
+    added: "2024-11-10"
+  },
+  {
+    name: "Deepinder Goyal",
+    company: "Zomato",
+    industry: "foodtech",
+    tags: ["bootstrapped","disruptor"],
+    color: "#b38c0c",
+    textColor: "#fff",
+    initials: "DG",
+    tagline: "Food Delivery Disruptor",
+    file: "Founders/deepinder-goyal.html",
+    added: "2024-11-10"
+  },
+  {
+    name: "Sam Walton",
+    company: "Walmart",
+    industry: "retail",
+    tags: ["bootstrapped","d2c","disruptor"],
+    color: "#0071dc",
+    textColor: "#fff",
+    initials: "SW",
+    tagline: "Frugal Revolutionary",
+    file: "Founders/sam-walton.html",
+    added: "2024-11-20"
+  },
+  /*
+  {
+    name: "Ritesh Agarwal",
+    company: "OYO",
+    industry: "tech",
+    tags: ["vc-backed","platform","disruptor"],
+    color: "#094733",
+    textColor: "#fff",
+    initials: "RA",
+    tagline: "Teenage Disruptor",
+    file: "ritesh-agarwal.html",
+    added: "2024-10-15"
+  },*/
+  {
+    name: "Aadit Palicha",
+    company: "Zepto",
+    industry: "quickcommerce",
+    tags: ["disruptor","vc-backed","d2c"],
+    color: "#6a1b9a",
+    textColor: "#fff",
+    initials: "AP",
+    tagline: "Quick Commerce Pioneer",
+    file: "Founders/aadit-palicha.html",
+    added: "2024-11-25"
+  },
+   {
+    name: "Ingvar Kamprad",
+    company: "IKEA",
+    industry: "retail",
+    tags: ["disruptor","bootstrapped","d2c"],
+    color: "#0058a3",
+    textColor: "#fff",
+    initials: "IK",
+    tagline: "Flat-Pack Retail Genius",
+    file: "Founders/ingvar-kamprad-ikea.html",
+    added: "2024-11-25"
+  },
+  /*
+  {
+    name: "Sara Blakely",
+    company: "Spanx",
+    industry: "retail",
+    tags: ["bootstrapped","d2c"],
+    color: "#c0392b",
+    textColor: "#fff",
+    initials: "SB",
+    tagline: "Self-Made Disruptor",
+    file: "sara-blakely.html",
+    added: "2024-10-01"
+  },*/
+  {
+    name: "Radhakishan Damani",
+    company: "DMart",
+    industry: "retail",
+    tags: ["disruptor","bootstrapped","d2c"],
+    color: "#1b5e20",
+    textColor: "#fff",
+    initials: "RD",
+    tagline: "India's Retail Minimalist",
+    file: "Founders/radhakishan-damani-dmart.html",
+    added: "2024-12-01"
+  },
+];
+
+/* ═══════════════════════════════════════
+   INDUSTRY CONFIG — add new industries here
+   ═══════════════════════════════════════ */
+const INDUSTRIES = [
+  { key: "tech",       label: "Tech",        color: "#16213e" },
+  { key: "finance",    label: "Finance",     color: "#1a3a5c" },
+  { key: "retail",     label: "Retail",      color: "#7b3f00" },
+  { key: "edtech",     label: "EdTech",      color: "#1e4d3a" },
+  { key: "media",      label: "Media",       color: "#4a1942" },
+  { key: "healthcare", label: "Healthcare",  color: "#1b3a4b" },
+  { key: "fmcg",       label: "FMCG",        color: "#5a3e00" },
+  { key: "real-estate",label: "Real Estate", color: "#3b1f00" },
+  { key: "foodtech",   label: "Food-Tech",    color: "#3b1f00" },
+  { key: "quickcommerce", label: "Quick Commerce",    color: "#3b1f00" },
+];
+
+/* ─── state ─── */
+let activeFilter = 'all';
+let searchQuery = '';
+
+/* ─── init ─── */
+buildSidebar();
+buildIndustryGrid();
+renderGrid();
+renderRecent();
+
+/* ─── sidebar ─── */
+function buildSidebar() {
+  const el = document.getElementById('sidebarIndustry');
+  el.innerHTML = INDUSTRIES.map(ind => `
+    <a class="aside-link" onclick="filterBy('${ind.key}',this)">${ind.label}</a>
+  `).join('');
+}
+
+/* ─── grid ─── */
+function renderGrid() {
+  const grid = document.getElementById('foundersGrid');
+  let list = [...FOUNDERS];
+
+  if (activeFilter === 'recent') {
+    list.sort((a,b) => new Date(b.added) - new Date(a.added));
+    list = list.slice(0, 6);
+  } else if (activeFilter !== 'all') {
+    list = list.filter(f =>
+      f.industry === activeFilter || f.tags.includes(activeFilter)
+    );
+  }
+
+  if (searchQuery.trim()) {
+    const q = searchQuery.toLowerCase();
+    list = list.filter(f =>
+      f.name.toLowerCase().includes(q) ||
+      f.company.toLowerCase().includes(q) ||
+      f.tagline.toLowerCase().includes(q) ||
+      f.industry.toLowerCase().includes(q)
+    );
+  }
+
+  if (list.length === 0) {
+    grid.innerHTML = `<div class="empty-state">
+      <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+      <p>No founders found. Try a different filter or search.</p>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = list.map(f => `
+    <a class="founder-card" href="${f.file}" target="_blank" rel="noopener noreferrer" title="${f.name} — ${f.company}">
+      <div class="fc-bg" style="background:${f.color}">
+        <div class="fc-initials" style="color:${f.textColor};opacity:0.2;font-size:4rem">${f.initials}</div>
+        <div class="fc-overlay"></div>
+      </div>
+      <div class="fc-info">
+        <p class="fc-label">${labelForIndustry(f.industry)}</p>
+        <p class="fc-name">${f.name}</p>
+        <p class="fc-company">${f.company}</p>
+      </div>
+    </a>
+  `).join('');
+}
+
+function labelForIndustry(key) {
+  const ind = INDUSTRIES.find(i => i.key === key);
+  return ind ? ind.label : key;
+}
+
+/* ─── filters ─── */
+function filterBy(key, el) {
+  activeFilter = key;
+  document.querySelectorAll('.aside-link').forEach(l => l.classList.remove('active'));
+  if (el) el.classList.add('active');
+
+  const labels = { all:'All Founders', recent:'Recently Added' };
+  const ind = INDUSTRIES.find(i => i.key === key);
+  const strat = {
+    'bootstrapped':'Bootstrapped','vc-backed':'VC-Backed','d2c':'D2C Marketing',
+    'network-effects':'Network Effects','platform':'Platform Model','disruptor':'Disruptors'
+  };
+
+  document.getElementById('mainTag').textContent =
+    ind ? 'Industry' : (strat[key] ? 'Strategy' : 'Browse');
+  document.getElementById('mainTitle').textContent =
+    (ind ? ind.label : (strat[key] || labels[key] || key)).toUpperCase();
+
+  renderGrid();
+}
+
+/* ─── search overlay ─── */
+function openSearch() {
+  document.getElementById('searchOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('searchInput').focus(), 50);
+}
+function closeSearch() {
+  document.getElementById('searchOverlay').classList.remove('open');
+  document.getElementById('searchInput').value = '';
+  searchQuery = '';
+  renderRecent();
+}
+function handleOverlayClick(e) {
+  if (!document.getElementById('searchBox').contains(e.target)) closeSearch();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSearch(); });
+
+function onSearchInput() {
+  searchQuery = document.getElementById('searchInput').value;
+  if (searchQuery.trim()) {
+    showSearchResults(searchQuery);
+  } else {
+    renderRecent();
+    document.getElementById('recentList').style.display = '';
+    document.getElementById('industryGrid').style.display = '';
+    document.querySelectorAll('.search-section-label').forEach(l => l.style.display = '');
+  }
+}
+
+function onSearchKey(e) {
+  if (e.key === 'Enter' && searchQuery.trim()) {
+    closeSearch();
+    renderGrid();
+  }
+}
+
+function showSearchResults(q) {
+  const ql = q.toLowerCase();
+  const matches = FOUNDERS.filter(f =>
+    f.name.toLowerCase().includes(ql) ||
+    f.company.toLowerCase().includes(ql) ||
+    f.tagline.toLowerCase().includes(ql)
+  );
+
+  const res = document.getElementById('searchResults');
+  const sections = res.querySelectorAll('.search-section-label');
+  const recentList = document.getElementById('recentList');
+  const indGrid = document.getElementById('industryGrid');
+
+  sections.forEach(s => s.style.display = 'none');
+  recentList.style.display = 'none';
+  indGrid.style.display = 'none';
+
+  // remove old result rows
+  res.querySelectorAll('.dyn-result').forEach(el => el.remove());
+
+  if (matches.length === 0) {
+    const none = document.createElement('p');
+    none.className = 'dyn-result';
+    none.style.cssText = 'padding:1.5rem 1.25rem;color:var(--ink-3);font-size:0.875rem;';
+    none.textContent = 'No founders found for "' + q + '"';
+    res.appendChild(none);
+    return;
+  }
+
+  matches.forEach(f => {
+    const ind = INDUSTRIES.find(i => i.key === f.industry);
+    const a = document.createElement('a');
+    a.className = 'search-item dyn-result';
+    a.href = f.file;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.innerHTML = `
+      <div class="si-thumb" style="background:${f.color}">${f.initials}</div>
+      <div class="si-info">
+        <p class="si-name">${f.name}</p>
+        <p class="si-meta">${f.company}</p>
+      </div>
+      <span class="si-tag">${ind ? ind.label : f.industry}</span>
+    `;
+    res.appendChild(a);
+  });
+}
+
+/* ─── recent list in search ─── */
+function renderRecent() {
+  const recent = [...FOUNDERS].sort((a,b) => new Date(b.added)-new Date(a.added)).slice(0,4);
+  document.getElementById('recentList').innerHTML = recent.map(f => {
+    const ind = INDUSTRIES.find(i => i.key === f.industry);
+    return `<a class="search-item" href="${f.file}" target="_blank" rel="noopener noreferrer">
+      <div class="si-thumb" style="background:${f.color}">${f.initials}</div>
+      <div class="si-info">
+        <p class="si-name">${f.name}</p>
+        <p class="si-meta">${f.company}</p>
+      </div>
+      <span class="si-tag">${ind ? ind.label : f.industry}</span>
+    </a>`;
+  }).join('');
+}
+
+/* ─── industry grid in search ─── */
+function buildIndustryGrid() {
+  document.getElementById('industryGrid').innerHTML = INDUSTRIES.map(ind => `
+    <button class="ind-chip" onclick="closeSearch();filterBy('${ind.key}',null)">${ind.label}</button>
+  `).join('');
+}
+</script>
+</body>
+</html>
