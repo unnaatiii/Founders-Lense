@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flipkart — FounderLens Company Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --fk-blue:      #2874F0;
+  --fk-blue-dk:   #1557C0;
+  --fk-blue-lt:   #5B9BF5;
+  --fk-blue-pale: #EBF2FE;
+  --fk-orange:    #FB6E0B;
+  --fk-orange-lt: #FD9050;
+  --fk-orange-pale:#FFF1E8;
+  --fk-yellow:    #FFD200;
+
+  --ink:    #0D1117;
+  --mid:    #4A5568;
+  --muted:  #8896A5;
+  --rule:   rgba(40,116,240,0.1);
+  --rule-lt: rgba(40,116,240,0.07);
+
+  --bg:     #F5F8FF;
+  --bg2:    #EBF2FE;
+  --bg3:    #DDEAFD;
+  --white:  #FFFFFF;
+
+  --navy:   #070E1F;
+  --navy-mid:#0F1E3D;
+  --navy-lt: #172B5A;
+
+  --serif: 'Fraunces', Georgia, serif;
+  --sans:  'Plus Jakarta Sans', system-ui, sans-serif;
+  --mono:  'IBM Plex Mono', monospace;
+  --r: 10px; --r-lg: 18px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--fk-blue); border-radius: 2px; }
+
+/* ── PROGRESS BAR ── */
+#pb { position: fixed; top: 0; left: 0; height: 3px; z-index: 999; width: 0%; transition: width .1s linear; background: linear-gradient(90deg, var(--fk-blue), var(--fk-orange)); }
+
+/* ── TICKER ── */
+.ticker { background: var(--fk-blue-dk); color: var(--fk-yellow); font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; padding: 9px 0; overflow: hidden; white-space: nowrap; position: sticky; top: 0; z-index: 200; }
+.ticker-t { display: inline-block; animation: sticker 36s linear infinite; padding-left: 100%; }
+.ticker-t span { margin: 0 44px; }
+@keyframes sticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ── NAV ── */
+.nav { position: sticky; top: 33px; z-index: 190; background: rgba(245,248,255,0.96); backdrop-filter: blur(20px); border-bottom: 1px solid var(--rule); display: flex; align-items: center; justify-content: space-between; padding: 0 56px; height: 56px; }
+.nav-brand { display: flex; align-items: center; gap: 14px; }
+.nav-mono { width: 38px; height: 38px; background: var(--fk-blue); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 13px; font-weight: 600; color: #fff; }
+.nav-title { font-family: var(--serif); font-size: 18px; color: var(--navy); }
+.nav-sub { font-family: var(--mono); font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
+.nav-pills { display: flex; gap: 4px; }
+.np { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; padding: 5px 13px; border-radius: 20px; border: 1px solid var(--rule); background: none; color: var(--muted); cursor: pointer; transition: all .2s; }
+.np:hover, .np.active { background: var(--fk-blue); color: #fff; border-color: var(--fk-blue); }
+.nav-badge { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; padding: 5px 12px; border-radius: 6px; background: var(--fk-blue-pale); color: var(--fk-blue-dk); border: 1px solid var(--rule); }
+
+/* ── HERO ── */
+.hero { min-height: 96vh; display: grid; grid-template-columns: 1fr 1fr; background: var(--navy); position: relative; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 70% 60% at 70% 50%, rgba(40,116,240,0.25) 0%, transparent 65%), radial-gradient(ellipse 60% 80% at 15% 60%, rgba(251,110,11,0.12) 0%, transparent 60%); }
+.hero-grid { position: absolute; inset: 0; z-index: 0; background-image: linear-gradient(rgba(40,116,240,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(40,116,240,0.06) 1px, transparent 1px); background-size: 50px 50px; }
+
+.hero-left { padding: 80px 56px; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1; }
+.hero-ey { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; animation: fu .8s ease both; }
+.hero-ey-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--fk-orange); animation: blink-dot 2.5s ease-in-out infinite; }
+@keyframes blink-dot { 0%,100% { opacity:1;transform:scale(1); } 50% { opacity:.35;transform:scale(.8); } }
+.hero-ey-text { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fk-orange); }
+
+.hero-h1 { font-family: var(--serif); font-size: clamp(46px, 6.5vw, 86px); font-weight: 300; line-height: .92; color: #fff; letter-spacing: -.015em; margin-bottom: 8px; animation: fu .8s .08s ease both; }
+.hero-h1 em { font-style: italic; color: var(--fk-blue-lt); }
+.hero-sub { font-family: var(--serif); font-size: clamp(14px, 1.8vw, 20px); font-style: italic; color: rgba(255,255,255,0.5); margin-bottom: 32px; animation: fu .8s .14s ease both; }
+.hero-desc { font-size: 15px; line-height: 1.82; color: rgba(255,255,255,0.6); max-width: 480px; font-weight: 300; margin-bottom: 38px; animation: fu .8s .2s ease both; }
+.hero-desc strong { color: rgba(255,255,255,0.9); font-weight: 600; }
+
+.kpi-g { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: rgba(255,255,255,0.08); border-radius: var(--r); overflow: hidden; margin-bottom: 26px; animation: fu .8s .26s ease both; }
+.kpi-c { background: rgba(7,14,31,0.65); padding: 16px 12px; text-align: center; transition: background .25s; }
+.kpi-c:hover { background: rgba(40,116,240,0.2); }
+.kpi-v { font-family: var(--serif); font-size: 23px; font-weight: 300; color: var(--fk-blue-lt); line-height: 1.1; margin-bottom: 4px; }
+.kpi-l { font-family: var(--mono); font-size: 8px; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+
+.hero-tags { display: flex; gap: 8px; flex-wrap: wrap; animation: fu .8s .32s ease both; }
+.htag { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.55); transition: all .2s; cursor: default; }
+.htag:hover { background: rgba(40,116,240,0.2); color: var(--fk-blue-lt); border-color: var(--fk-blue); }
+.htag.b { background: rgba(40,116,240,0.15); border-color: rgba(40,116,240,0.35); color: var(--fk-blue-lt); }
+.htag.o { background: rgba(251,110,11,0.15); border-color: rgba(251,110,11,0.35); color: var(--fk-orange-lt); }
+
+/* Hero right */
+.hero-right { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 28px; padding: 60px 40px; }
+.hero-badge-ring { width: 290px; height: 290px; border-radius: 50%; border: 1px solid rgba(40,116,240,0.3); display: flex; align-items: center; justify-content: center; position: relative; animation: spin-slow 45s linear infinite; }
+@keyframes spin-slow { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+.hero-badge-inner { width: 210px; height: 210px; border-radius: 50%; background: radial-gradient(ellipse at 40% 35%, rgba(40,116,240,0.3), rgba(7,14,31,0.9)); border: 1px solid rgba(40,116,240,0.5); display: flex; align-items: center; justify-content: center; animation: spin-slow 45s linear infinite reverse; }
+.hero-fk { font-family: var(--serif); font-size: 42px; font-weight: 300; color: #fff; text-align: center; line-height: 1.15; text-shadow: 0 0 60px rgba(40,116,240,0.5); }
+.hero-fk span { display: block; font-size: 14px; font-family: var(--mono); letter-spacing: .18em; color: var(--fk-orange); margin-top: 6px; }
+.hero-qcard { background: rgba(255,255,255,0.04); border: 1px solid rgba(40,116,240,0.2); border-radius: var(--r); padding: 20px 24px; max-width: 280px; }
+.hero-qt { font-family: var(--serif); font-size: 14px; font-style: italic; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 10px; }
+.hero-qby { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--fk-blue-lt); }
+
+@keyframes fu { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+
+/* ── ARTICLE ── */
+.article-wrap { display: grid; grid-template-columns: 220px 1fr; }
+
+.sidebar { position: sticky; top: 89px; height: calc(100vh - 89px); overflow-y: auto; scrollbar-width: none; background: var(--white); border-right: 1px solid var(--rule); padding: 32px 0; }
+.sidebar::-webkit-scrollbar { display: none; }
+.toc-lbl { font-family: var(--mono); font-size: 8px; letter-spacing: .22em; text-transform: uppercase; color: var(--fk-blue); padding: 0 20px; margin-bottom: 8px; margin-top: 18px; display: block; }
+.toc-b { display: block; width: 100%; text-align: left; font-family: var(--sans); font-size: 12px; font-weight: 400; color: var(--muted); padding: 7px 20px 7px 18px; border-left: 3px solid transparent; border-top: none; border-right: none; border-bottom: none; background: none; cursor: pointer; transition: all .2s; }
+.toc-b:hover { color: var(--navy); background: var(--fk-blue-pale); }
+.toc-b.active { color: var(--navy); border-left-color: var(--fk-blue); background: var(--fk-blue-pale); font-weight: 600; }
+
+/* ── SECTIONS ── */
+.sec { padding: 72px 64px; scroll-margin-top: 92px; border-bottom: 1px solid transparent; opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .6s ease; }
+.sec.vis { opacity:1; transform:none; }
+
+.sec.white     { background:var(--white);     border-color:var(--rule); }
+.sec.bg        { background:var(--bg);        border-color:var(--rule-lt); }
+.sec.bg2       { background:var(--bg2);       border-color:var(--rule); }
+.sec.bg3       { background:var(--bg3);       border-color:var(--rule); }
+.sec.navy      { background:var(--navy);      border-color:rgba(255,255,255,0.06); }
+.sec.navy-mid  { background:var(--navy-mid);  border-color:rgba(255,255,255,0.06); }
+.sec.gw { background: linear-gradient(135deg, var(--bg) 0%, var(--fk-blue-pale) 55%, var(--bg2) 100%); border-color:var(--rule); }
+.sec.go { background: linear-gradient(135deg, #FFF6EE 0%, #FFF1E8 55%, #FFF6EE 100%); border-color:rgba(251,110,11,0.1); }
+.sec.gd { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #132244 100%); border-color:rgba(255,255,255,0.06); }
+
+/* typography */
+.sec-num { font-family: var(--mono); font-size: 9px; letter-spacing: .24em; text-transform: uppercase; margin-bottom: 10px; }
+.white .sec-num, .bg .sec-num, .bg2 .sec-num, .bg3 .sec-num, .gw .sec-num, .go .sec-num { color: var(--fk-blue); }
+.navy .sec-num, .navy-mid .sec-num, .gd .sec-num { color: var(--fk-orange-lt); }
+
+.sec-title { font-family: var(--serif); font-size: clamp(24px, 3vw, 38px); font-weight: 300; letter-spacing: -.01em; line-height: 1.18; margin-bottom: 22px; padding-bottom: 16px; display: inline-block; }
+.white .sec-title, .bg .sec-title, .bg2 .sec-title, .bg3 .sec-title, .gw .sec-title, .go .sec-title { border-bottom: 2px solid var(--fk-blue); color: var(--ink); }
+.navy .sec-title, .navy-mid .sec-title, .gd .sec-title { border-bottom: 2px solid var(--fk-blue-lt); color: #fff; }
+.sec-title em { font-style: italic; }
+.white .sec-title em, .bg .sec-title em, .bg2 .sec-title em, .bg3 .sec-title em, .gw .sec-title em, .go .sec-title em { color: var(--fk-blue); }
+.navy .sec-title em, .navy-mid .sec-title em, .gd .sec-title em { color: var(--fk-blue-lt); }
+
+.lead { font-family: var(--serif); font-size: 18px; font-style: italic; line-height: 1.72; margin-bottom: 26px; padding-bottom: 26px; max-width: 720px; }
+.white .lead, .bg .lead, .bg2 .lead, .bg3 .lead, .gw .lead, .go .lead { color: var(--mid); border-bottom: 1px solid var(--rule); }
+.navy .lead, .navy-mid .lead, .gd .lead { color: rgba(255,255,255,0.62); border-bottom: 1px solid rgba(255,255,255,0.1); }
+
+p.bp { font-size: 15.5px; line-height: 1.84; margin-bottom: 18px; font-weight: 300; max-width: 720px; }
+p.bp:last-child { margin-bottom: 0; }
+.white p.bp, .bg p.bp, .bg2 p.bp, .bg3 p.bp, .gw p.bp, .go p.bp { color: var(--mid); }
+.navy p.bp, .navy-mid p.bp, .gd p.bp { color: rgba(255,255,255,0.68); }
+p.bp strong { font-weight: 600; }
+.white p.bp strong, .bg p.bp strong, .bg2 p.bp strong, .bg3 p.bp strong, .gw p.bp strong, .go p.bp strong { color: var(--ink); }
+.navy p.bp strong, .navy-mid p.bp strong, .gd p.bp strong { color: #fff; }
+
+.ctag { display: inline-block; font-family: var(--mono); font-size: 9px; letter-spacing: .1em; padding: 3px 9px; border-radius: 4px; vertical-align: middle; margin-left: 4px; }
+.white .ctag, .bg .ctag, .bg2 .ctag, .bg3 .ctag, .gw .ctag, .go .ctag { background: var(--fk-blue-pale); color: var(--fk-blue-dk); border: 1px solid var(--rule); }
+.navy .ctag, .navy-mid .ctag, .gd .ctag { background: rgba(40,116,240,0.15); color: var(--fk-blue-lt); border: 1px solid rgba(40,116,240,0.25); }
+
+/* pull quote */
+.pq { margin: 32px 0; padding: 22px 28px; border-radius: 0 var(--r) var(--r) 0; max-width: 680px; }
+.white .pq, .bg .pq, .bg2 .pq, .bg3 .pq, .gw .pq, .go .pq { border-left: 3px solid var(--fk-blue); background: var(--fk-blue-pale); }
+.navy .pq, .navy-mid .pq, .gd .pq { border-left: 3px solid var(--fk-blue-lt); background: rgba(40,116,240,0.08); }
+.pq blockquote { font-family: var(--serif); font-size: 19px; font-style: italic; line-height: 1.55; margin-bottom: 10px; }
+.white .pq blockquote, .bg .pq blockquote, .bg2 .pq blockquote, .bg3 .pq blockquote, .gw .pq blockquote, .go .pq blockquote { color: var(--ink); }
+.navy .pq blockquote, .navy-mid .pq blockquote, .gd .pq blockquote { color: rgba(255,255,255,0.9); }
+.pq cite { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; font-style: normal; }
+.white .pq cite, .bg .pq cite, .bg2 .pq cite, .bg3 .pq cite, .gw .pq cite, .go .pq cite { color: var(--fk-blue); }
+.navy .pq cite, .navy-mid .pq cite, .gd .pq cite { color: var(--fk-blue-lt); }
+
+/* insight cards */
+.ig { display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: 14px; margin: 28px 0; }
+.ic { border-radius: var(--r); padding: 20px 18px; transition: transform .2s, box-shadow .2s; }
+.ic:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(40,116,240,0.1); }
+.white .ic, .bg .ic, .bg2 .ic, .bg3 .ic, .gw .ic, .go .ic { background: var(--white); border: 1px solid var(--rule); box-shadow: 0 2px 10px rgba(40,116,240,0.05); }
+.navy .ic, .navy-mid .ic, .gd .ic { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); }
+.ic-icon { font-size: 26px; margin-bottom: 10px; display: block; }
+.ic-title { font-family: var(--serif); font-size: 16px; margin-bottom: 6px; font-weight: 400; }
+.white .ic-title, .bg .ic-title, .bg2 .ic-title, .bg3 .ic-title, .gw .ic-title, .go .ic-title { color: var(--ink); }
+.navy .ic-title, .navy-mid .ic-title, .gd .ic-title { color: #fff; }
+.ic-desc { font-size: 12.5px; line-height: 1.62; font-weight: 300; }
+.white .ic-desc, .bg .ic-desc, .bg2 .ic-desc, .bg3 .ic-desc, .gw .ic-desc, .go .ic-desc { color: var(--muted); }
+.navy .ic-desc, .navy-mid .ic-desc, .gd .ic-desc { color: rgba(255,255,255,0.5); }
+
+/* stat cards */
+.sr { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 10px; margin: 28px 0; }
+.sc { border-radius: var(--r); padding: 18px 14px; text-align: center; transition: transform .2s; }
+.sc:hover { transform: translateY(-2px); }
+.white .sc, .bg .sc, .bg2 .sc, .bg3 .sc, .gw .sc, .go .sc { background: var(--fk-blue-dk); }
+.navy .sc, .navy-mid .sc, .gd .sc { background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.1); }
+.sc-v { font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--fk-yellow); line-height: 1.1; margin-bottom: 5px; }
+.sc-l { font-family: var(--mono); font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+
+/* info rows */
+.ir { margin: 20px 0; max-width: 680px; }
+.ir-row { display: flex; gap: 20px; padding: 12px 0; border-bottom: 1px solid; font-size: 14px; align-items: flex-start; }
+.white .ir-row, .bg .ir-row, .bg2 .ir-row, .bg3 .ir-row, .gw .ir-row, .go .ir-row { border-color: var(--rule); }
+.navy .ir-row, .navy-mid .ir-row, .gd .ir-row { border-color: rgba(255,255,255,0.1); }
+.ir-row:last-child { border-bottom: none; }
+.ir-k { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; flex-shrink: 0; width: 145px; padding-top: 3px; font-weight: 500; }
+.white .ir-k, .bg .ir-k, .bg2 .ir-k, .bg3 .ir-k, .gw .ir-k, .go .ir-k { color: var(--fk-blue); }
+.navy .ir-k, .navy-mid .ir-k, .gd .ir-k { color: var(--fk-blue-lt); }
+.ir-v { line-height: 1.6; font-weight: 300; }
+.white .ir-v, .bg .ir-v, .bg2 .ir-v, .bg3 .ir-v, .gw .ir-v, .go .ir-v { color: var(--mid); }
+.navy .ir-v, .navy-mid .ir-v, .gd .ir-v { color: rgba(255,255,255,0.68); }
+.ir-v strong { font-weight: 600; }
+.white .ir-v strong, .bg .ir-v strong, .bg2 .ir-v strong, .bg3 .ir-v strong, .gw .ir-v strong, .go .ir-v strong { color: var(--ink); }
+.navy .ir-v strong, .navy-mid .ir-v strong, .gd .ir-v strong { color: #fff; }
+
+/* SWOT */
+.swot-g { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin: 28px 0; background: var(--rule); border-radius: var(--r); overflow: hidden; max-width: 680px; }
+.sc2 { padding: 22px 20px; }
+.ss { background: #EAF4E9; } .sw { background: #FDF5EA; } .so { background: #EBF2FE; } .st { background: #FAEAEA; }
+.sh { font-family: var(--mono); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; font-weight: 500; margin-bottom: 10px; }
+.ss .sh { color: #2E7D32; } .sw .sh { color: #E65100; } .so .sh { color: #1565C0; } .st .sh { color: #B71C1C; }
+.sl { list-style: none; }
+.sl li { font-size: 13px; line-height: 1.6; color: var(--mid); padding: 3px 0; font-weight: 300; }
+.sl li::before { content: '— '; opacity: .5; }
+
+/* moat bars */
+.mb-wrap { margin: 28px 0; max-width: 600px; }
+.mb { margin-bottom: 16px; }
+.mb-lbl { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.mb-n { font-family: var(--sans); font-size: 13px; font-weight: 400; }
+.white .mb-n, .bg .mb-n, .bg2 .mb-n, .bg3 .mb-n, .gw .mb-n, .go .mb-n { color: var(--ink); }
+.navy .mb-n, .navy-mid .mb-n, .gd .mb-n { color: rgba(255,255,255,0.85); }
+.mb-s { font-family: var(--mono); font-size: 11px; color: var(--fk-blue-lt); }
+.mb-track { height: 6px; border-radius: 3px; overflow: hidden; }
+.white .mb-track, .bg .mb-track, .bg2 .mb-track, .bg3 .mb-track, .gw .mb-track, .go .mb-track { background: var(--bg3); }
+.navy .mb-track, .navy-mid .mb-track, .gd .mb-track { background: rgba(255,255,255,0.1); }
+.mb-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--fk-blue-dk), var(--fk-blue-lt)); width: 0%; transition: width 1.2s cubic-bezier(.16,1,.3,1); }
+
+/* risk */
+.rl { margin: 24px 0; max-width: 680px; }
+.ri { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid; }
+.white .ri, .bg .ri, .bg2 .ri, .bg3 .ri, .gw .ri, .go .ri { border-color: var(--rule); }
+.navy .ri, .navy-mid .ri, .gd .ri { border-color: rgba(255,255,255,0.1); }
+.ri:last-child { border-bottom: none; }
+.rb { flex-shrink: 0; width: 44px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 8px; letter-spacing: .1em; font-weight: 500; margin-top: 2px; }
+.rh { background: #FAEAEA; color: #B71C1C; } .rm { background: #FDF5EA; color: #E65100; } .rl2 { background: #EAF4E9; color: #2E7D32; }
+.ri-t { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+.white .ri-t, .bg .ri-t, .bg2 .ri-t, .bg3 .ri-t, .gw .ri-t, .go .ri-t { color: var(--ink); }
+.navy .ri-t, .navy-mid .ri-t, .gd .ri-t { color: #fff; }
+.ri-d { font-size: 13px; line-height: 1.65; font-weight: 300; }
+.white .ri-d, .bg .ri-d, .bg2 .ri-d, .bg3 .ri-d, .gw .ri-d, .go .ri-d { color: var(--muted); }
+.navy .ri-d, .navy-mid .ri-d, .gd .ri-d { color: rgba(255,255,255,0.5); }
+
+/* lessons */
+.lg { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 24px 0; }
+.lc { border-radius: var(--r); padding: 22px 20px; transition: transform .2s; }
+.lc:hover { transform: translateY(-2px); }
+.white .lc, .bg .lc, .bg2 .lc, .bg3 .lc, .gw .lc, .go .lc { background: var(--fk-blue-dk); }
+.navy .lc, .navy-mid .lc, .gd .lc { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); }
+.ln { font-family: var(--serif); font-size: 36px; font-weight: 300; color: rgba(91,155,245,0.22); line-height: 1; margin-bottom: -4px; }
+.lt2 { font-family: var(--serif); font-size: 16px; color: var(--fk-yellow); margin-bottom: 8px; }
+.ld { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,0.6); font-weight: 300; }
+
+/* verdict */
+.vbox { border-radius: var(--r-lg); padding: 40px 44px; margin: 32px 0; max-width: 720px; border-left: 5px solid var(--fk-blue-lt); background: rgba(255,255,255,0.06); }
+.vbox h3 { font-family: var(--serif); font-size: 22px; font-style: italic; margin-bottom: 20px; line-height: 1.4; color: var(--fk-blue-lt); }
+.vbox p { font-size: 15px; line-height: 1.82; margin-bottom: 14px; font-weight: 300; color: rgba(255,255,255,0.7); }
+.vbox p strong { font-weight: 600; color: #fff; }
+.vbox .vnote { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 18px; margin-top: 20px; font-style: italic; font-size: 13.5px; color: rgba(255,255,255,0.4); }
+
+/* quote cards */
+.qcg { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 14px; margin: 24px 0; }
+.qc { border-radius: var(--r); padding: 22px 20px; transition: transform .2s; }
+.qc:hover { transform: translateY(-2px); }
+.white .qc, .bg .qc, .bg2 .qc, .bg3 .qc, .gw .qc, .go .qc { background: var(--navy); }
+.navy .qc, .navy-mid .qc, .gd .qc { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); }
+.qi { font-size: 32px; color: rgba(40,116,240,0.28); font-family: var(--serif); font-weight: 300; line-height: 1; margin-bottom: -4px; }
+.qt2 { font-family: var(--serif); font-size: 14px; font-style: italic; color: rgba(255,255,255,0.78); line-height: 1.65; margin-bottom: 12px; }
+.qm { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--fk-blue-lt); }
+
+/* ecosystem diagram */
+.eco-wrap { margin: 28px 0; display: grid; grid-template-columns: repeat(3,1fr); gap: 3px; background: var(--rule); border-radius: var(--r-lg); overflow: hidden; max-width: 680px; }
+.eco-cell { padding: 20px 18px; }
+.white .eco-cell, .bg .eco-cell, .bg2 .eco-cell, .bg3 .eco-cell, .gw .eco-cell, .go .eco-cell { background: var(--white); }
+.navy .eco-cell, .navy-mid .eco-cell, .gd .eco-cell { background: rgba(255,255,255,0.07); }
+.eco-label { font-family: var(--mono); font-size: 8px; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 6px; }
+.white .eco-label, .bg .eco-label, .bg2 .eco-label, .bg3 .eco-label, .gw .eco-label, .go .eco-label { color: var(--fk-blue); }
+.navy .eco-label, .navy-mid .eco-label, .gd .eco-label { color: var(--fk-blue-lt); }
+.eco-val { font-family: var(--serif); font-size: 20px; font-weight: 300; margin-bottom: 4px; }
+.white .eco-val, .bg .eco-val, .bg2 .eco-val, .bg3 .eco-val, .gw .eco-val, .go .eco-val { color: var(--ink); }
+.navy .eco-val, .navy-mid .eco-val, .gd .eco-val { color: #fff; }
+.eco-desc { font-size: 12px; line-height: 1.55; font-weight: 300; }
+.white .eco-desc, .bg .eco-desc, .bg2 .eco-desc, .bg3 .eco-desc, .gw .eco-desc, .go .eco-desc { color: var(--muted); }
+.navy .eco-desc, .navy-mid .eco-desc, .gd .eco-desc { color: rgba(255,255,255,0.48); }
+
+/* reveal children */
+.rc > * { opacity:0; transform:translateY(14px); transition:opacity .45s ease, transform .45s ease; }
+.rc.vis > *:nth-child(1){opacity:1;transform:none;transition-delay:.04s;}
+.rc.vis > *:nth-child(2){opacity:1;transform:none;transition-delay:.10s;}
+.rc.vis > *:nth-child(3){opacity:1;transform:none;transition-delay:.16s;}
+.rc.vis > *:nth-child(4){opacity:1;transform:none;transition-delay:.22s;}
+.rc.vis > *:nth-child(5){opacity:1;transform:none;transition-delay:.28s;}
+.rc.vis > *:nth-child(6){opacity:1;transform:none;transition-delay:.34s;}
+
+/* footer */
+.footer { background: var(--navy-mid); border-top: 2px solid var(--fk-blue); padding: 48px 56px 32px; }
+.fi { max-width: 900px; }
+.fb { font-family: var(--serif); font-size: 20px; color: #fff; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.fd2 { width: 8px; height: 8px; border-radius: 50%; background: var(--fk-blue-lt); }
+.fdesc { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.4); font-weight: 300; max-width: 480px; margin-bottom: 32px; }
+.fbot { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.fcp { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: rgba(255,255,255,0.28); }
+.fcp span { color: var(--fk-blue-lt); }
+.ftags { display: flex; gap: 8px; flex-wrap: wrap; }
+.ftag { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.32); }
+
+/* scroll top */
+.st2 { position: fixed; bottom: 28px; right: 28px; width: 42px; height: 42px; background: var(--fk-blue); border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(40,116,240,0.4); z-index: 300; transition: transform .2s; }
+.st2:hover { transform: translateY(-3px); }
+.st2 svg { width: 16px; height: 16px; fill: #fff; }
+
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;min-height:auto;}
+  .hero-right{display:none;}
+  .article-wrap{grid-template-columns:1fr;}
+  .sidebar{display:none;}
+  .sec{padding:48px 24px;}
+  .nav{padding:0 20px;}
+  .nav-pills{display:none;}
+  .footer{padding:36px 24px 24px;}
+  .lg{grid-template-columns:1fr;}
+  .swot-g{grid-template-columns:1fr;}
+  .eco-wrap{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<div id="pb"></div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-t">
+    <span>FounderLens · Company Analysis · Issue #08</span>
+    <span>Flipkart · Founded 2007 · Bengaluru, India</span>
+    <span>~$19 Billion Revenue · FY2024</span>
+    <span>~48% Market Share · Indian E-Commerce</span>
+    <span>500M+ Registered Users · 1.4M+ Sellers</span>
+    <span>Ekart: 6 Million Parcels Daily · 98% Pin Codes</span>
+    <span>Acquired by Walmart · 2018 · $16 Billion</span>
+    <span>FounderLens · Company Analysis · Issue #08</span>
+    <span>Flipkart · Founded 2007 · Bengaluru, India</span>
+    <span>~$19 Billion Revenue · FY2024</span>
+    <span>~48% Market Share · Indian E-Commerce</span>
+    <span>500M+ Registered Users · 1.4M+ Sellers</span>
+    <span>Ekart: 6 Million Parcels Daily · 98% Pin Codes</span>
+    <span>Acquired by Walmart · 2018 · $16 Billion</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-mono">FL</div>
+    <div>
+      <div class="nav-title">FounderLens</div>
+      <div class="nav-sub">Company Strategy Series</div>
+    </div>
+  </div>
+  <div class="nav-pills">
+    <button class="np active" onclick="window.scrollTo({top:0,behavior:'smooth'})">Overview</button>
+    <button class="np" onclick="gs('model')">Model</button>
+    <button class="np" onclick="gs('ops')">Ops</button>
+    <button class="np" onclick="gs('moat')">Moat</button>
+    <button class="np" onclick="gs('verdict')">Verdict</button>
+  </div>
+  <div class="nav-badge">Issue #08 · E-Commerce</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-left">
+    <div class="hero-ey">
+      <span class="hero-ey-dot"></span>
+      <span class="hero-ey-text">FounderLens · Company Deep-Dive · Issue 08</span>
+    </div>
+    <h1 class="hero-h1">Flip<em>kart</em></h1>
+    <div class="hero-sub">The Infrastructure Behind India's Shopping Habits</div>
+    <p class="hero-desc">
+      Flipkart didn't just build an online store. It built the <strong>roads, warehouses, payment rails, and trust systems</strong> that Indian e-commerce needed to exist — then built the store on top of them.
+    </p>
+    <div class="kpi-g">
+      <div class="kpi-c"><div class="kpi-v">~$19B</div><div class="kpi-l">Revenue FY2024</div></div>
+      <div class="kpi-c"><div class="kpi-v">~48%</div><div class="kpi-l">Market Share</div></div>
+      <div class="kpi-c"><div class="kpi-v">500M+</div><div class="kpi-l">Registered Users</div></div>
+      <div class="kpi-c"><div class="kpi-v">1.4M+</div><div class="kpi-l">Active Sellers</div></div>
+      <div class="kpi-c"><div class="kpi-v">6M+</div><div class="kpi-l">Parcels / Day</div></div>
+      <div class="kpi-c"><div class="kpi-v">98%</div><div class="kpi-l">Pin Codes Covered</div></div>
+    </div>
+    <div class="hero-tags">
+      <span class="htag b">India's #1 E-Commerce</span>
+      <span class="htag o">Walmart Subsidiary</span>
+      <span class="htag">Founded 2007</span>
+      <span class="htag">Bengaluru</span>
+      <span class="htag">Ekart Logistics</span>
+      <span class="htag">Big Billion Days</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-badge-ring">
+      <div class="hero-badge-inner">
+        <div class="hero-fk">Flip<br>kart<span>est. 2007</span></div>
+      </div>
+    </div>
+    <div class="hero-qcard">
+      <div class="hero-qt">"Most companies find a market that exists. Flipkart had to build one — and then compete in it."</div>
+      <div class="hero-qby">FounderLens Analysis · 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLE -->
+<div class="article-wrap">
+  <aside class="sidebar">
+    <span class="toc-lbl">The Company</span>
+    <button class="toc-b" onclick="gs('overview')">01 · Company Overview</button>
+    <button class="toc-b" onclick="gs('problem')">02 · Core Problem</button>
+    <button class="toc-b" onclick="gs('timing')">03 · Market Timing</button>
+    <span class="toc-lbl">The Business</span>
+    <button class="toc-b" onclick="gs('model')">04 · Business Model</button>
+    <button class="toc-b" onclick="gs('product')">05 · Product & UX</button>
+    <button class="toc-b" onclick="gs('growth')">06 · Growth & Distribution</button>
+    <button class="toc-b" onclick="gs('ops')">07 · Operational Strategy</button>
+    <span class="toc-lbl">Strategy</span>
+    <button class="toc-b" onclick="gs('moat')">08 · Competitive Advantage</button>
+    <button class="toc-b" onclick="gs('strategy')">09 · Strategic Analysis</button>
+    <button class="toc-b" onclick="gs('risks')">10 · Risks & Weaknesses</button>
+    <button class="toc-b" onclick="gs('impact')">11 · Industry Impact</button>
+    <button class="toc-b" onclick="gs('lessons')">12 · Lessons For Builders</button>
+    <button class="toc-b" onclick="gs('verdict')">13 · Final Verdict</button>
+  </aside>
+
+  <div>
+
+    <!-- 01 OVERVIEW -->
+    <div class="sec bg" id="sec-overview">
+      <div class="sec-num">01 — Company Overview</div>
+      <h2 class="sec-title">What Flipkart <em>Actually Built</em></h2>
+      <p class="lead">A bookstore that became a marketplace that became a logistics company that became a fintech platform. Flipkart's real product has always been India's e-commerce infrastructure.</p>
+      <p class="bp">Founded in 2007 by Sachin Bansal and Binny Bansal — two IIT Delhi graduates and former Amazon employees — Flipkart started as an online bookstore operating from a Bengaluru apartment. Within three years it had expanded into electronics. Within five, it was India's most visited e-commerce site. By 2018, Walmart acquired a majority stake for <strong>$16 billion</strong> — the largest e-commerce acquisition in history at the time — validating what the founders had quietly built: not just a store, but a platform that had reshaped how 500 million Indians thought about buying things.</p>
+      <div class="ir">
+        <div class="ir-row"><span class="ir-k">Founded</span><span class="ir-v"><strong>October 2007</strong> · Bengaluru, India · Sachin Bansal & Binny Bansal</span></div>
+        <div class="ir-row"><span class="ir-k">Current Parent</span><span class="ir-v"><strong>Walmart Inc.</strong> · Majority stake acquired 2018 · $16 billion deal</span></div>
+        <div class="ir-row"><span class="ir-k">Revenue (FY2024)</span><span class="ir-v">~<strong>$19 billion</strong> · 20–25% YoY growth in 2024</span></div>
+        <div class="ir-row"><span class="ir-k">Market Share</span><span class="ir-v">~<strong>48%</strong> of Indian e-commerce (FY2023) · ahead of Amazon India (~30–35%)</span></div>
+        <div class="ir-row"><span class="ir-k">Users & Sellers</span><span class="ir-v">500M+ registered users · 1.4M+ active sellers · 150M+ product listings</span></div>
+        <div class="ir-row"><span class="ir-k">Key Arms</span><span class="ir-v">Ekart (logistics) · Shopsy (social commerce) · Flipkart Minutes (quick commerce) · super.money (fintech)</span></div>
+        <div class="ir-row"><span class="ir-k">Profitability</span><span class="ir-v">Loss of ~$350M in FY2024 — down sharply from ~$1.5B losses in 2020; path to profitability in focus ahead of IPO</span></div>
+      </div>
+    </div>
+
+    <!-- 02 PROBLEM -->
+    <div class="sec navy" id="sec-problem">
+      <div class="sec-num">02 — The Core Problem</div>
+      <h2 class="sec-title">India's E-Commerce <em>Didn't Exist Yet</em></h2>
+      <p class="lead">Flipkart didn't enter a market. It built one — by solving problems that had nothing to do with shopping and everything to do with trust, logistics, and payments.</p>
+      <p class="bp">When Flipkart launched in 2007, the barriers to online shopping in India weren't product selection or pricing — they were foundational. Most Indians didn't trust giving card details online. <strong>Credit card penetration was below 5%</strong>. Reliable couriers didn't exist outside major cities. Return policies were nonexistent. And most consumers had never bought anything online before, so they had no reference point for why they should start.</p>
+      <div class="qcg rc">
+        <div class="qc">
+          <div class="qi">"</div>
+          <div class="qt2">The real problem wasn't "how do we sell books online?" It was "how do we make a country of 1.3 billion people comfortable transacting digitally for the first time?"</div>
+          <div class="qm">FounderLens Analysis</div>
+        </div>
+        <div class="qc">
+          <div class="qi">"</div>
+          <div class="qt2">Cash on delivery wasn't a payment method. It was a trust mechanism. It said: "You don't need to pay until you see the product." That single decision unlocked Indian e-commerce.</div>
+          <div class="qm">FounderLens Analysis</div>
+        </div>
+      </div>
+      <p class="bp">Flipkart's answer was <strong>cash on delivery (COD)</strong> — a seemingly simple innovation that had enormous strategic implications. By letting customers pay only when the package arrived, Flipkart removed the single biggest psychological barrier to online shopping. This one decision, more than any technology or product selection, is what made Indian e-commerce viable. Every competitor that came after benefited from the trust Flipkart built. <span class="ctag">Trust Infrastructure</span></p>
+    </div>
+
+    <!-- 03 TIMING -->
+    <div class="sec gw" id="sec-timing">
+      <div class="sec-num">03 — Market Timing</div>
+      <h2 class="sec-title">Building When <em>India Was Ready</em></h2>
+      <p class="lead">Flipkart launched at the exact moment India's internet and mobile infrastructure began scaling — early enough to be first, late enough to have a real market.</p>
+      <p class="bp">2007 was a precise sweet spot. Internet penetration was growing but still low — which meant the market was large but uncrowded. Smartphones were arriving but not yet ubiquitous — which meant Flipkart could establish habits on desktop before the mobile wave hit. And India's young professional class was expanding rapidly — a demographic that was comfortable with technology and hungry for the convenience that developed markets took for granted.</p>
+      <div class="ig rc">
+        <div class="ic"><span class="ic-icon">📶</span><div class="ic-title">Internet Expansion</div><div class="ic-desc">India's internet user base grew from ~42M in 2007 to 800M+ by 2024. Flipkart rode the entire wave — and helped accelerate it by giving people a reason to get online.</div></div>
+        <div class="ic"><span class="ic-icon">📱</span><div class="ic-title">Mobile-First Pivot</div><div class="ic-desc">When smartphones took off after 2012, Flipkart made a bold call: shut down the desktop site and force users to the app. Aggressive, but it built mobile habits early and captured the next 300M Indian internet users who arrived via smartphone, not PC.</div></div>
+        <div class="ic"><span class="ic-icon">💳</span><div class="ic-title">UPI & Digital Payments</div><div class="ic-desc">India's unified payments infrastructure (UPI), launched in 2016, dramatically reduced friction for online payments. Flipkart had already built the buyer base — it now had a better way for them to pay.</div></div>
+        <div class="ic"><span class="ic-icon">🏘️</span><div class="ic-title">Rising Middle Class</div><div class="ic-desc">India's aspiring middle class — 300–400M people by the 2010s — wanted access to branded goods at fair prices. Flipkart gave them a marketplace that felt trustworthy and offered genuine savings versus local retail.</div></div>
+      </div>
+      <p class="bp">The mobile app bet — shutting the website briefly in 2015 to force app downloads — was polarising but prescient. <strong>India's next 500 million internet users would arrive via smartphone, not laptop.</strong> By building app-first habits early, Flipkart embedded itself into mobile-native consumer behaviour before Amazon India could establish the same hold. <span class="ctag">First-Mover Behaviour Lock-in</span></p>
+    </div>
+
+    <!-- 04 MODEL -->
+    <div class="sec white" id="sec-model">
+      <div class="sec-num">04 — Business Model</div>
+      <h2 class="sec-title">Six Revenue Streams, <em>One Flywheel</em></h2>
+      <p class="lead">Flipkart makes money from selling products, taking commissions, charging for logistics, selling ads, lending money, and collecting subscriptions. Each stream reinforces the others.</p>
+      <p class="bp">Flipkart's revenue architecture is a multi-layer stack, not a single model. The core is the <strong>marketplace commission</strong> — third-party sellers list products, Flipkart takes a cut of each sale (typically 5–15% depending on category). This commission model is asset-light compared to buying and holding inventory directly, and it scales with the number of sellers and transactions rather than with Flipkart's own capital.</p>
+
+      <div class="eco-wrap rc">
+        <div class="eco-cell"><div class="eco-label">Product Sales</div><div class="eco-val">~60%</div><div class="eco-desc">Direct inventory + marketplace commissions. Electronics and fashion are the anchor categories.</div></div>
+        <div class="eco-cell"><div class="eco-label">Advertising</div><div class="eco-val">~15%</div><div class="eco-desc">Sellers and brands pay to surface products. High-margin, scales with seller base.</div></div>
+        <div class="eco-cell"><div class="eco-label">Subscriptions</div><div class="eco-val">~10%</div><div class="eco-desc">Flipkart Plus membership drives loyalty, free delivery, and early access to sales.</div></div>
+        <div class="eco-cell"><div class="eco-label">Fintech (super.money)</div><div class="eco-val">~10%</div><div class="eco-desc">Credit products, EMI processing, buy-now-pay-later. Fast-growing, high-margin.</div></div>
+        <div class="eco-cell"><div class="eco-label">Ekart (3PL)</div><div class="eco-val">~5%</div><div class="eco-desc">Third-party logistics revenue. Ekart now serves sellers beyond Flipkart's own marketplace.</div></div>
+        <div class="eco-cell"><div class="eco-label">Quick Commerce</div><div class="eco-val">Growing</div><div class="eco-desc">Flipkart Minutes: 10-minute delivery in 19+ cities. Doubling order volume every 45 days.</div></div>
+      </div>
+
+      <p class="bp">The business model is a flywheel. More buyers attract more sellers. More sellers mean better selection and more commission revenue. More commission revenue funds better logistics and technology. Better logistics attract more buyers. <strong>Each layer reinforces every other layer.</strong> This self-reinforcing structure is what makes marketplace businesses so defensible once they reach critical mass. <span class="ctag">Marketplace Flywheel · Network Effects</span></p>
+      <p class="bp">The advertising business is particularly significant. When Flipkart's platform has 500 million users, brands will pay significant sums to be surfaced to those users at the moment of purchase intent. This is the same model that made Amazon Advertising a $50B business in the US. <strong>Advertising revenue has near-zero marginal cost</strong> — it requires no additional logistics, no additional inventory, and scales directly with user base. <span class="ctag">High-Margin Advertising Stack</span></p>
+    </div>
+
+    <!-- 05 PRODUCT -->
+    <div class="sec bg2" id="sec-product">
+      <div class="sec-num">05 — Product & User Experience</div>
+      <h2 class="sec-title">Designing for <em>India's First-Time Shoppers</em></h2>
+      <p class="lead">Flipkart's product decisions weren't just about convenience — they were about building digital confidence in a population that had never transacted online before.</p>
+      <p class="bp">The product decisions that drove Flipkart's adoption are distinct from those of Western e-commerce players precisely because the Indian market context was distinct. Features that feel basic in hindsight — <strong>easy returns, no-questions-asked replacement, COD at scale, EMI on everyday products</strong> — were genuine innovations in the Indian context, where trust in online sellers was essentially zero in 2007.</p>
+      <p class="bp">Flipkart's <strong>Big Billion Days</strong> is as much a product decision as a marketing one. The sale event — India's answer to Amazon Prime Day — creates a predictable, nationally anticipated moment of purchasing. It drives app re-engagement, brings back lapsed users, introduces first-timers, and generates data on purchase intent across categories. The game-like discount mechanics (flash sales, countdown timers, "Catch the Plane" discount games) are deliberate product features designed to turn shopping into an event. <span class="ctag">Engineered Demand Events</span></p>
+      <div class="pq">
+        <blockquote>Flipkart's UX insight was that Indian first-time shoppers needed hand-holding, not friction reduction. The product had to teach people how to shop online, not assume they already knew.</blockquote>
+        <cite>FounderLens Analysis</cite>
+      </div>
+      <p class="bp">The <strong>Shopsy</strong> app — Flipkart's social commerce platform — targets Tier 2 and Tier 3 city consumers who are more comfortable buying via WhatsApp and social networks than through a formal app. This mirrors how offline commerce works in those markets: through known intermediaries and social trust. Shopsy doesn't fight that behaviour — it works with it. <span class="ctag">Behaviour-Led Product Design</span></p>
+    </div>
+
+    <!-- 06 GROWTH -->
+    <div class="sec go" id="sec-growth">
+      <div class="sec-num">06 — Growth & Distribution</div>
+      <h2 class="sec-title">How Flipkart Scaled <em>Across a Continent</em></h2>
+      <p class="lead">Growing in India is not one problem. It is 28 states, 22 official languages, 7,000+ pin codes, and multiple distinct consumer psychologies — all at once.</p>
+      <p class="bp">Flipkart's growth strategy has always been two-track: <strong>depth in cities</strong> (better selection, faster delivery, richer features for urban consumers) and <strong>breadth into the next tier</strong> (reaching Tier 2, 3, and rural India with simpler, more localized products). The app-only bet in 2015 was part of the breadth strategy — most new Indian internet users were arriving via cheap Android phones, not desktops, and Flipkart needed to be where they were.</p>
+      <div class="ig rc">
+        <div class="ic"><span class="ic-icon">🛒</span><div class="ic-title">Big Billion Days</div><div class="ic-desc">India's largest shopping event — not just a sale, but a cultural moment. Banks co-fund cashbacks, brands push inventory, sellers absorb margin cuts for visibility. Flipkart orchestrates the ecosystem, not just the discounts.</div></div>
+        <div class="ic"><span class="ic-icon">📲</span><div class="ic-title">App-First Strategy</div><div class="ic-desc">The 2015 app-only push was controversial but prescient. It forced mobile habit formation early, giving Flipkart an engagement and data advantage as India's mobile user base exploded.</div></div>
+        <div class="ic"><span class="ic-icon">🤝</span><div class="ic-title">Shopsy Social Commerce</div><div class="ic-desc">In Tier 2/3 markets, trust comes through people, not platforms. Shopsy lets individuals resell Flipkart products through their networks — turning customers into distribution agents.</div></div>
+        <div class="ic"><span class="ic-icon">⚡</span><div class="ic-title">Flipkart Minutes</div><div class="ic-desc">Quick commerce (10-minute delivery) launched in 19 cities with 400 dark stores. Order volume doubled every 45 days since launch — the fastest-growing product line in Flipkart's portfolio.</div></div>
+      </div>
+      <p class="bp">The Big Billion Days strategy deserves specific attention for its financial elegance. Flipkart doesn't absorb all the discount costs itself. <strong>Banks fund cashbacks</strong> (SBI, ICICI, and others pay crores to be featured payment partners). <strong>Brands subsidise discounts</strong> to clear old inventory or gain visibility. <strong>Sellers take margin cuts</strong> in exchange for volume. Flipkart's actual exposure is selective — primarily in flagship categories like mobiles, where new customer acquisition has the highest lifetime value. The ecosystem funds the event. Flipkart runs it. <span class="ctag">Ecosystem-Funded Growth Events</span></p>
+    </div>
+
+    <!-- 07 OPS -->
+    <div class="sec navy-mid" id="sec-ops">
+      <div class="sec-num">07 — Operational Strategy</div>
+      <h2 class="sec-title">Ekart: The Logistics <em>Advantage Nobody Talks About</em></h2>
+      <p class="lead">Flipkart's most defensible asset isn't its website or its brand. It's the physical infrastructure it built to deliver 6 million packages a day across 98% of India's pin codes.</p>
+      <p class="bp">In 2009, Flipkart began building Ekart — an in-house logistics operation — because it had no choice. India's third-party courier industry was unreliable, expensive, and couldn't handle Flipkart's growing volume. What started as a necessity became a strategy. Today, Ekart operates <strong>70+ fulfillment centres, 3,500+ delivery hubs, and 7,000+ trucks</strong>. It delivers millions of parcels daily to every corner of India, including villages that no courier service had ever reached before.</p>
+      <p class="bp">The strategic significance of Ekart is threefold. First, it gives Flipkart <strong>direct control over the most critical customer experience touchpoint</strong> — delivery. When something goes wrong, Flipkart can fix it without depending on a third party. Second, it <strong>creates a structural cost advantage</strong> — at Ekart's volume, per-shipment costs fall far below what any third-party courier can offer. Third, it has become a <strong>standalone revenue stream</strong>, now offering logistics services to sellers outside Flipkart's own platform via ONDC integration. <span class="ctag">Vertical Integration · Operational Moat</span></p>
+      <div class="sr rc">
+        <div class="sc"><div class="sc-v">70+</div><div class="sc-l">Fulfillment Centres</div></div>
+        <div class="sc"><div class="sc-v">3,500+</div><div class="sc-l">Delivery Hubs</div></div>
+        <div class="sc"><div class="sc-v">6M+</div><div class="sc-l">Parcels Daily</div></div>
+        <div class="sc"><div class="sc-v">98%</div><div class="sc-l">Pin Codes Covered</div></div>
+        <div class="sc"><div class="sc-v">400</div><div class="sc-l">Dark Stores (Minutes)</div></div>
+        <div class="sc"><div class="sc-v">10PB</div><div class="sc-l">Data Processed Daily</div></div>
+      </div>
+      <p class="bp">The technology layer is equally serious. Flipkart migrated its entire platform to Google Cloud in 2024, processing over <strong>10 petabytes of batch data and 2 petabytes of real-time data daily</strong>, with 130 billion messages handled every day. During Big Billion Days, platform traffic spikes to 8x normal volume — a load that required years of engineering investment to handle reliably. The ability to run India's largest shopping event without crashing is itself a competitive advantage. <span class="ctag">Technology as Operational Infrastructure</span></p>
+    </div>
+
+    <!-- 08 MOAT -->
+    <div class="sec gd" id="sec-moat">
+      <div class="sec-num">08 — Competitive Advantage</div>
+      <h2 class="sec-title">Why Flipkart Is <em>Hard to Displace</em></h2>
+      <p class="lead">Flipkart's moat isn't any single asset — it's the density of relationships between buyers, sellers, logistics infrastructure, and financial services that would take a decade and billions of dollars to replicate.</p>
+      <p class="bp">Amazon India has tried for over a decade and still trails by roughly 15–18 percentage points in market share. Meesho is growing but serves a different segment. Nykaa, Myntra (owned by Flipkart), and Ajio compete in fashion but not at full-spectrum marketplace scale. The reason Flipkart has held its lead isn't marketing spend — it's structural depth.</p>
+
+      <div class="mb-wrap">
+        <div class="mb"><div class="mb-lbl"><span class="mb-n">Logistics Infrastructure (Ekart)</span><span class="mb-s">96/100</span></div><div class="mb-track"><div class="mb-fill" data-w="96"></div></div></div>
+        <div class="mb"><div class="mb-lbl"><span class="mb-n">Seller Ecosystem Depth (1.4M+ Sellers)</span><span class="mb-s">92/100</span></div><div class="mb-track"><div class="mb-fill" data-w="92"></div></div></div>
+        <div class="mb"><div class="mb-lbl"><span class="mb-n">Brand Trust & Recognition in India</span><span class="mb-s">90/100</span></div><div class="mb-track"><div class="mb-fill" data-w="90"></div></div></div>
+        <div class="mb"><div class="mb-lbl"><span class="mb-n">Data Advantage (500M+ users)</span><span class="mb-s">88/100</span></div><div class="mb-track"><div class="mb-fill" data-w="88"></div></div></div>
+        <div class="mb"><div class="mb-lbl"><span class="mb-n">Tier 2/3 Penetration (Shopsy, Ekart)</span><span class="mb-s">85/100</span></div><div class="mb-track"><div class="mb-fill" data-w="85"></div></div></div>
+        <div class="mb"><div class="mb-lbl"><span class="mb-n">Ecosystem Breadth (Fintech, Quick Commerce)</span><span class="mb-s">80/100</span></div><div class="mb-track"><div class="mb-fill" data-w="80"></div></div></div>
+      </div>
+
+      <p class="bp">The most underrated moat is <strong>behavioural lock-in</strong>. Hundreds of millions of Indians learned to shop online for the first time on Flipkart. Their habits — saved addresses, payment methods, order history, wishlist behaviours — are embedded in the Flipkart app. Switching to a competitor means starting over. This is not as dramatic as the switching costs of enterprise software, but at population scale, it is enormously powerful. <span class="ctag">Habit-Based Switching Costs</span></p>
+    </div>
+
+    <!-- 09 STRATEGY -->
+    <div class="sec bg" id="sec-strategy">
+      <div class="sec-num">09 — Strategic Analysis</div>
+      <h2 class="sec-title">The Strategy <em>Decoded</em></h2>
+      <p class="lead">Flipkart's strategy reads like a textbook on how to build a platform — with the additional challenge of doing it in a market where the textbook didn't exist yet.</p>
+      <p class="bp">Flipkart competes primarily through a combination of <strong>cost leadership and ecosystem breadth</strong> — not differentiation in the traditional sense. The goal is to be the place where Indians find the best prices across the widest selection, delivered reliably. That sounds simple, but the execution complexity — logistics, seller management, technology, payments, customer service across a continent — is enormous. <span class="ctag">Cost Leadership + Scope Strategy</span></p>
+      <p class="bp">The platform's network effects are two-sided and reinforcing. More buyers attract more sellers (who want access to the audience). More sellers attract more buyers (who want more selection). As the network grows, <strong>it becomes self-sustaining</strong> — new entrants can't easily disrupt a marketplace where 1.4 million sellers have already optimised their workflows around Flipkart's tools and 500 million consumers have stored their preferences. <span class="ctag">Two-Sided Network Effects</span></p>
+
+      <div class="swot-g">
+        <div class="sc2 ss"><div class="sh">Strengths</div><ul class="sl"><li>Largest e-commerce market share in India (~48%)</li><li>Ekart: unmatched logistics depth and pin code coverage</li><li>500M+ user base with deep behavioural data</li><li>Walmart backing provides capital and global supply chain access</li><li>Strong brand recognition — synonymous with online shopping for many Indians</li></ul></div>
+        <div class="sc2 sw"><div class="sh">Weaknesses</div><ul class="sl"><li>Not consistently profitable — ~$350M loss in FY2024</li><li>Heavy reliance on discounts reduces margins structurally</li><li>India-only exposure — unlike Amazon, no international diversification</li><li>Complex seller quality control at 1.4M+ seller scale</li></ul></div>
+        <div class="sc2 so"><div class="sh">Opportunities</div><ul class="sl"><li>India's 800M internet users — still under-penetrated for e-commerce</li><li>Quick commerce (Flipkart Minutes) is a fast-growing, high-frequency category</li><li>Fintech expansion via super.money into credit-underserved Indian population</li><li>B2B commerce through Flipkart Wholesale</li><li>Potential IPO as a valuation and brand-credibility milestone</li></ul></div>
+        <div class="sc2 st"><div class="sh">Threats</div><ul class="sl"><li>Amazon India's continued investment and Prime loyalty programme</li><li>Meesho's rapid growth in value/budget segment</li><li>Regulatory uncertainty around FDI in e-commerce</li><li>Cybersecurity risks at massive transaction scale</li></ul></div>
+      </div>
+
+      <p class="bp">One of Flipkart's most important strategic moves is the deliberate <strong>ecosystem expansion beyond e-commerce</strong>. Every new service — logistics (Ekart), fintech (super.money), quick commerce (Minutes), social commerce (Shopsy) — is both a new revenue stream and a new reason for customers and sellers to stay embedded in the Flipkart ecosystem. This is proactive strategy, not reactive diversification. Each arm makes the core marketplace more defensible. <span class="ctag">Ecosystem Expansion · Platform Depth</span></p>
+    </div>
+
+    <!-- 10 RISKS -->
+    <div class="sec navy" id="sec-risks">
+      <div class="sec-num">10 — Key Risks & Weaknesses</div>
+      <h2 class="sec-title">The Honest <em>Risk Register</em></h2>
+      <p class="lead">Flipkart's challenges are structural, not superficial — and understanding them honestly is more valuable than celebrating the numbers.</p>
+      <div class="rl">
+        <div class="ri"><div class="rb rh">HIGH</div><div><div class="ri-t">Persistent Losses & Profitability Pressure</div><div class="ri-d">Despite revenue of ~$19B, Flipkart lost ~$350M in FY2024. The discount-driven model that built its user base structurally compresses margins. Achieving genuine profitability without sacrificing market share is the defining challenge — especially with a potential IPO on the horizon where investors will demand a clear path to positive cash flow.</div></div></div>
+        <div class="ri"><div class="rb rh">HIGH</div><div><div class="ri-t">Amazon India's Relentless Investment</div><div class="ri-d">Amazon has the global balance sheet to fund Indian losses indefinitely. Its Prime ecosystem, AWS relationships, and global supply chain access mean it will never stop competing. Flipkart cannot afford complacency in its home market against a competitor with virtually unlimited capital patience.</div></div></div>
+        <div class="ri"><div class="rb rm">MED</div><div><div class="ri-t">Regulatory Risk — FDI & E-Commerce Policy</div><div class="ri-d">India's foreign direct investment rules for e-commerce are complex and evolving. Regulations around marketplace models, inventory-led commerce, and data localisation all create ongoing compliance risk and potential business model disruption.</div></div></div>
+        <div class="ri"><div class="rb rm">MED</div><div><div class="ri-t">Meesho's Value-Segment Disruption</div><div class="ri-d">Meesho is growing rapidly in the budget/value segment — the same Tier 2 and Tier 3 consumers that Flipkart is targeting with Shopsy. If Meesho captures these users first and builds loyalty, Flipkart's TAM expansion strategy faces meaningful headwinds.</div></div></div>
+        <div class="ri"><div class="rb rl2">LOW</div><div><div class="ri-t">Single-Market Concentration</div><div class="ri-d">Flipkart operates almost exclusively in India. Any macroeconomic shock — inflation, currency depreciation, or reduced consumer spending — has no geographic cushion. Amazon and Walmart both have global revenue diversification that Flipkart lacks.</div></div></div>
+      </div>
+    </div>
+
+    <!-- 11 IMPACT -->
+    <div class="sec bg3" id="sec-impact">
+      <div class="sec-num">11 — Industry Impact</div>
+      <h2 class="sec-title">What Flipkart Changed <em>About India</em></h2>
+      <p class="lead">Flipkart didn't just change shopping. It changed how India thinks about trust, convenience, and what's possible when technology meets aspiration at scale.</p>
+      <p class="bp">Before Flipkart, India's consumer goods distribution was dominated by kiranas (small local shops) and traditional retailers. The idea of buying a Samsung television from someone you'd never met, delivered to your village by someone you'd never seen, felt implausible. <strong>Flipkart made it normal</strong>. That shift in consumer psychology is arguably its most lasting contribution.</p>
+      <p class="bp">The infrastructure Flipkart built didn't just benefit Flipkart. It created the foundation for India's <strong>entire D2C ecosystem</strong>. Thousands of Indian brands that wouldn't have had national distribution without Flipkart now sell across the country. The logistics networks, payment rails, and consumer trust that Flipkart spent a decade building became the platform on which India's new consumer economy operates.</p>
+      <p class="bp">The $16 billion Walmart acquisition in 2018 also had a profound signal effect: it told the world that <strong>Indian tech companies could build businesses worth global acquirer attention</strong>. It validated the Indian startup ecosystem in ways that no domestic event could and catalysed the next wave of Indian venture investment and founder ambition. <span class="ctag">Ecosystem Anchor Effect</span></p>
+    </div>
+
+    <!-- 12 LESSONS -->
+    <div class="sec gw" id="sec-lessons">
+      <div class="sec-num">12 — Lessons For Builders</div>
+      <h2 class="sec-title">What Operators Can <em>Learn From Flipkart</em></h2>
+      <p class="lead">Flipkart's story is uniquely instructive because it solved problems that hadn't been solved anywhere, in a market that didn't follow any existing playbook.</p>
+      <div class="lg rc">
+        <div class="lc"><div class="ln">01</div><div class="lt2">Build the infrastructure, then the product</div><div class="ld">Flipkart couldn't sell books until it solved payments, logistics, and trust. Founders who think their product problem is the main problem often miss the fact that their real problem is the prerequisite infrastructure that doesn't exist yet.</div></div>
+        <div class="lc"><div class="ln">02</div><div class="lt2">Trust is a product feature</div><div class="ld">Cash on delivery wasn't a compromise — it was the product. Sometimes the most powerful feature you can build is the one that removes fear, not the one that adds capability. Understand what your customers are afraid of.</div></div>
+        <div class="lc"><div class="ln">03</div><div class="lt2">Necessity-born capabilities become moats</div><div class="ld">Ekart was built out of desperation — no courier could handle Flipkart's needs. That "forced" investment became its deepest competitive advantage. The things you're forced to build because no one else will often become your most defensible assets.</div></div>
+        <div class="lc"><div class="ln">04</div><div class="lt2">Design for your actual user, not an assumed one</div><div class="ld">Flipkart's product decisions — COD, Shopsy, language localisation, low-bandwidth optimisation — were designed for real Indian consumers, not for Silicon Valley's mental model of what an Indian consumer should be. Know your user before you design for them.</div></div>
+        <div class="lc"><div class="ln">05</div><div class="lt2">Events can be distribution strategies</div><div class="ld">Big Billion Days isn't a discount event. It's a customer acquisition, re-engagement, and brand-building event that costs Flipkart less than it appears because the ecosystem co-funds it. Think about what events your category could own.</div></div>
+        <div class="lc"><div class="ln">06</div><div class="lt2">Ecosystem breadth is a long-term bet, not a distraction</div><div class="ld">Every Flipkart arm — fintech, quick commerce, social commerce, logistics — looked like a distraction at launch. Each one became both a revenue source and a reason for customers and sellers to stay embedded. Ecosystem thinking compounds over time.</div></div>
+      </div>
+    </div>
+
+    <!-- 13 VERDICT -->
+    <div class="sec gd" id="sec-verdict">
+      <div class="sec-num">13 — Final FounderLens Verdict</div>
+      <h2 class="sec-title">What This Business <em>Really Is</em></h2>
+      <p class="lead">Flipkart is not an e-commerce company. It is the operating system of Indian consumer commerce — and that framing changes everything about how you evaluate it.</p>
+      <div class="vbox">
+        <h3>"What makes Flipkart genuinely powerful — and why is it much harder to replicate than it looks?"</h3>
+        <p>Flipkart's real achievement isn't the website, the app, or even the scale. It's the fact that it <strong>built the market it operates in</strong>. The logistics infrastructure, the consumer trust, the seller ecosystem, the payment habits — Flipkart created most of the foundational conditions that made Indian e-commerce possible. Every competitor that came after — including Amazon — entered a market that Flipkart had spent years making viable. That's an extraordinarily rare form of competitive advantage.</p>
+        <p>The business model that resulted is a <strong>multi-layered ecosystem flywheel</strong>. Sellers need Flipkart for distribution. Consumers need Flipkart for selection and price. Ekart needs both to justify its infrastructure. Advertising works because both are there. Fintech works because both are there. Each layer makes the others harder to displace — which is why Amazon, despite enormous investment, has not been able to close the market share gap after more than a decade of trying.</p>
+        <p>The honest tension in the Flipkart story is <strong>profitability</strong>. Growing to $19B in revenue while still losing hundreds of millions annually is not a comfortable position. The discount-first model that built India's e-commerce habits also structurally compressed margins. The path from market leader to profitable market leader is the defining strategic challenge of the next chapter — and how Flipkart navigates it (reducing discounts without losing share, expanding high-margin advertising and fintech, achieving logistics cost efficiency at scale) will determine whether this becomes one of the great business stories of the 21st century, or a cautionary tale about market leadership without economic sustainability.</p>
+        <p>For now: <strong>Flipkart is the most important company in Indian consumer technology</strong>. Not because of its valuation, but because of the depth of its integration into how a billion people increasingly live, shop, and transact.</p>
+        <p class="vnote">Flipkart's story isn't finished. The IPO, the profitability journey, the quick commerce bet, the fintech expansion — these are all chapters yet to be written. But the infrastructure that makes all of them possible was built over 17 years of compounding decisions. That's the lesson. You can't rush infrastructure.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="fi">
+    <div class="fb"><span class="fd2"></span>FounderLens</div>
+    <p class="fdesc">Business intelligence explained simply through world-class companies. Strategy, execution, and competitive advantage — decoded for builders and operators.</p>
+    <div class="fbot">
+      <div class="fcp"><span>FounderLens</span> · Flipkart Company Analysis · Issue #08 · Research compiled May 2026 · Educational purposes only</div>
+      <div class="ftags"><span class="ftag">E-Commerce</span><span class="ftag">India Tech</span><span class="ftag">Marketplace</span><span class="ftag">Logistics</span><span class="ftag">Flywheel</span></div>
+    </div>
+  </div>
+</footer>
+
+<button class="st2" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+</button>
+
+<script>
+function gs(id){ const el=document.getElementById('sec-'+id); if(el) el.scrollIntoView({behavior:'smooth'}); }
+
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  document.getElementById('pb').style.width=((h.scrollTop/(h.scrollHeight-h.clientHeight))*100)+'%';
+});
+
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('vis');
+      e.target.querySelectorAll('.mb-fill').forEach(b=>{ setTimeout(()=>{ b.style.width=b.dataset.w+'%'; },200); });
+    }
+  });
+},{threshold:0.05});
+document.querySelectorAll('.sec,.rc').forEach(el=>ro.observe(el));
+
+const secs=document.querySelectorAll('.sec[id]');
+const tocObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      document.querySelectorAll('.toc-b').forEach(b=>b.classList.remove('active'));
+      const id=e.target.id.replace('sec-','');
+      const t=document.querySelector(`.toc-b[onclick*="'${id}'"]`);
+      if(t) t.classList.add('active');
+    }
+  });
+},{rootMargin:'-12% 0px -78% 0px'});
+secs.forEach(s=>tocObs.observe(s));
+
+document.querySelectorAll('.np').forEach(p=>{
+  p.addEventListener('click',()=>{ document.querySelectorAll('.np').forEach(x=>x.classList.remove('active')); p.classList.add('active'); });
+});
+</script>
+</body>
+</html>

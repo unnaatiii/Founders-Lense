@@ -1,1 +1,746 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>RegisterKaro — FounderLens</title><link rel="stylesheet" href="../style.css"></head><body><main class="search-page"><a class="back-btn" href="../company.html">← Companies</a><article class="analysis-wrap"><header class="analysis-header"><p class="ah-tag">Company Analysis</p><h1 class="ah-name">RegisterKaro</h1><p class="ah-company">Compliance workflows made legible for Indian founders and SMEs.</p></header><div class="analysis-body"><section class="section-block"><h3>Strategic Lens</h3><p>RegisterKaro packages fragmented compliance, registration, accounting, and legal services into a simpler operating layer for growing businesses.</p></section></div></article></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FounderLens · RegisterKaro — Strategic Company Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Sora:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Brand palette — saffron × teal × ink */
+  --saffron:      #e8820c;
+  --saffron2:     #f59c2d;
+  --saffron-deep: #b85e00;
+  --saffron-pale: rgba(232,130,12,0.10);
+  --teal:         #0a9e8a;
+  --teal2:        #0cc9ad;
+  --teal-deep:    #076b5c;
+  --teal-pale:    rgba(10,158,138,0.09);
+  --rose:         #d63f6a;
+  --rose-pale:    rgba(214,63,106,0.09);
+  --ink:          #120f0b;
+  --ink2:         rgba(18,15,11,0.68);
+  --ink3:         rgba(18,15,11,0.42);
+  --light-rule:   rgba(18,15,11,0.08);
+  --warm-white:   #faf8f4;
+  --off-white:    #f4f0e8;
+  --stone:        #ede9df;
+  --night:        #0e1014;
+  --night2:       #131720;
+  --night3:       #181e2a;
+  --dk-cream:     #f0ede6;
+  --dk-cream2:    rgba(240,237,230,0.72);
+  --dk-cream3:    rgba(240,237,230,0.38);
+  --dk-rule:      rgba(240,237,230,0.07);
+
+  --serif: 'Lora', Georgia, serif;
+  --sans:  'Sora', sans-serif;
+  --mono:  'IBM Plex Mono', monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;background:var(--warm-white);overflow-x:hidden}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--night)}
+::-webkit-scrollbar-thumb{background:var(--saffron);border-radius:2px}
+
+/* ═══ PROGRESS ═══ */
+#bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--saffron),var(--teal2));z-index:300;width:0;pointer-events:none;transition:width .08s linear}
+
+/* ═══ NAV ═══ */
+.nav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(14,16,20,0.95);backdrop-filter:blur(20px) saturate(1.4);
+  border-bottom:1px solid rgba(240,237,230,0.06);
+  height:54px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 44px;
+}
+.nav-logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--dk-cream);letter-spacing:-.01em}
+.nav-logo span{font-style:italic;color:var(--saffron2);font-weight:400}
+.nav-badges{display:flex;gap:8px}
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;padding:4px 10px;border-radius:20px;border:1px solid;line-height:1}
+.badge-s{border-color:rgba(232,130,12,.35);color:var(--saffron2);background:rgba(232,130,12,.06)}
+.badge-t{border-color:rgba(240,237,230,.10);color:var(--dk-cream3)}
+
+/* ═══ COVER ═══ */
+.cover{
+  min-height:100vh;position:relative;overflow:hidden;
+  background:var(--night);
+  display:flex;flex-direction:column;justify-content:flex-end;
+}
+/* Animated mesh background */
+.cover-mesh{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 65% 55% at 15% 30%,rgba(10,158,138,.13) 0%,transparent 60%),
+    radial-gradient(ellipse 55% 50% at 85% 70%,rgba(232,130,12,.10) 0%,transparent 55%),
+    radial-gradient(ellipse 40% 60% at 60% 20%,rgba(214,63,106,.06) 0%,transparent 50%);
+  animation:meshPulse 8s ease-in-out infinite alternate;
+}
+@keyframes meshPulse{
+  from{opacity:.8;transform:scale(1)}
+  to{opacity:1;transform:scale(1.03)}
+}
+.cover-dots{
+  position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(240,237,230,.05) 1px,transparent 1px);
+  background-size:32px 32px;
+}
+.cover-inner{
+  position:relative;z-index:2;
+  max-width:920px;margin:0 auto;width:100%;
+  padding:110px 44px 90px;
+}
+.cover-kicker{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-bottom:28px;
+  animation:riseUp .9s cubic-bezier(.16,1,.3,1) both;
+}
+.kicker-pill{
+  font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  padding:5px 12px;border-radius:20px;
+  background:rgba(10,158,138,.12);border:1px solid rgba(10,158,138,.3);
+  color:var(--teal2);
+}
+.kicker-sep{width:22px;height:1px;background:rgba(240,237,230,.18)}
+.kicker-txt{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dk-cream3)}
+
+.cover-title{
+  font-family:var(--serif);
+  font-size:clamp(52px,8.5vw,118px);
+  font-weight:700;line-height:.94;
+  letter-spacing:-.035em;
+  color:var(--dk-cream);
+  margin-bottom:10px;
+  animation:riseUp .9s .08s cubic-bezier(.16,1,.3,1) both;
+}
+.cover-title em{
+  display:block;
+  font-style:italic;
+  font-weight:400;
+  color:var(--saffron2);
+  font-size:.65em;
+  letter-spacing:-.01em;
+  line-height:1.2;
+  margin-top:8px;
+}
+
+.cover-sub{
+  font-size:17px;color:var(--dk-cream2);max-width:580px;
+  line-height:1.65;font-weight:300;margin:28px 0 44px;
+  animation:riseUp .9s .16s cubic-bezier(.16,1,.3,1) both;
+}
+.cover-sub strong{color:var(--dk-cream);font-weight:500}
+
+.cover-stats{
+  display:flex;gap:0;
+  border-top:1px solid var(--dk-rule);border-bottom:1px solid var(--dk-rule);
+  padding:22px 0;margin-bottom:36px;
+  animation:riseUp .9s .22s cubic-bezier(.16,1,.3,1) both;
+}
+.cs{padding-right:32px;margin-right:32px;border-right:1px solid var(--dk-rule)}
+.cs:last-child{border-right:none;padding-right:0;margin-right:0}
+.cs-val{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--dk-cream);line-height:1}
+.cs-val em{color:var(--saffron2);font-style:normal}
+.cs-lbl{font-family:var(--mono);font-size:8.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--dk-cream3);margin-top:5px}
+
+.cover-chips{
+  display:flex;gap:7px;flex-wrap:wrap;
+  animation:riseUp .9s .28s cubic-bezier(.16,1,.3,1) both;
+}
+.chip{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:5px 11px;border-radius:20px;border:1px solid var(--dk-rule);color:var(--dk-cream3)}
+.chip-t{border-color:rgba(10,158,138,.4);color:var(--teal2);background:rgba(10,158,138,.06)}
+.chip-s{border-color:rgba(232,130,12,.4);color:var(--saffron2);background:rgba(232,130,12,.06)}
+.chip-r{border-color:rgba(214,63,106,.35);color:#e8799b;background:rgba(214,63,106,.06)}
+
+/* ═══ SECTION BAND BASE ═══ */
+.band{width:100%;position:relative}
+.bi{max-width:860px;margin:0 auto;padding:76px 44px}
+
+/* — WARM WHITE — */
+.bw{background:var(--warm-white)}
+.bw .sn{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.bw .st{font-family:var(--serif);font-size:clamp(28px,3.8vw,46px);font-weight:700;color:var(--ink);line-height:1.05;letter-spacing:-.022em;margin-bottom:24px}
+.bw .st em{font-style:italic;color:var(--teal);font-weight:400}
+.bw .lead{font-family:var(--serif);font-size:19px;font-style:italic;color:var(--ink2);line-height:1.7;margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid var(--light-rule)}
+.bw p{font-size:15.5px;color:var(--ink2);line-height:1.85;margin-bottom:16px;font-weight:400}
+.bw p strong{color:var(--ink);font-weight:600}
+.bw mark{background:rgba(10,158,138,.11);color:var(--teal-deep);padding:1px 5px;border-radius:3px;font-weight:500}
+.bw mark.s{background:rgba(232,130,12,.11);color:var(--saffron-deep);font-weight:500}
+.bw .co{border-radius:0 8px 8px 0;padding:18px 22px;margin:22px 0}
+.bw .co-t{background:#e8f8f5;border-left:3px solid var(--teal)}
+.bw .co-s{background:#fdf4e7;border-left:3px solid var(--saffron)}
+.bw .co-r{background:#fdf0f3;border-left:3px solid var(--rose)}
+.bw .co-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.bw .co-t .co-lbl{color:var(--teal)}
+.bw .co-s .co-lbl{color:var(--saffron)}
+.bw .co-r .co-lbl{color:var(--rose)}
+.bw .co p{font-size:14px;color:var(--ink2);margin-bottom:0}
+.bw .co p strong{color:var(--ink)}
+.bw .al{list-style:none;margin:16px 0}
+.bw .al li{padding:10px 0 10px 22px;position:relative;border-bottom:1px solid var(--light-rule);font-size:15px;color:var(--ink2)}
+.bw .al li:last-child{border-bottom:none}
+.bw .al li::before{content:'→';position:absolute;left:0;color:var(--teal);font-weight:700}
+.bw .al.s li::before{color:var(--saffron)}
+.bw .al li strong{color:var(--ink);font-weight:600}
+.bw .pq{margin:32px 0;padding:24px 28px;border-left:3px solid var(--teal);background:linear-gradient(to right,rgba(10,158,138,.05),transparent);border-radius:0 8px 8px 0}
+.bw .pq blockquote{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--ink);line-height:1.5;margin-bottom:8px}
+.bw .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--teal);font-style:normal}
+.bw .ft{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border-radius:4px;background:rgba(10,158,138,.08);color:var(--teal-deep);margin-left:3px;vertical-align:middle;font-weight:700}
+.bw .ft.s{background:rgba(232,130,12,.08);color:var(--saffron-deep)}
+.bw .ft.r{background:rgba(214,63,106,.07);color:#8b1a38}
+
+/* — OFF WHITE / STONE — */
+.bs{background:var(--off-white)}
+.bs .sn{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--saffron);margin-bottom:10px}
+.bs .st{font-family:var(--serif);font-size:clamp(28px,3.8vw,46px);font-weight:700;color:var(--ink);line-height:1.05;letter-spacing:-.022em;margin-bottom:24px}
+.bs .st em{font-style:italic;color:var(--saffron);font-weight:400}
+.bs .lead{font-family:var(--serif);font-size:19px;font-style:italic;color:var(--ink2);line-height:1.7;margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid var(--light-rule)}
+.bs p{font-size:15.5px;color:var(--ink2);line-height:1.85;margin-bottom:16px;font-weight:400}
+.bs p strong{color:var(--ink);font-weight:600}
+.bs mark{background:rgba(232,130,12,.13);color:var(--saffron-deep);padding:1px 5px;border-radius:3px;font-weight:500}
+.bs .co{border-radius:0 8px 8px 0;padding:18px 22px;margin:22px 0}
+.bs .co-s{background:#fdf3e2;border-left:3px solid var(--saffron)}
+.bs .co-t{background:#e8f8f5;border-left:3px solid var(--teal)}
+.bs .co-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.bs .co-s .co-lbl{color:var(--saffron)}
+.bs .co-t .co-lbl{color:var(--teal)}
+.bs .co p{font-size:14px;color:var(--ink2);margin-bottom:0}
+.bs .co p strong{color:var(--ink)}
+.bs .al{list-style:none;margin:16px 0}
+.bs .al li{padding:10px 0 10px 22px;position:relative;border-bottom:1px solid var(--light-rule);font-size:15px;color:var(--ink2)}
+.bs .al li:last-child{border-bottom:none}
+.bs .al li::before{content:'→';position:absolute;left:0;color:var(--saffron);font-weight:700}
+.bs .al li strong{color:var(--ink);font-weight:600}
+.bs .pq{margin:32px 0;padding:24px 28px;border-left:3px solid var(--saffron);background:linear-gradient(to right,rgba(232,130,12,.05),transparent);border-radius:0 8px 8px 0}
+.bs .pq blockquote{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--ink);line-height:1.5;margin-bottom:8px}
+.bs .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--saffron);font-style:normal}
+.bs .ft{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border-radius:4px;background:rgba(232,130,12,.09);color:var(--saffron-deep);margin-left:3px;vertical-align:middle;font-weight:700}
+.bs .ft.t{background:rgba(10,158,138,.08);color:var(--teal-deep)}
+
+/* — DARK NIGHT — */
+.bd{background:var(--night)}
+.bd .bi{position:relative;z-index:1}
+.bd .sn{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--saffron2);margin-bottom:10px}
+.bd .st{font-family:var(--serif);font-size:clamp(28px,3.8vw,46px);font-weight:700;color:var(--dk-cream);line-height:1.05;letter-spacing:-.022em;margin-bottom:24px}
+.bd .st em{font-style:italic;color:var(--saffron2);font-weight:400}
+.bd .lead{font-family:var(--serif);font-size:19px;font-style:italic;color:var(--dk-cream2);line-height:1.7;margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid var(--dk-rule)}
+.bd p{font-size:15.5px;color:var(--dk-cream2);line-height:1.85;margin-bottom:16px;font-weight:400}
+.bd p strong{color:var(--dk-cream);font-weight:500}
+.bd mark{background:rgba(232,130,12,.16);color:var(--saffron2);padding:1px 5px;border-radius:3px;font-weight:500}
+.bd mark.t{background:rgba(10,158,138,.18);color:var(--teal2)}
+.bd .co{border-radius:0 8px 8px 0;padding:18px 22px;margin:22px 0}
+.bd .co-s{background:rgba(232,130,12,.07);border-left:3px solid var(--saffron)}
+.bd .co-t{background:rgba(10,158,138,.08);border-left:3px solid var(--teal)}
+.bd .co-r{background:rgba(214,63,106,.08);border-left:3px solid var(--rose)}
+.bd .co-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.bd .co-s .co-lbl{color:var(--saffron2)}
+.bd .co-t .co-lbl{color:var(--teal2)}
+.bd .co-r .co-lbl{color:#e8799b}
+.bd .co p{font-size:14px;color:var(--dk-cream2);margin-bottom:0}
+.bd .co p strong{color:var(--dk-cream)}
+.bd .al{list-style:none;margin:16px 0}
+.bd .al li{padding:10px 0 10px 22px;position:relative;border-bottom:1px solid var(--dk-rule);font-size:15px;color:var(--dk-cream2)}
+.bd .al li:last-child{border-bottom:none}
+.bd .al li::before{content:'→';position:absolute;left:0;color:var(--saffron2);font-weight:700}
+.bd .al.t li::before{color:var(--teal2)}
+.bd .al li strong{color:var(--dk-cream)}
+.bd .pq{margin:32px 0;padding:24px 28px;border-left:3px solid var(--saffron2);background:linear-gradient(to right,rgba(232,130,12,.07),transparent);border-radius:0 8px 8px 0}
+.bd .pq blockquote{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--dk-cream);line-height:1.5;margin-bottom:8px}
+.bd .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--saffron2);font-style:normal}
+.bd .ft{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border-radius:4px;background:rgba(232,130,12,.11);color:var(--saffron2);margin-left:3px;vertical-align:middle;font-weight:700}
+.bd .ft.t{background:rgba(10,158,138,.12);color:var(--teal2)}
+
+/* — TEAL GRADIENT — */
+.bg-t{background:linear-gradient(135deg,#052420 0%,#093330 45%,#052420 100%);position:relative}
+.bg-t::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 75% 30%,rgba(10,158,138,.14) 0%,transparent 60%)}
+.bg-t .bi{position:relative;z-index:1}
+.bg-t .sn{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal2);margin-bottom:10px}
+.bg-t .st{font-family:var(--serif);font-size:clamp(28px,3.8vw,46px);font-weight:700;color:#e4faf7;line-height:1.05;letter-spacing:-.022em;margin-bottom:24px}
+.bg-t .st em{font-style:italic;color:var(--teal2);font-weight:400}
+.bg-t .lead{font-family:var(--serif);font-size:19px;font-style:italic;color:rgba(228,250,247,.75);line-height:1.7;margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid rgba(10,158,138,.12)}
+.bg-t p{font-size:15.5px;color:rgba(228,250,247,.78);line-height:1.85;margin-bottom:16px;font-weight:400}
+.bg-t p strong{color:#e4faf7}
+.bg-t mark{background:rgba(12,201,173,.18);color:#7ffff0;padding:1px 5px;border-radius:3px;font-weight:500}
+.bg-t .co{border-radius:0 8px 8px 0;padding:18px 22px;margin:22px 0}
+.bg-t .co-t{background:rgba(10,158,138,.12);border-left:3px solid var(--teal2)}
+.bg-t .co-s{background:rgba(232,130,12,.09);border-left:3px solid var(--saffron)}
+.bg-t .co-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.bg-t .co-t .co-lbl{color:var(--teal2)}
+.bg-t .co-s .co-lbl{color:var(--saffron2)}
+.bg-t .co p{font-size:14px;color:rgba(228,250,247,.78);margin-bottom:0}
+.bg-t .co p strong{color:#e4faf7}
+.bg-t .al{list-style:none;margin:16px 0}
+.bg-t .al li{padding:10px 0 10px 22px;position:relative;border-bottom:1px solid rgba(10,158,138,.12);font-size:15px;color:rgba(228,250,247,.78)}
+.bg-t .al li:last-child{border-bottom:none}
+.bg-t .al li::before{content:'→';position:absolute;left:0;color:var(--teal2);font-weight:700}
+.bg-t .al li strong{color:#e4faf7}
+.bg-t .ft{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border-radius:4px;background:rgba(10,158,138,.15);color:var(--teal2);margin-left:3px;vertical-align:middle;font-weight:700}
+.bg-t .ft.s{background:rgba(232,130,12,.12);color:var(--saffron2)}
+.bg-t .pq{margin:32px 0;padding:24px 28px;border-left:3px solid var(--teal2);background:linear-gradient(to right,rgba(10,158,138,.10),transparent);border-radius:0 8px 8px 0}
+.bg-t .pq blockquote{font-family:var(--serif);font-size:20px;font-style:italic;color:#e4faf7;line-height:1.5;margin-bottom:8px}
+.bg-t .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--teal2);font-style:normal}
+
+/* — SAFFRON GRADIENT — */
+.bg-s{background:linear-gradient(135deg,#fdfaf4 0%,#fef6e8 50%,#fdfaf4 100%)}
+.bg-s .sn{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--saffron);margin-bottom:10px}
+.bg-s .st{font-family:var(--serif);font-size:clamp(28px,3.8vw,46px);font-weight:700;color:var(--ink);line-height:1.05;letter-spacing:-.022em;margin-bottom:24px}
+.bg-s .st em{font-style:italic;color:var(--saffron);font-weight:400}
+.bg-s .lead{font-family:var(--serif);font-size:19px;font-style:italic;color:var(--ink2);line-height:1.7;margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid rgba(232,130,12,.14)}
+.bg-s p{font-size:15.5px;color:var(--ink2);line-height:1.85;margin-bottom:16px;font-weight:400}
+.bg-s p strong{color:var(--ink);font-weight:600}
+.bg-s mark{background:rgba(232,130,12,.14);color:var(--saffron-deep);padding:1px 5px;border-radius:3px;font-weight:500}
+.bg-s .co{border-radius:0 8px 8px 0;padding:18px 22px;margin:22px 0}
+.bg-s .co-s{background:rgba(232,130,12,.09);border-left:3px solid var(--saffron)}
+.bg-s .co-t{background:rgba(10,158,138,.08);border-left:3px solid var(--teal)}
+.bg-s .co-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.bg-s .co-s .co-lbl{color:var(--saffron)}
+.bg-s .co-t .co-lbl{color:var(--teal)}
+.bg-s .co p{font-size:14px;color:var(--ink2);margin-bottom:0}
+.bg-s .co p strong{color:var(--ink)}
+.bg-s .al{list-style:none;margin:16px 0}
+.bg-s .al li{padding:10px 0 10px 22px;position:relative;border-bottom:1px solid rgba(232,130,12,.12);font-size:15px;color:var(--ink2)}
+.bg-s .al li:last-child{border-bottom:none}
+.bg-s .al li::before{content:'→';position:absolute;left:0;color:var(--saffron);font-weight:700}
+.bg-s .al li strong{color:var(--ink);font-weight:600}
+.bg-s .pq{margin:32px 0;padding:24px 28px;border-left:3px solid var(--saffron);background:linear-gradient(to right,rgba(232,130,12,.06),transparent);border-radius:0 8px 8px 0}
+.bg-s .pq blockquote{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--ink);line-height:1.5;margin-bottom:8px}
+.bg-s .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--saffron);font-style:normal}
+.bg-s .ft{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border-radius:4px;background:rgba(232,130,12,.09);color:var(--saffron-deep);margin-left:3px;vertical-align:middle;font-weight:700}
+.bg-s .ft.t{background:rgba(10,158,138,.09);color:var(--teal-deep)}
+
+/* — STATS STRIP — */
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:2px;margin:26px 0;border-radius:8px;overflow:hidden}
+.sc{padding:16px 12px;text-align:center}
+.bw .strip,.bs .strip,.bg-s .strip{background:rgba(18,15,11,.07)}
+.bd .strip,.bg-t .strip{background:rgba(240,237,230,.05)}
+.bw .sc,.bs .sc,.bg-s .sc{background:var(--stone)}
+.bd .sc,.bg-t .sc{background:rgba(255,255,255,.04)}
+.bw .sc.h,.bs .sc.h,.bg-s .sc.h{background:linear-gradient(135deg,rgba(10,158,138,.10),var(--stone))}
+.bd .sc.h,.bg-t .sc.h{background:linear-gradient(135deg,rgba(232,130,12,.12),rgba(255,255,255,.04))}
+.sv{font-family:var(--serif);font-size:21px;font-weight:700;line-height:1.05;margin-bottom:4px}
+.bw .sv,.bs .sv,.bg-s .sv{color:var(--teal)}
+.bd .sv,.bg-t .sv{color:var(--saffron2)}
+.bw .sc.h .sv,.bs .sc.h .sv{color:var(--teal-deep)}
+.sl{font-family:var(--mono);font-size:8.5px;letter-spacing:.10em;text-transform:uppercase}
+.bw .sl,.bs .sl,.bg-s .sl{color:var(--ink3)}
+.bd .sl,.bg-t .sl{color:var(--dk-cream3)}
+
+/* — SWOT — */
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin:26px 0;border-radius:8px;overflow:hidden}
+.sw{padding:20px 18px}
+.sw h4{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.sw ul{list-style:none}
+.sw ul li{font-size:13.5px;line-height:1.6;padding:3px 0;border-bottom:1px solid rgba(0,0,0,.05)}
+.sw ul li:last-child{border-bottom:none}
+.sw ul li::before{content:'· ';font-weight:700}
+.sw-s{background:#eaf8f5}.sw-s h4{color:var(--teal)}.sw-s li{color:var(--ink2)}.sw-s li::before{color:var(--teal)}
+.sw-w{background:#fff5f0}.sw-w h4{color:var(--saffron)}.sw-w li{color:var(--ink2)}.sw-w li::before{color:var(--saffron)}
+.sw-o{background:#fdf8ed}.sw-o h4{color:#7a5200}.sw-o li{color:var(--ink2)}.sw-o li::before{color:#b87800}
+.sw-t{background:#f8f4f4}.sw-t h4{color:var(--rose)}.sw-t li{color:var(--ink2)}.sw-t li::before{color:var(--rose)}
+
+/* — VERDICT — */
+.verdict{
+  background:var(--night2);
+  position:relative;overflow:hidden;
+}
+.verdict::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 20% 50%,rgba(10,158,138,.10) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 50% at 85% 20%,rgba(232,130,12,.09) 0%,transparent 50%);
+  animation:meshPulse 10s ease-in-out infinite alternate;
+}
+.vi{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:88px 44px 96px}
+.v-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--saffron2);margin-bottom:18px}
+.v-title{font-family:var(--serif);font-size:clamp(34px,5vw,60px);font-weight:300;line-height:.97;letter-spacing:-.03em;color:var(--dk-cream);margin-bottom:14px}
+.v-title strong{font-weight:700;display:block}
+.v-title em{font-style:italic;color:var(--teal2)}
+.v-rule{width:44px;height:2px;background:linear-gradient(90deg,var(--saffron2),var(--teal2));margin:26px 0}
+.v-body p{font-family:var(--serif);font-size:19px;font-weight:400;color:var(--dk-cream2);line-height:1.78;margin-bottom:22px}
+.v-body p strong{color:var(--dk-cream);font-weight:600}
+.v-body p em{color:var(--saffron2);font-style:italic}
+.v-sig{margin-top:48px;padding-top:24px;border-top:1px solid var(--dk-rule);display:flex;align-items:center;gap:14px}
+.v-sig-m{font-family:var(--serif);font-size:26px;font-weight:700;font-style:italic;color:var(--saffron2)}
+.v-sig-t{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dk-cream3)}
+
+/* — FOOTER — */
+.footer{background:var(--night3);border-top:1px solid var(--dk-rule);padding:44px 0 28px}
+.fi{max-width:860px;margin:0 auto;padding:0 44px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px}
+.fb{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--dk-cream);margin-bottom:6px}
+.fb span{font-style:italic;color:var(--saffron2);font-weight:400}
+.fsub{font-size:13px;color:var(--dk-cream3);max-width:280px;font-weight:300}
+.flinks{display:flex;gap:18px;flex-wrap:wrap;padding-top:4px}
+.flinks a{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--dk-cream3);text-decoration:none;transition:color .2s}
+.flinks a:hover{color:var(--saffron2)}
+.fcopy{max-width:860px;margin:26px auto 0;padding:18px 44px 0;border-top:1px solid var(--dk-rule);font-family:var(--mono);font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--dk-cream3)}
+.fcopy span{color:var(--saffron2)}
+
+/* — FAB — */
+.fab{position:fixed;bottom:26px;right:26px;z-index:50;width:42px;height:42px;border-radius:50%;background:var(--saffron);border:none;color:#fff;font-size:15px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(232,130,12,.35)}
+.fab:hover{background:var(--saffron-deep);transform:translateY(-2px)}
+
+/* — REVEAL ANIMATIONS — */
+@keyframes riseUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.r{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
+.r.v{opacity:1;transform:translateY(0)}
+.r.d1{transition-delay:.07s}
+.r.d2{transition-delay:.14s}
+
+/* — ACCENT DIVIDER — */
+.div-rule{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--saffron),var(--teal),transparent)}
+
+@media(max-width:700px){
+  .cover-inner,.bi,.vi,.fi{padding-left:20px;padding-right:20px}
+  .nav{padding:0 20px}
+  .cover-stats{flex-wrap:wrap;gap:16px}
+  .cs{border-right:none;margin-right:0;padding-right:0}
+  .swot{grid-template-columns:1fr}
+  .fi{flex-direction:column}
+  .nav-badges .badge-t{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">Founder<span>Lens</span></div>
+  <div class="nav-badges">
+    <span class="badge badge-s">Company Analysis</span>
+    <span class="badge badge-t">RegisterKaro · 2025</span>
+  </div>
+</nav>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="cover-mesh"></div>
+  <div class="cover-dots"></div>
+  <div class="cover-inner">
+    <div class="cover-kicker">
+      <span class="kicker-pill">FounderLens · LegalTech India</span>
+      <div class="kicker-sep"></div>
+      <span class="kicker-txt">Strategy · Operations · Competitive Moat</span>
+    </div>
+    <h1 class="cover-title">
+      RegisterKaro
+      <em>Compliance Made for <br>the 99% of India <br>Ignored by Everyone Else</em>
+    </h1>
+    <p class="cover-sub">
+      A 5-year-old bootstrapped startup serving <strong>50,000+ businesses</strong> across India — from Bengaluru boardrooms to Tier 3 towns that big CA firms never bothered with. Here's how they built a serious business in one of India's most underestimated categories.
+    </p>
+    <div class="cover-stats">
+      <div class="cs"><div class="cs-val"><em>₹10.3Cr</em></div><div class="cs-lbl">FY24 Revenue</div></div>
+      <div class="cs"><div class="cs-val"><em>538%</em></div><div class="cs-lbl">1-Yr Revenue CAGR</div></div>
+      <div class="cs"><div class="cs-val"><em>50,000+</em></div><div class="cs-lbl">Clients Served</div></div>
+      <div class="cs"><div class="cs-val"><em>500+</em></div><div class="cs-lbl">Team Size (2025)</div></div>
+    </div>
+    <div class="cover-chips">
+      <span class="chip chip-t">LegalTech</span>
+      <span class="chip chip-t">Compliance Platform</span>
+      <span class="chip chip-s">Bengaluru · 2021</span>
+      <span class="chip chip-s">Bootstrapped</span>
+      <span class="chip chip-r">Tier 2 &amp; 3 Focus</span>
+      <span class="chip">2,000+ Clients/Month</span>
+    </div>
+  </div>
+</section>
+
+<div class="div-rule"></div>
+
+<!-- S01 — OVERVIEW — warm white -->
+<div class="band bw" id="s01">
+  <div class="bi r">
+    <div class="sn">01 — Company Overview</div>
+    <h2 class="st">What RegisterKaro <em>Actually Does</em></h2>
+    <p class="lead">RegisterKaro is an online platform that helps entrepreneurs, startups, and small businesses handle everything legal and financial — from registering a company on Day 1 to staying compliant every year after. Think of it as a full-service CA, CS, and legal desk, accessible online, at a fraction of the traditional cost.</p>
+    <p>The company's legal entity is <strong>Safe Ledger Private Limited</strong>, incorporated in May 2021, headquartered in Bengaluru with offices in Gurugram, Jaipur, and operations extending to the UAE and UK. Its 500+ member team includes Chartered Accountants, Company Secretaries, and legal professionals — not just software engineers.</p>
+    <p>RegisterKaro operates in what is broadly called the <strong>LegalTech and Compliance-as-a-Service</strong> space. But unlike pure software plays, it is a human-tech hybrid: technology handles the workflow and client communication; professionals deliver the actual compliance work. This hybrid model is what lets it serve complex needs at scale.</p>
+    <div class="co co-t">
+      <div class="co-lbl">Why It Matters</div>
+      <p>India registers millions of new businesses every year. Every single one needs a company secretary, a CA for taxes, and periodic filings with the MCA, GST department, and trademark office. The traditional system of hiring separate professionals for each was expensive, fragmented, and inaccessible outside major cities. <strong>RegisterKaro built one door for all of it.</strong></p>
+    </div>
+    <div class="strip">
+      <div class="sc h"><div class="sv">₹10.3Cr</div><div class="sl">FY24 Revenue</div></div>
+      <div class="sc"><div class="sv">2021</div><div class="sl">Founded</div></div>
+      <div class="sc h"><div class="sv">50,000+</div><div class="sl">Clients</div></div>
+      <div class="sc"><div class="sv">2,000+</div><div class="sl">New Clients/Month</div></div>
+      <div class="sc h"><div class="sv">500+</div><div class="sl">Team (2025)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- S02 — CORE PROBLEM — off white -->
+<div class="band bs" id="s02">
+  <div class="bi r">
+    <div class="sn">02 — The Core Problem</div>
+    <h2 class="st">A Problem Hidden in <em>Plain Sight</em></h2>
+    <p class="lead">Starting a business in India is not the hard part. Staying legal after starting one — that's where millions of entrepreneurs quietly fail, not from bad ideas, but from paperwork they couldn't afford to manage.</p>
+    <p>The traditional compliance ecosystem in India was built for big companies with in-house legal teams. For everyone else — the solo founder, the first-time entrepreneur, the shopkeeper in Coimbatore who wanted to register as a Private Limited company — the options were:</p>
+    <ul class="al">
+      <li><strong>Hire a local CA</strong> at opaque pricing, with no platform, no tracking, and inconsistent quality.</li>
+      <li><strong>Attempt it alone</strong> and get overwhelmed by the MCA portal, ROC filings, and GSTIN jargon.</li>
+      <li><strong>Skip compliance</strong> and accumulate penalties that surface years later at the worst possible time.</li>
+    </ul>
+    <p>The market gap RegisterKaro identified wasn't just about price — it was about <mark>trust, clarity, and accessibility</mark>. Entrepreneurs didn't know what they needed, who to trust, or what it should cost. This information asymmetry was the actual problem.</p>
+    <div class="co co-s">
+      <div class="co-lbl">The Hidden Opportunity</div>
+      <p>India had 159,000+ DPIIT-recognised startups by 2024 and tens of millions of MSMEs. Every one of them has annual compliance obligations. <strong>But most compliance service providers only actively marketed to large businesses</strong>. The small business segment was vast, underserved, and actively looking for something easier. <span class="ft t">Market Gap</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- S03 — TIMING — dark -->
+<div class="band bd" id="s03">
+  <div class="bi r">
+    <div class="sn">03 — Market Timing</div>
+    <h2 class="st">Why 2021 Was <em>Exactly Right</em></h2>
+    <p class="lead">RegisterKaro launched in the middle of three converging forces — India's startup boom, the post-COVID digitisation wave, and a government push to formalise small businesses. The timing was not luck. It was legible to anyone paying attention.</p>
+    <p><strong>The Startup India Wave:</strong> India's DPIIT-recognised startup count exploded in the early 2020s. Each new startup needed company incorporation, GST registration, and trademark protection from the very first month. RegisterKaro walked into a market that was growing by thousands of new potential customers every week.</p>
+    <p><strong>Post-COVID Digitisation:</strong> The pandemic taught Indian entrepreneurs that professional services could be delivered online. CA firms that refused to go digital lost clients. Founders who discovered they could get filings done remotely never went back to walking into a CA's office. RegisterKaro's entirely online delivery model arrived just as this mindset shift was cementing. <span class="ft">Market Timing</span></p>
+    <p><strong>India's Formalisation Push:</strong> Government programs like Startup India, MSME registration, and simplified GST compliance were actively encouraging businesses to register formally. Demand for registration services was being generated at the policy level — RegisterKaro just had to be there to capture it.</p>
+    <div class="co co-t">
+      <div class="co-lbl">The Tier 3 Shift</div>
+      <p>By 2024, <mark class="t">72% of India's internet users were from non-metro areas</mark>. Entrepreneur activity was decentralising fast — from Bengaluru and Mumbai toward Coimbatore, Jaipur, Lucknow, and beyond. <strong>RegisterKaro was building for Tier 3 from Day 1, before most competitors realised that was where the volume was heading.</strong> <span class="ft">Proactive Strategy</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- S04 — BUSINESS MODEL — saffron gradient -->
+<div class="band bg-s" id="s04">
+  <div class="bi r">
+    <div class="sn">04 — Business Model</div>
+    <h2 class="st">How RegisterKaro <em>Makes Money</em></h2>
+    <p class="lead">RegisterKaro runs a dual-track model: one-time service fees for registrations and filings, and recurring annual packages for ongoing compliance. The first sale brings a client in. The second, third, and fourth keep them there — profitably.</p>
+    <p>The model works in three interlocking layers:</p>
+    <ul class="al">
+      <li><strong>One-Time Services:</strong> Company incorporation (Pvt Ltd, LLP, OPC, Partnership, NGO), GST registration, trademark filing, FSSAI licensing, MSME registration, DPIIT recognition. Clients pay a flat fee per service, with no ambiguity.</li>
+      <li><strong>Annual Compliance Packages:</strong> ROC filings, income tax returns, GST monthly/quarterly filings, bookkeeping, payroll. These create recurring, predictable revenue that compounds as the client base grows.</li>
+      <li><strong>eCFO &amp; Advisory:</strong> Fractional CFO, CA, and CS services for businesses that need ongoing financial strategy but can't justify a full-time hire. This is the highest-value, highest-trust layer of the model.</li>
+    </ul>
+    <div class="co co-s">
+      <div class="co-lbl">The Compounding Effect</div>
+      <p>A company that incorporates through RegisterKaro in Year 1 needs GST filings, annual ROC compliance, and income tax returns every single year after that. <strong>Every new client is not just a one-time transaction — it's a multi-year revenue relationship that requires zero additional acquisition cost.</strong> This is what drove the 1,589% EBITDA CAGR in FY24. <span class="ft">Recurring Revenue Model</span></p>
+    </div>
+    <div class="co co-t">
+      <div class="co-lbl">The MSME Loan Opportunity</div>
+      <p>RegisterKaro also assists businesses with MSME loan applications (Priority Sector Lending). This adds a fee-based revenue stream while deepening client dependency — they now trust RegisterKaro not just with compliance but with access to capital.</p>
+    </div>
+    <div class="strip">
+      <div class="sc h"><div class="sv">₹24.5L</div><div class="sl">FY22 Revenue</div></div>
+      <div class="sc"><div class="sv" style="color:var(--saffron)">→</div><div class="sl">2 Yrs Later</div></div>
+      <div class="sc h"><div class="sv">₹10.3Cr</div><div class="sl">FY24 Revenue</div></div>
+      <div class="sc"><div class="sv">1,589%</div><div class="sl">EBITDA CAGR</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- S05 — PRODUCT & UX — teal gradient -->
+<div class="band bg-t" id="s05">
+  <div class="bi r">
+    <div class="sn">05 — Product &amp; User Experience</div>
+    <h2 class="st">Why Clients Choose <em>This Over a Local CA</em></h2>
+    <p class="lead">RegisterKaro doesn't win on price alone — though it is more affordable than traditional CA firms. It wins on clarity. On visibility. On the ability to track your compliance status without making a phone call and hoping someone picks up.</p>
+    <p>The core product is the <a href="https://portal.registerkaro.in" target="_blank"> <strong>client platform</strong> </a>— an online interface (and now a mobile app, launched August 2025) where business owners can see exactly what's been filed, what's pending, and what's due next. For founders who previously had to trust a CA blindly and learn about problems only when penalties arrived, this visibility is transformative.</p>
+    <p>The RegisterKaro mobile app offers: <mark>automated deadline tracking</mark>, compliance education content, a service request portal, and a support ticket system — all in one place. The App Store listing describes it as "complexity? Gone." That framing is deliberate and accurate.</p>
+    <div class="co co-t">
+      <div class="co-lbl">The Trust Problem Solved</div>
+      <p>Compliance is a high-trust category. Clients are handing over sensitive financial data, company documents, and tax credentials. RegisterKaro's team of verified CAs and CSes — not anonymous contractors — handles this work. <strong>Credentialed professionals + digital transparency = a trust model that traditional offline CAs struggle to replicate.</strong> <span class="ft">Product Differentiation</span></p>
+    </div>
+    <div class="pq">
+      <blockquote>"Platform is user friendly and giving realistic updates. Team is quick and supported a lot for startups like us."</blockquote>
+      <cite>— Verified Trustpilot review (RegisterKaro: 3.8/5 from 2,400+ reviews)</cite>
+    </div>
+    <p>With a 3.8/5 rating across 2,400+ reviews, RegisterKaro shows a service that is genuinely working for most clients. The reviews also signal the next frontier: communication consistency and delivery speed at scale — areas the company is actively investing in.</p>
+  </div>
+</div>
+
+<!-- S06 — GROWTH — warm white -->
+<div class="band bw" id="s06">
+  <div class="bi r">
+    <div class="sn">06 — Growth &amp; Distribution</div>
+    <h2 class="st">Growing at 2,000 <em>Clients a Month</em></h2>
+    <p class="lead">RegisterKaro onboards more than 2,000 new businesses every month. For a 5-year-old bootstrapped company, that's not luck — it's a distribution model built on three compounding levers.</p>
+    <p><strong>Search-First Content:</strong> RegisterKaro has built a comprehensive library of guides, explainers, and service pages targeting entrepreneurs searching "how to register a private limited company in India," "GST registration cost," "trademark filing process," and similar queries. This SEO-driven content strategy turns Google into a free acquisition channel. <span class="ft s">Inbound Distribution</span></p>
+    <p><strong>Referral from Served Clients:</strong> India's startup community is relationship-dense. A founder who gets their incorporation done smoothly by RegisterKaro tells two other founders in their network. In a trust-sensitive category, word-of-mouth is the most powerful growth channel — and it costs nothing. <span class="ft">Referral Loop</span></p>
+    <p><strong>Free-to-Paid via the App:</strong> The compliance app launched in 2025 gives free access to compliance education and deadline tracking. This creates a funnel: a founder downloads the free app, realises they need professional support for an upcoming filing, and books a service. The app converts education into revenue.</p>
+    <div class="co co-s">
+      <div class="co-lbl">The Bharat Strategy</div>
+      <p>RegisterKaro made an explicit decision to serve Tier 3 cities and rural entrepreneurs — not as a charity mission, but as a <strong>business strategy</strong>. These are underserved markets where competition is thin, trust is everything, and once earned, clients are extraordinarily loyal. <span class="ft">Blue Ocean Positioning</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- S07 — OPERATIONS — off white -->
+<div class="band bs" id="s07">
+  <div class="bi r">
+    <div class="sn">07 — Operational Strategy</div>
+    <h2 class="st">500 Professionals, <em>One Workflow</em></h2>
+    <p class="lead">The compliance business is fundamentally a people business. You need qualified CAs and CSes to do the actual work. RegisterKaro's operational strategy is built around one question: how do you make a team of 500 professionals operate with the consistency and speed of a software platform?</p>
+    <p><strong>Standardised Service Delivery:</strong> Unlike a traditional CA firm where each professional has their own process and pricing, RegisterKaro has built standardised workflows for every service. A company incorporation follows the same steps whether the client is in Bengaluru or Bhilai. This consistency is what lets them scale without quality degrading linearly. <span class="ft">Operational Efficiency</span></p>
+    <p><strong>Tech-Enabled Case Management:</strong> The client app and internal systems allow professionals to manage multiple client files simultaneously with deadline tracking, document management, and communication logs built in. This increases output per professional — allowing the company to serve 50,000+ clients with a team of 500. <span class="ft">Leverage Through Systems</span></p>
+    <div class="co co-s">
+      <div class="co-lbl">The Team Profile Advantage</div>
+      <p>RegisterKaro's 500-person team includes Chartered Accountants, Company Secretaries, and legal experts — not freelancers or call centre agents. <strong>The professional credentials of the team are part of the product itself.</strong> This is what allows them to charge premium prices relative to purely AI/software-based alternatives.</p>
+    </div>
+    <div class="co co-t">
+      <div class="co-lbl">Offices Across Geographies</div>
+      <p>With offices in Bengaluru, Gurugram, Jaipur, and now UAE and UK, RegisterKaro is building delivery infrastructure outside just one city — a smart operational hedge against talent concentration risk.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S08 — COMPETITIVE ADVANTAGE — dark -->
+<div class="band bd" id="s08">
+  <div class="bi r">
+    <div class="sn">08 — Competitive Advantage</div>
+    <h2 class="st">What Makes RegisterKaro <em>Hard to Displace</em></h2>
+    <p class="lead">RegisterKaro's competitive advantage is not any single feature. It's the combination of domain credibility, client data, recurring relationships, and Tier 3 distribution that together create a moat competitors can't easily copy.</p>
+    <ul class="al t">
+      <li><strong>Professional Credibility:</strong> All three founders are Chartered Accountants. The leadership team's own qualifications give clients a reason to trust the platform that a purely tech-built competitor can't replicate overnight. <span class="ft t">Founder-as-Product</span></li>
+      <li><strong>Client Relationship Stickiness:</strong> Once a client's company is incorporated through RegisterKaro, switching compliance providers means transferring documents, reauthorising professionals, and risking disruptions to ongoing filings. Most clients don't switch. <span class="ft">Switching Costs</span></li>
+      <li><strong>Bundled Services:</strong> Most competitors specialise in one vertical — just incorporation, or just GST. RegisterKaro bundles them all. For a founder, the convenience of one trusted platform for all compliance needs is worth paying a slight premium for. <span class="ft">Bundling Strategy</span></li>
+      <li><strong>Tier 3 Distribution:</strong> The big national CA firms and established LegalTech players are primarily metro-focused. RegisterKaro's Tier 3 focus means it faces less competition in markets that are growing the fastest. <span class="ft">Underserved Market Positioning</span></li>
+      <li><strong>Compliance App as a Moat:</strong> Free tools that create value lock users in. A founder who uses the RegisterKaro app daily for deadline tracking is not thinking about a competitor — and when a filing deadline approaches, they book through the same platform they've been using. <span class="ft">Habit Formation</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- S09 — STRATEGY — saffron gradient -->
+<div class="band bg-s" id="s09">
+  <div class="bi r">
+    <div class="sn">09 — Strategic Analysis</div>
+    <h2 class="st">The Strategy <em>Behind the Growth</em></h2>
+    <p class="lead">RegisterKaro is pursuing a strategy that most competitors underestimate: building distribution in markets that are growing, before those markets get crowded.</p>
+    <p>Most legal and compliance platforms in India serve the same segment — funded startups in Bengaluru, Delhi, and Mumbai. These are premium clients who are also fiercely contested. RegisterKaro targets the broader base: first-time founders, MSMEs, and rural entrepreneurs who generate less revenue per client but far less competition and far higher loyalty. <span class="ft">Porter's Cost + Differentiation Hybrid</span></p>
+    <p>The compliance market in India has one structural advantage: it <mark>never shrinks</mark>. Every company that incorporates has compliance obligations forever. This creates a compounding installed base — each year, RegisterKaro's recurring revenue base grows by thousands of new clients without any of the existing ones churning. <span class="ft">Economies of Scale</span></p>
+    <div class="swot">
+      <div class="sw sw-s"><h4>Strengths</h4><ul><li>Bundled one-stop platform</li><li>CA-led credentialed team</li><li>Tier 3 market first-mover</li><li>538% revenue CAGR (FY24)</li><li>50,000+ loyal client base</li></ul></div>
+      <div class="sw sw-w"><h4>Weaknesses</h4><ul><li>Still sub-₹15Cr revenue</li><li>Service quality at scale challenge</li><li>Brand awareness remains limited</li><li>Dependent on professional talent</li></ul></div>
+      <div class="sw sw-o"><h4>Opportunities</h4><ul><li>India's formalisation wave</li><li>UAE &amp; international expansion</li><li>AI-assisted compliance tools</li><li>Millions of unserved MSMEs</li></ul></div>
+      <div class="sw sw-t"><h4>Threats</h4><ul><li>Well-funded competitors scaling</li><li>AI disrupting professional roles</li><li>GST portal self-filing improving</li><li>Talent retention at growth scale</li></ul></div>
+    </div>
+    <div class="co co-s">
+      <div class="co-lbl">The Bootstrapped Discipline</div>
+      <p>RegisterKaro has raised no external funding. Growing from ₹24.5 Lakh in FY22 to ₹10.3 Cr in FY24 without investor capital means every rupee of growth was earned from clients, not subsidised by VCs. <strong>This forces operational discipline that funded competitors often lack.</strong> <span class="ft">Capital-Efficient Growth</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- S10 — RISKS — teal gradient -->
+<div class="band bg-t" id="s10">
+  <div class="bi r">
+    <div class="sn">10 — Key Risks &amp; Weaknesses</div>
+    <h2 class="st">What Could <em>Slow Them Down</em></h2>
+    <p class="lead">RegisterKaro is growing impressively for its age. But the challenges ahead are real — and being honest about them is part of what makes an analysis useful.</p>
+    <ul class="al">
+      <li><strong>Quality Consistency at Scale:</strong> Going from 50 clients to 50,000 is very different from going to 500,000. As the team grows beyond 500, maintaining the same quality of compliance work — no missed deadlines, no filing errors, consistent communication — becomes the central operational challenge. One high-profile compliance failure can damage a brand that took years to build.</li>
+      <li><strong>Funded Competition Scaling Fast:</strong> India's LegalTech sector saw a 781% surge in VC funding in 2025. Well-capitalised competitors like Indiafilings, Vakilsearch, and emerging AI-native platforms are actively targeting the same SME segment. RegisterKaro's cost of staying competitive will rise.</li>
+      <li><strong>AI Disrupting Core Services:</strong> AI tools are making company incorporation, GST filing, and basic compliance increasingly self-serviceable. If the government's own portals get significantly better, RegisterKaro's value proposition in basic registrations compresses. Their response — moving up the value chain to eCFO and advisory — is the right strategy, but execution will matter.</li>
+      <li><strong>Professional Talent Risk:</strong> The product is people. If RegisterKaro can't attract and retain qualified CAs and CSes at competitive salaries — challenging at their current revenue scale — service quality suffers. Employee reviews note payroll as a concern.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- S11 — INDUSTRY IMPACT — warm white -->
+<div class="band bw" id="s11">
+  <div class="bi r">
+    <div class="sn">11 — Industry Impact</div>
+    <h2 class="st">What RegisterKaro <em>Changed for Indian Entrepreneurs</em></h2>
+    <p class="lead">RegisterKaro didn't invent legal services. It changed the expectation of what getting legal services should feel like — and that shift in expectation is now forcing the whole industry to adapt.</p>
+    <p>Before platforms like RegisterKaro, India's small business compliance market operated on asymmetric information. Founders didn't know the right price, the right process, or whether their CA was doing it correctly. RegisterKaro broke this asymmetry by publishing transparent pricing, standardising service delivery, and giving clients real-time visibility into what was happening with their filings.</p>
+    <div class="co co-t">
+      <div class="co-lbl">The Standardisation Effect</div>
+      <p>When RegisterKaro publishes a flat price of ₹X for a private limited company registration, every local CA in that city is implicitly forced to justify any price higher than that. <strong>Transparent pricing by one platform creates price pressure across an entire offline industry.</strong> This is the market-making effect that online platforms typically have — and it benefits millions of entrepreneurs who never use RegisterKaro directly. <span class="ft">Market Disruption by Transparency</span></p>
+    </div>
+    <p>RegisterKaro's free compliance app — launched in 2025 with compliance education and deadline tracking — extends this impact further. <strong>They are building financial literacy infrastructure</strong> for India's next generation of entrepreneurs, the majority of whom will never set foot in Bengaluru or Mumbai.</p>
+  </div>
+</div>
+
+<!-- S12 — LESSONS — off white -->
+<div class="band bs" id="s12">
+  <div class="bi r">
+    <div class="sn">12 — Lessons For Builders</div>
+    <h2 class="st">What RegisterKaro <em>Actually Teaches</em></h2>
+    <p class="lead">RegisterKaro's story is not about one magical product insight. It's about consistently making decisions that most builders in the same space weren't willing to make.</p>
+    <ul class="al">
+      <li><strong>Go where the competition isn't — yet.</strong> The metros are crowded. Tier 3 cities are growing, underserved, and more loyal once you earn trust. The most durable businesses are often built in markets that incumbents have dismissed as "not worth it."</li>
+      <li><strong>Recurring revenue beats one-time revenue every time.</strong> RegisterKaro didn't try to be an event — a one-time incorporation service. It positioned itself as a permanent partner through annual compliance packages. Design your pricing to create relationships, not transactions.</li>
+      <li><strong>In trust-sensitive categories, credibility is the product.</strong> The CA qualifications of the RegisterKaro founders and team are not just background information — they are the reason clients trust the platform. In legal, medical, or financial services, the qualifications of your people are your product differentiation. <span class="ft">Credibility as Moat</span></li>
+      <li><strong>Free tools are the best sales team you never have to manage.</strong> The free compliance app creates daily habits that convert to paid services. Build something genuinely useful for free, and your users will show up when they need to pay.</li>
+      <li><strong>Bootstrapping forces you to be profitable faster.</strong> RegisterKaro's journey from ₹24.5 Lakh to ₹10.3 Cr without external funding meant every service had to justify its economics. The EBITDA CAGR of 1,589% is what capital efficiency looks like.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- VERDICT -->
+<section class="verdict" id="verdict">
+  <div class="vi r">
+    <div class="v-lbl">13 — FounderLens Verdict</div>
+    <h2 class="v-title">
+      Not a Tech Startup.<br>
+      <em>A Trust Machine</em><br>
+      <strong>Built for Bharat</strong>
+    </h2>
+    <div class="v-rule"></div>
+    <div class="v-body">
+      <p>RegisterKaro matters not because of its current revenue size, but because of what it represents: <strong>proof that a services business built with genuine domain expertise, targeting genuinely underserved customers, can grow at hyperspeed without venture capital and without compromising on quality</strong>.</p>
+      <p>What truly makes RegisterKaro powerful is the combination that competitors struggle to replicate simultaneously — <em>professional credibility, transparent pricing, digital delivery, and Tier 3 reach</em>. Each one is replicable individually. All four together, with a bootstrapped team of 500 credentialed professionals, is significantly harder to build from scratch.</p>
+      <p>The compliance market in India is not a small opportunity being disrupted. It is a <strong>permanent, compounding, never-shrinking market</strong> — every company that incorporates is a recurring revenue client for as long as they operate. RegisterKaro is building the installed base. The question is whether it can defend and expand it as competition intensifies and AI changes the service delivery equation.</p>
+      <p>But at 4 years old, with 50,000 clients, ₹10.3 Cr in revenue, and a 538% growth rate — <em>bootstrapped</em> — RegisterKaro has already earned the right to be studied seriously. The verdict is clear: this is a company that found the right problem, built the right team, went to the right markets, and did it on its own terms.</p>
+      <p><strong>That combination, in any industry, is rare enough to pay attention to.</strong></p>
+    </div>
+    <div class="v-sig">
+      <div class="v-sig-m">FL</div>
+      <div class="v-sig-t">FounderLens · RegisterKaro Strategic Analysis · May 2026<br>Business intelligence explained simply through real companies</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="fi">
+    <div>
+      <div class="fb">Founder<span>Lens</span></div>
+      <div class="fsub">Business intelligence explained simply through world-class companies</div>
+    </div>
+    <div class="flinks">
+      <a href="#">All Analyses</a>
+      <a href="#">Founder Stories</a>
+      <a href="#">Strategy Library</a>
+      <a href="#">Subscribe</a>
+    </div>
+  </div>
+  <div class="fcopy">
+    <span>FounderLens</span> · RegisterKaro Company Analysis · May 2026 · Educational purposes · Data from public filings, Tracxn, Indian Startup News, The Quint
+  </div>
+</footer>
+
+<button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// Progress bar
+const bar = document.getElementById('bar');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  bar.style.width = pct + '%';
+}, { passive: true });
+
+// Scroll reveal
+const els = document.querySelectorAll('.r');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('v');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -36px 0px' });
+els.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
