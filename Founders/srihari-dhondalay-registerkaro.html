@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Srihari R Dhondalay — The CA Who Made Compliance Effortless for India's Startups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:        #00c9a7;
+  --teal-dark:   #009e84;
+  --teal-deeper: #006b5a;
+  --teal-pale:   rgba(0,201,167,0.10);
+  --amber:       #e8951a;
+  --amber-pale:  rgba(232,149,26,0.10);
+  --coral:       #e8554a;
+  --coral-pale:  rgba(232,85,74,0.09);
+  --violet:      #6d28d9;
+  --violet-pale: rgba(109,40,217,0.09);
+  --navy:        #0d1b3e;
+  --navy2:       #111f47;
+  --navy3:       #162558;
+  --navy4:       #1a2c65;
+
+  /* dark section text */
+  --dk-cream:    #f0f4ff;
+  --dk-cream2:   rgba(240,244,255,0.80);
+  --dk-cream3:   rgba(240,244,255,0.50);
+  --dk-rule:     rgba(240,244,255,0.09);
+  /* light section text */
+  --lt-ink:      #0f1c3f;
+  --lt-ink2:     #1e2d5a;
+  --lt-ink3:     rgba(15,28,63,0.65);
+  --lt-rule:     rgba(15,28,63,0.09);
+
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  'DM Sans', sans-serif;
+  --mono:  'Space Mono', monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased;background:#f5f7ff}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:#f5f7ff}
+::-webkit-scrollbar-thumb{background:var(--teal);border-radius:2px}
+
+/* ═══ BANNER ═══ */
+.banner{
+  background:linear-gradient(90deg,#009e84 0%,#0d1b3e 100%);
+  color:#fff;text-align:center;padding:8px 20px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  position:sticky;top:0;z-index:100;
+}
+
+/* ═══ NAV ═══ */
+.nav{
+  background:rgba(13,27,62,0.96);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(240,244,255,0.07);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:60px;position:sticky;top:33px;z-index:99;
+}
+.nav-brand{font-family:var(--serif);font-size:17px;font-weight:700;color:#f0f4ff;display:flex;align-items:center;gap:10px}
+.nav-brand-dot{width:8px;height:8px;border-radius:50%;background:var(--teal);display:inline-block;box-shadow:0 0 8px var(--teal)}
+.nav-chips{display:flex;gap:6px;flex-wrap:wrap}
+.nav-chip{
+  font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  padding:5px 12px;border-radius:20px;border:1px solid rgba(240,244,255,0.12);
+  color:rgba(240,244,255,0.5);background:none;cursor:pointer;transition:all .2s;
+}
+.nav-chip:hover{border-color:var(--teal);color:var(--teal);background:rgba(0,201,167,0.08)}
+.nav-cta{
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:#fff;background:var(--teal-dark);padding:8px 18px;border-radius:6px;border:none;cursor:pointer;transition:all .2s;
+}
+.nav-cta:hover{background:var(--teal-deeper);transform:translateY(-1px)}
+
+/* ═══ HERO — dark ═══ */
+.hero{
+  min-height:100vh;display:grid;grid-template-columns:1fr 460px;
+  background:var(--navy);position:relative;overflow:hidden;
+}
+.hero-left{
+  padding:90px 60px 80px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1;
+  background:radial-gradient(ellipse 60% 55% at -5% 55%,rgba(0,201,167,.10) 0%,transparent 60%),
+             radial-gradient(ellipse 40% 40% at 100% 0%,rgba(109,40,217,.07) 0%,transparent 50%);
+}
+.hero-left::after{
+  content:'';position:absolute;right:-2px;top:0;bottom:0;width:80px;
+  background:linear-gradient(to right,transparent,var(--navy2));z-index:2;
+}
+.hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:24px;animation:slideIn .7s ease both}
+.hero-eyebrow-line{width:36px;height:2px;background:var(--teal)}
+.hero-eyebrow-text{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal)}
+.hero-title{font-family:var(--serif);font-size:clamp(40px,5.2vw,70px);font-weight:900;line-height:1.0;letter-spacing:-.025em;margin-bottom:16px;color:var(--dk-cream);animation:slideIn .7s .1s ease both}
+.hero-title em{font-style:italic;color:var(--teal);display:block;font-weight:400}
+.hero-sub{font-size:17px;color:var(--dk-cream2);max-width:520px;line-height:1.7;margin-bottom:40px;font-weight:300;animation:slideIn .7s .2s ease both}
+.hero-sub strong{color:var(--dk-cream);font-weight:500}
+.hero-kpis{display:flex;gap:36px;flex-wrap:wrap;padding:28px 0;border-top:1px solid var(--dk-rule);border-bottom:1px solid var(--dk-rule);margin-bottom:36px;animation:slideIn .7s .3s ease both}
+.kpi-val{font-family:var(--serif);font-size:28px;font-weight:800;color:var(--teal);line-height:1.1}
+.kpi-label{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dk-cream3);margin-top:2px}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;animation:slideIn .7s .35s ease both}
+.hero-tag{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:20px;border:1px solid var(--dk-rule);color:var(--dk-cream3)}
+.hero-tag.teal{border-color:rgba(0,201,167,.4);color:var(--teal);background:var(--teal-pale)}
+.hero-tag.amber{border-color:rgba(232,149,26,.4);color:var(--amber);background:var(--amber-pale)}
+.hero-tag.violet{border-color:rgba(109,40,217,.4);color:#c4b5fd;background:var(--violet-pale)}
+.hero-right{position:relative;overflow:hidden;background:var(--navy2)}
+.hero-right::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 40%,rgba(0,201,167,.12) 0%,transparent 65%);z-index:1}
+.hero-right::after{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(0,201,167,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,201,167,.05) 1px,transparent 1px);
+  background-size:40px 40px;z-index:0;
+}
+.hero-img-frame{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2}
+.founder-photo-wrap{position:relative;width:320px;height:390px}
+.founder-photo-bg{position:absolute;top:20px;left:20px;right:-20px;bottom:-20px;background:linear-gradient(135deg,var(--teal-dark),var(--teal-deeper));border-radius:12px;z-index:1}
+.founder-svg-portrait{width:100%;height:100%;border-radius:12px;position:relative;z-index:2;background:linear-gradient(160deg,var(--navy3),var(--navy4));display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(0,201,167,.15)}
+.photo-badge{position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);background:var(--teal-dark);color:#fff;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:5px 14px;border-radius:20px;white-space:nowrap;z-index:3}
+.hero-float-quote{position:absolute;bottom:40px;left:20px;right:20px;background:rgba(8,15,38,.88);border:1px solid rgba(0,201,167,.3);border-left:3px solid var(--teal);border-radius:8px;padding:16px 18px;z-index:3;backdrop-filter:blur(8px)}
+.hero-float-quote-text{font-family:var(--serif);font-size:14px;font-style:italic;font-weight:400;color:var(--dk-cream2);line-height:1.5;margin-bottom:6px}
+.hero-float-quote-by{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+
+/* ═══ SECTION BANDS ═══
+   Each .band wraps the full-width background.
+   Inside each band sits a .band-inner with the two-column grid (toc col + body col).
+   Only the first band (sec-origin) renders the TOC; others just span the body column.
+*/
+.band{width:100%}
+.band-inner{
+  display:grid;grid-template-columns:220px 1fr;
+  max-width:1140px;margin:0 auto;padding:0 40px;
+}
+/* body col always right */
+.band-body{padding:60px 0 64px 52px}
+/* toc col only shown once */
+.band-toc{
+  padding:60px 28px 60px 0;
+  border-right:1px solid var(--dk-rule);
+  position:sticky;top:93px;
+  height:calc(100vh - 93px);
+  overflow-y:auto;scrollbar-width:none;
+  align-self:start;
+}
+.band-toc::-webkit-scrollbar{display:none}
+
+/* === BAND THEMES === */
+
+/* DARK — navy */
+.band-dark{background:var(--navy)}
+.band-dark .band-toc{border-right-color:var(--dk-rule)}
+.band-dark .toc-heading{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
+.band-dark .toc-item{display:block;width:100%;text-align:left;font-family:var(--sans);font-size:12px;color:var(--dk-cream3);padding:7px 0 7px 12px;border-left:2px solid transparent;background:none;border-top:none;border-right:none;border-bottom:none;cursor:pointer;transition:all .2s;line-height:1.4}
+.band-dark .toc-item:hover{color:var(--dk-cream);border-left-color:rgba(240,244,255,.15)}
+.band-dark .toc-item.active{color:var(--teal);border-left-color:var(--teal)}
+.band-dark .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-bottom:8px}
+.band-dark .sec-title{font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);font-weight:800;color:var(--dk-cream);margin-bottom:24px;padding-bottom:14px;border-bottom:2px solid var(--teal);display:inline-block;line-height:1.15;letter-spacing:-.015em}
+.band-dark .sec-title em{font-style:italic;color:var(--teal);font-weight:400}
+.band-dark .lead{font-family:var(--serif);font-size:19px;font-style:italic;font-weight:400;color:var(--dk-cream2);line-height:1.7;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--dk-rule)}
+.band-dark p{font-size:16px;color:var(--dk-cream2);line-height:1.8;margin-bottom:18px;font-weight:300}
+.band-dark p strong{color:var(--dk-cream);font-weight:500}
+.band-dark mark{background:rgba(0,201,167,.15);color:var(--teal);padding:1px 6px;border-radius:3px}
+.band-dark .subsec-title{font-family:var(--serif);font-size:21px;font-weight:600;color:var(--dk-cream2);margin-top:32px;margin-bottom:12px;letter-spacing:-.01em}
+.band-dark .info-key{color:var(--teal)}
+.band-dark .info-key.amber{color:var(--amber)}
+.band-dark .info-key.violet{color:#c4b5fd}
+.band-dark .info-val{color:var(--dk-cream2)}
+.band-dark .info-val strong{color:var(--dk-cream)}
+.band-dark .info-row{border-bottom-color:var(--dk-rule)}
+.band-dark .tl-dot{background:var(--navy3);border-color:rgba(0,201,167,.3);color:var(--teal)}
+.band-dark .tl-dot.amber{border-color:rgba(232,149,26,.3);color:var(--amber)}
+.band-dark .tl-dot.coral{border-color:rgba(232,85,74,.3);color:var(--coral)}
+.band-dark .tl-item::before{background:var(--dk-rule)}
+.band-dark .tl-content strong{color:var(--dk-cream)}
+.band-dark .tl-content p{color:var(--dk-cream3)}
+.band-dark .callout-teal{background:rgba(0,201,167,.07);border-left:3px solid var(--teal)}
+.band-dark .callout-teal .callout-label{color:var(--teal)}
+.band-dark .callout-teal p{color:var(--dk-cream2)}
+.band-dark .callout-teal p strong{color:var(--dk-cream)}
+.band-dark .pq{border-left:3px solid var(--teal);background:rgba(0,201,167,.06)}
+.band-dark .pq blockquote{color:var(--dk-cream)}
+.band-dark .pq cite{color:var(--teal)}
+.band-dark .alist li{color:var(--dk-cream2);border-bottom-color:var(--dk-rule)}
+.band-dark .alist li::before{color:var(--teal)}
+.band-dark .alist.amber li::before{color:var(--amber)}
+.band-dark .alist.coral li::before{color:var(--coral)}
+.band-dark .alist li strong{color:var(--dk-cream)}
+.band-dark .stat-card{background:var(--navy3)}
+.band-dark .stat-card.teal-bg{background:linear-gradient(135deg,rgba(0,201,167,.12),var(--navy3))}
+.band-dark .stat-card.amber-bg{background:linear-gradient(135deg,rgba(232,149,26,.10),var(--navy3))}
+.band-dark .stat-card.violet-bg{background:linear-gradient(135deg,rgba(109,40,217,.10),var(--navy3))}
+.band-dark .stats-strip{background:var(--dk-rule)}
+.band-dark .final-box{background:linear-gradient(135deg,rgba(0,201,167,.05),rgba(109,40,217,.05));border:1px solid rgba(0,201,167,.12)}
+.band-dark .final-box h3{color:var(--dk-cream);font-style:italic}
+.band-dark .final-box p{color:var(--dk-cream2)}
+.band-dark .final-box p strong{color:var(--teal)}
+.band-dark .footnote{color:var(--dk-cream3);border-top-color:var(--dk-rule)}
+.band-dark .revision{background:var(--navy3);border:1px solid rgba(0,201,167,.12)}
+.band-dark .revision h3{color:var(--dk-cream)}
+.band-dark .qr-label{color:var(--teal)}
+.band-dark .qr-val{color:var(--dk-cream2)}
+.band-dark .qr-item{border-bottom-color:var(--dk-rule)}
+.band-dark .sum-table th{background:var(--navy3);color:var(--teal);border-bottom:2px solid rgba(0,201,167,.2)}
+.band-dark .sum-table td{border-bottom-color:var(--dk-rule);color:var(--dk-cream2)}
+.band-dark .sum-table td:first-child{color:var(--teal)}
+.band-dark .sum-table tr:nth-child(even) td{background:rgba(240,244,255,.02)}
+
+/* LIGHT — clean white */
+.band-light{background:#ffffff}
+.band-light .band-body{border-left:1px solid var(--lt-rule)}
+.band-light .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal-dark);margin-bottom:8px}
+.band-light .sec-title{font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);font-weight:800;color:var(--lt-ink);margin-bottom:24px;padding-bottom:14px;border-bottom:2px solid var(--teal-dark);display:inline-block;line-height:1.15;letter-spacing:-.015em}
+.band-light .sec-title em{font-style:italic;color:var(--teal-dark);font-weight:400}
+.band-light .lead{font-family:var(--serif);font-size:19px;font-style:italic;font-weight:400;color:var(--lt-ink2);line-height:1.7;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--lt-rule)}
+.band-light p{font-size:16px;color:var(--lt-ink2);line-height:1.8;margin-bottom:18px;font-weight:300}
+.band-light p strong{color:var(--lt-ink);font-weight:600}
+.band-light mark{background:rgba(0,158,132,.12);color:var(--teal-deeper);padding:1px 6px;border-radius:3px}
+.band-light .subsec-title{font-family:var(--serif);font-size:21px;font-weight:600;color:var(--lt-ink);margin-top:32px;margin-bottom:12px;letter-spacing:-.01em}
+.band-light .info-key{color:var(--teal-dark)}
+.band-light .info-key.amber{color:var(--amber)}
+.band-light .info-key.violet{color:var(--violet)}
+.band-light .info-val{color:var(--lt-ink2)}
+.band-light .info-val strong{color:var(--lt-ink)}
+.band-light .info-row{border-bottom-color:var(--lt-rule)}
+.band-light .tl-dot{background:#f0f4ff;border-color:rgba(0,158,132,.35);color:var(--teal-dark)}
+.band-light .tl-dot.amber{border-color:rgba(232,149,26,.35);color:var(--amber)}
+.band-light .tl-dot.coral{border-color:rgba(232,85,74,.35);color:var(--coral)}
+.band-light .tl-item::before{background:var(--lt-rule)}
+.band-light .tl-content strong{color:var(--lt-ink)}
+.band-light .tl-content p{color:var(--lt-ink3)}
+.band-light .callout-teal{background:rgba(0,201,167,.07);border-left:3px solid var(--teal-dark)}
+.band-light .callout-teal .callout-label{color:var(--teal-dark)}
+.band-light .callout-teal p{color:var(--lt-ink2)}
+.band-light .callout-teal p strong{color:var(--lt-ink)}
+.band-light .callout-amber{background:rgba(232,149,26,.07);border-left:3px solid var(--amber)}
+.band-light .callout-amber .callout-label{color:var(--amber)}
+.band-light .callout-amber p{color:var(--lt-ink2)}
+.band-light .callout-amber p strong{color:var(--lt-ink)}
+.band-light .callout-coral{background:rgba(232,85,74,.07);border-left:3px solid var(--coral)}
+.band-light .callout-coral .callout-label{color:var(--coral)}
+.band-light .callout-coral p{color:var(--lt-ink2)}
+.band-light .pq{border-left:3px solid var(--teal-dark);background:rgba(0,201,167,.06)}
+.band-light .pq blockquote{color:var(--lt-ink)}
+.band-light .pq cite{color:var(--teal-dark)}
+.band-light .pq.amber-pq{border-left-color:var(--amber);background:rgba(232,149,26,.06)}
+.band-light .pq.amber-pq cite{color:var(--amber)}
+.band-light .alist li{color:var(--lt-ink2);border-bottom-color:var(--lt-rule)}
+.band-light .alist li::before{color:var(--teal-dark)}
+.band-light .alist.coral li::before{color:var(--coral)}
+.band-light .alist li strong{color:var(--lt-ink)}
+.band-light .stat-card{background:#f5f7ff}
+.band-light .stat-card.teal-bg{background:linear-gradient(135deg,rgba(0,201,167,.10),#f5f7ff)}
+.band-light .stat-card.amber-bg{background:linear-gradient(135deg,rgba(232,149,26,.10),#f5f7ff)}
+.band-light .stat-card.violet-bg{background:linear-gradient(135deg,rgba(109,40,217,.08),#f5f7ff)}
+.band-light .stats-strip{background:rgba(15,28,63,.06)}
+.band-light .stat-val{color:var(--teal-dark)}
+.band-light .stat-card.amber-bg .stat-val{color:var(--amber)}
+.band-light .stat-card.violet-bg .stat-val{color:var(--violet)}
+.band-light .stat-lbl{color:var(--lt-ink3)}
+.band-light .revision{background:#f0f4ff;border:1px solid rgba(0,158,132,.15)}
+.band-light .revision h3{color:var(--lt-ink)}
+.band-light .qr-label{color:var(--teal-dark)}
+.band-light .qr-val{color:var(--lt-ink2)}
+.band-light .qr-item{border-bottom-color:var(--lt-rule)}
+.band-light .sum-table th{background:#f0f4ff;color:var(--teal-dark);border-bottom:2px solid rgba(0,158,132,.2)}
+.band-light .sum-table td{border-bottom-color:var(--lt-rule);color:var(--lt-ink2)}
+.band-light .sum-table td:first-child{color:var(--teal-dark)}
+.band-light .sum-table tr:nth-child(even) td{background:rgba(15,28,63,.02)}
+
+/* GRADIENT TEAL — mid tone */
+.band-grad-teal{background:linear-gradient(135deg,#0a2a2e 0%,#0d3d3a 40%,#0a2a2e 100%)}
+.band-grad-teal .band-body{border-left:1px solid rgba(0,201,167,.12)}
+.band-grad-teal .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-bottom:8px}
+.band-grad-teal .sec-title{font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);font-weight:800;color:#e0faf5;margin-bottom:24px;padding-bottom:14px;border-bottom:2px solid var(--teal);display:inline-block;line-height:1.15;letter-spacing:-.015em}
+.band-grad-teal .sec-title em{font-style:italic;color:var(--teal);font-weight:400}
+.band-grad-teal .lead{font-family:var(--serif);font-size:19px;font-style:italic;font-weight:400;color:rgba(224,250,245,.8);line-height:1.7;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid rgba(0,201,167,.12)}
+.band-grad-teal p{font-size:16px;color:rgba(224,250,245,.8);line-height:1.8;margin-bottom:18px;font-weight:300}
+.band-grad-teal p strong{color:#e0faf5;font-weight:500}
+.band-grad-teal mark{background:rgba(0,201,167,.2);color:#7ff5e2;padding:1px 6px;border-radius:3px}
+.band-grad-teal .callout-teal{background:rgba(0,201,167,.1);border-left:3px solid var(--teal)}
+.band-grad-teal .callout-teal .callout-label{color:var(--teal)}
+.band-grad-teal .callout-teal p{color:rgba(224,250,245,.85)}
+.band-grad-teal .callout-teal p strong{color:#e0faf5}
+.band-grad-teal .stat-card{background:rgba(10,42,46,.8)}
+.band-grad-teal .stat-card.teal-bg{background:linear-gradient(135deg,rgba(0,201,167,.18),rgba(10,42,46,.8))}
+.band-grad-teal .stat-card.amber-bg{background:linear-gradient(135deg,rgba(232,149,26,.15),rgba(10,42,46,.8))}
+.band-grad-teal .stat-card.violet-bg{background:linear-gradient(135deg,rgba(109,40,217,.15),rgba(10,42,46,.8))}
+.band-grad-teal .stats-strip{background:rgba(0,201,167,.08)}
+.band-grad-teal .stat-val{color:var(--teal)}
+.band-grad-teal .stat-card.amber-bg .stat-val{color:#f6b94d}
+.band-grad-teal .stat-card.violet-bg .stat-val{color:#c4b5fd}
+.band-grad-teal .stat-lbl{color:rgba(224,250,245,.5)}
+
+/* GRADIENT AMBER — warm sand */
+.band-grad-amber{background:linear-gradient(135deg,#fdf6ec 0%,#fff8ef 50%,#fdf0dc 100%)}
+.band-grad-amber .band-body{border-left:1px solid rgba(232,149,26,.15)}
+.band-grad-amber .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+.band-grad-amber .sec-title{font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);font-weight:800;color:#2d1a00;margin-bottom:24px;padding-bottom:14px;border-bottom:2px solid var(--amber);display:inline-block;line-height:1.15;letter-spacing:-.015em}
+.band-grad-amber .sec-title em{font-style:italic;color:var(--amber);font-weight:400}
+.band-grad-amber .lead{font-family:var(--serif);font-size:19px;font-style:italic;font-weight:400;color:rgba(45,26,0,.75);line-height:1.7;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid rgba(232,149,26,.15)}
+.band-grad-amber p{font-size:16px;color:rgba(45,26,0,.75);line-height:1.8;margin-bottom:18px;font-weight:300}
+.band-grad-amber p strong{color:#2d1a00;font-weight:600}
+.band-grad-amber mark{background:rgba(232,149,26,.18);color:#7a4300;padding:1px 6px;border-radius:3px}
+.band-grad-amber .callout-amber{background:rgba(232,149,26,.1);border-left:3px solid var(--amber)}
+.band-grad-amber .callout-amber .callout-label{color:var(--amber)}
+.band-grad-amber .callout-amber p{color:rgba(45,26,0,.8)}
+.band-grad-amber .callout-amber p strong{color:#2d1a00}
+.band-grad-amber .stat-card{background:rgba(255,255,255,.7)}
+.band-grad-amber .stat-card.teal-bg{background:linear-gradient(135deg,rgba(0,201,167,.1),rgba(255,255,255,.7))}
+.band-grad-amber .stat-card.amber-bg{background:linear-gradient(135deg,rgba(232,149,26,.12),rgba(255,255,255,.7))}
+.band-grad-amber .stat-card.violet-bg{background:linear-gradient(135deg,rgba(109,40,217,.08),rgba(255,255,255,.7))}
+.band-grad-amber .stats-strip{background:rgba(232,149,26,.1)}
+.band-grad-amber .stat-val{color:var(--amber)}
+.band-grad-amber .stat-card.teal-bg .stat-val{color:var(--teal-dark)}
+.band-grad-amber .stat-card.violet-bg .stat-val{color:var(--violet)}
+.band-grad-amber .stat-lbl{color:rgba(45,26,0,.5)}
+.band-grad-amber .info-key{color:var(--amber)}
+.band-grad-amber .info-val{color:rgba(45,26,0,.75)}
+.band-grad-amber .info-val strong{color:#2d1a00}
+.band-grad-amber .info-row{border-bottom-color:rgba(232,149,26,.12)}
+.band-grad-amber .sum-table th{background:rgba(255,255,255,.6);color:var(--amber);border-bottom:2px solid rgba(232,149,26,.2)}
+.band-grad-amber .sum-table td{border-bottom-color:rgba(232,149,26,.1);color:rgba(45,26,0,.8)}
+.band-grad-amber .sum-table td:first-child{color:var(--amber)}
+.band-grad-amber .sum-table tr:nth-child(even) td{background:rgba(232,149,26,.04)}
+.band-grad-amber .final-box{background:linear-gradient(135deg,rgba(0,201,167,.05),rgba(109,40,217,.04));border:1px solid rgba(232,149,26,.2)}
+.band-grad-amber .final-box h3{color:#2d1a00;font-style:italic}
+.band-grad-amber .final-box p{color:rgba(45,26,0,.75)}
+.band-grad-amber .final-box p strong{color:var(--amber)}
+.band-grad-amber .footnote{color:rgba(45,26,0,.45);border-top-color:rgba(232,149,26,.15)}
+
+/* GRADIENT VIOLET — deep indigo */
+.band-grad-violet{background:linear-gradient(135deg,#1a0d3d 0%,#1e1050 50%,#160a38 100%)}
+.band-grad-violet .band-body{border-left:1px solid rgba(109,40,217,.15)}
+.band-grad-violet .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#c4b5fd;margin-bottom:8px}
+.band-grad-violet .sec-title{font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);font-weight:800;color:#f0ecff;margin-bottom:24px;padding-bottom:14px;border-bottom:2px solid #7c3aed;display:inline-block;line-height:1.15;letter-spacing:-.015em}
+.band-grad-violet .sec-title em{font-style:italic;color:#c4b5fd;font-weight:400}
+.band-grad-violet .lead{font-family:var(--serif);font-size:19px;font-style:italic;font-weight:400;color:rgba(240,236,255,.8);line-height:1.7;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid rgba(109,40,217,.15)}
+.band-grad-violet p{font-size:16px;color:rgba(240,236,255,.8);line-height:1.8;margin-bottom:18px;font-weight:300}
+.band-grad-violet p strong{color:#f0ecff;font-weight:500}
+.band-grad-violet .subsec-title{font-family:var(--serif);font-size:21px;font-weight:600;color:rgba(240,236,255,.9);margin-top:32px;margin-bottom:12px;letter-spacing:-.01em}
+.band-grad-violet .callout-violet{background:rgba(109,40,217,.12);border-left:3px solid #7c3aed}
+.band-grad-violet .callout-violet .callout-label{color:#c4b5fd}
+.band-grad-violet .callout-violet p{color:rgba(240,236,255,.85)}
+.band-grad-violet .callout-violet p strong{color:#f0ecff}
+.band-grad-violet .info-key.violet{color:#c4b5fd}
+.band-grad-violet .info-val{color:rgba(240,236,255,.8)}
+.band-grad-violet .info-val strong{color:#f0ecff}
+.band-grad-violet .info-row{border-bottom-color:rgba(109,40,217,.15)}
+
+/* GRADIENT CORAL — salmon/rose */
+.band-grad-coral{background:linear-gradient(135deg,#2a0f0f 0%,#3d1212 50%,#2a0f0f 100%)}
+.band-grad-coral .band-body{border-left:1px solid rgba(232,85,74,.15)}
+.band-grad-coral .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#f87171;margin-bottom:8px}
+.band-grad-coral .sec-title{font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);font-weight:800;color:#fff1f1;margin-bottom:24px;padding-bottom:14px;border-bottom:2px solid var(--coral);display:inline-block;line-height:1.15;letter-spacing:-.015em}
+.band-grad-coral .sec-title em{font-style:italic;color:#f87171;font-weight:400}
+.band-grad-coral .lead{font-family:var(--serif);font-size:19px;font-style:italic;font-weight:400;color:rgba(255,241,241,.8);line-height:1.7;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid rgba(232,85,74,.15)}
+.band-grad-coral p{font-size:16px;color:rgba(255,241,241,.8);line-height:1.8;margin-bottom:18px;font-weight:300}
+.band-grad-coral p strong{color:#fff1f1;font-weight:500}
+.band-grad-coral .subsec-title{font-family:var(--serif);font-size:21px;font-weight:600;color:rgba(255,241,241,.9);margin-top:32px;margin-bottom:12px;letter-spacing:-.01em}
+.band-grad-coral .callout-coral{background:rgba(232,85,74,.12);border-left:3px solid var(--coral)}
+.band-grad-coral .callout-coral .callout-label{color:#f87171}
+.band-grad-coral .callout-coral p{color:rgba(255,241,241,.85)}
+.band-grad-coral .callout-coral p strong{color:#fff1f1}
+.band-grad-coral .pq.amber-pq{border-left-color:#f6b94d;background:rgba(246,185,77,.08)}
+.band-grad-coral .pq.amber-pq blockquote{color:#fff1f1}
+.band-grad-coral .pq.amber-pq cite{color:#f6b94d}
+.band-grad-coral .alist li{color:rgba(255,241,241,.8);border-bottom-color:rgba(232,85,74,.15)}
+.band-grad-coral .alist.coral li::before{color:#f87171}
+.band-grad-coral .alist li strong{color:#fff1f1}
+.band-grad-coral .stat-card{background:rgba(42,15,15,.8)}
+.band-grad-coral .stat-card.teal-bg{background:linear-gradient(135deg,rgba(0,201,167,.15),rgba(42,15,15,.8))}
+.band-grad-coral .stat-card.amber-bg{background:linear-gradient(135deg,rgba(246,185,77,.15),rgba(42,15,15,.8))}
+.band-grad-coral .stat-card.violet-bg{background:linear-gradient(135deg,rgba(109,40,217,.15),rgba(42,15,15,.8))}
+.band-grad-coral .stats-strip{background:rgba(232,85,74,.08)}
+.band-grad-coral .stat-val{color:#f87171}
+.band-grad-coral .stat-card.teal-bg .stat-val{color:var(--teal)}
+.band-grad-coral .stat-card.amber-bg .stat-val{color:#f6b94d}
+.band-grad-coral .stat-card.violet-bg .stat-val{color:#c4b5fd}
+.band-grad-coral .stat-lbl{color:rgba(255,241,241,.45)}
+
+/* ═══ SHARED COMPONENT STYLES ═══ */
+.sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:8px}
+.sec-title{font-family:var(--serif);font-size:clamp(26px,3.5vw,40px);font-weight:800;margin-bottom:24px;padding-bottom:14px;display:inline-block;line-height:1.15;letter-spacing:-.015em}
+.lead{font-family:var(--serif);font-size:19px;font-style:italic;font-weight:400;line-height:1.7;margin-bottom:28px;padding-bottom:28px}
+p{font-size:16px;line-height:1.8;margin-bottom:18px;font-weight:300}
+p:last-child{margin-bottom:0}
+.subsec-title{font-family:var(--serif);font-size:21px;font-weight:600;margin-top:32px;margin-bottom:12px;letter-spacing:-.01em}
+.info-rows{margin:20px 0}
+.info-row{display:flex;gap:20px;padding:11px 0;font-size:15px;align-items:flex-start}
+.info-key{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;flex-shrink:0;width:140px;padding-top:3px;font-weight:700}
+.info-val{line-height:1.6;font-weight:300}
+.timeline{margin:28px 0}
+.tl-item{display:flex;gap:18px;padding-bottom:24px;position:relative}
+.tl-item::before{content:'';position:absolute;left:28px;top:52px;bottom:0;width:1px}
+.tl-item:last-child::before{display:none}
+.tl-dot{flex-shrink:0;width:56px;height:56px;border-radius:50%;border:1px solid;font-family:var(--serif);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2}
+.tl-content{flex:1;padding-top:10px}
+.tl-content strong{display:block;font-size:15px;font-weight:500;margin-bottom:4px}
+.tl-content p{font-size:13px;margin:0;line-height:1.55}
+.callout{margin:28px 0;padding:20px 24px;border-radius:8px}
+.callout-label{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;font-weight:700}
+.callout p{font-size:14px;line-height:1.65;margin-bottom:6px;font-weight:300}
+.callout p:last-child{margin-bottom:0}
+ul.alist{list-style:none;margin:18px 0}
+ul.alist li{padding:11px 0 11px 26px;position:relative;border-bottom:1px solid;font-size:15px;line-height:1.65;font-weight:300}
+ul.alist li:last-child{border-bottom:none}
+ul.alist li::before{content:'→';position:absolute;left:0;font-weight:700}
+.pq{margin:36px 0;padding:24px 32px;border-radius:0 8px 8px 0}
+.pq blockquote{font-family:var(--serif);font-size:20px;font-style:italic;font-weight:400;line-height:1.55;margin-bottom:10px}
+.pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;font-style:normal}
+.stats-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:2px;margin:28px 0;border-radius:8px;overflow:hidden}
+.stat-card{padding:16px 14px;text-align:center}
+.stat-val{font-family:var(--serif);font-size:22px;font-weight:800;line-height:1.1;margin-bottom:4px}
+.stat-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase}
+.sum-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:14px}
+.sum-table th{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:12px 16px;text-align:left}
+.sum-table td{padding:12px 16px;line-height:1.65;font-weight:300;vertical-align:top}
+.sum-table tr:last-child td{border-bottom:none}
+.sum-table td:first-child{font-family:var(--mono);font-size:11px;letter-spacing:.06em;font-weight:500;white-space:nowrap}
+.revision{border-radius:12px;padding:32px}
+.revision h3{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:24px}
+.qr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0}
+.qr-item{padding:12px 0}
+.qr-label{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:3px;font-weight:700}
+.qr-val{font-size:14px;line-height:1.5;font-weight:300}
+.final-box{border-radius:12px;padding:36px}
+.final-box h3{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:20px}
+.final-box p{font-size:15px;line-height:1.8;margin-bottom:16px}
+.footnote{font-family:var(--serif);font-style:italic;font-size:14px;padding-top:16px;margin-top:4px !important}
+.toc-heading{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px}
+.toc-item{display:block;width:100%;text-align:left;font-family:var(--sans);font-size:12px;padding:7px 0 7px 12px;border-left:2px solid transparent;background:none;border-top:none;border-right:none;border-bottom:none;cursor:pointer;transition:all .2s;line-height:1.4}
+
+/* ═══ FOOTER ═══ */
+.footer{background:var(--navy);border-top:1px solid rgba(240,244,255,.07);padding:48px 0 32px}
+.footer-inner{max-width:1060px;margin:0 auto;padding:0 40px;display:flex;align-items:flex-start;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.footer-brand{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--dk-cream);margin-bottom:8px}
+.footer-brand span{color:var(--teal)}
+.footer-sub{font-size:13px;color:var(--dk-cream3);max-width:320px;font-weight:300}
+.footer-links{display:flex;gap:24px;flex-wrap:wrap;padding-top:6px}
+.footer-links a{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dk-cream3);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--teal)}
+.footer-copy{max-width:1060px;margin:32px auto 0;padding:20px 40px 0;border-top:1px solid var(--dk-rule);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--dk-cream3)}
+.footer-copy span{color:var(--teal)}
+
+/* ═══ FAB ═══ */
+.fab{position:fixed;bottom:32px;right:32px;z-index:50;width:44px;height:44px;border-radius:50%;background:var(--teal-dark);border:1px solid rgba(0,201,167,.4);color:#fff;font-size:18px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,201,167,.25)}
+.fab:hover{transform:translateY(-2px);background:var(--teal-deeper)}
+
+/* ═══ ANIMATION ═══ */
+@keyframes slideIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .hero-left{padding:60px 28px}
+  .band-inner{grid-template-columns:1fr;padding:0 20px}
+  .band-toc{display:none}
+  .band-body{padding:40px 0 48px 0;border-left:none !important}
+  .nav{padding:0 20px}
+  .nav-chips{display:none}
+  .footer-inner{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════ BANNER ════════ -->
+<div class="banner">FounderLens · Srihari R Dhondalay × RegisterKaro · Deep-Dive Analysis · May 2026</div>
+
+<!-- ════════ NAV ════════ -->
+<nav class="nav">
+  <div class="nav-brand"><span class="nav-brand-dot"></span>FounderLens</div>
+  <div class="nav-chips">
+    <button class="nav-chip" onclick="scrollSec('sec-origin')">Origin</button>
+    <button class="nav-chip" onclick="scrollSec('sec-company')">Company</button>
+    <button class="nav-chip" onclick="scrollSec('sec-model')">Business Model</button>
+    <button class="nav-chip" onclick="scrollSec('sec-team')">Team</button>
+    <button class="nav-chip" onclick="scrollSec('sec-growth')">Growth</button>
+    <button class="nav-chip" onclick="scrollSec('sec-expansion')">UAE</button>
+    <button class="nav-chip" onclick="scrollSec('sec-lessons')">Lessons</button>
+    <button class="nav-chip" onclick="scrollSec('sec-revision')">Summary</button>
+  </div>
+  <button class="nav-cta" onclick="scrollToTop()">↑ Top</button>
+</nav>
+
+<!-- ════════ HERO — dark navy ════════ -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow"><div class="hero-eyebrow-line"></div><div class="hero-eyebrow-text">Founder Analysis · RegisterKaro</div></div>
+    <h1 class="hero-title">Srihari R<br>Dhondalay<em>The CA Who Made<br>Compliance Effortless</em></h1>
+    <p class="hero-sub">A Chartered Accountant who traded KPMG's corner office for a mission: <strong>make India's paperwork problem disappear for a million entrepreneurs.</strong> In just 4 years, RegisterKaro grew from zero to ₹10.3 Cr revenue — with a 538% CAGR that makes most funded startups look slow.</p>
+    <div class="hero-kpis">
+      <div><div class="kpi-val">₹10.3Cr</div><div class="kpi-label">FY24 Revenue</div></div>
+      <div><div class="kpi-val">538%</div><div class="kpi-label">1-Year Revenue CAGR</div></div>
+      <div><div class="kpi-val">1,000+</div><div class="kpi-label">Startups Advised</div></div>
+      <div><div class="kpi-val">2021</div><div class="kpi-label">Founded</div></div>
+    </div>
+    <div class="hero-tags">
+      <span class="hero-tag teal">Chartered Accountant</span>
+      <span class="hero-tag teal">LegalTech</span>
+      <span class="hero-tag amber">Bengaluru</span>
+      <span class="hero-tag amber">FinTech Compliance</span>
+      <span class="hero-tag violet">Safe Ledger Pvt. Ltd.</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-frame">
+      <div class="founder-photo-wrap">
+        <div class="founder-photo-bg"></div>
+        <div class="founder-svg-portrait">
+          <svg viewBox="0 0 320 390" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;border-radius:12px;">
+            <defs>
+              <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#111f47"/><stop offset="100%" style="stop-color:#162558"/></linearGradient>
+              <linearGradient id="teal-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00c9a7"/><stop offset="100%" style="stop-color:#009e84"/></linearGradient>
+              <radialGradient id="glow" cx="50%" cy="40%" r="55%"><stop offset="0%" style="stop-color:rgba(0,201,167,0.18)"/><stop offset="100%" style="stop-color:transparent"/></radialGradient>
+            </defs>
+            <rect width="320" height="390" fill="url(#bg-grad)"/>
+            <rect width="320" height="390" fill="url(#glow)"/>
+            <g opacity="0.06" stroke="#00c9a7" stroke-width="0.7">
+              <line x1="0" y1="40" x2="320" y2="40"/><line x1="0" y1="80" x2="320" y2="80"/><line x1="0" y1="120" x2="320" y2="120"/><line x1="0" y1="160" x2="320" y2="160"/><line x1="0" y1="200" x2="320" y2="200"/><line x1="0" y1="240" x2="320" y2="240"/><line x1="0" y1="280" x2="320" y2="280"/><line x1="0" y1="320" x2="320" y2="320"/><line x1="0" y1="360" x2="320" y2="360"/>
+              <line x1="40" y1="0" x2="40" y2="390"/><line x1="80" y1="0" x2="80" y2="390"/><line x1="120" y1="0" x2="120" y2="390"/><line x1="160" y1="0" x2="160" y2="390"/><line x1="200" y1="0" x2="200" y2="390"/><line x1="240" y1="0" x2="240" y2="390"/><line x1="280" y1="0" x2="280" y2="390"/>
+            </g>
+            <ellipse cx="160" cy="140" rx="62" ry="72" fill="#1e2f6a"/>
+            <ellipse cx="160" cy="140" rx="60" ry="70" fill="#253580"/>
+            <ellipse cx="160" cy="125" rx="34" ry="38" fill="#1e2f6a" opacity="0.6"/>
+            <path d="M65,310 Q100,250 160,240 Q220,250 255,310 L260,390 L60,390 Z" fill="#1e2f6a"/>
+            <path d="M75,310 Q108,255 160,245 Q212,255 245,310 L250,390 L70,390 Z" fill="#253580"/>
+            <text x="160" y="160" font-family="Playfair Display, Georgia, serif" font-size="72" font-weight="900" fill="none" stroke="url(#teal-grad)" stroke-width="1.5" text-anchor="middle" dominant-baseline="middle" opacity="0.6">S</text>
+            <text x="160" y="358" font-family="Space Mono, monospace" font-size="10" fill="#00c9a7" text-anchor="middle" letter-spacing="4" opacity="0.8">SRIHARI R DHONDALAY</text>
+            <text x="160" y="375" font-family="Space Mono, monospace" font-size="8" fill="#f0f4ff" text-anchor="middle" letter-spacing="2" opacity="0.4">CO-FOUNDER · REGISTERKARO</text>
+          </svg>
+        </div>
+        <div class="photo-badge">Co-Founder &amp; CA · RegisterKaro</div>
+      </div>
+    </div>
+    <div class="hero-float-quote">
+      <div class="hero-float-quote-text">"Be the start of something new."</div>
+      <div class="hero-float-quote-by">— Srihari R Dhondalay, Instagram bio</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ BAND 1 — dark navy: The Founder ════════ -->
+<div class="band band-dark" id="sec-origin">
+  <div class="band-inner">
+    <aside class="band-toc">
+      <div class="toc-heading">Contents</div>
+      <button class="toc-item" onclick="scrollSec('sec-origin')">01 — The Founder</button>
+      <button class="toc-item" onclick="scrollSec('sec-company')">02 — The Company</button>
+      <button class="toc-item" onclick="scrollSec('sec-problem')">03 — The Problem</button>
+      <button class="toc-item" onclick="scrollSec('sec-model')">04 — Business Model</button>
+      <button class="toc-item" onclick="scrollSec('sec-team')">05 — The Team</button>
+      <button class="toc-item" onclick="scrollSec('sec-growth')">06 — Growth Metrics</button>
+      <button class="toc-item" onclick="scrollSec('sec-expansion')">07 — UAE Expansion</button>
+      <button class="toc-item" onclick="scrollSec('sec-lessons')">08 — Key Lessons</button>
+      <button class="toc-item" onclick="scrollSec('sec-revision')">09 — Quick Summary</button>
+      <button class="toc-item" onclick="scrollSec('sec-table')">10 — Framework Table</button>
+    </aside>
+    <div class="band-body">
+      <div class="sec-num">01 — The Founder</div>
+      <h2 class="sec-title">Srihari R <em>Dhondalay</em></h2>
+      <p class="lead">A Chartered Accountant by training, an entrepreneur by conviction — Srihari R Dhondalay made the rare leap from Big 4 corporate to scrappy founder when he identified a gap that millions of Indian entrepreneurs were quietly suffering through.</p>
+      <p>Srihari R Dhondalay is a Chartered Accountant who cleared the CA Final, IPCC, and CPT examinations through ICAI. His professional career began at <strong>Angel Broking</strong>, where he developed early expertise in equity research, financial reporting, and investment analysis.</p>
+      <p>He then moved to <strong>KPMG</strong> — one of the world's Big 4 accounting firms — serving first as a Staff Accountant (September 2017 – August 2020) and later rising to an executive-level position (September 2020 – April 2021). Across these roles he honed deep capabilities in audit, tax planning, corporate finance, and financial strategy.</p>
+      <div class="callout callout-teal">
+        <div class="callout-label">The Pivot Moment</div>
+        <p>In May 2021, after less than 5 years in corporate roles, Srihari walked away from KPMG to co-found RegisterKaro. <strong>The decision was not impulsive — it was built on 7+ years of watching founders struggle with the exact compliance and financial problems he had the expertise to solve.</strong></p>
+      </div>
+      <div class="info-rows">
+        <div class="info-row"><div class="info-key">Qualifications</div><div class="info-val">CA Final, IPCC, CPT — Institute of Chartered Accountants of India (ICAI)</div></div>
+        <div class="info-row"><div class="info-key">Career Start</div><div class="info-val">Angel Broking — equity research, financial analysis</div></div>
+        <div class="info-row"><div class="info-key">Pre-Founding</div><div class="info-val">KPMG — Staff Accountant (2017–2020) → Executive level (2020–2021)</div></div>
+        <div class="info-row"><div class="info-key">Founded</div><div class="info-val">RegisterKaro (Safe Ledger Pvt. Ltd.) — May 2021</div></div>
+        <div class="info-row"><div class="info-key">Based In</div><div class="info-val">Bengaluru, Karnataka, India</div></div>
+        <div class="info-row"><div class="info-key">Also Leads</div><div class="info-val">SafeLedger.ae — UAE business formation platform</div></div>
+        <div class="info-row"><div class="info-key">Advised</div><div class="info-val">1,000+ startups and SMEs across India</div></div>
+      </div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot">Pre-2017</div><div class="tl-content"><strong>CA Qualifications</strong><p>Clears CA CPT, IPCC, and Final exams through ICAI. Starts career at Angel Broking in equity research and financial analysis.</p></div></div>
+        <div class="tl-item"><div class="tl-dot">2017–20</div><div class="tl-content"><strong>KPMG — Staff Accountant</strong><p>3-year stint at Big 4, building expertise in audit, tax planning, and corporate finance across multiple client engagements.</p></div></div>
+        <div class="tl-item"><div class="tl-dot amber">2020–21</div><div class="tl-content"><strong>KPMG — Executive Level</strong><p>Promoted to executive role, gaining strategic advisory exposure before identifying the entrepreneurial opportunity.</p></div></div>
+        <div class="tl-item"><div class="tl-dot">May '21</div><div class="tl-content"><strong>Co-founds RegisterKaro</strong><p>Leaves KPMG to incorporate Safe Ledger Private Limited with Joel Dsouza and Sidharth Ravichandran.</p></div></div>
+        <div class="tl-item"><div class="tl-dot amber">FY24</div><div class="tl-content"><strong>₹10.3 Cr Revenue — 538% CAGR</strong><p>Safe Ledger Pvt. Ltd. achieves ₹10.3 Cr revenue for FY ending March 2024, with EBITDA CAGR of 1,589%.</p></div></div>
+        <div class="tl-item"><div class="tl-dot coral">2025+</div><div class="tl-content"><strong>UAE Expansion via SafeLedger.ae</strong><p>Extends the RegisterKaro playbook internationally, helping entrepreneurs set up UAE Free Zone companies.</p></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ BAND 2 — light white: The Company ════════ -->
+<div class="band band-light" id="sec-company">
+  <div class="band-inner">
+    <div style="border-right:1px solid var(--lt-rule)"></div>
+    <div class="band-body">
+      <div class="sec-num">02 — The Company</div>
+      <h2 class="sec-title">RegisterKaro &amp; <em>Safe Ledger</em></h2>
+      <p class="lead">RegisterKaro is India's one-stop digital platform for business registration, compliance, tax filing, and legal services — built from the ground up to serve entrepreneurs in metros, Tier 3 cities, and villages alike.</p>
+      <p>The legal entity behind RegisterKaro is <strong>Safe Ledger Private Limited</strong>, incorporated on <strong>May 11, 2021</strong>, registered with the Registrar of Companies, Bangalore (CIN: U74999KA2021PTC147303). The company operates out of <strong>Oxford Towers, HAL Old Airport Road, Kodihalli, Bengaluru</strong>.</p>
+      <div class="stats-strip">
+        <div class="stat-card amber-bg"><div class="stat-val">May 2021</div><div class="stat-lbl">Incorporated</div></div>
+        <div class="stat-card teal-bg"><div class="stat-val">₹10.3Cr</div><div class="stat-lbl">FY24 Revenue</div></div>
+        <div class="stat-card amber-bg"><div class="stat-val">538%</div><div class="stat-lbl">Revenue CAGR (1-yr)</div></div>
+        <div class="stat-card violet-bg"><div class="stat-val">396+</div><div class="stat-lbl">Employees</div></div>
+        <div class="stat-card teal-bg"><div class="stat-val">33K+</div><div class="stat-lbl">LinkedIn Followers</div></div>
+      </div>
+      <p>The platform covers the full lifecycle of a business's legal and financial needs: <strong>company registration</strong> (Private Limited, LLP, OPC, Sole Proprietorship, Partnership, Section 8 NGO), <strong>trademark filing</strong>, <strong>GST registration</strong>, ROC compliance, DPIIT Startup India recognition, MSME loans, seed funding facilitation, bookkeeping, and full-service eCFO solutions.</p>
+      <div class="callout callout-amber">
+        <div class="callout-label">What Makes It Different</div>
+        <p>RegisterKaro did not just digitise paperwork — it <strong>democratised access to professional compliance</strong>. Previously, affordable CA/CS/legal services were concentrated in big cities. RegisterKaro built a tech-enabled delivery model to serve Tier 3 cities and rural entrepreneurs at a fraction of traditional cost.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ BAND 3 — gradient teal: The Problem ════════ -->
+<div class="band band-grad-teal" id="sec-problem">
+  <div class="band-inner">
+    <div style="border-right:1px solid rgba(0,201,167,.12)"></div>
+    <div class="band-body">
+      <div class="sec-num">03 — The Problem They Solved</div>
+      <h2 class="sec-title">India's <em>Compliance Gap</em></h2>
+      <p class="lead">India has hundreds of millions of aspiring entrepreneurs. The legal system protecting them was designed by lawyers, for lawyers — buried in jargon, expensive, and geographically inaccessible.</p>
+      <p>When Srihari and his co-founders looked at the landscape in 2021, they saw a structural market failure. Small business owners were either:</p>
+      <ul class="alist">
+        <li><strong>Overpaying local CAs</strong> for fragmented services with no standardisation or accountability.</li>
+        <li><strong>Skipping compliance entirely</strong> due to cost or confusion, exposing themselves to legal risk.</li>
+        <li><strong>Losing months</strong> to bureaucratic registration processes that could — with the right system — take days.</li>
+        <li><strong>Locked out of formal credit</strong> (MSME loans, DPIIT recognition) because they couldn't navigate the prerequisites.</li>
+      </ul>
+      <div class="pq">
+        <blockquote>India has tens of millions of businesses that need CA + CS + Legal support simultaneously. Very few can afford to hire all three separately. RegisterKaro bundles them at the cost of one.</blockquote>
+        <cite>— RegisterKaro's core value proposition</cite>
+      </div>
+      <p>The mission, as stated by the company: <strong>"Empowering entrepreneurs in Tier 3 cities and villages — bringing businesses to life in regions often overlooked by mainstream service providers."</strong> This is not marketing language. The company has built its service delivery model around reaching entrepreneurs who would otherwise have zero access to affordable professional services.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ BAND 4 — gradient violet: Business Model ════════ -->
+<div class="band band-grad-violet" id="sec-model">
+  <div class="band-inner">
+    <div style="border-right:1px solid rgba(109,40,217,.15)"></div>
+    <div class="band-body">
+      <div class="sec-num">04 — Business Model</div>
+      <h2 class="sec-title">Revenue <em>Architecture</em></h2>
+      <p class="lead">RegisterKaro runs a dual-stream revenue model combining one-time transactional service fees with recurring subscription-based compliance packages.</p>
+      <div class="info-rows">
+        <div class="info-row"><div class="info-key violet">Stream 1</div><div class="info-val"><strong>Service-Based (One-Time):</strong> Company registration, trademark filing, GST registration, DPIIT recognition, and other one-time regulatory services. Clients pay per service.</div></div>
+        <div class="info-row"><div class="info-key violet">Stream 2</div><div class="info-val"><strong>Subscription / Compliance Packages:</strong> Recurring annual packages covering ROC filings, tax returns, bookkeeping, and statutory compliance — ensuring businesses stay legally compliant year-round.</div></div>
+        <div class="info-row"><div class="info-key violet">Stream 3</div><div class="info-val"><strong>eCFO / Finance Team:</strong> Fractional CA + CS + Lawyer + Accountant team for companies that can't afford full-time hires. Positions RegisterKaro as a long-term financial partner, not just a one-time vendor.</div></div>
+        <div class="info-row"><div class="info-key violet">Stream 4</div><div class="info-val"><strong>Funding Facilitation:</strong> MSME loan applications for businesses above ₹7.5 Cr turnover (Priority Sector Lending), and seed funding assistance for early-stage startups.</div></div>
+        <div class="info-row"><div class="info-key violet">Segments</div><div class="info-val">B2C (individual entrepreneurs) + B2B (corporate clients) — customised solutions for all sizes.</div></div>
+      </div>
+      <div class="callout callout-violet">
+        <div class="callout-label">The Moat</div>
+        <p>RegisterKaro's real competitive advantage is <strong>stickiness</strong>. A client who registers their company through RegisterKaro naturally turns to them for GST filing, annual returns, trademark protection, and eventually fractional CFO services. <strong>Every new client creates a multi-year recurring revenue relationship.</strong></p>
+      </div>
+      <p>The company operates under India's Make in India initiative, and has built partnerships to offer Priority Sector Lending (MSME loans) to eligible businesses — creating an additional revenue channel while deepening client relationships.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ BAND 5 — light white: Founding Team ════════ -->
+<div class="band band-light" id="sec-team">
+  <div class="band-inner">
+    <div style="border-right:1px solid var(--lt-rule)"></div>
+    <div class="band-body">
+      <div class="sec-num">05 — The Founding Team</div>
+      <h2 class="sec-title">Three CAs, <em>One Mission</em></h2>
+      <p class="lead">What's unusual about RegisterKaro's founding team is that all three co-founders are Chartered Accountants — giving the company an unusually deep technical foundation in the very domain it serves.</p>
+      <div class="callout callout-coral">
+        <div class="callout-label">Why This Matters</div>
+        <p>Most LegalTech startups are built by engineers or MBAs who outsource the professional knowledge. RegisterKaro's founders <strong>are the professional knowledge</strong> — three qualified CAs who understand compliance from the inside. This is a rare structural advantage in a trust-sensitive category.</p>
+      </div>
+      <h3 class="subsec-title">Srihari R Dhondalay — Co-Founder</h3>
+      <p>CA with 7+ years of experience spanning Angel Broking and KPMG. Focuses on financial strategy, taxation, business advisory, and GST structuring. Has personally advised 1,000+ startups. Leads financial and tax advisory functions at RegisterKaro and runs the SafeLedger.ae UAE vertical.</p>
+      <h3 class="subsec-title">Joel Dsouza — Co-Founder</h3>
+      <p>CA and compliance strategist with 7+ years of experience across company registration, tax structuring, GST, ROC filings, and MCA compliance. Has advised 1,000+ businesses on incorporation and regulatory frameworks. Leads the digitisation of compliance workflows at RegisterKaro.</p>
+      <h3 class="subsec-title">Sidharth Ravichandran — Co-Founder</h3>
+      <p>CA with background at Deloitte India, Amazon, and Irfan & Co. Chartered Accountants, before co-founding RegisterKaro. Also involved with SafeLedger.ae operations. Brings Big 4 and tech-sector financial experience to the team.</p>
+      <div class="stats-strip">
+        <div class="stat-card teal-bg"><div class="stat-val">3/3</div><div class="stat-lbl">Founders are CAs</div></div>
+        <div class="stat-card amber-bg"><div class="stat-val">Big 4</div><div class="stat-lbl">Experience (KPMG + Deloitte)</div></div>
+        <div class="stat-card violet-bg"><div class="stat-val">3,000+</div><div class="stat-lbl">Startups Advised (combined)</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ BAND 6 — gradient teal-dark: Growth ════════ -->
+<div class="band band-grad-teal" id="sec-growth">
+  <div class="band-inner">
+    <div style="border-right:1px solid rgba(0,201,167,.12)"></div>
+    <div class="band-body">
+      <div class="sec-num">06 — Growth Metrics</div>
+      <h2 class="sec-title">The Numbers That <em>Matter</em></h2>
+      <p class="lead">RegisterKaro's financials tell a story of a company that found real product-market fit early and scaled it aggressively — without any publicly disclosed venture funding.</p>
+      <p>The most striking number is the <mark>538% one-year revenue CAGR</mark> leading to FY24's ₹10.3 Cr revenue. For reference, this puts RegisterKaro in a growth tier typically associated with funded B2B SaaS companies — achieved in a professional services category that most investors consider slow-moving.</p>
+      <div class="stats-strip">
+        <div class="stat-card teal-bg"><div class="stat-val">₹10.3Cr</div><div class="stat-lbl">FY24 Revenue (Mar 2024)</div></div>
+        <div class="stat-card amber-bg"><div class="stat-val">538%</div><div class="stat-lbl">Revenue CAGR (1-Year)</div></div>
+        <div class="stat-card violet-bg"><div class="stat-val">1,589%</div><div class="stat-lbl">EBITDA CAGR (1-Year)</div></div>
+        <div class="stat-card teal-bg"><div class="stat-val">~98%</div><div class="stat-lbl">Employee Count Growth</div></div>
+        <div class="stat-card amber-bg"><div class="stat-val">396+</div><div class="stat-lbl">Team Size</div></div>
+      </div>
+      <p>The EBITDA CAGR of 1,589% is particularly notable — it signals that RegisterKaro is not just growing revenue but <strong>improving profitability faster than it's growing topline</strong>, which is the hallmark of a scalable services business finding operational leverage.</p>
+      <div class="callout callout-teal">
+        <div class="callout-label">No Disclosed External Funding</div>
+        <p>As of available public records, Safe Ledger Private Limited has not disclosed any significant external funding rounds. <strong>The growth from zero to ₹10.3 Cr appears to be largely organic or bootstrapped</strong> — which makes the 538% revenue CAGR even more remarkable as a signal of genuine demand-driven growth.</p>
+      </div>
+      <p>The team has also grown rapidly: <mark>~98% employee count growth</mark> in the last year alone, reaching 396+ employees — a significant operational expansion that shows the company is investing in capacity to serve a growing client base.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ BAND 7 — gradient coral: UAE Expansion ════════ -->
+<div class="band band-grad-coral" id="sec-expansion">
+  <div class="band-inner">
+    <div style="border-right:1px solid rgba(232,85,74,.15)"></div>
+    <div class="band-body">
+      <div class="sec-num">07 — International Move</div>
+      <h2 class="sec-title">SafeLedger.ae — <em>The UAE Bet</em></h2>
+      <p class="lead">With the India playbook established, the founding team extended their model to the UAE through SafeLedger.ae — targeting the growing market of Indian and global entrepreneurs setting up businesses in Dubai and UAE Free Zones.</p>
+      <p>SafeLedger.ae operates as a company formation consultancy for the UAE, helping clients navigate mainland company registration, Free Zone entities, and offshore setups. The UAE in 2024 issued over 200,000 new economic licenses — creating a significant addressable market for a trusted formation service.</p>
+      <div class="pq amber-pq">
+        <blockquote>The UAE offers 100% foreign ownership in Free Zones and no income tax for most businesses — but the paperwork is still complex. SafeLedger.ae is simply the RegisterKaro playbook applied to a new jurisdiction.</blockquote>
+        <cite>— Strategic logic behind the UAE expansion</cite>
+      </div>
+      <ul class="alist coral">
+        <li><strong>Target Audience:</strong> Indian entrepreneurs looking to expand globally, as well as international founders seeking a UAE base.</li>
+        <li><strong>Services Mirror:</strong> Company formation, licensing, Emirates ID formalities, documentation coordination — same bundled model as India.</li>
+        <li><strong>Srihari's Role:</strong> Listed as Co-Founder of SafeLedger.ae on his Instagram bio, suggesting direct involvement in the UAE vertical.</li>
+        <li><strong>Early Stage:</strong> The UAE arm is still early in development — customer reviews indicate a functional service with room to improve communication cadence.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ BAND 8 — gradient amber: Key Lessons ════════ -->
+<div class="band band-grad-amber" id="sec-lessons">
+  <div class="band-inner">
+    <div style="border-right:1px solid rgba(232,149,26,.15)"></div>
+    <div class="band-body">
+      <div class="sec-num">08 — Key Lessons</div>
+      <h2 class="sec-title">What <em>RegisterKaro Teaches</em></h2>
+      <p class="lead">Five years in, RegisterKaro's story offers a set of lessons that go beyond compliance services — they apply to any founder building a high-trust, high-frequency services business in India.</p>
+      <h3 class="subsec-title" style="color:#2d1a00">Lesson 1: Domain Expertise is a Moat</h3>
+      <p>The RegisterKaro founders didn't pivot into compliance from another industry — they were already deep experts. <strong>When the founders are the product, trust is built structurally, not through marketing.</strong> Srihari's CA credentials and Big 4 pedigree aren't just resume items; they're the reason early clients trusted the platform with sensitive legal and financial matters.</p>
+      <h3 class="subsec-title" style="color:#2d1a00">Lesson 2: The Democratisation Narrative is Real</h3>
+      <p>Serving Tier 3 cities and rural entrepreneurs is not just mission statement fodder. It represents an underserved market that large incumbents were ignoring. <strong>The biggest market opportunities in India are often in places everyone else overlooks.</strong></p>
+      <h3 class="subsec-title" style="color:#2d1a00">Lesson 3: Stickiness Beats Acquisition</h3>
+      <p>A company that registers through RegisterKaro has recurring compliance needs every year — GST filings, ROC filings, tax returns. <strong>The one-time registration is just the funnel entry. The lifetime value comes from annual compliance, not from the first transaction.</strong></p>
+      <h3 class="subsec-title" style="color:#2d1a00">Lesson 4: Team Composition Can Be a Business Model</h3>
+      <p>Having three CAs as co-founders is not just an operational choice — it is a business model decision. It means the company can credibly offer CA + CS + Legal bundled services without relying on expensive external talent from Day 1. <strong>Founding team composition shapes what a company can affordably build.</strong></p>
+      <div class="callout callout-amber">
+        <div class="callout-label">The 4-Year Question</div>
+        <p>RegisterKaro is only ~4 years old with ₹10.3 Cr in revenue and ~400 employees. <strong>The real test will be whether they can maintain growth quality as they scale</strong> — compliance is a trust category, and the mixed reviews on SafeLedger.ae indicate that operational consistency at scale is the next critical challenge.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ BAND 9 — dark navy: Quick Revision ════════ -->
+<div class="band band-dark" id="sec-revision">
+  <div class="band-inner">
+    <div style="border-right:1px solid var(--dk-rule)"></div>
+    <div class="band-body">
+      <div class="sec-num">09 — One Page Summary</div>
+      <h2 class="sec-title">Quick Revision <em>Summary</em></h2>
+      <div class="revision">
+        <h3>📋 Srihari R Dhondalay × RegisterKaro — Complete Snapshot</h3>
+        <div class="qr-grid">
+          <div class="qr-item"><div class="qr-label">Founder</div><div class="qr-val">Srihari R Dhondalay — Chartered Accountant, Bengaluru</div></div>
+          <div class="qr-item"><div class="qr-label">Co-Founders</div><div class="qr-val">Joel Dsouza &amp; Sidharth Ravichandran (all three are CAs)</div></div>
+          <div class="qr-item"><div class="qr-label">Legal Entity</div><div class="qr-val">Safe Ledger Private Limited (CIN: U74999KA2021PTC147303)</div></div>
+          <div class="qr-item"><div class="qr-label">Brand</div><div class="qr-val">RegisterKaro — registerkaro.in</div></div>
+          <div class="qr-item"><div class="qr-label">Incorporated</div><div class="qr-val">May 11, 2021 — Bangalore, RoC</div></div>
+          <div class="qr-item"><div class="qr-label">FY24 Revenue</div><div class="qr-val">₹10.3 Crore (Mar 31, 2024)</div></div>
+          <div class="qr-item"><div class="qr-label">Revenue CAGR</div><div class="qr-val">538% (1-year); EBITDA CAGR 1,589%</div></div>
+          <div class="qr-item"><div class="qr-label">Team Size</div><div class="qr-val">~396 employees (grew ~98% last year)</div></div>
+          <div class="qr-item"><div class="qr-label">Prior Experience</div><div class="qr-val">KPMG (Big 4), Angel Broking — Srihari; Deloitte, Amazon — Sidharth</div></div>
+          <div class="qr-item"><div class="qr-label">Core Services</div><div class="qr-val">Company registration, GST, trademark, ROC filings, eCFO, MSME loans</div></div>
+          <div class="qr-item"><div class="qr-label">Revenue Model</div><div class="qr-val">One-time service fees + Annual compliance subscriptions + eCFO retainers</div></div>
+          <div class="qr-item"><div class="qr-label">International</div><div class="qr-val">SafeLedger.ae — UAE company formation platform</div></div>
+          <div class="qr-item"><div class="qr-label">Mission</div><div class="qr-val">Empowering Tier 3 &amp; rural entrepreneurs across India with affordable compliance</div></div>
+          <div class="qr-item"><div class="qr-label">Auditor</div><div class="qr-val">Sheril Gupta (FY24)</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ BAND 10 — gradient amber: Framework Table ════════ -->
+<div class="band band-grad-amber" id="sec-table">
+  <div class="band-inner">
+    <div style="border-right:1px solid rgba(232,149,26,.15)"></div>
+    <div class="band-body">
+      <div class="sec-num">10 — Framework at a Glance</div>
+      <h2 class="sec-title">The RegisterKaro <em>Framework Table</em></h2>
+      <table class="sum-table">
+        <thead><tr><th>Dimension</th><th>Analysis</th></tr></thead>
+        <tbody>
+          <tr><td>Problem Solved</td><td>India's ~63 million MSMEs and tens of millions of new entrepreneurs face expensive, fragmented, geographically inaccessible legal &amp; compliance services. RegisterKaro digitised and democratised this into an affordable one-stop platform.</td></tr>
+          <tr><td>Revenue Model</td><td>One-time service fees (registrations, filings) + Annual compliance subscriptions (ROC, GST, bookkeeping) + eCFO/fractional finance team retainers + MSME loan facilitation.</td></tr>
+          <tr><td>Growth Engine</td><td>One-time registration creates a funnel → annual compliance creates recurring revenue → eCFO services deepen client lifetime value → referrals from satisfied founders expand the base organically.</td></tr>
+          <tr><td>Key Strength</td><td>All three founders are Chartered Accountants — giving the company unmatched technical credibility and an ability to build and maintain professional service quality at scale without expensive external talent dependencies.</td></tr>
+          <tr><td>Key Challenge</td><td>Service quality consistency at scale. Compliance is a high-trust category; early mixed reviews on SafeLedger.ae signal that maintaining quality across a rapidly growing team (~98% headcount growth) is the critical operational test.</td></tr>
+          <tr><td>Competitive Moat</td><td>Founder credibility (Big 4 + ICAI) + price advantage over traditional CA firms + Tier 3 city reach that larger players ignore + sticky annual compliance relationships.</td></tr>
+          <tr><td>Most Important Lesson</td><td>Building in a "boring" category (compliance) with genuine domain expertise and a clear Tier 3 mission can produce growth rates (538% CAGR) that rival the most celebrated consumer tech startups — without external funding or viral marketing.</td></tr>
+        </tbody>
+      </table>
+      <div class="final-box" style="margin-top:36px">
+        <h3>"If RegisterKaro is doing this at 4 years, what does 10 years look like?"</h3>
+        <p>The honest answer: we don't know yet. RegisterKaro is an early-stage success story, not a completed arc. What we can say is that the fundamentals — a real problem, domain-expert founders, a sticky revenue model, and a demographic tailwind of India's startup boom — are all in place.</p>
+        <p><strong>The bull case:</strong> RegisterKaro becomes the Zerodha of compliance — a beloved, bootstrapped, profitable platform that touches every serious Indian entrepreneur's founding journey. The Tier 3 focus could be a defining differentiator as India's startup activity decentralises beyond Bengaluru, Delhi, and Mumbai.</p>
+        <p><strong>The real test:</strong> Compliance is a category where one bad experience — a missed filing, a tax notice, a botched incorporation — destroys trust permanently. As the team scales past 400 people, Srihari and his co-founders face the classic founder challenge: <strong>preserving the quality and care that made 1,000 early clients trust them, now at 10x the volume.</strong></p>
+        <p class="footnote">Note: RegisterKaro is a young company (est. 2021). Publicly available financial and operational data is limited. All figures sourced from public MCA filings, Tracxn, and official company channels. This analysis reflects information available as of May 2026.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ FOOTER ════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Founder<span>Lens</span></div>
+      <div class="footer-sub">Deep-Dive Founder Analysis for India's Next Generation of Entrepreneurs</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">About</a><a href="#">All Analyses</a><a href="#">Next Issue</a><a href="#">Subscribe</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <span>FounderLens</span> · Srihari R Dhondalay × RegisterKaro Analysis · Research compiled May 2026 · For educational purposes — all data sourced from public filings and official channels
+  </div>
+</footer>
+
+<button class="fab" onclick="scrollToTop()" title="Back to top">↑</button>
+
+<script>
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+function scrollSec(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'})}
+
+const allSections=document.querySelectorAll('[id^="sec-"]');
+const tocItems=document.querySelectorAll('.toc-item');
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      tocItems.forEach(t=>t.classList.remove('active'));
+      const target=document.querySelector(`.toc-item[onclick*="${e.target.id}"]`);
+      if(target)target.classList.add('active');
+    }
+  });
+},{rootMargin:'-20% 0px -70% 0px'});
+allSections.forEach(s=>observer.observe(s));
+
+const revealObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}});
+},{threshold:0.04});
+document.querySelectorAll('.band-body').forEach(el=>{
+  el.style.opacity='0';el.style.transform='translateY(24px)';
+  el.style.transition='opacity 0.6s ease, transform 0.6s ease';
+  revealObserver.observe(el);
+});
+</script>
+</body>
+</html>
