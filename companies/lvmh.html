@@ -1,1 +1,1045 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>LVMH — FounderLens</title><link rel="stylesheet" href="../style.css"></head><body><main class="search-page"><a class="back-btn" href="../company.html">← Companies</a><article class="analysis-wrap"><header class="analysis-header"><p class="ah-tag">Company Analysis</p><h1 class="ah-name">LVMH</h1><p class="ah-company">Portfolio luxury built through scarcity, heritage, and control.</p></header><div class="analysis-body"><section class="section-block"><h3>Strategic Lens</h3><p>LVMH manages heritage brands like strategic assets, preserving scarcity while scaling distribution, craftsmanship, pricing power, and desirability.</p></section></div></article></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Louis Vuitton — FounderLens Company Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ivory:     #FAF7F2;
+  --ivory-dk:  #F0EBE1;
+  --cream:     #E8DFD0;
+  --gold:      #B8955A;
+  --gold-lt:   #D4B07A;
+  --gold-pale: #F5EDD8;
+  --navy:      #0E1B2E;
+  --navy-mid:  #1C2F4A;
+  --navy-lt:   #2E4570;
+  --charcoal:  #2C2C2C;
+  --mid:       #5A5A5A;
+  --muted:     #8A8A8A;
+  --rule:      rgba(184,149,90,0.18);
+  --rule-dark: rgba(255,255,255,0.1);
+
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Outfit', system-ui, sans-serif;
+  --mono:  'JetBrains Mono', monospace;
+  --r: 10px;
+  --r-lg: 18px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--ivory); color: var(--charcoal); -webkit-font-smoothing: antialiased; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+/* ───── PROGRESS BAR ───── */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+  width: 0%; z-index: 999; transition: width .1s linear;
+}
+
+/* ───── TICKER ───── */
+.ticker {
+  background: var(--navy);
+  color: var(--gold);
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: .18em; text-transform: uppercase;
+  padding: 9px 0; overflow: hidden; white-space: nowrap;
+  position: sticky; top: 0; z-index: 200;
+}
+.ticker-track {
+  display: inline-block;
+  animation: scroll-left 36s linear infinite;
+  padding-left: 100%;
+}
+.ticker-track span { margin: 0 44px; }
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ───── NAV ───── */
+.nav {
+  position: sticky; top: 33px; z-index: 190;
+  background: rgba(250,247,242,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--rule);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 56px; height: 56px;
+}
+.nav-brand { display: flex; align-items: center; gap: 14px; }
+.nav-monogram {
+  width: 38px; height: 38px;
+  background: var(--navy); border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 13px; font-weight: 600;
+  color: var(--gold); letter-spacing: .05em;
+}
+.nav-title { font-family: var(--serif); font-size: 18px; color: var(--navy); letter-spacing: .02em; }
+.nav-sub { font-family: var(--mono); font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
+.nav-pills { display: flex; gap: 4px; }
+.nav-pill {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
+  padding: 5px 13px; border-radius: 20px; border: 1px solid var(--rule);
+  background: none; color: var(--muted); cursor: pointer; transition: all .2s;
+}
+.nav-pill:hover, .nav-pill.active { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+.nav-badge {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 6px;
+  background: var(--gold-pale); color: var(--gold); border: 1px solid var(--rule);
+}
+
+/* ───── HERO ───── */
+.hero {
+  min-height: 96vh;
+  background: var(--navy);
+  display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; overflow: hidden;
+}
+.hero-bg-pattern {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 75% 40%, rgba(184,149,90,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 20% 70%, rgba(46,69,112,0.5) 0%, transparent 60%);
+}
+.hero-grid-lines {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-left {
+  padding: 80px 56px; display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 1;
+}
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 24px;
+  animation: fade-up .8s ease both;
+}
+.hero-eyebrow-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--gold);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .4; transform: scale(.8); }
+}
+.hero-eyebrow-text {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--gold);
+}
+.hero-h1 {
+  font-family: var(--serif); font-size: clamp(44px, 6vw, 82px);
+  font-weight: 300; line-height: .95; color: #fff;
+  letter-spacing: -.01em; margin-bottom: 8px;
+  animation: fade-up .8s .08s ease both;
+}
+.hero-h1 em { font-style: italic; color: var(--gold-lt); }
+.hero-sub {
+  font-family: var(--serif); font-size: clamp(16px, 2vw, 22px);
+  font-style: italic; color: rgba(255,255,255,0.55);
+  margin-bottom: 32px; line-height: 1.4;
+  animation: fade-up .8s .14s ease both;
+}
+.hero-desc {
+  font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.62);
+  max-width: 480px; font-weight: 300; margin-bottom: 40px;
+  animation: fade-up .8s .2s ease both;
+}
+.hero-desc strong { color: rgba(255,255,255,0.9); font-weight: 500; }
+
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
+  background: rgba(255,255,255,0.07); border-radius: var(--r); overflow: hidden;
+  margin-bottom: 28px; animation: fade-up .8s .26s ease both;
+}
+.kpi-cell {
+  background: rgba(14,27,46,0.7); padding: 16px 14px; text-align: center;
+  transition: background .25s;
+}
+.kpi-cell:hover { background: rgba(184,149,90,0.15); }
+.kpi-val {
+  font-family: var(--serif); font-size: 24px; font-weight: 300;
+  color: var(--gold-lt); line-height: 1.1; margin-bottom: 4px;
+}
+.kpi-lbl {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .15em;
+  text-transform: uppercase; color: rgba(255,255,255,0.38);
+}
+
+.hero-tags { display: flex; gap: 8px; flex-wrap: wrap; animation: fade-up .8s .32s ease both; }
+.hero-tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 20px;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.55); transition: all .2s; cursor: default;
+}
+.hero-tag:hover { background: rgba(184,149,90,0.2); color: var(--gold-lt); border-color: var(--gold); }
+.hero-tag.gold { background: rgba(184,149,90,0.15); border-color: rgba(184,149,90,0.35); color: var(--gold-lt); }
+
+/* Hero right — decorative monogram panel */
+.hero-right {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  gap: 28px; padding: 60px 40px;
+}
+.lv-monogram-wrap {
+  width: 280px; height: 280px; border-radius: 50%;
+  border: 1px solid rgba(184,149,90,0.25);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  animation: rotate-slow 40s linear infinite;
+}
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.lv-monogram-inner {
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(ellipse at 40% 35%, rgba(184,149,90,0.22), rgba(14,27,46,0.9));
+  border: 1px solid rgba(184,149,90,0.4);
+  display: flex; align-items: center; justify-content: center;
+  animation: rotate-slow 40s linear infinite reverse;
+}
+.lv-letters {
+  font-family: var(--serif); font-size: 80px; font-weight: 300;
+  color: var(--gold); letter-spacing: -.05em; line-height: 1;
+  text-shadow: 0 0 60px rgba(184,149,90,0.4);
+}
+.hero-quote-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(184,149,90,0.2);
+  border-radius: var(--r); padding: 20px 24px; max-width: 280px;
+}
+.hero-quote-text {
+  font-family: var(--serif); font-size: 14px; font-style: italic;
+  color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 10px;
+}
+.hero-quote-attr {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gold);
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ───── LAYOUT ───── */
+.article-wrap { display: grid; grid-template-columns: 220px 1fr; }
+
+/* Sidebar */
+.sidebar {
+  position: sticky; top: 89px; height: calc(100vh - 89px);
+  overflow-y: auto; scrollbar-width: none;
+  background: #fff; border-right: 1px solid var(--rule);
+  padding: 32px 0;
+}
+.sidebar::-webkit-scrollbar { display: none; }
+.toc-label {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold); padding: 0 20px; margin-bottom: 8px; margin-top: 18px; display: block;
+}
+.toc-btn {
+  display: block; width: 100%; text-align: left;
+  font-family: var(--sans); font-size: 12px; font-weight: 400;
+  color: var(--muted); padding: 8px 20px 8px 18px;
+  border-left: 3px solid transparent; border: none; background: none; cursor: pointer;
+  transition: all .2s; line-height: 1.4; border-left: 3px solid transparent;
+}
+.toc-btn:hover { color: var(--navy); background: var(--gold-pale); }
+.toc-btn.active {
+  color: var(--navy); border-left-color: var(--gold);
+  background: var(--gold-pale); font-weight: 600;
+}
+
+/* ───── SECTION BLOCKS ───── */
+.sec {
+  padding: 72px 64px;
+  scroll-margin-top: 92px;
+  border-bottom: 1px solid transparent;
+  opacity: 0; transform: translateY(26px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.sec.vis { opacity: 1; transform: none; }
+
+.sec.ivory     { background: var(--ivory);    border-color: var(--rule); }
+.sec.ivory-alt { background: var(--ivory-dk); border-color: var(--rule); }
+.sec.cream     { background: var(--cream);    border-color: rgba(184,149,90,0.2); }
+.sec.white     { background: #fff;            border-color: var(--rule); }
+.sec.navy      { background: var(--navy);     border-color: rgba(255,255,255,0.06); }
+.sec.navy-mid  { background: var(--navy-mid); border-color: rgba(255,255,255,0.06); }
+.sec.gradient-warm {
+  background: linear-gradient(135deg, var(--ivory) 0%, var(--gold-pale) 50%, var(--ivory-dk) 100%);
+  border-color: var(--rule);
+}
+.sec.gradient-dark {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #1A3558 100%);
+  border-color: rgba(255,255,255,0.06);
+}
+
+/* Section typography */
+.sec-num {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .24em;
+  text-transform: uppercase; margin-bottom: 10px;
+}
+.ivory .sec-num, .ivory-alt .sec-num, .white .sec-num, .gradient-warm .sec-num, .cream .sec-num { color: var(--gold); }
+.navy .sec-num, .navy-mid .sec-num, .gradient-dark .sec-num { color: var(--gold-lt); }
+
+.sec-title {
+  font-family: var(--serif); font-size: clamp(26px, 3.2vw, 40px);
+  font-weight: 300; letter-spacing: -.01em; line-height: 1.15;
+  margin-bottom: 22px; padding-bottom: 16px; display: inline-block;
+}
+.ivory .sec-title, .ivory-alt .sec-title, .white .sec-title, .gradient-warm .sec-title, .cream .sec-title {
+  border-bottom: 2px solid var(--gold); color: var(--navy);
+}
+.navy .sec-title, .navy-mid .sec-title, .gradient-dark .sec-title {
+  border-bottom: 2px solid var(--gold-lt); color: #fff;
+}
+.sec-title em { font-style: italic; }
+.ivory .sec-title em, .ivory-alt .sec-title em, .white .sec-title em, .gradient-warm .sec-title em, .cream .sec-title em { color: var(--gold); }
+.navy .sec-title em, .navy-mid .sec-title em, .gradient-dark .sec-title em { color: var(--gold-lt); }
+
+/* Lead */
+.lead {
+  font-family: var(--serif); font-size: 19px; font-style: italic;
+  line-height: 1.7; margin-bottom: 26px; padding-bottom: 26px; max-width: 700px;
+}
+.ivory .lead, .ivory-alt .lead, .white .lead, .gradient-warm .lead, .cream .lead {
+  color: var(--mid); border-bottom: 1px solid var(--rule);
+}
+.navy .lead, .navy-mid .lead, .gradient-dark .lead {
+  color: rgba(255,255,255,0.65); border-bottom: 1px solid var(--rule-dark);
+}
+
+/* Body paragraphs */
+p.bp { font-size: 15.5px; line-height: 1.82; margin-bottom: 18px; font-weight: 300; max-width: 720px; }
+p.bp:last-child { margin-bottom: 0; }
+.ivory p.bp, .ivory-alt p.bp, .white p.bp, .gradient-warm p.bp, .cream p.bp { color: var(--mid); }
+.navy p.bp, .navy-mid p.bp, .gradient-dark p.bp { color: rgba(255,255,255,0.68); }
+p.bp strong { font-weight: 600; }
+.ivory p.bp strong, .ivory-alt p.bp strong, .white p.bp strong, .gradient-warm p.bp strong, .cream p.bp strong { color: var(--charcoal); }
+.navy p.bp strong, .navy-mid p.bp strong, .gradient-dark p.bp strong { color: #fff; }
+
+/* Concept tag */
+.ctag {
+  display: inline-block;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em;
+  padding: 3px 9px; border-radius: 4px; vertical-align: middle; margin-left: 4px;
+}
+.ivory .ctag, .ivory-alt .ctag, .white .ctag, .gradient-warm .ctag, .cream .ctag {
+  background: var(--gold-pale); color: var(--gold); border: 1px solid var(--rule);
+}
+.navy .ctag, .navy-mid .ctag, .gradient-dark .ctag {
+  background: rgba(184,149,90,0.15); color: var(--gold-lt); border: 1px solid rgba(184,149,90,0.25);
+}
+
+/* ── PULL QUOTE ── */
+.pq { margin: 32px 0; padding: 24px 30px; border-radius: 0 var(--r) var(--r) 0; max-width: 680px; }
+.ivory .pq, .ivory-alt .pq, .white .pq, .gradient-warm .pq, .cream .pq {
+  border-left: 3px solid var(--gold); background: var(--gold-pale);
+}
+.navy .pq, .navy-mid .pq, .gradient-dark .pq {
+  border-left: 3px solid var(--gold-lt); background: rgba(184,149,90,0.08);
+}
+.pq blockquote {
+  font-family: var(--serif); font-size: 20px; font-style: italic; line-height: 1.5; margin-bottom: 10px;
+}
+.ivory .pq blockquote, .ivory-alt .pq blockquote, .white .pq blockquote, .gradient-warm .pq blockquote, .cream .pq blockquote { color: var(--navy); }
+.navy .pq blockquote, .navy-mid .pq blockquote, .gradient-dark .pq blockquote { color: rgba(255,255,255,0.9); }
+.pq cite { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; font-style: normal; }
+.ivory .pq cite, .ivory-alt .pq cite, .white .pq cite, .gradient-warm .pq cite, .cream .pq cite { color: var(--gold); }
+.navy .pq cite, .navy-mid .pq cite, .gradient-dark .pq cite { color: var(--gold-lt); }
+
+/* ── INSIGHT CARDS (icon grid) ── */
+.insight-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: 14px; margin: 28px 0; }
+.insight-card {
+  border-radius: var(--r); padding: 20px 18px;
+  transition: transform .2s, box-shadow .2s;
+}
+.insight-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(184,149,90,0.12); }
+.ivory .insight-card, .ivory-alt .insight-card, .white .insight-card, .gradient-warm .insight-card, .cream .insight-card {
+  background: #fff; border: 1px solid var(--rule); box-shadow: 0 2px 10px rgba(184,149,90,0.06);
+}
+.navy .insight-card, .navy-mid .insight-card, .gradient-dark .insight-card {
+  background: rgba(255,255,255,0.07); border: 1px solid var(--rule-dark);
+}
+.ic-icon { font-size: 26px; margin-bottom: 10px; display: block; }
+.ic-title { font-family: var(--serif); font-size: 16px; margin-bottom: 6px; font-weight: 400; }
+.ivory .ic-title, .ivory-alt .ic-title, .white .ic-title, .gradient-warm .ic-title, .cream .ic-title { color: var(--navy); }
+.navy .ic-title, .navy-mid .ic-title, .gradient-dark .ic-title { color: #fff; }
+.ic-desc { font-size: 12.5px; line-height: 1.6; font-weight: 300; }
+.ivory .ic-desc, .ivory-alt .ic-desc, .white .ic-desc, .gradient-warm .ic-desc, .cream .ic-desc { color: var(--muted); }
+.navy .ic-desc, .navy-mid .ic-desc, .gradient-dark .ic-desc { color: rgba(255,255,255,0.5); }
+
+/* ── STAT CARDS ── */
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 10px; margin: 28px 0; }
+.stat-card {
+  border-radius: var(--r); padding: 18px 16px; text-align: center;
+  transition: transform .2s;
+}
+.stat-card:hover { transform: translateY(-2px); }
+.ivory .stat-card, .ivory-alt .stat-card, .white .stat-card, .gradient-warm .stat-card, .cream .stat-card {
+  background: var(--navy);
+}
+.navy .stat-card, .navy-mid .stat-card, .gradient-dark .stat-card {
+  background: rgba(255,255,255,0.08); border: 1px solid var(--rule-dark);
+}
+.stat-val { font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--gold-lt); line-height: 1.1; margin-bottom: 5px; }
+.stat-lbl { font-family: var(--mono); font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+
+/* ── INFO ROWS ── */
+.info-rows { margin: 20px 0; max-width: 680px; }
+.info-row { display: flex; gap: 20px; padding: 12px 0; border-bottom: 1px solid; font-size: 14.5px; align-items: flex-start; }
+.ivory .info-row, .ivory-alt .info-row, .white .info-row, .gradient-warm .info-row, .cream .info-row { border-color: var(--rule); }
+.navy .info-row, .navy-mid .info-row, .gradient-dark .info-row { border-color: var(--rule-dark); }
+.info-row:last-child { border-bottom: none; }
+.info-key { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; flex-shrink: 0; width: 140px; padding-top: 3px; font-weight: 500; }
+.ivory .info-key, .ivory-alt .info-key, .white .info-key, .gradient-warm .info-key, .cream .info-key { color: var(--gold); }
+.navy .info-key, .navy-mid .info-key, .gradient-dark .info-key { color: var(--gold-lt); }
+.info-val { line-height: 1.6; font-weight: 300; }
+.ivory .info-val, .ivory-alt .info-val, .white .info-val, .gradient-warm .info-val, .cream .info-val { color: var(--mid); }
+.navy .info-val, .navy-mid .info-val, .gradient-dark .info-val { color: rgba(255,255,255,0.68); }
+.info-val strong { font-weight: 600; }
+.ivory .info-val strong, .ivory-alt .info-val strong, .white .info-val strong, .gradient-warm .info-val strong, .cream .info-val strong { color: var(--charcoal); }
+.navy .info-val strong, .navy-mid .info-val strong, .gradient-dark .info-val strong { color: #fff; }
+
+/* ── SWOT ── */
+.swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin: 28px 0; background: var(--rule); border-radius: var(--r); overflow: hidden; max-width: 680px; }
+.swot-cell { padding: 22px 20px; }
+.swot-s { background: #EAF4E9; } .swot-w { background: #FDF5EA; }
+.swot-o { background: #EAF0FB; } .swot-t { background: #FAEAEA; }
+.swot-head { font-family: var(--mono); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; font-weight: 500; margin-bottom: 10px; }
+.swot-s .swot-head { color: #2E7D32; } .swot-w .swot-head { color: #E65100; }
+.swot-o .swot-head { color: #1565C0; } .swot-t .swot-head { color: #B71C1C; }
+.swot-list { list-style: none; }
+.swot-list li { font-size: 13px; line-height: 1.6; color: var(--mid); padding: 3px 0; font-weight: 300; }
+.swot-list li::before { content: '— '; opacity: 0.5; }
+
+/* ── MOAT BARS ── */
+.moat-bars { margin: 28px 0; max-width: 600px; }
+.moat-bar { margin-bottom: 16px; }
+.moat-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.moat-name { font-family: var(--sans); font-size: 13px; font-weight: 400; }
+.ivory .moat-name, .ivory-alt .moat-name, .white .moat-name, .gradient-warm .moat-name, .cream .moat-name { color: var(--charcoal); }
+.navy .moat-name, .navy-mid .moat-name, .gradient-dark .moat-name { color: rgba(255,255,255,0.85); }
+.moat-score { font-family: var(--mono); font-size: 11px; color: var(--gold); }
+.moat-track { height: 6px; border-radius: 3px; overflow: hidden; }
+.ivory .moat-track, .ivory-alt .moat-track, .white .moat-track, .gradient-warm .moat-track, .cream .moat-track { background: var(--cream); }
+.navy .moat-track, .navy-mid .moat-track, .gradient-dark .moat-track { background: rgba(255,255,255,0.1); }
+.moat-fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+  width: 0%; transition: width 1.2s cubic-bezier(.16,1,.3,1);
+}
+
+/* ── RISK CARDS ── */
+.risk-list { margin: 24px 0; max-width: 680px; }
+.risk-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid; }
+.ivory .risk-item, .ivory-alt .risk-item, .white .risk-item, .gradient-warm .risk-item, .cream .risk-item { border-color: var(--rule); }
+.navy .risk-item, .navy-mid .risk-item, .gradient-dark .risk-item { border-color: var(--rule-dark); }
+.risk-item:last-child { border-bottom: none; }
+.risk-badge { flex-shrink: 0; width: 44px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 8px; letter-spacing: .1em; font-weight: 500; margin-top: 2px; }
+.risk-high { background: #FAEAEA; color: #B71C1C; }
+.risk-med  { background: #FDF5EA; color: #E65100; }
+.risk-low  { background: #EAF4E9; color: #2E7D32; }
+.risk-content-title { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+.ivory .risk-content-title, .ivory-alt .risk-content-title, .white .risk-content-title, .gradient-warm .risk-content-title, .cream .risk-content-title { color: var(--charcoal); }
+.navy .risk-content-title, .navy-mid .risk-content-title, .gradient-dark .risk-content-title { color: #fff; }
+.risk-content-desc { font-size: 13px; line-height: 1.65; font-weight: 300; }
+.ivory .risk-content-desc, .ivory-alt .risk-content-desc, .white .risk-content-desc, .gradient-warm .risk-content-desc, .cream .risk-content-desc { color: var(--muted); }
+.navy .risk-content-desc, .navy-mid .risk-content-desc, .gradient-dark .risk-content-desc { color: rgba(255,255,255,0.5); }
+
+/* ── LESSONS GRID ── */
+.lessons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 24px 0; }
+.lesson-card {
+  border-radius: var(--r); padding: 22px 20px;
+  transition: transform .2s;
+}
+.lesson-card:hover { transform: translateY(-2px); }
+.ivory .lesson-card, .ivory-alt .lesson-card, .white .lesson-card, .gradient-warm .lesson-card, .cream .lesson-card {
+  background: var(--navy);
+}
+.navy .lesson-card, .navy-mid .lesson-card, .gradient-dark .lesson-card {
+  background: rgba(255,255,255,0.06); border: 1px solid var(--rule-dark);
+}
+.lesson-num { font-family: var(--serif); font-size: 36px; font-weight: 300; color: rgba(212,176,122,0.25); line-height: 1; margin-bottom: -4px; }
+.lesson-title { font-family: var(--serif); font-size: 16px; color: var(--gold-lt); margin-bottom: 8px; }
+.lesson-desc { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,0.6); font-weight: 300; }
+
+/* ── VERDICT ── */
+.verdict-box {
+  border-radius: var(--r-lg); padding: 40px 44px; margin: 32px 0; max-width: 720px;
+  border-left: 5px solid var(--gold);
+  background: rgba(255,255,255,0.06);
+}
+.verdict-box h3 { font-family: var(--serif); font-size: 22px; font-style: italic; margin-bottom: 20px; line-height: 1.4; color: var(--gold-lt); }
+.verdict-box p { font-size: 15px; line-height: 1.8; margin-bottom: 14px; font-weight: 300; color: rgba(255,255,255,0.7); }
+.verdict-box p strong { font-weight: 500; color: #fff; }
+.verdict-box .verdict-note { border-top: 1px solid var(--rule-dark); padding-top: 18px; margin-top: 20px; font-style: italic; font-size: 13.5px; color: rgba(255,255,255,0.45); }
+
+/* ── QUOTE CARDS ── */
+.qcards { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 14px; margin: 24px 0; }
+.qcard { border-radius: var(--r); padding: 22px 20px; transition: transform .2s; }
+.qcard:hover { transform: translateY(-2px); }
+.ivory .qcard, .ivory-alt .qcard, .white .qcard, .gradient-warm .qcard, .cream .qcard { background: var(--navy); }
+.navy .qcard, .navy-mid .qcard, .gradient-dark .qcard { background: rgba(255,255,255,0.07); border: 1px solid var(--rule-dark); }
+.qcard-icon { font-size: 32px; color: rgba(184,149,90,0.3); font-family: var(--serif); font-weight: 300; line-height: 1; margin-bottom: -4px; }
+.qcard-text { font-family: var(--serif); font-size: 14px; font-style: italic; color: rgba(255,255,255,0.78); line-height: 1.65; margin-bottom: 12px; }
+.navy .qcard-text { color: rgba(255,255,255,0.75); }
+.qcard-meta { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-lt); }
+
+/* ── REVEAL CHILDREN (stagger) ── */
+.rc > * { opacity: 0; transform: translateY(14px); transition: opacity .45s ease, transform .45s ease; }
+.rc.vis > *:nth-child(1) { opacity:1;transform:none;transition-delay:.04s; }
+.rc.vis > *:nth-child(2) { opacity:1;transform:none;transition-delay:.1s; }
+.rc.vis > *:nth-child(3) { opacity:1;transform:none;transition-delay:.16s; }
+.rc.vis > *:nth-child(4) { opacity:1;transform:none;transition-delay:.22s; }
+.rc.vis > *:nth-child(5) { opacity:1;transform:none;transition-delay:.28s; }
+.rc.vis > *:nth-child(6) { opacity:1;transform:none;transition-delay:.34s; }
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--navy-mid);
+  border-top: 2px solid var(--gold);
+  padding: 48px 56px 32px;
+}
+.footer-inner { max-width: 900px; }
+.footer-brand { font-family: var(--serif); font-size: 20px; color: #fff; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.footer-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+.footer-desc { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.45); font-weight: 300; max-width: 480px; margin-bottom: 32px; }
+.footer-bottom { border-top: 1px solid var(--rule-dark); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.footer-copy { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: rgba(255,255,255,0.3); }
+.footer-copy span { color: var(--gold); }
+.footer-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.footer-tag { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.35); }
+
+/* Scroll-top */
+.scroll-top { position: fixed; bottom: 28px; right: 28px; width: 42px; height: 42px; background: var(--gold); border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(184,149,90,0.4); z-index: 300; transition: transform .2s; }
+.scroll-top:hover { transform: translateY(-3px); }
+.scroll-top svg { width: 16px; height: 16px; fill: #fff; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;min-height:auto;}
+  .hero-right{display:none;}
+  .article-wrap{grid-template-columns:1fr;}
+  .sidebar{display:none;}
+  .sec{padding:48px 24px;}
+  .nav{padding:0 20px;}
+  .nav-pills{display:none;}
+  .footer{padding:36px 24px 24px;}
+  .lessons-grid{grid-template-columns:1fr;}
+  .swot-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>FounderLens · Company Analysis · Issue #07</span>
+    <span>Louis Vuitton · Founded 1854 · Paris, France</span>
+    <span>LVMH Revenue: €86.2 Billion (2023)</span>
+    <span>The Most Valuable Luxury Brand on Earth</span>
+    <span>Brand Value: $124 Billion · 2023</span>
+    <span>500+ Stores · 60+ Countries</span>
+    <span>Premium Without Compromise · Since 1854</span>
+    <span>FounderLens · Company Analysis · Issue #07</span>
+    <span>Louis Vuitton · Founded 1854 · Paris, France</span>
+    <span>LVMH Revenue: €86.2 Billion (2023)</span>
+    <span>The Most Valuable Luxury Brand on Earth</span>
+    <span>Brand Value: $124 Billion · 2023</span>
+    <span>500+ Stores · 60+ Countries</span>
+    <span>Premium Without Compromise · Since 1854</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-monogram">FL</div>
+    <div>
+      <div class="nav-title">FounderLens</div>
+      <div class="nav-sub">Company Strategy Series</div>
+    </div>
+  </div>
+  <div class="nav-pills">
+    <button class="nav-pill active" onclick="window.scrollTo({top:0,behavior:'smooth'})">Overview</button>
+    <button class="nav-pill" onclick="gotoSec('model')">Model</button>
+    <button class="nav-pill" onclick="gotoSec('moat')">Moat</button>
+    <button class="nav-pill" onclick="gotoSec('strategy')">Strategy</button>
+    <button class="nav-pill" onclick="gotoSec('verdict')">Verdict</button>
+  </div>
+  <div class="nav-badge">Issue #07 · Luxury</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-grid-lines"></div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      <span class="hero-eyebrow-text">FounderLens · Company Deep-Dive · Issue 07</span>
+    </div>
+    <h1 class="hero-h1">Louis<br><em>Vuitton</em></h1>
+    <div class="hero-sub">The Architecture of Desire</div>
+    <p class="hero-desc">
+      Most companies sell products. Louis Vuitton sells a <strong>position in the world</strong>. Understanding how it built that position — and why it is nearly impossible to replicate — is one of the most instructive strategy lessons in modern business.
+    </p>
+    <div class="kpi-grid">
+      <div class="kpi-cell"><div class="kpi-val">$124B</div><div class="kpi-lbl">Brand Value 2023</div></div>
+      <div class="kpi-cell"><div class="kpi-val">170yr</div><div class="kpi-lbl">Brand Legacy</div></div>
+      <div class="kpi-cell"><div class="kpi-val">500+</div><div class="kpi-lbl">Global Stores</div></div>
+      <div class="kpi-cell"><div class="kpi-val">~35%</div><div class="kpi-lbl">Est. Profit Margin</div></div>
+      <div class="kpi-cell"><div class="kpi-val">60+</div><div class="kpi-lbl">Countries</div></div>
+      <div class="kpi-cell"><div class="kpi-val">#1</div><div class="kpi-lbl">Global Luxury Brand</div></div>
+    </div>
+    <div class="hero-tags">
+      <span class="hero-tag gold">Luxury Strategy</span>
+      <span class="hero-tag gold">Brand Moat</span>
+      <span class="hero-tag">Paris</span>
+      <span class="hero-tag">Founded 1854</span>
+      <span class="hero-tag">LVMH</span>
+      <span class="hero-tag">Scarcity Economics</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="lv-monogram-wrap">
+      <div class="lv-monogram-inner">
+        <div class="lv-letters">LV</div>
+      </div>
+    </div>
+    <div class="hero-quote-card">
+      <div class="hero-quote-text">"A luxury product is one that is both useful and useless at the same time — perfectly made, beautifully designed, and absolutely unnecessary."</div>
+      <div class="hero-quote-attr">Bernard Arnault · Chairman, LVMH</div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLE LAYOUT -->
+<div class="article-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <span class="toc-label">The Company</span>
+    <button class="toc-btn" onclick="gotoSec('overview')">01 · Company Overview</button>
+    <button class="toc-btn" onclick="gotoSec('problem')">02 · Core Problem</button>
+    <button class="toc-btn" onclick="gotoSec('timing')">03 · Market Timing</button>
+
+    <span class="toc-label">The Business</span>
+    <button class="toc-btn" onclick="gotoSec('model')">04 · Business Model</button>
+    <button class="toc-btn" onclick="gotoSec('product')">05 · Product & UX</button>
+    <button class="toc-btn" onclick="gotoSec('growth')">06 · Growth & Distribution</button>
+    <button class="toc-btn" onclick="gotoSec('ops')">07 · Operational Strategy</button>
+
+    <span class="toc-label">Strategy</span>
+    <button class="toc-btn" onclick="gotoSec('moat')">08 · Competitive Advantage</button>
+    <button class="toc-btn" onclick="gotoSec('strategy')">09 · Strategic Analysis</button>
+    <button class="toc-btn" onclick="gotoSec('risks')">10 · Risks & Weaknesses</button>
+    <button class="toc-btn" onclick="gotoSec('impact')">11 · Industry Impact</button>
+    <button class="toc-btn" onclick="gotoSec('lessons')">12 · Lessons For Builders</button>
+    <button class="toc-btn" onclick="gotoSec('verdict')">13 · Final Verdict</button>
+  </aside>
+
+  <div>
+
+    <!-- 01 OVERVIEW -->
+    <div class="sec ivory" id="sec-overview">
+      <div class="sec-num">01 — Company Overview</div>
+      <h2 class="sec-title">What Louis Vuitton <em>Actually Sells</em></h2>
+      <p class="lead">On the surface, it's a bag company. In reality, it's one of the most sophisticated status-infrastructure businesses ever built.</p>
+      <p class="bp">Founded in Paris in 1854, Louis Vuitton began as a trunk-maker for the French aristocracy. The original product was functional: flat-topped trunks that could be stacked efficiently — a genuine innovation at a time when carriages and ocean liners made rounded-top trunks impractical. From day one, the company solved a real problem while signalling social belonging.</p>
+      <p class="bp">Today, Louis Vuitton is the flagship brand of <strong>LVMH</strong>, the world's largest luxury group. It sells leather goods, fashion, watches, jewellery, fragrances, and experiences — but the actual product is always the same thing: <strong>the feeling of being someone who owns Louis Vuitton</strong>. That feeling is the company's core offering, and it is manufactured as deliberately as any handbag.</p>
+      <div class="info-rows">
+        <div class="info-row"><span class="info-key">Founded</span><span class="info-val"><strong>1854</strong> · Paris, France</span></div>
+        <div class="info-row"><span class="info-key">Parent Group</span><span class="info-val"><strong>LVMH Moët Hennessy</strong> · Acquired 1987 · Bernard Arnault, Chairman</span></div>
+        <div class="info-row"><span class="info-key">Industry</span><span class="info-val">Luxury Goods · Fashion · Leather · Travel</span></div>
+        <div class="info-row"><span class="info-key">Est. Revenue</span><span class="info-val">~<strong>€20–22 Billion</strong> annually (not disclosed separately by LVMH)</span></div>
+        <div class="info-row"><span class="info-key">Brand Value</span><span class="info-val"><strong>$124 Billion</strong> · Interbrand 2023 · #1 luxury brand globally</span></div>
+        <div class="info-row"><span class="info-key">Stores</span><span class="info-val">500+ stores across 60+ countries · Never sold via third-party retailers</span></div>
+      </div>
+    </div>
+
+    <!-- 02 PROBLEM -->
+    <div class="sec navy" id="sec-problem">
+      <div class="sec-num">02 — The Core Problem</div>
+      <h2 class="sec-title">The Problem <em>Luxury Solves</em></h2>
+      <p class="lead">Luxury brands don't solve practical problems. They solve social ones — and those are far harder to replicate.</p>
+      <p class="bp">When Louis Vuitton was founded, wealthy travellers faced an actual logistics problem: luggage that didn't stack, couldn't be locked reliably, and wasn't durable enough for long journeys. Vuitton's trunks solved this. But something more interesting happened: the product became a <strong>signal of taste and status</strong>. The people who owned Vuitton trunks weren't just better-equipped — they were visibly different from those who didn't.</p>
+      <p class="bp">This is the deeper problem Louis Vuitton has always been in the business of solving: <strong>how do people signal their position, taste, and success to the world?</strong> In every era, wealthy individuals have needed objects that communicate who they are without saying a word. Louis Vuitton understood that problem 170 years ago and has never stopped answering it.</p>
+      <div class="qcards rc">
+        <div class="qcard">
+          <div class="qcard-icon">"</div>
+          <div class="qcard-text">The functional problem — durable, stackable luggage — was the entry point. The emotional problem — belonging to a class of people who own beautiful things — was the actual business.</div>
+          <div class="qcard-meta">FounderLens Analysis</div>
+        </div>
+        <div class="qcard">
+          <div class="qcard-icon">"</div>
+          <div class="qcard-text">Luxury's real insight: some customers don't want a cheaper alternative. They want proof that no cheaper alternative was considered. That's a fundamentally different market.</div>
+          <div class="qcard-meta">FounderLens Analysis</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 TIMING -->
+    <div class="sec ivory-alt" id="sec-timing">
+      <div class="sec-num">03 — Market Timing</div>
+      <h2 class="sec-title">Why This Brand <em>Grew When It Did</em></h2>
+      <p class="lead">The 1980s and 1990s didn't just reshape global business — they created the conditions for luxury to become a global industry.</p>
+      <p class="bp">Louis Vuitton was a prestigious French brand for over a century before it became a global phenomenon. The real acceleration came when <strong>Bernard Arnault</strong> acquired control of LVMH in 1987 and began treating luxury brands not as artisanal niche businesses, but as scalable, globally distributable intellectual property.</p>
+      <p class="bp">Three macro trends aligned perfectly. First, <strong>globalisation created new wealthy consumers</strong> — in Japan, then China, then Southeast Asia — who were hungry for Western status symbols. Second, <strong>rising aspirational middle classes</strong> created a new type of buyer: people who couldn't afford LV every day, but could afford one bag that they'd carry for years. Third, <strong>the rise of air travel</strong> meant consumers in Seoul, Shanghai, and São Paulo could walk into a Louis Vuitton store — and they did.</p>
+      <div class="insight-grid rc">
+        <div class="insight-card"><span class="ic-icon">✈️</span><div class="ic-title">Globalisation of Wealth</div><div class="ic-desc">New affluent consumers emerged in Asia, the Middle East, and Latin America — all seeking established Western luxury symbols.</div></div>
+        <div class="insight-card"><span class="ic-icon">📈</span><div class="ic-title">Aspirational Middle Class</div><div class="ic-desc">A new buyer emerged: not the ultra-rich, but people willing to save for one meaningful luxury purchase. LV captured both segments.</div></div>
+        <div class="insight-card"><span class="ic-icon">🏙️</span><div class="ic-title">Airport & Tourism Retail</div><div class="ic-desc">Global travel created a natural distribution channel. Airports became luxury showrooms. Tourists bought LV as a souvenir and a status signal simultaneously.</div></div>
+        <div class="insight-card"><span class="ic-icon">📱</span><div class="ic-title">Instagram & Visual Culture</div><div class="ic-desc">Social media turned luxury goods into publicly displayed status. Every LV bag carried on the street became free advertising — and a desire trigger for observers.</div></div>
+      </div>
+    </div>
+
+    <!-- 04 MODEL -->
+    <div class="sec gradient-warm" id="sec-model">
+      <div class="sec-num">04 — Business Model</div>
+      <h2 class="sec-title">How Louis Vuitton <em>Makes Money</em></h2>
+      <p class="lead">The business model is deceptively simple: sell objects at prices far above cost, and make the price gap itself part of the product.</p>
+      <p class="bp">Louis Vuitton's revenue comes from leather goods and accessories (~75%), fashion and ready-to-wear, watches, jewellery, and fragrances. But the real model isn't about product categories — it's about <strong>price architecture</strong>. A Speedy bag costs a few hundred dollars to produce and sells for $1,500–$3,000. That gap — between cost and price — is not a margin. It is the product. The high price is what makes it desirable. <span class="ctag">Veblen Good</span></p>
+      <p class="bp">This inverts normal economics. Most businesses lower prices to increase volume. Louis Vuitton cannot lower prices without destroying demand — because the price is part of what consumers are buying. <strong>Scarcity is manufactured, not accidental.</strong> Long waitlists for popular items are not a supply problem. They are a demand-amplification tool.</p>
+      <div class="stat-row rc">
+        <div class="stat-card"><div class="stat-val">~75%</div><div class="stat-lbl">Revenue from Leather Goods</div></div>
+        <div class="stat-card"><div class="stat-val">~35%</div><div class="stat-lbl">Est. Operating Margin</div></div>
+        <div class="stat-card"><div class="stat-val">0</div><div class="stat-lbl">Third-Party Retail Partners</div></div>
+        <div class="stat-card"><div class="stat-val">100%</div><div class="stat-lbl">Direct-to-Consumer Sales</div></div>
+      </div>
+      <p class="bp">The model is extraordinarily scalable because the underlying asset — the brand — doesn't wear out. A Hermès or Louis Vuitton handbag from 20 years ago still sells on the secondary market for more than its original price. The brand <strong>appreciates like real estate</strong>, not like most consumer goods. And because all sales happen through LV's own stores (never department stores, never Amazon), the company controls every touchpoint of the customer experience. <span class="ctag">Direct Distribution Control</span></p>
+    </div>
+
+    <!-- 05 PRODUCT -->
+    <div class="sec navy-mid" id="sec-product">
+      <div class="sec-num">05 — Product & User Experience</div>
+      <h2 class="sec-title">Why Customers <em>Choose Louis Vuitton</em></h2>
+      <p class="lead">The product is not the bag. The product is the entire experience of owning it — from purchase to daily use to social recognition.</p>
+      <p class="bp">Walk into a Louis Vuitton store and you experience something carefully orchestrated. The lighting, the scent, the silence, the service-to-customer ratio, the packaging — all of it is designed to make you feel like you've entered a different world. <strong>The store itself is a product</strong>. LV spends heavily on architectural flagship locations (the Champs-Élysées store, the Dubai Mall location, the Fifth Avenue maison) precisely because the physical environment shapes how customers feel about what they're buying.</p>
+      <p class="bp">The core product decisions that drive retention are three: <strong>recognisability</strong> (the monogram is instantly identifiable from 30 feet away — it is a portable logo you wear), <strong>durability</strong> (LV products genuinely last decades, creating rational justification for the price), and <strong>heritage</strong> (buying LV is participating in 170 years of history, not just purchasing a bag). Each reinforces the other. <span class="ctag">Product Differentiation</span></p>
+      <div class="pq">
+        <blockquote>The monogram pattern is arguably the most successful piece of graphic design in commercial history. It turned a luggage canvas into an instantly recognisable global status signal — and it's been doing that for over 100 years.</blockquote>
+        <cite>FounderLens Analysis</cite>
+      </div>
+      <p class="bp">Customer loyalty at LV isn't driven by a loyalty programme or points — it's driven by identity. Once someone identifies as a "Louis Vuitton person," switching to another brand isn't just about the product. It's about <strong>who they see themselves as</strong>. That psychological switching cost is more durable than any rewards programme. <span class="ctag">Switching Costs via Identity</span></p>
+    </div>
+
+    <!-- 06 GROWTH -->
+    <div class="sec ivory" id="sec-growth">
+      <div class="sec-num">06 — Growth & Distribution</div>
+      <h2 class="sec-title">Growing Without <em>Discounting</em></h2>
+      <p class="lead">Most brands grow by reaching more people at lower prices. Louis Vuitton grows by making more people want what they can't easily have.</p>
+      <p class="bp">Louis Vuitton's growth playbook is almost counterintuitive. It never discounts. It never holds sales. It never goes on Groupon. Instead, it grows through three levers: <strong>new geographies</strong>, <strong>new product categories</strong>, and <strong>cultural association</strong>.</p>
+      <p class="bp">The geographic strategy is systematic: identify markets where new wealth is being created, open flagship stores, create media events around the openings, and let word-of-mouth and visible ownership do the rest. China became LV's largest market not through advertising but through social proof — seeing wealthy peers carry LV created demand faster than any campaign could. <span class="ctag">Aspirational Network Effects</span></p>
+      <div class="insight-grid rc">
+        <div class="insight-card"><span class="ic-icon">🎨</span><div class="ic-title">Artist Collaborations</div><div class="ic-desc">Jeff Koons, Takashi Murakami, Yayoi Kusama — LV partners with artists to stay culturally relevant and generate media attention without traditional advertising spend.</div></div>
+        <div class="insight-card"><span class="ic-icon">🌍</span><div class="ic-title">Geographic Expansion</div><div class="ic-desc">LV enters markets precisely as new wealth emerges — Japan in the 80s, China in the 2000s, Southeast Asia and the Middle East more recently.</div></div>
+        <div class="insight-card"><span class="ic-icon">⚽</span><div class="ic-title">Cultural Moments</div><div class="ic-desc">LV has been official partner of the FIFA World Cup, Formula 1, and the Paris Olympics — events that deliver global reach and status association simultaneously.</div></div>
+        <div class="insight-card"><span class="ic-icon">🎭</span><div class="ic-title">Fashion Week as PR</div><div class="ic-desc">Runway shows are not primarily commercial events. They are media events that generate $100M+ in earned coverage — all justifying the brand's cultural leadership.</div></div>
+      </div>
+      <p class="bp">The most powerful growth tool LV has is also its most overlooked: <strong>existing customers as walking advertisements</strong>. Every person carrying a monogram bag in a city street is a free impression for the brand. At $124B brand value, the return on that unintentional advertising is extraordinary. <span class="ctag">Organic Brand Distribution</span></p>
+    </div>
+
+    <!-- 07 OPS -->
+    <div class="sec ivory-alt" id="sec-ops">
+      <div class="sec-num">07 — Operational Strategy</div>
+      <h2 class="sec-title">The Machine <em>Behind the Mystique</em></h2>
+      <p class="lead">Luxury feels effortless to the customer. Behind that effortlessness is a ruthlessly disciplined operational system.</p>
+      <p class="bp"><strong>Manufacturing control</strong> is fundamental. Most of Louis Vuitton's leather goods are made in France (and Spain and the USA), and the company owns most of its production facilities. This is expensive — French labour costs far more than manufacturing in Southeast Asia — but the cost is strategic. "Made in France" is part of the product's value proposition. Outsourcing production would be cheaper in the short term and catastrophic in the long term. <span class="ctag">Vertical Integration</span></p>
+      <p class="bp"><strong>Distribution control</strong> is equally deliberate. LV sells exclusively through its own stores and its own website. It has never sold through department stores like Nordstrom or Harrods (unlike most luxury brands). This costs revenue — they forgo sales that would have happened in third-party channels. But it gives them complete control over pricing, presentation, and brand experience. When every customer encounter is controlled, the brand promise is consistent globally. <span class="ctag">Direct-to-Consumer Model</span></p>
+      <p class="bp">The <strong>anti-discount policy</strong> is operational discipline, not just marketing. Most luxury brands reduce prices at the end of seasons. LV rarely does — and when unsold inventory exists, it has historically been destroyed rather than discounted. This isn't waste. It is a strategy to protect price integrity. A discounted LV signals to the market that LV can be had for less — which permanently resets consumer price expectations and erodes brand premium. <span class="ctag">Scarcity Management</span></p>
+    </div>
+
+    <!-- 08 MOAT -->
+    <div class="sec gradient-dark" id="sec-moat">
+      <div class="sec-num">08 — Competitive Advantage</div>
+      <h2 class="sec-title">Why This Is <em>Nearly Impossible To Copy</em></h2>
+      <p class="lead">Louis Vuitton's moat is not one thing. It is a stack of advantages that compound each other over decades.</p>
+      <p class="bp">You can copy a handbag. You can copy a monogram pattern. Counterfeiters do this every day — and paradoxically, they don't hurt LV much, because the counterfeits signal that LV is worth counterfeiting. What you cannot copy is 170 years of cultural credibility, the emotional associations built into the brand, and the trust that comes from consistent premium quality across generations.</p>
+
+      <div class="moat-bars">
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Brand Heritage & Cultural Capital</span><span class="moat-score">98/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="98"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Distribution Control (Own Stores Only)</span><span class="moat-score">95/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="95"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Price Premium (Perceived Value)</span><span class="moat-score">93/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="93"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Customer Identity Lock-in</span><span class="moat-score">88/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="88"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Manufacturing Vertical Integration</span><span class="moat-score">82/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="82"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Cultural Network Effects (Social Proof)</span><span class="moat-score">80/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="80"></div></div>
+        </div>
+      </div>
+
+      <p class="bp">The deepest moat is the hardest to quantify: <strong>social permission</strong>. Louis Vuitton has permission, given to it by culture, to charge what it charges. A new brand charging the same prices for objectively similar quality would be seen as arrogant. LV is seen as worth it. That permission is not bought with advertising — it is earned over generations, and it accumulates like interest. <span class="ctag">Intangible Brand Equity</span></p>
+    </div>
+
+    <!-- 09 STRATEGY -->
+    <div class="sec white" id="sec-strategy">
+      <div class="sec-num">09 — Strategic Analysis</div>
+      <h2 class="sec-title">The Strategy <em>Decoded</em></h2>
+      <p class="lead">Every major strategic concept in business applies to Louis Vuitton — often in an inverted or counterintuitive form.</p>
+
+      <p class="bp">Most companies compete on either price or differentiation. Louis Vuitton occupies a third position that escapes the trade-off entirely: <strong>price is the differentiation</strong>. Being expensive is not a cost of luxury — it is the core value proposition. Customers who can afford LV don't want a cheaper alternative. They want proof that a cheaper alternative was irrelevant to them. <span class="ctag">Porter's Differentiation Strategy — Inverted</span></p>
+
+      <p class="bp">The monogram pattern functions as a <strong>network effect</strong>. The more people who recognise the LV monogram, the more valuable it is for any individual to carry it. Counterfeit growth, paradoxically, expands monogram recognition — which inadvertently strengthens the signal that the real thing conveys. <span class="ctag">Brand Network Effects</span></p>
+
+      <p class="bp">Louis Vuitton's decision to never use third-party retailers — unlike almost every other luxury brand — creates a <strong>first-mover structural advantage</strong>. Competitors who sell through Harrods and Saks cannot easily pull out without sacrificing revenue. LV never made that compromise, so it has never had to unwind it. <span class="ctag">First-Mover Distribution Advantage</span></p>
+
+      <div class="swot-grid">
+        <div class="swot-cell swot-s">
+          <div class="swot-head">Strengths</div>
+          <ul class="swot-list">
+            <li>170-year brand heritage with global recognition</li>
+            <li>Complete distribution control — no third-party retail</li>
+            <li>Extraordinary pricing power and margin resilience</li>
+            <li>Cultural relevance sustained through art collaborations</li>
+            <li>Vertically integrated manufacturing</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-w">
+          <div class="swot-head">Weaknesses</div>
+          <ul class="swot-list">
+            <li>Brand overexposure risk — too common = less exclusive</li>
+            <li>Heavy dependence on Chinese consumer spending</li>
+            <li>Counterfeit market creates brand dilution at the margins</li>
+            <li>High cost base from French manufacturing</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-o">
+          <div class="swot-head">Opportunities</div>
+          <ul class="swot-list">
+            <li>India's emerging wealthy consumer class</li>
+            <li>Luxury experiences (travel, hospitality) as new category</li>
+            <li>Digital and personalisation capabilities</li>
+            <li>Secondhand luxury authentication as a new business line</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-t">
+          <div class="swot-head">Threats</div>
+          <ul class="swot-list">
+            <li>China economic slowdown reducing luxury spending</li>
+            <li>Generational shift in attitude towards conspicuous consumption</li>
+            <li>Digital-native luxury challengers (Bottega Veneta, quiet luxury)</li>
+            <li>Currency fluctuations affecting profitability</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="bp">One of LV's most underrated strategic decisions is its relationship with <strong>scarcity economics</strong>. By keeping certain products on waitlists, launching limited editions, and refusing to mass-produce its most iconic items, LV ensures that demand always exceeds supply. This is not an operational constraint — it is an engineered market condition. When supply chases demand, prices rise. When demand chases supply, brands die. LV always lets demand chase. <span class="ctag">Manufactured Scarcity · Demand Management</span></p>
+    </div>
+
+    <!-- 10 RISKS -->
+    <div class="sec navy" id="sec-risks">
+      <div class="sec-num">10 — Key Risks & Weaknesses</div>
+      <h2 class="sec-title">What Could <em>Actually Hurt</em> This Brand</h2>
+      <p class="lead">Luxury brands don't fail from competition. They fail from becoming too common, too dependent on one market, or too slow to sense cultural shifts.</p>
+
+      <div class="risk-list">
+        <div class="risk-item">
+          <div class="risk-badge risk-high">HIGH</div>
+          <div>
+            <div class="risk-content-title">China Concentration Risk</div>
+            <div class="risk-content-desc">Chinese consumers account for a disproportionate share of global luxury spending. An economic slowdown, a shift in government policy towards conspicuous consumption, or rising Chinese domestic luxury brands could meaningfully hurt LV's revenue without any fault of its own.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-high">HIGH</div>
+          <div>
+            <div class="risk-content-title">Brand Overexposure ("Logomania" Fatigue)</div>
+            <div class="risk-content-desc">The monogram is everywhere. When something is everywhere, it loses exclusivity. LV has managed this tension for decades — but the risk of the brand becoming "too common" for its core wealthy clientele is real and permanent.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-med">MED</div>
+          <div>
+            <div class="risk-content-title">The "Quiet Luxury" Cultural Shift</div>
+            <div class="risk-content-desc">A growing segment of wealthy consumers, especially younger ones, actively avoids visible logos. Brands like Loro Piana and Brunello Cucinelli (also owned by LVMH in some cases) appeal to this "stealth wealth" impulse. If visible branding falls out of fashion among aspirational buyers, LV's monogram strategy faces a meaningful headwind.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-med">MED</div>
+          <div>
+            <div class="risk-content-title">Authenticity Erosion via Resale Markets</div>
+            <div class="risk-content-desc">The booming secondhand luxury market (The RealReal, Vestiaire Collective) means consumers can buy "real" LV at 40–60% of retail. This creates pricing pressure LV cannot directly control, and it may train some consumers that retail price isn't necessary.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-low">LOW</div>
+          <div>
+            <div class="risk-content-title">Direct Competition from Peers</div>
+            <div class="risk-content-desc">Hermès, Chanel, and Gucci compete in the same space but target slightly different customers. This is a permanent, manageable risk rather than an existential one — the luxury market is large enough for multiple $10B+ brands to coexist.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11 IMPACT -->
+    <div class="sec cream" id="sec-impact">
+      <div class="sec-num">11 — Industry Impact</div>
+      <h2 class="sec-title">How LV Changed <em>How Luxury Works</em></h2>
+      <p class="lead">Louis Vuitton didn't just sell luxury — it built the operating system that most luxury brands now run on.</p>
+      <p class="bp">Before LVMH's consolidation of the luxury sector in the 1980s and 1990s, most heritage luxury brands were family-owned artisanal businesses with no global strategy. Gucci, Givenchy, Céline — all were struggling, undercapitalised, or being mismanaged. Bernard Arnault, with Louis Vuitton as his anchor brand, demonstrated that <strong>luxury could be industrialised without losing its premium</strong>. He proved that scale and exclusivity are not incompatible if managed correctly.</p>
+      <p class="bp">The model LV pioneered — own stores only, no discounting, vertically integrated production, fashion weeks as PR events, artist collaborations as cultural freshness — is now the standard playbook for every serious luxury brand. Brands that don't follow it are considered undisciplined. <span class="ctag">Industry Standard-Setting · First-Mover</span></p>
+      <p class="bp">LV also changed consumer behaviour. It made the concept of the <strong>aspirational luxury purchase</strong> mainstream — the idea that a non-wealthy consumer might save for and purchase one carefully chosen luxury item. This expanded the total addressable market for luxury from a tiny elite to hundreds of millions of aspirational buyers worldwide. Every luxury brand benefits from the cultural permission LV created.</p>
+    </div>
+
+    <!-- 12 LESSONS -->
+    <div class="sec gradient-warm" id="sec-lessons">
+      <div class="sec-num">12 — Lessons For Builders</div>
+      <h2 class="sec-title">What Operators Can <em>Learn From This</em></h2>
+      <p class="lead">Louis Vuitton teaches strategy lessons that apply far beyond luxury — to any business thinking about brand, pricing, and distribution.</p>
+      <div class="lessons-grid rc">
+        <div class="lesson-card">
+          <div class="lesson-num">01</div>
+          <div class="lesson-title">Price can be the product</div>
+          <div class="lesson-desc">For some products and customers, a higher price increases perceived value. If you're building something premium, resisting downward pricing pressure is not stubbornness — it is brand strategy.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">02</div>
+          <div class="lesson-title">Control your distribution</div>
+          <div class="lesson-desc">Every intermediary between you and your customer is a place where your brand promise can break. LV's willingness to forgo third-party revenue in exchange for experience control is a masterclass in long-term thinking.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">03</div>
+          <div class="lesson-title">Culture is distribution</div>
+          <div class="lesson-desc">LV's artist collaborations, runway shows, and sports partnerships are not marketing expenses — they are distribution infrastructure. Cultural relevance puts the brand in front of people who would ignore advertising.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">04</div>
+          <div class="lesson-title">Scarcity is a feature, not a bug</div>
+          <div class="lesson-desc">Waitlists, limited editions, and constrained supply generate more demand than they cost in lost sales. If your product is genuinely desirable, making it slightly harder to get increases that desirability.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">05</div>
+          <div class="lesson-title">Heritage is a compounding asset</div>
+          <div class="lesson-desc">Every year that passes, LV's brand gets more valuable — not less. For businesses that maintain quality and consistency, time is an ally. The best time to build brand equity was 170 years ago. The second best time is now.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">06</div>
+          <div class="lesson-title">Identity beats loyalty programmes</div>
+          <div class="lesson-desc">LV has no points system, no member rewards, no referral bonuses. Its retention comes from customers who define themselves through ownership. If your product can become part of someone's identity, you've built something stronger than any loyalty programme.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13 VERDICT -->
+    <div class="sec gradient-dark" id="sec-verdict">
+      <div class="sec-num">13 — Final FounderLens Verdict</div>
+      <h2 class="sec-title">The Architecture <em>of Desire</em></h2>
+      <p class="lead">Louis Vuitton is not a bag company that got very successful. It is a desire-manufacturing machine — and the bag is just the mechanism of delivery.</p>
+
+      <div class="verdict-box">
+        <h3>"What makes Louis Vuitton genuinely powerful — and what would it take to build something like it?"</h3>
+        <p>What makes Louis Vuitton remarkable is not the quality of its leather or the elegance of its stitching — those can be matched. What makes it irreplaceable is the <strong>170-year accumulation of cultural permission</strong> to charge what it charges and be seen as worth it. That permission was built one consistent decision at a time: no discounts, no bad partnerships, no compromises on presentation, no shortcuts in production.</p>
+        <p>The business model is elegant in its simplicity: <strong>own everything</strong> — the factories, the stores, the customer relationship, the experience. Let nothing dilute the brand. Charge prices that the product alone cannot justify but the brand can. Then spend decades making the brand the kind of thing that wealthy people around the world believe, deep in their gut, is simply better.</p>
+        <p>Louis Vuitton's deepest strategy insight is that <strong>desire is an engineered outcome, not a natural one</strong>. The waitlists, the store environments, the runway shows, the celebrity associations, the artist collaborations — none of it is accidental. It is a system for manufacturing desire at industrial scale. And once that system is running, it is extraordinarily difficult to stop, slow, or replicate.</p>
+        <p>For builders: the lesson isn't "build a luxury brand." The lesson is that <strong>the customer experience is the product</strong>, distribution is a brand decision, and the highest-return investment in any business is usually the consistency and integrity of the brand promise — maintained across years, not quarters.</p>
+        <p class="verdict-note">Louis Vuitton's story is ultimately about patience. Every year of consistency made the brand harder to replace. Most businesses optimise for the next quarter. LV has been optimising for the next century — and it shows.</p>
+      </div>
+    </div>
+
+  </div><!-- /article body -->
+</div><!-- /article-wrap -->
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><span class="footer-dot"></span>FounderLens</div>
+    <p class="footer-desc">Business intelligence explained simply through world-class companies. Strategy, execution, and competitive advantage — decoded for builders and operators.</p>
+    <div class="footer-bottom">
+      <div class="footer-copy"><span>FounderLens</span> · Louis Vuitton Company Analysis · Issue #07 · Research compiled May 2026 · Educational purposes only</div>
+      <div class="footer-tags">
+        <span class="footer-tag">Luxury Strategy</span>
+        <span class="footer-tag">Brand Moat</span>
+        <span class="footer-tag">LVMH</span>
+        <span class="footer-tag">1854</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+</button>
+
+<script>
+function gotoSec(id){
+  const el=document.getElementById('sec-'+id);
+  if(el) el.scrollIntoView({behavior:'smooth'});
+}
+
+/* Progress bar */
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+  document.getElementById('progress-bar').style.width=pct+'%';
+});
+
+/* Scroll reveal */
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('vis');
+      /* animate moat bars */
+      e.target.querySelectorAll('.moat-fill').forEach(bar=>{
+        setTimeout(()=>{ bar.style.width=bar.dataset.w+'%'; },200);
+      });
+    }
+  });
+},{threshold:0.05});
+document.querySelectorAll('.sec,.rc').forEach(el=>ro.observe(el));
+
+/* TOC active state */
+const secs=document.querySelectorAll('.sec[id]');
+const tocObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      document.querySelectorAll('.toc-btn').forEach(b=>b.classList.remove('active'));
+      const id=e.target.id.replace('sec-','');
+      const t=document.querySelector(`.toc-btn[onclick*="'${id}'"]`);
+      if(t) t.classList.add('active');
+    }
+  });
+},{rootMargin:'-12% 0px -78% 0px'});
+secs.forEach(s=>tocObs.observe(s));
+
+/* Nav pill click */
+document.querySelectorAll('.nav-pill').forEach(p=>{
+  p.addEventListener('click',()=>{
+    document.querySelectorAll('.nav-pill').forEach(x=>x.classList.remove('active'));
+    p.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

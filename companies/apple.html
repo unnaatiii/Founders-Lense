@@ -1,1 +1,715 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Apple — FounderLens</title><link rel="stylesheet" href="../style.css"></head><body><main class="search-page"><a class="back-btn" href="../company.html">← Companies</a><article class="analysis-wrap"><header class="analysis-header"><p class="ah-tag">Company Analysis</p><h1 class="ah-name">Apple</h1><p class="ah-company">Design-led hardware ecosystem with unmatched pricing power.</p></header><div class="analysis-body"><section class="section-block"><h3>Strategic Lens</h3><p>Apple compounds through product integration, brand trust, owned distribution, and a services layer that grows stronger as the device base expands.</p></section></div></article></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FounderLens · Apple Inc. — Strategic Company Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --apple-silver: #e8eaed;
+  --apple-blue:   #0071e3;
+  --apple-blue2:  #0051a2;
+  --midnight:     #0a0a0f;
+  --midnight2:    #0f0f18;
+  --midnight3:    #141422;
+  --warm-white:   #fafaf8;
+  --off-white:    #f4f4f0;
+  --stone:        #e9e9e4;
+  --gold:         #c9a84c;
+  --gold2:        #e8c86a;
+  --gold-pale:    rgba(201,168,76,0.10);
+  --rose:         #c9455a;
+  --rose-pale:    rgba(201,69,90,0.09);
+  --slate:        #1c1c2e;
+  --ink:          #0f0f18;
+  --ink2:         rgba(15,15,24,0.72);
+  --ink3:         rgba(15,15,24,0.46);
+  --light-rule:   rgba(15,15,24,0.08);
+  --dark-cream:   #f0f0ec;
+  --dark-cream2:  rgba(240,240,236,0.72);
+  --dark-cream3:  rgba(240,240,236,0.40);
+  --dark-rule:    rgba(240,240,236,0.08);
+
+  --serif:  'Cormorant Garamond', Georgia, serif;
+  --sans:   'Outfit', sans-serif;
+  --mono:   'JetBrains Mono', monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;background:var(--warm-white);overflow-x:hidden}
+
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--midnight)}
+::-webkit-scrollbar-thumb{background:var(--apple-blue);border-radius:2px}
+
+/* ═══ PROGRESS BAR ═══ */
+#progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--apple-blue),var(--gold));z-index:200;width:0%;transition:width .1s linear}
+
+/* ═══ NAV ═══ */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,15,0.94);backdrop-filter:blur(24px) saturate(1.6);
+  border-bottom:1px solid rgba(240,240,236,0.06);
+  height:56px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 44px;
+}
+.nav-logo{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--dark-cream);letter-spacing:-.01em}
+.nav-logo em{font-style:italic;color:var(--gold2)}
+.nav-right{display:flex;align-items:center;gap:20px}
+.nav-tag{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dark-cream3);padding:4px 10px;border:1px solid rgba(240,240,236,.10);border-radius:20px}
+.nav-tag.live{border-color:rgba(201,168,76,.35);color:var(--gold2)}
+
+/* ═══ COVER — DARK ═══ */
+.cover{
+  min-height:100vh;background:var(--midnight);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 0 0;position:relative;overflow:hidden;
+}
+.cover-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 20%, rgba(0,113,227,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 20% 80%, rgba(201,168,76,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(201,69,90,0.04) 0%, transparent 50%);
+}
+/* Subtle grid */
+.cover-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(240,240,236,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(240,240,236,.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%);
+}
+.cover-inner{
+  position:relative;z-index:2;
+  max-width:960px;margin:0 auto;width:100%;
+  padding:120px 44px 100px;
+}
+.cover-eyebrow{
+  display:flex;align-items:center;gap:14px;margin-bottom:28px;
+  animation:fadeUp .8s ease both;
+}
+.cover-eyebrow-pill{
+  font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  padding:5px 12px;border-radius:20px;
+  background:rgba(0,113,227,.15);border:1px solid rgba(0,113,227,.3);
+  color:var(--apple-blue);
+}
+.cover-eyebrow-line{width:28px;height:1px;background:rgba(240,240,236,.2)}
+.cover-eyebrow-text{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dark-cream3)}
+
+.cover-title{
+  font-family:var(--serif);
+  font-size:clamp(64px,9vw,130px);
+  font-weight:300;line-height:.95;
+  letter-spacing:-.04em;
+  color:var(--dark-cream);
+  margin-bottom:14px;
+  animation:fadeUp .8s .1s ease both;
+}
+.cover-title strong{font-weight:700;display:block}
+.cover-title em{font-style:italic;color:var(--gold2);font-weight:300}
+
+.cover-sub{
+  font-size:18px;color:var(--dark-cream2);
+  max-width:600px;line-height:1.65;font-weight:300;
+  margin-bottom:52px;
+  animation:fadeUp .8s .2s ease both;
+}
+
+.cover-kpis{
+  display:flex;gap:0;flex-wrap:wrap;
+  border-top:1px solid var(--dark-rule);border-bottom:1px solid var(--dark-rule);
+  margin-bottom:48px;
+  animation:fadeUp .8s .3s ease both;
+}
+.ckpi{padding:20px 32px 20px 0;margin-right:32px;border-right:1px solid var(--dark-rule)}
+.ckpi:last-child{border-right:none}
+.ckpi-val{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--dark-cream);line-height:1}
+.ckpi-val em{color:var(--gold2);font-style:normal}
+.ckpi-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--dark-cream3);margin-top:4px}
+
+.cover-tags{display:flex;gap:8px;flex-wrap:wrap;animation:fadeUp .8s .35s ease both}
+.cover-chip{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:20px;border:1px solid var(--dark-rule);color:var(--dark-cream3)}
+.cover-chip.blue{border-color:rgba(0,113,227,.4);color:#69b3ff;background:rgba(0,113,227,.08)}
+.cover-chip.gold{border-color:rgba(201,168,76,.4);color:var(--gold2);background:var(--gold-pale)}
+.cover-chip.rose{border-color:rgba(201,69,90,.4);color:#e88a97;background:var(--rose-pale)}
+
+/* ═══ SECTION BANDS ═══ */
+.band{width:100%;position:relative;overflow:hidden}
+.band-inner{max-width:860px;margin:0 auto;padding:80px 44px}
+
+/* — Band: light warm white — */
+.band-warm{background:var(--warm-white)}
+.band-warm .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--apple-blue);margin-bottom:10px}
+.band-warm .sec-title{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:600;color:var(--ink);margin-bottom:28px;line-height:1.05;letter-spacing:-.025em}
+.band-warm .sec-title em{font-style:italic;color:var(--apple-blue);font-weight:300}
+.band-warm .lead{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--ink2);line-height:1.65;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--light-rule)}
+.band-warm p{font-size:15.5px;color:var(--ink2);line-height:1.85;margin-bottom:18px;font-weight:400}
+.band-warm p strong{color:var(--ink);font-weight:600}
+.band-warm mark{background:rgba(0,113,227,.10);color:var(--apple-blue2);padding:1px 5px;border-radius:3px;font-weight:500}
+.band-warm mark.gold{background:rgba(201,168,76,.12);color:#7a5c00}
+.band-warm .concept{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--apple-blue2);opacity:.7}
+.band-warm .callout{background:#eef5ff;border-left:3px solid var(--apple-blue);border-radius:0 8px 8px 0;padding:18px 22px;margin:24px 0}
+.band-warm .callout.gold{background:#fdf6e3;border-left-color:var(--gold)}
+.band-warm .callout.rose{background:#fdf0f2;border-left-color:var(--rose)}
+.band-warm .callout-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--apple-blue);margin-bottom:6px;font-weight:700}
+.band-warm .callout.gold .callout-lbl{color:var(--gold)}
+.band-warm .callout.rose .callout-lbl{color:var(--rose)}
+.band-warm .callout p{font-size:14px;color:var(--ink2);margin-bottom:0;font-weight:400}
+.band-warm .callout p strong{color:var(--ink);font-weight:600}
+.band-warm .alist{list-style:none;margin:16px 0}
+.band-warm .alist li{padding:10px 0 10px 24px;position:relative;border-bottom:1px solid var(--light-rule);font-size:15px;color:var(--ink2)}
+.band-warm .alist li:last-child{border-bottom:none}
+.band-warm .alist li::before{content:'—';position:absolute;left:0;color:var(--apple-blue);font-weight:700}
+.band-warm .alist li strong{color:var(--ink);font-weight:600}
+.band-warm .pq{margin:36px 0;padding:28px 32px;border-left:3px solid var(--apple-blue);background:linear-gradient(to right,rgba(0,113,227,.04),transparent);border-radius:0 8px 8px 0}
+.band-warm .pq blockquote{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--ink);line-height:1.5;margin-bottom:10px}
+.band-warm .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--apple-blue);font-style:normal}
+.band-warm .framework-tag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(0,113,227,.08);color:var(--apple-blue2);margin-left:4px;vertical-align:middle;font-weight:700}
+.band-warm .framework-tag.gold{background:rgba(201,168,76,.10);color:#7a5c00}
+
+/* — Band: off-white stone — */
+.band-stone{background:var(--off-white)}
+.band-stone .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.band-stone .sec-title{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:600;color:var(--ink);margin-bottom:28px;line-height:1.05;letter-spacing:-.025em}
+.band-stone .sec-title em{font-style:italic;color:var(--gold);font-weight:300}
+.band-stone .lead{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--ink2);line-height:1.65;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--light-rule)}
+.band-stone p{font-size:15.5px;color:var(--ink2);line-height:1.85;margin-bottom:18px;font-weight:400}
+.band-stone p strong{color:var(--ink);font-weight:600}
+.band-stone mark{background:rgba(201,168,76,.14);color:#6b4e00;padding:1px 5px;border-radius:3px;font-weight:500}
+.band-stone .callout{background:#f5f0e8;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:18px 22px;margin:24px 0}
+.band-stone .callout.blue{background:#eef4ff;border-left-color:var(--apple-blue)}
+.band-stone .callout-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700}
+.band-stone .callout.blue .callout-lbl{color:var(--apple-blue)}
+.band-stone .callout p{font-size:14px;color:var(--ink2);margin-bottom:0}
+.band-stone .callout p strong{color:var(--ink);font-weight:600}
+.band-stone .alist{list-style:none;margin:16px 0}
+.band-stone .alist li{padding:10px 0 10px 24px;position:relative;border-bottom:1px solid var(--light-rule);font-size:15px;color:var(--ink2)}
+.band-stone .alist li:last-child{border-bottom:none}
+.band-stone .alist li::before{content:'—';position:absolute;left:0;color:var(--gold);font-weight:700}
+.band-stone .alist li strong{color:var(--ink);font-weight:600}
+.band-stone .framework-tag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(201,168,76,.10);color:#6b4e00;margin-left:4px;vertical-align:middle;font-weight:700}
+.band-stone .framework-tag.blue{background:rgba(0,113,227,.08);color:var(--apple-blue2)}
+.band-stone .pq{margin:36px 0;padding:28px 32px;border-left:3px solid var(--gold);background:linear-gradient(to right,rgba(201,168,76,.05),transparent);border-radius:0 8px 8px 0}
+.band-stone .pq blockquote{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--ink);line-height:1.5;margin-bottom:10px}
+.band-stone .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-style:normal}
+
+/* — Band: midnight dark — */
+.band-dark{background:var(--midnight)}
+.band-dark .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold2);margin-bottom:10px}
+.band-dark .sec-title{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:600;color:var(--dark-cream);margin-bottom:28px;line-height:1.05;letter-spacing:-.025em}
+.band-dark .sec-title em{font-style:italic;color:var(--gold2);font-weight:300}
+.band-dark .lead{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--dark-cream2);line-height:1.65;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--dark-rule)}
+.band-dark p{font-size:15.5px;color:var(--dark-cream2);line-height:1.85;margin-bottom:18px;font-weight:400}
+.band-dark p strong{color:var(--dark-cream);font-weight:600}
+.band-dark mark{background:rgba(201,168,76,.15);color:var(--gold2);padding:1px 5px;border-radius:3px;font-weight:500}
+.band-dark mark.blue{background:rgba(0,113,227,.18);color:#69b3ff}
+.band-dark .callout{background:rgba(201,168,76,.07);border-left:3px solid var(--gold2);border-radius:0 8px 8px 0;padding:18px 22px;margin:24px 0}
+.band-dark .callout.blue{background:rgba(0,113,227,.08);border-left-color:var(--apple-blue)}
+.band-dark .callout.rose{background:rgba(201,69,90,.08);border-left-color:var(--rose)}
+.band-dark .callout-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2);margin-bottom:6px;font-weight:700}
+.band-dark .callout.blue .callout-lbl{color:#69b3ff}
+.band-dark .callout.rose .callout-lbl{color:#e88a97}
+.band-dark .callout p{font-size:14px;color:var(--dark-cream2);margin-bottom:0}
+.band-dark .callout p strong{color:var(--dark-cream)}
+.band-dark .alist{list-style:none;margin:16px 0}
+.band-dark .alist li{padding:10px 0 10px 24px;position:relative;border-bottom:1px solid var(--dark-rule);font-size:15px;color:var(--dark-cream2)}
+.band-dark .alist li:last-child{border-bottom:none}
+.band-dark .alist li::before{content:'—';position:absolute;left:0;color:var(--gold2);font-weight:700}
+.band-dark .alist li strong{color:var(--dark-cream)}
+.band-dark .pq{margin:36px 0;padding:28px 32px;border-left:3px solid var(--gold2);background:linear-gradient(to right,rgba(201,168,76,.06),transparent);border-radius:0 8px 8px 0}
+.band-dark .pq blockquote{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--dark-cream);line-height:1.5;margin-bottom:10px}
+.band-dark .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold2);font-style:normal}
+.band-dark .framework-tag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(201,168,76,.12);color:var(--gold2);margin-left:4px;vertical-align:middle;font-weight:700}
+.band-dark .framework-tag.blue{background:rgba(0,113,227,.12);color:#69b3ff}
+
+/* — Band: gradient blue — */
+.band-grad-blue{
+  background:linear-gradient(135deg,#030b1a 0%,#041428 50%,#030b1a 100%);
+  position:relative;
+}
+.band-grad-blue::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 70% at 80% 30%,rgba(0,113,227,.12) 0%,transparent 60%);
+}
+.band-grad-blue .band-inner{position:relative;z-index:1}
+.band-grad-blue .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#69b3ff;margin-bottom:10px}
+.band-grad-blue .sec-title{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:600;color:#e8f4ff;margin-bottom:28px;line-height:1.05;letter-spacing:-.025em}
+.band-grad-blue .sec-title em{font-style:italic;color:#69b3ff;font-weight:300}
+.band-grad-blue .lead{font-family:var(--serif);font-size:20px;font-style:italic;color:rgba(232,244,255,.75);line-height:1.65;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid rgba(0,113,227,.12)}
+.band-grad-blue p{font-size:15.5px;color:rgba(232,244,255,.75);line-height:1.85;margin-bottom:18px;font-weight:400}
+.band-grad-blue p strong{color:#e8f4ff}
+.band-grad-blue mark{background:rgba(0,113,227,.2);color:#69b3ff;padding:1px 5px;border-radius:3px;font-weight:500}
+.band-grad-blue .callout{background:rgba(0,113,227,.10);border-left:3px solid #0071e3;border-radius:0 8px 8px 0;padding:18px 22px;margin:24px 0}
+.band-grad-blue .callout.gold{background:rgba(201,168,76,.08);border-left-color:var(--gold)}
+.band-grad-blue .callout-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#69b3ff;margin-bottom:6px;font-weight:700}
+.band-grad-blue .callout.gold .callout-lbl{color:var(--gold2)}
+.band-grad-blue .callout p{font-size:14px;color:rgba(232,244,255,.75);margin-bottom:0}
+.band-grad-blue .callout p strong{color:#e8f4ff}
+.band-grad-blue .alist{list-style:none;margin:16px 0}
+.band-grad-blue .alist li{padding:10px 0 10px 24px;position:relative;border-bottom:1px solid rgba(0,113,227,.12);font-size:15px;color:rgba(232,244,255,.75)}
+.band-grad-blue .alist li:last-child{border-bottom:none}
+.band-grad-blue .alist li::before{content:'—';position:absolute;left:0;color:#69b3ff;font-weight:700}
+.band-grad-blue .alist li strong{color:#e8f4ff}
+.band-grad-blue .pq{margin:36px 0;padding:28px 32px;border-left:3px solid #0071e3;background:linear-gradient(to right,rgba(0,113,227,.08),transparent);border-radius:0 8px 8px 0}
+.band-grad-blue .pq blockquote{font-family:var(--serif);font-size:22px;font-style:italic;color:#e8f4ff;line-height:1.5;margin-bottom:10px}
+.band-grad-blue .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#69b3ff;font-style:normal}
+.band-grad-blue .framework-tag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(0,113,227,.15);color:#69b3ff;margin-left:4px;vertical-align:middle;font-weight:700}
+.band-grad-blue .framework-tag.gold{background:rgba(201,168,76,.12);color:var(--gold2)}
+
+/* — Band: warm cream gradient — */
+.band-cream{background:linear-gradient(135deg,#fdfbf6 0%,#f9f5ec 50%,#fdfbf6 100%)}
+.band-cream .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--rose);margin-bottom:10px}
+.band-cream .sec-title{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:600;color:var(--ink);margin-bottom:28px;line-height:1.05;letter-spacing:-.025em}
+.band-cream .sec-title em{font-style:italic;color:var(--rose);font-weight:300}
+.band-cream .lead{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--ink2);line-height:1.65;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid rgba(201,69,90,.12)}
+.band-cream p{font-size:15.5px;color:var(--ink2);line-height:1.85;margin-bottom:18px;font-weight:400}
+.band-cream p strong{color:var(--ink);font-weight:600}
+.band-cream mark{background:rgba(201,69,90,.10);color:#8b1a28;padding:1px 5px;border-radius:3px;font-weight:500}
+.band-cream .callout{background:rgba(201,69,90,.06);border-left:3px solid var(--rose);border-radius:0 8px 8px 0;padding:18px 22px;margin:24px 0}
+.band-cream .callout.gold{background:#fdf5e0;border-left-color:var(--gold)}
+.band-cream .callout-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--rose);margin-bottom:6px;font-weight:700}
+.band-cream .callout.gold .callout-lbl{color:var(--gold)}
+.band-cream .callout p{font-size:14px;color:var(--ink2);margin-bottom:0}
+.band-cream .callout p strong{color:var(--ink);font-weight:600}
+.band-cream .alist{list-style:none;margin:16px 0}
+.band-cream .alist li{padding:10px 0 10px 24px;position:relative;border-bottom:1px solid rgba(201,69,90,.10);font-size:15px;color:var(--ink2)}
+.band-cream .alist li:last-child{border-bottom:none}
+.band-cream .alist li::before{content:'—';position:absolute;left:0;color:var(--rose);font-weight:700}
+.band-cream .alist li strong{color:var(--ink);font-weight:600}
+.band-cream .pq{margin:36px 0;padding:28px 32px;border-left:3px solid var(--rose);background:linear-gradient(to right,rgba(201,69,90,.04),transparent);border-radius:0 8px 8px 0}
+.band-cream .pq blockquote{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--ink);line-height:1.5;margin-bottom:10px}
+.band-cream .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--rose);font-style:normal}
+.band-cream .framework-tag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(201,69,90,.08);color:#8b1a28;margin-left:4px;vertical-align:middle;font-weight:700}
+.band-cream .framework-tag.gold{background:rgba(201,168,76,.10);color:#6b4e00}
+
+/* — VERDICT BAND — cinematic finale — */
+.band-verdict{
+  background:var(--midnight2);
+  position:relative;overflow:hidden;
+}
+.band-verdict::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,113,227,.10) 0%,transparent 55%),
+             radial-gradient(ellipse 50% 50% at 0% 100%,rgba(201,168,76,.08) 0%,transparent 50%);
+}
+.verdict-inner{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:90px 44px 100px}
+.verdict-label{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold2);margin-bottom:16px}
+.verdict-title{font-family:var(--serif);font-size:clamp(36px,5vw,64px);font-weight:300;line-height:1.0;letter-spacing:-.03em;color:var(--dark-cream);margin-bottom:24px}
+.verdict-title strong{font-weight:700;display:block}
+.verdict-title em{font-style:italic;color:var(--gold2)}
+.verdict-divider{width:48px;height:2px;background:linear-gradient(90deg,var(--gold2),var(--apple-blue));margin:28px 0}
+.verdict-body p{font-family:var(--serif);font-size:20px;font-weight:300;color:var(--dark-cream2);line-height:1.75;margin-bottom:22px}
+.verdict-body p strong{color:var(--dark-cream);font-weight:600}
+.verdict-body p em{color:var(--gold2);font-style:italic}
+.verdict-signature{
+  margin-top:52px;padding-top:28px;border-top:1px solid var(--dark-rule);
+  display:flex;align-items:center;gap:16px;
+}
+.verdict-sig-mark{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--gold2);font-style:italic}
+.verdict-sig-text{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dark-cream3)}
+
+/* — STATS STRIP — */
+.stats-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:2px;margin:28px 0;border-radius:8px;overflow:hidden}
+.stat-card{padding:18px 14px;text-align:center}
+.band-warm .stat-card,.band-stone .stat-card,.band-cream .stat-card{background:#edf0f7}
+.band-dark .stat-card,.band-grad-blue .stat-card{background:rgba(255,255,255,.04)}
+.band-warm .stat-card.hi,.band-stone .stat-card.hi{background:linear-gradient(135deg,#ddeeff,#edf0f7)}
+.band-dark .stat-card.hi,.band-grad-blue .stat-card.hi{background:linear-gradient(135deg,rgba(0,113,227,.12),rgba(255,255,255,.04))}
+.band-warm .stats-strip{background:rgba(15,15,24,.06)}
+.band-stone .stats-strip{background:rgba(15,15,24,.06)}
+.band-dark .stats-strip,.band-grad-blue .stats-strip{background:rgba(255,255,255,.04)}
+.band-cream .stats-strip{background:rgba(201,69,90,.06)}
+.stat-val{font-family:var(--serif);font-size:22px;font-weight:700;line-height:1.1;margin-bottom:4px}
+.band-warm .stat-val{color:var(--apple-blue)}
+.band-stone .stat-val{color:var(--gold)}
+.band-dark .stat-val,.band-grad-blue .stat-val{color:var(--gold2)}
+.band-cream .stat-val{color:var(--rose)}
+.band-warm .stat-card.hi .stat-val{color:var(--apple-blue2)}
+.stat-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+.band-warm .stat-lbl,.band-stone .stat-lbl,.band-cream .stat-lbl{color:var(--ink3)}
+.band-dark .stat-lbl,.band-grad-blue .stat-lbl{color:var(--dark-cream3)}
+
+/* — SWOT TABLE — */
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin:28px 0;border-radius:8px;overflow:hidden}
+.swot-cell{padding:22px 20px}
+.swot-cell h4{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.swot-cell ul{list-style:none}
+.swot-cell ul li{font-size:14px;line-height:1.6;padding:4px 0;border-bottom:1px solid rgba(0,0,0,.05)}
+.swot-cell ul li:last-child{border-bottom:none}
+.swot-cell ul li::before{content:'· ';font-weight:700}
+.band-warm .swot-s{background:#edf5ff;} .band-warm .swot-s h4{color:var(--apple-blue)} .band-warm .swot-s li{color:var(--ink2)} .band-warm .swot-s li::before{color:var(--apple-blue)}
+.band-warm .swot-w{background:#fff5f6;} .band-warm .swot-w h4{color:var(--rose)} .band-warm .swot-w li{color:var(--ink2)} .band-warm .swot-w li::before{color:var(--rose)}
+.band-warm .swot-o{background:#fdf9ee;} .band-warm .swot-o h4{color:var(--gold)} .band-warm .swot-o li{color:var(--ink2)} .band-warm .swot-o li::before{color:var(--gold)}
+.band-warm .swot-t{background:#f7f7f7;} .band-warm .swot-t h4{color:var(--ink3)} .band-warm .swot-t li{color:var(--ink2)} .band-warm .swot-t li::before{color:var(--ink3)}
+
+/* — FOOTER — */
+.footer{background:var(--midnight);border-top:1px solid var(--dark-rule);padding:44px 0 32px}
+.footer-inner{max-width:860px;margin:0 auto;padding:0 44px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:28px}
+.footer-brand{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--dark-cream);margin-bottom:6px}
+.footer-brand em{color:var(--gold2)}
+.footer-sub{font-size:13px;color:var(--dark-cream3);font-weight:300;max-width:300px}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap;padding-top:4px}
+.footer-links a{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dark-cream3);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--gold2)}
+.footer-copy{max-width:860px;margin:28px auto 0;padding:18px 44px 0;border-top:1px solid var(--dark-rule);font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dark-cream3)}
+.footer-copy span{color:var(--gold2)}
+
+/* — FAB — */
+.fab{position:fixed;bottom:28px;right:28px;z-index:50;width:42px;height:42px;border-radius:50%;background:var(--apple-blue);border:none;color:#fff;font-size:16px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,113,227,.3)}
+.fab:hover{transform:translateY(-2px);background:var(--apple-blue2)}
+
+/* — ANIMATIONS — */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+
+@media(max-width:768px){
+  .cover-inner,.band-inner,.verdict-inner,.footer-inner{padding-left:22px;padding-right:22px}
+  .nav{padding:0 22px}
+  .cover-kpis{gap:0}
+  .ckpi{padding:16px 20px 16px 0;margin-right:20px}
+  .ckpi-val{font-size:24px}
+  .swot{grid-template-columns:1fr}
+  .footer-inner{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">Founder<em>Lens</em></div>
+  <div class="nav-right">
+    <span class="nav-tag live">Company Analysis</span>
+    <span class="nav-tag">Apple Inc.</span>
+  </div>
+</nav>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="cover-bg"></div>
+  <div class="cover-grid"></div>
+  <div class="cover-inner">
+    <div class="cover-eyebrow">
+      <span class="cover-eyebrow-pill">FounderLens · Company Study</span>
+      <div class="cover-eyebrow-line"></div>
+      <span class="cover-eyebrow-text">Strategy · Business Model · Competitive Advantage</span>
+    </div>
+    <h1 class="cover-title">
+      <strong>Apple</strong>
+      <em>The Company That Turned<br>Hardware Into a Religion</em>
+    </h1>
+    <p class="cover-sub">How a company that makes physical devices built the most valuable subscription business, the most loyal customer base, and the most powerful ecosystem in technology history.</p>
+    <div class="cover-kpis">
+      <div class="ckpi"><div class="ckpi-val"><em>$3.5T</em></div><div class="ckpi-lbl">Market Cap (Peak)</div></div>
+      <div class="ckpi"><div class="ckpi-val"><em>2.2B</em></div><div class="ckpi-lbl">Active Devices Worldwide</div></div>
+      <div class="ckpi"><div class="ckpi-val"><em>$108B</em></div><div class="ckpi-lbl">Services Revenue FY24</div></div>
+      <div class="ckpi"><div class="ckpi-val"><em>~50%</em></div><div class="ckpi-lbl">US Smartphone Market Share</div></div>
+    </div>
+    <div class="cover-tags">
+      <span class="cover-chip blue">Consumer Tech</span>
+      <span class="cover-chip blue">Ecosystems</span>
+      <span class="cover-chip gold">Premium Pricing</span>
+      <span class="cover-chip gold">Services Growth</span>
+      <span class="cover-chip rose">Cupertino, CA</span>
+      <span class="cover-chip">Founded 1976</span>
+    </div>
+  </div>
+</section>
+
+<!-- 01 — COMPANY OVERVIEW — warm white -->
+<div class="band band-warm" id="s01">
+  <div class="band-inner">
+    <div class="reveal"><div class="sec-num">01 — Company Overview</div>
+    <h2 class="sec-title">What Apple <em>Actually Is</em></h2>
+    <p class="lead">Most people think Apple makes iPhones. That's like saying Disney makes movies. Apple's real business is building an ecosystem so frictionless, so integrated, so aesthetically superior that once you're inside it — you never leave.</p>
+    <p>Apple operates across hardware (iPhone, Mac, iPad, Apple Watch, AirPods), software (iOS, macOS, iPadOS), and services (App Store, iCloud, Apple TV+, Apple Pay, Apple Music, Apple Arcade). Each layer reinforces the others. No single product is the business — <strong>the architecture between them is</strong>.</p>
+    <p>It competes in consumer electronics, software platforms, digital content, fintech, and health technology simultaneously. What's remarkable isn't any individual product — it's how they all work together to make switching feel like abandoning your digital life.</p>
+    <div class="callout">
+      <div class="callout-lbl">The Real Business</div>
+      <p>Apple's fastest-growing segment is now <strong>Services — not hardware</strong>. The iPhone is the gateway drug. The ecosystem is the habit. Services revenue crossed $108 billion in FY2024, with gross margins above 70% — compared to roughly 37% on hardware.</p>
+    </div>
+    <div class="stats-strip">
+      <div class="stat-card hi"><div class="stat-val">$391B</div><div class="stat-lbl">FY24 Revenue</div></div>
+      <div class="stat-card"><div class="stat-val">$108B</div><div class="stat-lbl">Services Revenue</div></div>
+      <div class="stat-card hi"><div class="stat-val">70%+</div><div class="stat-lbl">Services Gross Margin</div></div>
+      <div class="stat-card"><div class="stat-val">$110B</div><div class="stat-lbl">Annual Share Buybacks</div></div>
+    </div></div>
+  </div>
+</div>
+
+<!-- 02 — THE CORE PROBLEM — off-white stone -->
+<div class="band band-stone" id="s02">
+  <div class="band-inner">
+    <div class="reveal"><div class="sec-num">02 — The Core Problem</div>
+    <h2 class="sec-title">The Problem <em>Nobody Solved</em></h2>
+    <p class="lead">In the early 2000s, technology worked — but it was ugly, complicated, and built for engineers, not humans. Apple asked a different question: what if technology was designed around how people actually think and feel?</p>
+    <p>Computers were beige boxes with 200-page manuals. Music players needed software that crashed. Phones were for calls, not life. The industry optimised for specifications — RAM, clock speed, pixel count. Nobody was optimising for <strong>the human experience of using the thing</strong>.</p>
+    <p>This was Apple's core insight: <mark>technology adoption isn't limited by capability — it's limited by friction, confusion, and ugliness</mark>. Remove those, and the market expands dramatically. The iPod wasn't more technically capable than competing MP3 players. It was more human.</p>
+    <div class="callout">
+      <div class="callout-lbl">The Strategic Insight</div>
+      <p>Apple solved a <strong>design problem disguised as a technology problem</strong>. When the iPhone launched in 2007, Nokia had better hardware specs. But Apple understood that consumers don't buy specs — they buy feelings. Confidence. Control. Delight. <span class="framework-tag blue">Product Differentiation</span></p>
+    </div>
+    <div class="pq">
+      <blockquote>"People don't know what they want until you show it to them."</blockquote>
+      <cite>— Steve Jobs, on consumer insight</cite>
+    </div></div>
+  </div>
+</div>
+
+<!-- 03 — MARKET TIMING — dark -->
+<div class="band band-dark" id="s03">
+  <div class="band-inner">
+    <div class="reveal"><div class="sec-num">03 — Market Timing</div>
+    <h2 class="sec-title">Right Place, <em>Right Decade</em></h2>
+    <p class="lead">Apple didn't just execute well — it caught three separate technology waves at exactly the right moment. Each one funded the next. Each one expanded the ecosystem.</p>
+    <p><strong>Wave 1 — The PC Revolution (1984):</strong> The Mac arrived when businesses needed computers but couldn't navigate DOS. Graphical interfaces were Apple's first democratisation play.</p>
+    <p><strong>Wave 2 — The Digital Music Era (2001):</strong> Napster had already proven people wanted digital music. The music industry was in chaos. Apple entered with the iPod + iTunes — a legal, beautiful, simple alternative — right as broadband made downloading fast.</p>
+    <p><strong>Wave 3 — The Smartphone Era (2007):</strong> Mobile internet was technically possible but practically terrible. Mobile browsers were slow, touchscreens were resistive and clunky, and apps didn't exist. Apple launched the iPhone when the hardware (capacitive touch), software (mobile web), and infrastructure (3G) were all finally good enough.</p>
+    <div class="callout blue">
+      <div class="callout-lbl">The Pattern</div>
+      <p>Apple's timing strategy wasn't first-mover — it was <strong>best-moment</strong>. Enter after the market is validated, but before it's commoditised. Build the product that defines the category rather than just joining it. <span class="framework-tag">Proactive Strategy</span></p>
+    </div>
+    <div class="callout rose">
+      <div class="callout-lbl">Wave 4 — Now</div>
+      <p>Apple Intelligence (Apple's AI system) and Vision Pro position Apple for the next two waves: <strong>ambient AI</strong> and <strong>spatial computing</strong>. The timing playbook repeats.</p>
+    </div></div>
+  </div>
+</div>
+
+<!-- 04 — BUSINESS MODEL — warm white -->
+<div class="band band-warm" id="s04">
+  <div class="band-inner">
+    <div class="reveal"><div class="sec-num">04 — Business Model</div>
+    <h2 class="sec-title">The Model That <em>Compounds</em></h2>
+    <p class="lead">Apple's business model is a masterclass in building compounding revenue. Hardware brings people in. Software keeps them locked. Services extract value from every interaction — forever.</p>
+    <p>The model works in three layers:</p>
+    <ul class="alist">
+      <li><strong>Layer 1 — Hardware Sales (One-time, high margin):</strong> iPhone, Mac, iPad, Watch, AirPods. Apple sells premium hardware at premium prices with premium margins. iPhone alone generates ~$200B+ in annual revenue.</li>
+      <li><strong>Layer 2 — Platform Ecosystem (Switching cost builder):</strong> iOS, iCloud, Messages, FaceTime, AirDrop. These aren't products — they're chains. Beautiful chains that people want to be in. <span class="framework-tag">Switching Costs</span></li>
+      <li><strong>Layer 3 — Services Revenue (Recurring, ultra-high margin):</strong> App Store (30% cut on every transaction), Apple Music, TV+, iCloud+, Apple One, Apple Pay. Once the hardware is sold, services print money passively.</li>
+    </ul>
+    <div class="callout">
+      <div class="callout-lbl">Why This Model is Extraordinary</div>
+      <p>Most hardware companies lose pricing power over time as products commoditise. Apple <strong>used hardware to build a platform</strong> — and platforms get more valuable as they grow, not less. A customer who buys an iPhone, MacBook, AirPods, and Apple Watch pays Apple roughly $500/year in services. That's annuity revenue attached to a physical product sale. <span class="framework-tag gold">Razor-and-Blade Model</span></p>
+    </div>
+    <p>Apple's Services business is now larger than many Fortune 500 companies — and it has essentially zero marginal cost to add a new subscriber.</p></div>
+  </div>
+</div>
+
+<!-- 05 — PRODUCT & UX — gradient blue -->
+<div class="band band-grad-blue" id="s05">
+  <div class="band-inner">
+    <div class="reveal"><div class="sec-num">05 — Product & User Experience</div>
+    <h2 class="sec-title">Why People Don't <em>Buy Apple — They Belong to It</em></h2>
+    <p class="lead">Apple's most powerful product decision was never about features. It was about integration. Every Apple device is designed to work best with other Apple devices — and that's not an accident. It's the strategy.</p>
+    <p>AirDrop works seamlessly between Mac and iPhone. iMessage turns blue between Apple users (and makes green bubbles feel like a social signal). Handoff lets you start a document on your phone and finish it on your laptop. Apple Watch unlocks your Mac. AirPods pause when you take one out and switch seamlessly between devices.</p>
+    <p>None of these features work outside the Apple ecosystem. Every one of them is a <mark>tiny hook that makes you want to add another Apple device</mark> rather than switch to a competitor.</p>
+    <div class="callout gold">
+      <div class="callout-lbl">The Real UX Strategy</div>
+      <p>Apple doesn't compete on individual product features — it competes on <strong>the experience of owning multiple products together</strong>. A Samsung phone might match the iPhone spec-for-spec. But it can't give you the feeling of everything working together perfectly. <span class="framework-tag gold">Network Effects Within Ecosystem</span></p>
+    </div>
+    <p>This is also why Apple's retail stores matter strategically. <strong>The Apple Store is not a shop — it's a conversion machine.</strong> The physical experience of touching, using, and seeing multiple Apple products together is the best advertisement Apple has ever made.</p>
+    <div class="pq">
+      <blockquote>The most powerful thing Apple sells is the feeling that technology finally understands you.</blockquote>
+      <cite>— FounderLens Analysis</cite>
+    </div></div>
+  </div>
+</div>
+
+<!-- 06 — GROWTH & DISTRIBUTION — stone -->
+<div class="band band-stone" id="s06">
+  <div class="band-inner">
+    <div class="reveal"><div class="sec-num">06 — Growth & Distribution</div>
+    <h2 class="sec-title">The Growth Loop <em>Nobody Talks About</em></h2>
+    <p class="lead">Apple barely advertises its products directly. It doesn't need to. Its growth engine runs on a loop that starts with aspiration and ends with conversion — and repeats forever.</p>
+    <p>The loop works like this: <strong>Status attracts desire → desire drives purchase → purchase drives ecosystem adoption → ecosystem creates switching costs → switching costs create loyalty → loyalty drives word-of-mouth → word-of-mouth amplifies aspiration</strong>. Repeat.</p>
+    <p>Apple understood early that its products carry social meaning. An iPhone isn't just a phone — in many markets, it's a signal of taste, income, and identity. This is a form of <mark>social proof at scale</mark> that no amount of advertising can manufacture. <span class="framework-tag">Brand-Led Growth</span></p>
+    <div class="callout">
+      <div class="callout-lbl">The iMessage Lock-In</div>
+      <p>In the US, iPhone's ~57% market share is significantly sustained by iMessage. Green bubbles aren't just a UX quirk — they're a <strong>social exclusion mechanism</strong> that makes Android feel inferior in group chats. Teenagers, who are acutely sensitive to social signalling, have a dramatically higher iPhone usage rate. Apple is building loyalty by capturing users at 14. <span class="framework-tag blue">Switching Cost by Social Pressure</span></p>
+    </div>
+    <p>Apple's retail strategy also functions as distribution. 530+ Apple Stores globally are not stores — they are <strong>experience centres that convert curiosity into conversion</strong>. Revenue per square foot at Apple Stores has historically been among the highest in global retail.</p></div>
+  </div>
+</div>
+
+<!-- 07 — OPERATIONS — warm white -->
+<div class="band band-warm" id="s07">
+  <div class="band-inner">
+    <div class="reveal"><div class="sec-num">07 — Operational Strategy</div>
+    <h2 class="sec-title">The Invisible Machine <em>Behind the Products</em></h2>
+    <p class="lead">Apple is often discussed as a design company. What's less discussed is that it's also one of the most operationally sophisticated companies in the world — and that operational excellence is a major source of competitive advantage.</p>
+    <p><strong>Supply Chain Mastery:</strong> Apple doesn't manufacture its own hardware — it designs it and outsources production to partners like Foxconn and TSMC. But it doesn't behave like a typical outsourcer. Apple pre-purchases manufacturing capacity years in advance, locking competitors out. It designs custom chips (the A-series and M-series) that are impossible to replicate without Apple's own IP. <span class="framework-tag gold">Vertical Integration in Design, Horizontal in Manufacturing</span></p>
+    <p><strong>The Silicon Advantage:</strong> Apple's in-house chip design (starting with A4 in 2010, exploding with M1 in 2020) is one of the most significant competitive moves in tech history. By designing its own chips, Apple controls performance, power efficiency, security, and cost — simultaneously. The M1 MacBook outperformed Intel chips on performance-per-watt by a factor that shocked the industry.</p>
+    <div class="callout">
+      <div class="callout-lbl">What Tim Cook Built</div>
+      <p>Tim Cook's contribution to Apple is often underestimated. Before becoming CEO, he rebuilt Apple's supply chain from a fragmented mess into one of the most efficient in the world. <strong>He turned operations into a moat</strong> — Apple gets better component pricing, faster manufacturing ramp-ups, and tighter quality control than any competitor. <span class="framework-tag">Operational Efficiency as Strategy</span></p>
+    </div>
+    <p>Apple also manages inventory with extreme precision. Unlike most consumer electronics companies, Apple avoids over-building inventory (which leads to write-downs) or under-building (which misses demand). The result is an asset-light model with industry-leading returns on capital.</p></div>
+  </div>
+</div>
+
+<!-- 08 — COMPETITIVE ADVANTAGE — dark -->
+<div class="band band-dark" id="s08">
+  <div class="band-inner">
+    <div class="reveal"><div class="sec-num">08 — Competitive Advantage</div>
+    <h2 class="sec-title">Why No One Can <em>Really Compete</em></h2>
+    <p class="lead">Apple has not one moat — it has five, each reinforcing the others. Replicating any single one is hard. Replicating all five simultaneously is effectively impossible.</p>
+    <ul class="alist">
+      <li><strong>Brand & Aspiration:</strong> Apple is not just the most valuable brand in technology — it's one of the most valuable cultural signals in the world. People don't just buy Apple products. They identify with them. No competitor has manufactured this feeling. <span class="framework-tag">Brand Equity</span></li>
+      <li><strong>Ecosystem Lock-In:</strong> The cost of leaving Apple isn't just buying new hardware. It's losing iMessage history, re-buying apps, abandoning AirDrop workflows, and relearning interfaces. Most people find this too painful even when Android offers objectively comparable hardware. <span class="framework-tag">Switching Costs</span></li>
+      <li><strong>Silicon Advantage:</strong> Apple's custom chips deliver performance and efficiency that no Android OEM can match using off-the-shelf Qualcomm chips. This creates a product quality gap that grows wider each generation.</li>
+      <li><strong>Developer Platform:</strong> The App Store hosts 1.8 million apps. Developers prioritise iOS because Apple users spend more money in apps. This creates a self-reinforcing platform where the best apps come to Apple first — which attracts more valuable users — which attracts more developers. <span class="framework-tag">Two-Sided Network Effects</span></li>
+      <li><strong>Privacy as Brand:</strong> Apple has uniquely turned privacy into a marketing differentiator. "What happens on your iPhone, stays on your iPhone" is not just policy — it's positioning. In an era of growing distrust of tech giants, this moves hardware purchases and justifies App Tracking Transparency. <span class="framework-tag">Differentiation via Values</span></li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- 09 — STRATEGIC ANALYSIS — warm white -->
+<div class="band band-warm" id="s09">
+  <div class="band-inner">
+    <div class="reveal"><div class="sec-num">09 — Strategic Analysis</div>
+    <h2 class="sec-title">The Strategy <em>In Full</em></h2>
+    <p class="lead">Apple doesn't fit neatly into one strategic framework because it operates across all of them simultaneously. That's what makes it so difficult to analyse — and so difficult to compete with.</p>
+    <p>Most companies choose between being cheap or being premium. Apple made premium work at scale — which is extraordinarily rare. It charges 3x more than Android competitors while growing market share in developing markets. That's not contradiction. That's <strong>aspiration winning over price sensitivity</strong>. <span class="framework-tag">Porter's Differentiation Strategy</span></p>
+    <p>Apple also benefits from <mark>economies of scale</mark> that aren't obvious at first glance. Because it sells hundreds of millions of the same device, it can negotiate better component prices, amortise R&D costs across a massive unit base, and build infrastructure (iCloud, App Store, Apple Pay) whose marginal cost approaches zero. <span class="framework-tag">Economies of Scale</span></p>
+    <div class="swot">
+      <div class="swot-cell swot-s"><h4>Strengths</h4><ul><li>Ecosystem lock-in</li><li>Custom silicon leadership</li><li>Brand power globally</li><li>Services margin profile</li><li>Supply chain excellence</li></ul></div>
+      <div class="swot-cell swot-w"><h4>Weaknesses</h4><ul><li>Premium pricing excludes billions</li><li>Dependence on iPhone (~52% revenue)</li><li>Slow in AI vs. Google/OpenAI</li><li>China manufacturing concentration</li></ul></div>
+      <div class="swot-cell swot-o"><h4>Opportunities</h4><ul><li>AI integration into every product</li><li>India as next billion-user market</li><li>Health tech and medical devices</li><li>Spatial computing (Vision Pro)</li></ul></div>
+      <div class="swot-cell swot-t"><h4>Threats</h4><ul><li>Antitrust scrutiny on App Store</li><li>Geopolitical risk in China supply</li><li>Google's AI lead on search</li><li>Samsung/Huawei closing hardware gap</li></ul></div>
+    </div>
+    <p>What's truly strategic about Apple is that it plays <mark>long games</mark>. The M1 chip transition was planned 5 years before announcement. Apple Card and Apple Pay built financial infrastructure that now processes trillions in transactions annually. Vision Pro lost money at launch — but positions Apple as the default platform when spatial computing matures. <span class="framework-tag gold">Proactive Long-Horizon Strategy</span></p></div>
+  </div>
+</div>
+
+<!-- 10 — RISKS — cream gradient -->
+<div class="band band-cream" id="s10">
+  <div class="band-inner">
+    <div class="reveal"><div class="sec-num">10 — Key Risks & Weaknesses</div>
+    <h2 class="sec-title">What Could <em>Actually Hurt Apple</em></h2>
+    <p class="lead">Being the world's most valuable company is not the same as being invulnerable. Apple has real vulnerabilities — and some of them are structural.</p>
+    <ul class="alist">
+      <li><strong>The iPhone Dependency Problem:</strong> ~52% of revenue comes from one product. If iPhone growth stalls — due to market saturation, an Android comeback, or a category shift — Apple's entire financial model compresses. The Services business is a hedge, but it's still driven by the iPhone installed base.</li>
+      <li><strong>China: Supplier and Market Risk:</strong> Apple manufactures most of its products in China and sells ~18% of revenue there. US-China geopolitical tensions are a genuine operational risk. Apple is diversifying to India and Vietnam, but the transition will take a decade to complete.</li>
+      <li><strong>Antitrust and the App Store:</strong> Regulators in the EU, US, and Japan are forcing Apple to open iOS to alternative app stores and payment systems. This directly threatens the 30% App Store commission that funds a large portion of Services revenue. Epic vs. Apple was the opening act. More follows.</li>
+      <li><strong>The AI Lag:</strong> Apple entered the generative AI era later than Google, Microsoft, and OpenAI. Siri — once considered revolutionary — now looks inadequate against ChatGPT and Gemini. Apple Intelligence is the correction, but it's still catching up. Losing Siri's relevance could weaken the ecosystem's stickiness.</li>
+    </ul>
+    <div class="callout">
+      <div class="callout-lbl">The Deeper Risk</div>
+      <p>Apple's greatest structural risk is also its greatest strength: <strong>the ecosystem</strong>. Because Apple's power comes from keeping users inside its walls, any external force that opens those walls — regulation, competition, consumer preference shifts — directly erodes the core moat. The fortress works best when the drawbridge is up.</p>
+    </div></div>
+  </div>
+</div>
+
+<!-- 11 — INDUSTRY IMPACT — dark -->
+<div class="band band-dark" id="s11">
+  <div class="band-inner">
+    <div class="reveal"><div class="sec-num">11 — Industry Impact</div>
+    <h2 class="sec-title">How Apple <em>Changed Everything</em></h2>
+    <p class="lead">Apple's impact on industry isn't measured in products sold — it's measured in the industries it restructured, the behaviours it normalised, and the standards it forced competitors to meet.</p>
+    <p><strong>Music Industry:</strong> iTunes didn't just sell songs — it ended the album era and created pay-per-track commerce. The music industry resisted, sued, and ultimately capitulated. Apple's success there paved the way for Spotify.</p>
+    <p><strong>Mobile Industry:</strong> The iPhone made every phone manufacturer obsolete overnight. Nokia — which had 40% global market share in 2007 — collapsed within 5 years. Blackberry, Motorola, and Palm didn't survive the decade. Apple redefined what a phone was.</p>
+    <p><strong>App Economy:</strong> The App Store created an entirely new economy. Today, the global app economy is worth over $600 billion annually. Apple created the infrastructure, the payment rail, and the distribution channel that made this possible — and takes a toll on every transaction.</p>
+    <div class="callout blue">
+      <div class="callout-lbl">The Standard-Setting Effect</div>
+      <p>Apple consistently raises what consumers consider acceptable. <strong>Once Apple establishes a standard — retina displays, USB-C, Face ID — every competitor is forced to follow</strong>. This is an extraordinary form of competitive power: shaping the market's expectations so that staying still feels like falling behind. <span class="framework-tag">Category Definition Strategy</span></p>
+    </div>
+    <p><strong>Health Technology:</strong> Apple Watch has quietly become one of the most important health devices in history. It detects atrial fibrillation, monitors blood oxygen, tracks sleep, and performs ECGs — on a wrist you already wear. Apple is positioning itself as the medical device company that doesn't feel like a medical device company.</p></div>
+  </div>
+</div>
+
+<!-- 12 — LESSONS — stone -->
+<div class="band band-stone" id="s12">
+  <div class="band-inner">
+    <div class="reveal"><div class="sec-num">12 — Lessons For Builders</div>
+    <h2 class="sec-title">What You Can <em>Actually Use</em></h2>
+    <p class="lead">Apple's story isn't just inspiring — it's instructive. These are the patterns that any builder can extract from Apple's strategy, regardless of industry or scale.</p>
+    <ul class="alist">
+      <li><strong>Design for humans, not engineers.</strong> The technology sector has a deep bias toward building for power users. Apple built for people who found technology intimidating. That market is always larger. If your product needs a manual, it's not done yet.</li>
+      <li><strong>Build systems, not products.</strong> Every Apple product is designed to make every other Apple product more valuable. Think about how your products reinforce each other rather than compete for the customer's attention.</li>
+      <li><strong>Premium pricing requires genuine premium experience.</strong> You can't just charge more — you have to make the experience worth more. Apple's pricing power is earned through relentless execution on quality, packaging, retail experience, and software polish. Premium is a promise, not a price tag.</li>
+      <li><strong>The best marketing is the product itself.</strong> Every person who uses an iPhone in public is an Apple advertisement. Build products so good that users become advocates. Word-of-mouth is the most efficient growth channel — and it's earned, not bought.</li>
+      <li><strong>Protect the experience above all else.</strong> Apple has turned down short-term revenue opportunities to protect long-term experience quality. The App Store review process costs Apple money. It also maintains quality standards that make the App Store worth being in. Protect your experience even when it's expensive.</li>
+    </ul>
+    <div class="callout">
+      <div class="callout-lbl">The One Insight</div>
+      <p>Apple's entire strategy rests on a single belief: <strong>that how something feels is as important as what it does</strong>. This is true in consumer tech, in hospitality, in retail, in SaaS, and in any business where the human experience of using your product determines whether they stay or leave.</p>
+    </div></div>
+  </div>
+</div>
+
+<!-- VERDICT -->
+<section class="band-verdict" id="verdict">
+  <div class="verdict-inner">
+    <div class="reveal">
+      <div class="verdict-label">14 — FounderLens Verdict</div>
+      <h2 class="verdict-title">
+        Not a Tech Company.<br>
+        <em>A Way of</em> <strong>Thinking</strong>
+      </h2>
+      <div class="verdict-divider"></div>
+      <div class="verdict-body">
+        <p>Apple is the clearest proof that <strong>strategy is not about doing more — it's about doing fewer things with total conviction</strong>. Apple makes a small number of products. It controls every layer of experience. It charges premium prices. It never competes on features. And it has built the highest-margin consumer business in human history.</p>
+        <p>What makes Apple genuinely singular is that <em>its competitive advantage cannot be purchased</em>. You cannot acquire Apple's brand by spending money on advertising. You cannot replicate its ecosystem overnight. You cannot buy the twenty years of developer trust it has built. You cannot copy the supply chain discipline Tim Cook spent three decades assembling.</p>
+        <p>Apple wins not because it has more resources than competitors — though it does — but because it operates from a <strong>fundamentally different philosophy</strong>: that the experience of using technology should feel effortless, beautiful, and human. Every strategic decision flows from that belief. The hardware. The software. The stores. The pricing. The silence when launching a product that isn't ready.</p>
+        <p>The lesson isn't "be Apple." The lesson is: <strong>find the one thing your company genuinely believes about how the world should be — and build every system, product, and decision around that belief with complete consistency.</strong> That's what Apple did. That's what makes it compounding. That's what makes it hard to kill.</p>
+        <p><em>The company that made technology feel like art also made art feel like a business strategy.</em></p>
+      </div>
+      <div class="verdict-signature">
+        <div class="verdict-sig-mark">FL</div>
+        <div class="verdict-sig-text">FounderLens · Apple Strategic Analysis · May 2026<br>Business intelligence explained simply through world-class companies</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Founder<em>Lens</em></div>
+      <div class="footer-sub">Business intelligence explained simply through world-class companies</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">All Analyses</a>
+      <a href="#">Founder Stories</a>
+      <a href="#">Strategy Library</a>
+      <a href="#">Subscribe</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <span>FounderLens</span> · Apple Inc. Strategic Analysis · May 2026 · For educational purposes · All data sourced from public filings
+  </div>
+</footer>
+
+<button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// Progress bar
+const prog=document.getElementById('progress');
+window.addEventListener('scroll',()=>{
+  const pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+  prog.style.width=pct+'%';
+});
+
+// Scroll reveal
+const reveals=document.querySelectorAll('.reveal');
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}
+  });
+},{threshold:0.06,rootMargin:'0px 0px -40px 0px'});
+reveals.forEach(r=>io.observe(r));
+</script>
+</body>
+</html>

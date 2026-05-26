@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMW — The Architecture of Desire | FounderLens Company Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Martian+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════
+   BMW DESIGN SYSTEM
+   Palette: Arctic White · Sapphire Dark · BMW Blue · Carbon
+══════════════════════════════ */
+:root{
+  --bmw:        #1c69d4;
+  --bmw-dark:   #0f4fa8;
+  --bmw-deep:   #0a3278;
+  --bmw-pale:   rgba(28,105,212,0.09);
+  --silver:     #d4d8e2;
+  --silver-dark:#9aa0b4;
+  --carbon:     #0d0f14;
+  --carbon2:    #13161f;
+  --carbon3:    #191d2a;
+  --carbon4:    #1e2335;
+  --ice:        #f0f4ff;
+  --ice2:       #e4eaf8;
+  --ice3:       #d8e0f4;
+  --text-on-dk: #edf0f9;
+  --text2-dk:   rgba(237,240,249,0.70);
+  --text3-dk:   rgba(237,240,249,0.40);
+  --rule-dk:    rgba(237,240,249,0.08);
+  --text-on-lt: #0b0e18;
+  --text2-lt:   #2a3145;
+  --text3-lt:   #6b7494;
+  --rule-lt:    rgba(11,14,24,0.09);
+  --red:        #e8312a;
+  --green:      #22c55e;
+  --amber:      #f59e0b;
+  --serif:      'Fraunces', Georgia, serif;
+  --sans:       'Instrument Sans', system-ui, sans-serif;
+  --mono:       'Martian Mono', monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--carbon);color:var(--text-on-dk);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--carbon)}
+::-webkit-scrollbar-thumb{background:var(--bmw);border-radius:2px}
+
+/* ── PROGRESS BAR ── */
+#progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--bmw),#60a5fa);z-index:999;width:0%;transition:width .1s}
+
+/* ── BANNER ── */
+.banner{background:var(--bmw-dark);color:#fff;text-align:center;padding:7px 20px;font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;position:sticky;top:0;z-index:200}
+
+/* ── NAV ── */
+.nav{
+  background:rgba(13,15,20,0.92);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--rule-dk);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:58px;position:sticky;top:29px;z-index:199;
+}
+.nav-brand{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--text-on-dk);display:flex;align-items:center;gap:10px;letter-spacing:-.01em}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--bmw);flex-shrink:0}
+.nav-tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text3-dk);border:1px solid var(--rule-dk);padding:3px 10px;border-radius:20px}
+.nav-pills{display:flex;gap:4px}
+.nav-pill{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;padding:5px 11px;border-radius:20px;border:1px solid var(--rule-dk);color:var(--text3-dk);background:none;cursor:pointer;transition:all .2s}
+.nav-pill:hover{border-color:var(--bmw);color:var(--bmw)}
+.nav-pill.active{background:var(--bmw);border-color:var(--bmw);color:#fff}
+
+/* ══════════════════════════════
+   HERO — cinematic full-height
+══════════════════════════════ */
+.hero{
+  min-height:100vh;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 0 80px;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 60% 70% at 75% 40%, rgba(28,105,212,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 50% at 20% 70%, rgba(10,50,120,0.18) 0%, transparent 55%),
+    linear-gradient(170deg, #0d0f14 0%, #13161f 50%, #0a1428 100%);
+}
+.hero-grid{
+  position:absolute;inset:0;z-index:1;
+  background-image:
+    linear-gradient(rgba(28,105,212,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28,105,212,0.05) 1px, transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+.hero-logo-bg{
+  position:absolute;right:-5%;top:50%;transform:translateY(-50%);
+  width:600px;height:600px;z-index:1;opacity:0.04;
+}
+.hero-logo-bg svg{width:100%;height:100%}
+.hero-inner{position:relative;z-index:2;padding:0 80px;max-width:1100px}
+.hero-label{
+  font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--bmw);margin-bottom:20px;display:flex;align-items:center;gap:12px;
+  animation:fadeUp .8s ease both;
+}
+.hero-label::before{content:'';width:32px;height:1px;background:var(--bmw)}
+.hero-h1{
+  font-family:var(--serif);
+  font-size:clamp(48px,7vw,96px);
+  font-weight:900;line-height:.95;letter-spacing:-.03em;
+  color:var(--text-on-dk);margin-bottom:12px;
+  animation:fadeUp .8s .1s ease both;
+}
+.hero-h1 em{font-style:italic;font-weight:300;color:var(--bmw);display:block}
+.hero-sub{
+  font-size:17px;color:var(--text2-dk);font-weight:300;line-height:1.7;
+  max-width:560px;margin-bottom:48px;
+  animation:fadeUp .8s .2s ease both;
+}
+.hero-sub strong{color:var(--text-on-dk);font-weight:500}
+.hero-kpis{
+  display:flex;gap:0;flex-wrap:wrap;
+  border:1px solid var(--rule-dk);border-radius:10px;
+  overflow:hidden;max-width:700px;
+  animation:fadeUp .8s .3s ease both;
+}
+.kpi{padding:18px 28px;flex:1;min-width:140px;border-right:1px solid var(--rule-dk);position:relative}
+.kpi:last-child{border-right:none}
+.kpi::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--bmw);transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+.kpi:hover::before{transform:scaleX(1)}
+.kpi-n{font-family:var(--serif);font-size:26px;font-weight:900;color:var(--bmw);line-height:1}
+.kpi-l{font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--text3-dk);margin-top:4px}
+.hero-scroll{
+  position:absolute;bottom:32px;right:80px;z-index:2;
+  font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text3-dk);display:flex;align-items:center;gap:10px;
+  animation:fadeUp .8s .5s ease both;
+}
+.hero-scroll::after{content:'';width:40px;height:1px;background:var(--text3-dk)}
+
+/* ══════════════════════════════
+   SECTION SYSTEM
+══════════════════════════════ */
+
+/* DARK section */
+.s-dark{background:var(--carbon);color:var(--text-on-dk);position:relative;overflow:hidden;padding:80px 0}
+/* LIGHT section */
+.s-light{background:var(--ice);color:var(--text-on-lt);position:relative;padding:80px 0}
+/* GRADIENT DARK section */
+.s-grad{
+  background:linear-gradient(135deg,var(--carbon3) 0%,var(--carbon2) 60%,var(--carbon4) 100%);
+  color:var(--text-on-dk);position:relative;overflow:hidden;padding:80px 0;
+}
+/* GRADIENT BLUE section */
+.s-blue{
+  background:linear-gradient(135deg,var(--bmw-deep) 0%,var(--carbon3) 55%,var(--carbon2) 100%);
+  color:var(--text-on-dk);position:relative;overflow:hidden;padding:80px 0;
+  border-top:1px solid rgba(28,105,212,.2);border-bottom:1px solid rgba(28,105,212,.2);
+}
+/* LIGHT WARM section */
+.s-warm{
+  background:linear-gradient(135deg,#f5f7ff 0%,var(--ice2) 100%);
+  color:var(--text-on-lt);padding:80px 0;position:relative;
+  border-top:3px solid var(--bmw);border-bottom:3px solid var(--bmw);
+}
+
+.inner{max-width:920px;margin:0 auto;padding:0 60px;position:relative;z-index:1}
+
+/* Ambient glow in dark sections */
+.s-dark .glow,.s-grad .glow,.s-blue .glow{
+  position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;
+}
+
+/* ── SECTION LABEL + TITLE ── */
+.s-label{
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;
+  margin-bottom:8px;display:flex;align-items:center;gap:10px;
+}
+.s-dark .s-label,.s-grad .s-label,.s-blue .s-label{color:var(--bmw)}
+.s-light .s-label,.s-warm .s-label{color:var(--bmw-dark)}
+.s-label::before{content:'';width:24px;height:1px}
+.s-dark .s-label::before,.s-grad .s-label::before,.s-blue .s-label::before{background:var(--bmw)}
+.s-light .s-label::before,.s-warm .s-label::before{background:var(--bmw-dark)}
+
+.s-title{
+  font-family:var(--serif);font-size:clamp(28px,4vw,46px);font-weight:900;
+  line-height:1.08;letter-spacing:-.02em;margin-bottom:32px;
+}
+.s-dark .s-title,.s-grad .s-title,.s-blue .s-title{color:var(--text-on-dk)}
+.s-light .s-title,.s-warm .s-title{color:var(--text-on-lt)}
+.s-title em{font-style:italic;font-weight:300}
+.s-dark .s-title em,.s-grad .s-title em,.s-blue .s-title em{color:var(--bmw)}
+.s-light .s-title em,.s-warm .s-title em{color:var(--bmw-dark)}
+
+/* ── BODY TEXT ── */
+p{font-size:15.5px;line-height:1.82;margin-bottom:16px;font-weight:300}
+p:last-child{margin-bottom:0}
+.s-dark p,.s-grad p,.s-blue p{color:var(--text2-dk)}
+.s-dark p strong,.s-grad p strong,.s-blue p strong{color:var(--text-on-dk);font-weight:500}
+.s-light p,.s-warm p{color:var(--text2-lt)}
+.s-light p strong,.s-warm p strong{color:var(--text-on-lt);font-weight:500}
+.concept{
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  padding:2px 8px;border-radius:4px;vertical-align:middle;display:inline-block;margin-left:4px;
+}
+.s-dark .concept,.s-grad .concept,.s-blue .concept{
+  background:rgba(28,105,212,.15);color:#6aa3ff;border:1px solid rgba(28,105,212,.25)
+}
+.s-light .concept,.s-warm .concept{
+  background:rgba(28,105,212,.08);color:var(--bmw-dark);border:1px solid rgba(28,105,212,.2)
+}
+
+/* ── LEAD ── */
+.lead{
+  font-family:var(--serif);font-size:18px;font-style:italic;font-weight:300;
+  line-height:1.72;margin-bottom:28px;padding-bottom:24px;
+}
+.s-dark .lead,.s-grad .lead,.s-blue .lead{color:var(--text2-dk);border-bottom:1px solid var(--rule-dk)}
+.s-light .lead,.s-warm .lead{color:var(--text2-lt);border-bottom:1px solid var(--rule-lt)}
+
+/* ── PULL QUOTE ── */
+.pq{margin:32px 0;padding:20px 28px;border-radius:0 8px 8px 0}
+.s-dark .pq,.s-grad .pq,.s-blue .pq{border-left:3px solid var(--bmw);background:rgba(28,105,212,.07)}
+.s-light .pq,.s-warm .pq{border-left:3px solid var(--bmw);background:rgba(28,105,212,.06)}
+.pq p{font-family:var(--serif);font-size:17px;font-style:italic;font-weight:300;line-height:1.6;margin:0}
+.s-dark .pq p,.s-grad .pq p,.s-blue .pq p{color:var(--text-on-dk)}
+.s-light .pq p,.s-warm .pq p{color:var(--text-on-lt)}
+
+/* ── ARROW LIST ── */
+ul.al{list-style:none;margin:16px 0}
+ul.al li{padding:10px 0 10px 24px;position:relative;font-size:15px;font-weight:300;line-height:1.7}
+.s-dark ul.al li,.s-grad ul.al li,.s-blue ul.al li{border-bottom:1px solid var(--rule-dk);color:var(--text2-dk)}
+.s-light ul.al li,.s-warm ul.al li{border-bottom:1px solid var(--rule-lt);color:var(--text2-lt)}
+ul.al li:last-child{border-bottom:none}
+.s-dark ul.al li::before,.s-grad ul.al li::before,.s-blue ul.al li::before{content:'→';position:absolute;left:0;color:var(--bmw);font-weight:700}
+.s-light ul.al li::before,.s-warm ul.al li::before{content:'→';position:absolute;left:0;color:var(--bmw-dark);font-weight:700}
+.s-dark ul.al li strong,.s-grad ul.al li strong,.s-blue ul.al li strong{color:var(--text-on-dk);font-weight:500}
+.s-light ul.al li strong,.s-warm ul.al li strong{color:var(--text-on-lt);font-weight:500}
+
+/* ── CALLOUT ── */
+.callout{margin:24px 0;padding:18px 22px;border-radius:8px}
+.callout-insight{border-left:3px solid #06b6d4}
+.callout-lesson{border-left:3px solid var(--green)}
+.callout-warn{border-left:3px solid var(--amber)}
+.s-dark .callout-insight,.s-grad .callout-insight,.s-blue .callout-insight{background:rgba(6,182,212,.07)}
+.s-light .callout-insight,.s-warm .callout-insight{background:rgba(6,182,212,.06)}
+.s-dark .callout-lesson,.s-grad .callout-lesson,.s-blue .callout-lesson{background:rgba(34,197,94,.07)}
+.s-light .callout-lesson,.s-warm .callout-lesson{background:rgba(34,197,94,.06)}
+.s-dark .callout-warn,.s-grad .callout-warn,.s-blue .callout-warn{background:rgba(245,158,11,.07)}
+.s-light .callout-warn,.s-warm .callout-warn{background:rgba(245,158,11,.06)}
+.callout-lbl{font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;font-weight:500}
+.callout-insight .callout-lbl{color:#06b6d4}
+.callout-lesson .callout-lbl{color:var(--green)}
+.callout-warn .callout-lbl{color:var(--amber)}
+.callout p{font-size:14px;margin:0;line-height:1.65}
+
+/* ── STAT STRIP ── */
+.stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));border-radius:10px;overflow:hidden;margin:28px 0;gap:1px}
+.s-dark .stat-strip,.s-grad .stat-strip,.s-blue .stat-strip{background:var(--rule-dk)}
+.s-light .stat-strip,.s-warm .stat-strip{background:var(--rule-lt)}
+.stat-c{padding:18px 16px;text-align:center}
+.s-dark .stat-c,.s-grad .stat-c,.s-blue .stat-c{background:var(--carbon2)}
+.s-light .stat-c,.s-warm .stat-c{background:#fff}
+.stat-n{font-family:var(--serif);font-size:22px;font-weight:900;line-height:1;margin-bottom:4px}
+.s-dark .stat-n,.s-grad .stat-n,.s-blue .stat-n{color:var(--bmw)}
+.s-light .stat-n,.s-warm .stat-n{color:var(--bmw-dark)}
+.stat-l{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase}
+.s-dark .stat-l,.s-grad .stat-l,.s-blue .stat-l{color:var(--text3-dk)}
+.s-light .stat-l,.s-warm .stat-l{color:var(--text3-lt)}
+
+/* ── CARD GRID ── */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:24px 0}
+.card{padding:22px 20px;border-radius:10px;transition:transform .2s}
+.card:hover{transform:translateY(-3px)}
+.s-dark .card,.s-grad .card{background:var(--carbon2);border:1px solid var(--rule-dk)}
+.s-dark .card:hover,.s-grad .card:hover{border-color:rgba(28,105,212,.35)}
+.s-light .card,.s-warm .card{background:#fff;border:1px solid var(--rule-lt);box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-icon{font-size:20px;margin-bottom:10px}
+.card-title{font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:6px}
+.s-dark .card-title,.s-grad .card-title{color:var(--text-on-dk)}
+.s-light .card-title,.s-warm .card-title{color:var(--text-on-lt)}
+.card p{font-size:13.5px;margin:0;line-height:1.6}
+
+/* ── COMPARISON TABLE ── */
+.comp-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:13.5px;border-radius:8px;overflow:hidden}
+.s-dark .comp-table{border:1px solid var(--rule-dk)}
+.s-light .comp-table,.s-warm .comp-table{border:1px solid var(--rule-lt)}
+.comp-table th{font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;padding:11px 14px;text-align:left}
+.s-dark .comp-table th,.s-blue .comp-table th{background:var(--carbon3);color:var(--bmw)}
+.s-light .comp-table th,.s-warm .comp-table th{background:var(--ice3);color:var(--bmw-dark)}
+.comp-table td{padding:11px 14px;font-weight:300;line-height:1.5}
+.s-dark .comp-table td{border-bottom:1px solid var(--rule-dk);color:var(--text2-dk)}
+.s-light .comp-table td,.s-warm .comp-table td{border-bottom:1px solid var(--rule-lt);color:var(--text2-lt)}
+.comp-table tr:last-child td{border-bottom:none}
+.s-dark .comp-table tr:hover td{background:rgba(255,255,255,.02)}
+.s-light .comp-table tr:hover td,.s-warm .comp-table tr:hover td{background:#f7f9ff}
+.tag{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.tag-green{background:rgba(34,197,94,.12);color:#22c55e}
+.tag-amber{background:rgba(245,158,11,.12);color:var(--amber)}
+.tag-red{background:rgba(232,49,42,.12);color:var(--red)}
+.tag-blue{background:rgba(28,105,212,.12);color:#60a5ff}
+
+/* ── SWOT ── */
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:1px;border-radius:10px;overflow:hidden;margin:24px 0}
+.swot-c{padding:20px;position:relative}
+.sw-str{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2)}
+.sw-wk{background:rgba(232,49,42,.08);border:1px solid rgba(232,49,42,.18)}
+.sw-op{background:rgba(28,105,212,.1);border:1px solid rgba(28,105,212,.2)}
+.sw-th{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.18)}
+.swot-label{font-family:var(--mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px;font-weight:500}
+.sw-str .swot-label{color:#22c55e}
+.sw-wk .swot-label{color:var(--red)}
+.sw-op .swot-label{color:#60a5ff}
+.sw-th .swot-label{color:var(--amber)}
+.swot-c ul{list-style:none}
+.swot-c ul li{font-size:13px;font-weight:300;padding:4px 0 4px 16px;position:relative;line-height:1.5}
+.s-dark .swot-c ul li,.s-grad .swot-c ul li,.s-blue .swot-c ul li{color:var(--text2-dk)}
+.s-light .swot-c ul li,.s-warm .swot-c ul li{color:var(--text2-lt)}
+.swot-c ul li::before{content:'·';position:absolute;left:0;font-weight:700}
+.sw-str li::before{color:#22c55e}
+.sw-wk li::before{color:var(--red)}
+.sw-op li::before{color:#60a5ff}
+.sw-th li::before{color:var(--amber)}
+
+/* ── VERDICT BOX ── */
+.verdict{
+  background:linear-gradient(135deg,var(--bmw-deep) 0%,var(--bmw-dark) 40%,#1e3a6e 100%);
+  border-radius:12px;padding:40px 36px;margin:32px 0;position:relative;overflow:hidden;
+}
+.verdict::before{
+  content:'';position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;
+}
+.verdict::after{
+  content:'';position:absolute;right:-60px;top:-60px;width:260px;height:260px;
+  border-radius:50%;background:rgba(28,105,212,.15);filter:blur(40px);z-index:0;
+}
+.verdict>*{position:relative;z-index:1}
+.verdict-label{font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:14px}
+.verdict-title{font-family:var(--serif);font-size:clamp(22px,3vw,34px);font-weight:700;color:#fff;line-height:1.2;margin-bottom:20px}
+.verdict-title em{font-style:italic;font-weight:300;color:#90b8ff}
+.verdict p{font-size:15px;color:rgba(255,255,255,.75);line-height:1.78;margin-bottom:14px;font-weight:300}
+.verdict p strong{color:#fff;font-weight:500}
+.verdict-score{display:flex;gap:20px;margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);flex-wrap:wrap}
+.vs-item{text-align:center;flex:1;min-width:90px}
+.vs-n{font-family:var(--serif);font-size:28px;font-weight:900;color:#fff;line-height:1}
+.vs-l{font-family:var(--mono);font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:3px}
+.vs-bar{height:3px;border-radius:2px;background:rgba(255,255,255,.15);margin-top:8px;overflow:hidden}
+.vs-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#60a5fa,#a78bfa);animation:fillBar 1.2s ease both}
+@keyframes fillBar{from{width:0}to{width:var(--w)}}
+
+/* ── DIVIDERS ── */
+.div-to-light{height:3px;background:linear-gradient(90deg,var(--bmw),#60a5fa,transparent)}
+.div-to-dark{height:3px;background:linear-gradient(90deg,transparent,#60a5fa,var(--bmw))}
+.div-silent{height:1px;background:var(--rule-dk)}
+
+/* ── FOOTER ── */
+.footer{
+  background:var(--carbon2);border-top:1px solid var(--rule-dk);
+  padding:40px 60px 28px;
+}
+.footer-inner{max-width:920px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
+.footer-brand{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--text-on-dk)}
+.footer-brand span{color:var(--bmw)}
+.footer-sub{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--text3-dk);margin-top:4px}
+.footer-links{display:flex;gap:18px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+.footer-links a{color:var(--text3-dk);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--bmw)}
+.footer-copy{max-width:920px;margin:24px auto 0;padding-top:18px;border-top:1px solid var(--rule-dk);font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;color:var(--text3-dk);text-align:center}
+.footer-copy span{color:var(--bmw)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .nav{padding:0 20px}
+  .nav-pills{display:none}
+  .hero-inner,.inner{padding:0 24px}
+  .hero-scroll{right:24px}
+  .swot{grid-template-columns:1fr}
+  .hero-logo-bg{display:none}
+  .footer{padding:32px 24px 20px}
+  .verdict{padding:28px 20px}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div class="banner">Company Deep-Dive · Automotive &amp; Luxury Strategy · FounderLens Intelligence</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand"><span class="nav-dot"></span>FounderLens</div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <span class="nav-tag">Company Analysis</span>
+  </div>
+  <div class="nav-pills">
+    <button class="nav-pill active" onclick="scrollTo({top:0,behavior:'smooth'})">Overview</button>
+    <button class="nav-pill" onclick="ss('model')">Business Model</button>
+    <button class="nav-pill" onclick="ss('strategy')">Strategy</button>
+    <button class="nav-pill" onclick="ss('verdict')">Verdict</button>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-logo-bg">
+    <svg viewBox="0 0 200 200" fill="none">
+      <circle cx="100" cy="100" r="98" stroke="white" stroke-width="4"/>
+      <circle cx="100" cy="100" r="68" stroke="white" stroke-width="3"/>
+      <path d="M100 2 L100 198" stroke="white" stroke-width="3"/>
+      <path d="M2 100 L198 100" stroke="white" stroke-width="3"/>
+      <path d="M32 32 L168 168" stroke="white" stroke-width="1.5" opacity=".4"/>
+      <path d="M168 32 L32 168" stroke="white" stroke-width="1.5" opacity=".4"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-label">Company Intelligence Report · Issue 01 · Automotive</div>
+    <h1 class="hero-h1">BMW<br><em>The Architecture of Desire</em></h1>
+    <p class="hero-sub">How a single German brand turned engineering precision into a global identity system — and made people <strong>pay a premium not just for a car, but for a feeling.</strong></p>
+    <div class="hero-kpis">
+      <div class="kpi"><div class="kpi-n">€142B</div><div class="kpi-l">Revenue 2023</div></div>
+      <div class="kpi"><div class="kpi-n">2.55M</div><div class="kpi-l">Cars Sold (2023)</div></div>
+      <div class="kpi"><div class="kpi-n">31</div><div class="kpi-l">Countries with Plants</div></div>
+      <div class="kpi"><div class="kpi-n">~14%</div><div class="kpi-l">Operating Margin</div></div>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll to explore</div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 01: OVERVIEW — LIGHT ══ -->
+<section class="s-light reveal" id="overview">
+  <div class="inner">
+    <div class="s-label">01 — Company Overview</div>
+    <h2 class="s-title">What BMW <em>Actually Is</em></h2>
+    <p class="lead">BMW is not simply a car company. It is a brand architecture designed to make ownership feel like membership in something exclusive — without being so exclusive that it's unattainable.</p>
+    <p>Bayerische Motoren Werke — founded in 1916 as an aircraft engine manufacturer — became one of the most precisely positioned brands in industrial history. Today the BMW Group operates three brands: <strong>BMW</strong> (premium performance), <strong>MINI</strong> (urban personality), and <strong>Rolls-Royce</strong> (ultra-luxury). Each occupies a distinct shelf in the consumer mind. None overlaps. All serve the same group strategy.</p>
+    <p>The automotive industry is one of the most capital-intensive, regulation-heavy, and competitively dense industries on earth. Margins are thin for most players. BMW has maintained operating margins of 10–14% for years — rates that most carmakers can only dream of. That margin premium exists entirely because of brand positioning, product discipline, and the willingness to charge more and deliver more consistently.</p>
+    <div class="stat-strip">
+      <div class="stat-c"><div class="stat-n">3</div><div class="stat-l">Brands in Portfolio</div></div>
+      <div class="stat-c"><div class="stat-n">150,000+</div><div class="stat-l">Global Employees</div></div>
+      <div class="stat-c"><div class="stat-n">108</div><div class="stat-l">Years in Business</div></div>
+      <div class="stat-c"><div class="stat-n">Top 3</div><div class="stat-l">Global Luxury Car Brands</div></div>
+      <div class="stat-c"><div class="stat-n">€10B+</div><div class="stat-l">Annual R&D Spend</div></div>
+    </div>
+    <div class="callout callout-insight">
+      <div class="callout-lbl">💡 Key Insight</div>
+      <p>BMW doesn't compete on price. It competes on identity. The customer isn't buying transport — they're buying a signal. That signal is what makes the business model work at premium margins.</p>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-dark"></div>
+
+<!-- ══ SEC 02: CORE PROBLEM — DARK ══ -->
+<section class="s-dark reveal" id="problem">
+  <div class="glow" style="width:400px;height:400px;background:rgba(28,105,212,.12);top:-100px;right:-100px"></div>
+  <div class="inner">
+    <div class="s-label">02 — The Core Problem</div>
+    <h2 class="s-title">The Customer Problem <em>BMW Solved</em></h2>
+    <p class="lead">By the 1960s, most cars were functionally similar. Getting from A to B was a solved problem. What wasn't solved was: how should driving feel?</p>
+    <p>Mass-market cars — Ford, Volkswagen, Fiat — had made transportation cheap and accessible. But a growing segment of buyers didn't want cheap. They wanted cars that felt connected, purposeful, alive under the hands. They were willing to pay for that feeling, but nobody was engineering it systematically.</p>
+    <p>BMW identified this gap with unusual precision: <strong>there was a price point between "affordable" and "unattainably expensive" where a buyer wanted the best driving experience money could buy, not the most ostentatious display of wealth.</strong> Mercedes-Benz was building status symbols. Ferrari was building race machines for the wealthy. BMW built for the person who wanted neither — someone who wanted to feel like a driver, not a passenger in their own car.</p>
+    <div class="pq"><p>"The Ultimate Driving Machine" was not just a tagline. It was a product specification. Every engineering decision at BMW was held against that standard.</p></div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <div class="card-title">The Target Customer</div>
+        <p>Affluent, performance-oriented buyers who valued the act of driving, not just the destination. Engineers, doctors, executives who saw a car as an extension of their personality.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🕳️</div>
+        <div class="card-title">The Market Gap</div>
+        <p>Premium cars that were actually fun to drive — not just comfortable or prestigious. The space between "transport" and "luxury" that competitors had ignored.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚙️</div>
+        <div class="card-title">The Solution</div>
+        <p>Engineering performance deeply into every model, then wrapping it in a brand identity so coherent that owning a BMW felt like belonging to a driving philosophy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 03: MARKET TIMING — WARM ══ -->
+<section class="s-warm reveal" id="timing">
+  <div class="inner">
+    <div class="s-label">03 — Market Timing</div>
+    <h2 class="s-title">Why BMW Emerged at <em>Exactly the Right Moment</em></h2>
+    <p class="lead">BMW's modern identity was largely built in the 1970s and 80s — a period of rising incomes, growing professional classes, and a cultural shift toward individual expression through consumption.</p>
+    <p>Post-war economic growth created a new demographic: <strong>young, educated, high-earning professionals</strong> who didn't inherit wealth but were earning it. They had money, ambition, and a desire to signal both — but with taste, not extravagance. This was BMW's market, and it was growing rapidly across Western Europe and the United States.</p>
+    <p>The 1973 oil crisis was a critical turning point. American muscle cars — the dominant "performance" segment — became liabilities overnight. Their thirsty V8 engines made no sense in an era of fuel rationing. BMW's inline-6 engines were comparatively efficient while still delivering driving pleasure. BMW didn't just survive the crisis — it gained market share from it.</p>
+    <ul class="al">
+      <li><strong>Rising professional class:</strong> A new generation of buyers with disposable income but not inherited wealth — exactly BMW's target customer.</li>
+      <li><strong>Oil crisis (1973–74):</strong> Killed American muscle cars. BMW's efficient performance engines became uniquely appealing. <span class="concept">First-Mover Advantage in Efficient Performance</span></li>
+      <li><strong>Globalisation of aspiration:</strong> "German engineering" became a globally trusted signal of quality in the 1980s — and BMW was its most desirable embodiment.</li>
+      <li><strong>The yuppie decade (1980s):</strong> Professional success culture made a BMW the aspirational purchase for an entire generation, particularly in the US.</li>
+    </ul>
+    <div class="callout callout-lesson">
+      <div class="callout-lbl">📐 Strategic Lesson</div>
+      <p>BMW's timing wasn't luck — it was positioning readiness meeting macro-tailwinds. They had built the right product and the right identity before the market shifts that made it irresistible. That's what good strategic preparation looks like.</p>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-dark"></div>
+
+<!-- ══ SEC 04: BUSINESS MODEL — GRAD ══ -->
+<section class="s-grad reveal" id="model">
+  <div class="glow" style="width:350px;height:350px;background:rgba(28,105,212,.10);bottom:-80px;left:-80px"></div>
+  <div class="inner">
+    <div class="s-label">04 — Business Model</div>
+    <h2 class="s-title">How BMW <em>Makes Money</em></h2>
+    <p class="lead">BMW's business model looks like car manufacturing on the surface. Underneath, it's a premium margin extraction system built on desire, engineering reputation, and a financial services arm that most people don't notice.</p>
+
+    <p>The core of BMW's revenue is vehicle sales — but the margin is the story. A BMW 3 Series costs roughly 2–3x more than a functionally comparable Toyota. BMW's manufacturing cost isn't 2–3x higher. The gap between cost and price — the brand premium — is where the real business lives. <span class="concept">Product Differentiation Strategy</span></p>
+
+    <div class="stat-strip">
+      <div class="stat-c"><div class="stat-n">~60%</div><div class="stat-l">Revenue: Vehicle Sales</div></div>
+      <div class="stat-c"><div class="stat-n">~25%</div><div class="stat-l">Financial Services</div></div>
+      <div class="stat-c"><div class="stat-n">~10%</div><div class="stat-l">Motorcycles + Parts</div></div>
+      <div class="stat-c"><div class="stat-n">€14.2B</div><div class="stat-l">EBIT (2023)</div></div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🚗</div>
+        <div class="card-title">Vehicle Sales Premium</div>
+        <p>The core engine. BMW charges a brand premium of 30–80% over comparable non-luxury vehicles. This premium requires constant investment in engineering, design, and brand perception to sustain.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏦</div>
+        <div class="card-title">BMW Financial Services</div>
+        <p>Often overlooked — BMW finances more than 50% of the cars it sells through its own bank. The interest income from leases and loans generates billions annually and keeps customers in a BMW-to-BMW upgrade cycle. <span class="concept">Customer Lock-In</span></p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔧</div>
+        <div class="card-title">Aftersales & Parts</div>
+        <p>Service, parts, and accessories generate high-margin recurring revenue across the vehicle's life. BMW garages see customers 2–3x per year for maintenance. Each visit is a brand touchpoint and a revenue event.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">👑</div>
+        <div class="card-title">Rolls-Royce — Ultra-Luxury</div>
+        <p>Each Rolls-Royce costs BMW relatively little to produce compared to its selling price (some models exceed £500,000). Ultra-low volume, ultra-high margin. The brand adds "we build the most expensive cars on earth" to BMW's portfolio story.</p>
+      </div>
+    </div>
+
+    <div class="callout callout-insight">
+      <div class="callout-lbl">💡 The Model's Hidden Genius</div>
+      <p>BMW Financial Services creates a <strong>subscription-like revenue loop</strong>: customer leases a BMW for 3 years, returns it, and takes a new one. BMW earns interest for 3 years, gets the car back (resells as certified pre-owned), and starts the cycle again. The vehicle becomes a recurring revenue asset, not just a one-time sale. <span class="concept">Recurring Revenue Architecture</span></p>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 05: PRODUCT — LIGHT ══ -->
+<section class="s-light reveal" id="product">
+  <div class="inner">
+    <div class="s-label">05 — Product & Experience</div>
+    <h2 class="s-title">Why Customers Choose <em>BMW Over Anyone Else</em></h2>
+    <p class="lead">BMW's product strategy centres on one discipline most companies abandon under margin pressure: never let the product disappoint. Every generation of every model must be measurably better than what came before — and better to drive than what competitors offer at the same price.</p>
+
+    <p>BMW invented the concept of the driver-focused premium car. The steering is tuned differently. The seating position is lower. The weight distribution — 50:50 front to rear — is BMW's engineering obsession. These are not features customers read about in brochures. They're felt in the first five minutes behind the wheel. <strong>The product makes its own case.</strong></p>
+
+    <p>BMW's product line is architected as a pyramid. The 1 and 2 Series bring customers in young, at a lower price point. The 3 and 5 Series are the volume core — globally recognised, aspirational, profitable. The 7 Series and X7 sit at the top, competing with Mercedes S-Class and Audi A8 for the executive buyer. Each tier is a stepping stone. <span class="concept">Expansion Strategy via Customer Lifetime Progression</span></p>
+
+    <ul class="al">
+      <li><strong>50:50 weight distribution:</strong> BMW's signature engineering signature. Every model, from the 1 Series to the X5, is engineered to achieve this. It makes BMW cars uniquely balanced in corners — an experience that's viscerally different from competitors.</li>
+      <li><strong>Interior design as aspiration:</strong> BMW's cabins have been consistently rated among the highest quality in automotive. The logic: customers spend more time inside the car than outside it. The interior is the product they live with daily.</li>
+      <li><strong>iDrive — first mover in digital cockpit:</strong> BMW launched its iDrive system in 2001 — the first integrated digital interface in a production car. Early versions were criticised, but BMW iterated aggressively. Today, BMW's digital cockpit is among the best in the industry. <span class="concept">First-Mover Advantage in Connected Car Experience</span></li>
+      <li><strong>The M division — a brand within a brand:</strong> BMW M (Motorsport) produces high-performance variants of standard models. M cars carry massive price premiums (often 50–80% above the standard model) and carry a cultural cachet that makes the entire BMW range feel more performance-oriented by association.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="div-to-dark"></div>
+
+<!-- ══ SEC 06: GROWTH & DISTRIBUTION — BLUE ══ -->
+<section class="s-blue reveal" id="growth">
+  <div class="glow" style="width:500px;height:500px;background:rgba(28,105,212,.15);top:50%;right:-150px;transform:translateY(-50%)"></div>
+  <div class="inner">
+    <div class="s-label">06 — Growth & Distribution</div>
+    <h2 class="s-title">How BMW Built a <em>Global Desire Machine</em></h2>
+    <p class="lead">BMW's distribution strategy is built on two principles that seem contradictory: be everywhere aspirational buyers are, and remain rare enough to never feel common.</p>
+
+    <p>BMW expanded geographically with surgical precision. The US was prioritised in the 1970s because American buyers were willing to pay a premium for European engineering credibility. China became the single largest market in the 2000s — BMW was one of the first Western luxury brands to build locally in China, giving it a decade-long head start over competitors who waited to see if the market would develop. <span class="concept">Proactive Expansion Strategy</span></p>
+
+    <p>The brand architecture does the distribution work. BMW doesn't need to advertise the same way mass-market brands do. When someone sees a BMW on the road, the car itself is the advertisement. BMW estimated that every vehicle on the road generates awareness equivalent to months of traditional advertising. The product placement, the street presence — these are all engineered into the ownership experience.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🇩🇪</div>
+        <div class="card-title">Germany — Heritage as Strategy</div>
+        <p>"Bavarian" origins aren't incidental. BMW actively leverages German engineering credibility as a global shorthand for quality. "Made in Germany" adds perceived value that no ad campaign can purchase.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🇺🇸</div>
+        <div class="card-title">US — The Yuppie Decade</div>
+        <p>BMW's 1980s US growth was cultural, not just commercial. The brand became synonymous with professional success. Spartanburg, South Carolina now manufactures more BMWs than any plant in the world — including Germany.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🇨🇳</div>
+        <div class="card-title">China — The Long Game</div>
+        <p>BMW entered a JV with Brilliance China Automotive in 2003. Local production allowed competitive pricing without luxury import duties. China now accounts for roughly 33% of all BMW global sales — the world's single largest market.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏎️</div>
+        <div class="card-title">Motorsport — Free Marketing</div>
+        <p>BMW's involvement in Formula E, DTM, and endurance racing generates media coverage and engineering credibility worth far more than its cost. Motorsport wins translate directly into showroom perception. <span class="concept">Earned Media + Brand Heritage Loop</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 07: OPERATIONS — LIGHT ══ -->
+<section class="s-light reveal" id="ops">
+  <div class="inner">
+    <div class="s-label">07 — Operational Strategy</div>
+    <h2 class="s-title">The Factory Behind <em>the Fantasy</em></h2>
+    <p class="lead">The premium price BMW charges is only sustainable if the car it delivers actually feels premium. BMW's operational system is engineered to guarantee that — at 2.5 million vehicles per year, across 31 countries, maintaining consistent quality.</p>
+
+    <p>BMW's manufacturing philosophy centres on <strong>flexible production</strong> — the ability to build multiple different models on the same production line simultaneously. This is harder than it sounds. Traditional auto manufacturing is built around fixed lines that produce one model. BMW's lines in Leipzig and Dingolfing can switch between series with minimal retooling. This means BMW can respond to demand shifts without expensive plant reconfigurations. <span class="concept">Operational Flexibility as Competitive Advantage</span></p>
+
+    <p>BMW runs one of the most sophisticated supply chains in manufacturing. The Just-In-Sequence (JIS) system — a refinement of Toyota's Just-In-Time model — means that components arrive at the assembly line in the exact sequence they'll be needed, with zero buffer inventory. A seat arrives at the exact moment the car body with matching specifications is ready for it. This eliminates waste, reduces inventory costs, and compresses the gap between customer order and delivery.</p>
+
+    <ul class="al">
+      <li><strong>BMW Plant Leipzig — automation benchmark:</strong> Over 90% of body-in-white construction is robotic. Human workers focus on quality inspection and complex assembly — the tasks where precision judgment matters more than repetitive motion.</li>
+      <li><strong>Supplier co-location:</strong> BMW co-locates key suppliers inside or adjacent to its major plants. This reduces transport costs, compresses response time to quality issues, and builds collaborative relationships with strategic vendors.</li>
+      <li><strong>Digital twin manufacturing:</strong> BMW uses virtual factory simulations to plan and optimise production before physical changes are made. Changes are tested digitally first — reducing the cost and time of physical retooling significantly.</li>
+      <li><strong>Quality as operational culture:</strong> BMW's quality control philosophy: every quality issue is escalated immediately and traced to root cause. Workers are empowered to stop the line for quality concerns without manager approval — identical to Toyota's Andon system but adapted to BMW's higher-complexity manufacturing environment.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="div-to-dark"></div>
+
+<!-- ══ SEC 08: COMPETITIVE ADVANTAGE — GRAD ══ -->
+<section class="s-grad reveal" id="moat">
+  <div class="glow" style="width:300px;height:300px;background:rgba(28,105,212,.12);top:50px;left:-50px"></div>
+  <div class="inner">
+    <div class="s-label">08 — Competitive Advantage</div>
+    <h2 class="s-title">Why BMW Is <em>Genuinely Hard to Beat</em></h2>
+    <p class="lead">BMW's competitive moat is not one wall — it's four, layered inside each other. Removing any one doesn't destroy the fortress; you'd need to undermine all four simultaneously to displace BMW meaningfully.</p>
+
+    <ul class="al">
+      <li><strong>Brand identity as switching cost:</strong> BMW buyers don't just like the car — they identify with it. Someone who has owned BMWs for 15 years has built identity, social signals, and emotional loyalty around the brand. Switching to Mercedes or Audi requires them to update their self-concept. That's a high switching cost, and it doesn't appear on any balance sheet. <span class="concept">Switching Costs + Identity-Based Loyalty</span></li>
+      <li><strong>Engineering reputation — decades to build, impossible to fake:</strong> BMW's engineering credibility was built across 50+ years of motorsport participation, driving awards, and generational product consistency. Competitors can build good cars. They cannot build BMW's engineering reputation without BMW's history. This is a genuine moat that money cannot replicate quickly. <span class="concept">Sustained Competitive Advantage via Heritage</span></li>
+      <li><strong>Financial services ecosystem:</strong> BMW Bank creates a closed ecosystem: it finances the purchase, earns interest, gets the car back, certifies and resells it, and finances the next buyer. Competitors without proprietary financial arms give away margin to third-party lenders. BMW captures it. <span class="concept">Vertical Integration in Customer Finance</span></li>
+      <li><strong>Economies of scale with maintained exclusivity:</strong> BMW sells 2.5 million vehicles per year — enough to achieve genuine manufacturing scale efficiencies — while keeping unit volumes per model low enough that individual models don't feel mass-market. This is extraordinarily difficult to balance and BMW has done it for decades. <span class="concept">Economies of Scale + Maintained Scarcity Perception</span></li>
+    </ul>
+
+    <div class="pq"><p>BMW is not trying to be the most popular car brand. It is trying to be the most desirable one. Popularity and desirability are different businesses with different economics.</p></div>
+  </div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 09: STRATEGIC ANALYSIS — WARM ══ -->
+<section class="s-warm reveal" id="strategy">
+  <div class="inner">
+    <div class="s-label">09 — Strategic Analysis</div>
+    <h2 class="s-title">Reading BMW Through <em>Strategy Frameworks</em></h2>
+    <p class="lead">BMW's strategy is a textbook case of sustained differentiation — but what makes it remarkable is that it has maintained this strategy across economic cycles, technological shifts, and competitive disruption without fundamental deviation.</p>
+
+    <p>BMW competes on <strong>differentiation, not cost leadership</strong>. This means they accept higher costs in exchange for the ability to charge higher prices. The bet works only if the perceived value gap remains wider than the cost gap. BMW's engineering, brand, and service investments are all designed to maintain that gap. <span class="concept">Porter's Generic Strategy: Differentiation</span></p>
+
+    <p>BMW's three-brand portfolio — BMW, MINI, Rolls-Royce — represents a rare example of a luxury company successfully serving three distinct luxury tiers without cannibalising any of them. MINI is aspirational affordable luxury. BMW is premium performance. Rolls-Royce is unapologetic ultra-luxury. Each brand has its own language, design philosophy, and customer identity. <span class="concept">Multi-Brand Portfolio Strategy</span></p>
+
+    <h3 style="font-family:var(--serif);font-size:20px;font-weight:700;margin:28px 0 14px;color:var(--text-on-lt)">SWOT — BMW Group</h3>
+    <div class="swot">
+      <div class="swot-c sw-str">
+        <div class="swot-label">Strengths</div>
+        <ul>
+          <li>Global brand with 108 years of heritage</li>
+          <li>Engineering reputation — difficult to replicate</li>
+          <li>BMW Financial Services — integrated ecosystem</li>
+          <li>M division — performance halo effect</li>
+          <li>Flexible manufacturing — scale with variety</li>
+          <li>China manufacturing JV — local cost advantage</li>
+        </ul>
+      </div>
+      <div class="swot-c sw-wk">
+        <div class="swot-label">Weaknesses</div>
+        <ul>
+          <li>Heavy dependence on China (33% of sales)</li>
+          <li>High R&D costs across ICE + EV simultaneously</li>
+          <li>iX / EV lineup perception gap vs. Tesla</li>
+          <li>Complexity of maintaining 3 brands + digital</li>
+          <li>Recall events damage quality reputation</li>
+        </ul>
+      </div>
+      <div class="swot-c sw-op">
+        <div class="swot-label">Opportunities</div>
+        <ul>
+          <li>EV transition — reframe brand for new generation</li>
+          <li>Neue Klasse platform — next EV architecture</li>
+          <li>India, Southeast Asia — rising luxury markets</li>
+          <li>Software-defined vehicles — new revenue streams</li>
+          <li>BMW Financial Services — digital expansion</li>
+        </ul>
+      </div>
+      <div class="swot-c sw-th">
+        <div class="swot-label">Threats</div>
+        <ul>
+          <li>Tesla — redefining what "performance car" means</li>
+          <li>Chinese EV brands — BYD, NIO at lower prices</li>
+          <li>Geopolitical risk in China JV</li>
+          <li>Software-first brands out-innovating in UX</li>
+          <li>EV regulation compressing traditional margins</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout callout-warn">
+      <div class="callout-lbl">⚠ Strategic Tension</div>
+      <p>BMW's EV transition is its defining strategic challenge of this decade. Moving fast risks diluting the "Ultimate Driving Machine" identity for a segment (EV) where Tesla has already claimed the performance narrative. Moving slow risks being overtaken by brands that start with a software-first mindset. BMW is running both tracks simultaneously — expensive, complex, but necessary. <span class="concept">Innovator's Dilemma in Action</span></p>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-dark"></div>
+
+<!-- ══ SEC 10: RISKS — DARK ══ -->
+<section class="s-dark reveal" id="risks">
+  <div class="glow" style="width:350px;height:350px;background:rgba(232,49,42,.06);bottom:-60px;right:-60px"></div>
+  <div class="inner">
+    <div class="s-label">10 — Key Risks & Weaknesses</div>
+    <h2 class="s-title">Where BMW <em>Is Genuinely Vulnerable</em></h2>
+
+    <div class="comp-table">
+      <thead><tr><th>Risk</th><th>Description</th><th>Severity</th><th>BMW's Response</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>China Dependency</strong></td>
+          <td>33% of global sales. Trade policy shifts, geopolitical tension, or Chinese consumer nationalism could devastate revenue overnight.</td>
+          <td><span class="tag tag-red">Critical</span></td>
+          <td>Diversifying into India, Southeast Asia. But China revenue cannot be replaced quickly.</td>
+        </tr>
+        <tr>
+          <td><strong>Tesla & Software-First EV Brands</strong></td>
+          <td>Tesla has redefined "performance car" for a generation that never owned a BMW. Software, OTA updates, and autonomy are now performance metrics.</td>
+          <td><span class="tag tag-red">High</span></td>
+          <td>Neue Klasse EV platform (2025+) — BMW's most significant architecture investment in decades.</td>
+        </tr>
+        <tr>
+          <td><strong>Chinese EV Competitors</strong></td>
+          <td>BYD, NIO, Li Auto offering technologically competitive EVs at 30–50% lower prices than equivalent BMWs, particularly in BMW's home Chinese market.</td>
+          <td><span class="tag tag-amber">High</span></td>
+          <td>Local manufacturing cost advantage helps. Brand premium still holds — for now.</td>
+        </tr>
+        <tr>
+          <td><strong>Dual ICE + EV R&D Burden</strong></td>
+          <td>BMW must invest heavily in combustion engine improvements AND EV development simultaneously during the transition. Double the R&D cost, compressed margins.</td>
+          <td><span class="tag tag-amber">Medium</span></td>
+          <td>Strong balance sheet absorbs this. But it's a window of strategic vulnerability.</td>
+        </tr>
+        <tr>
+          <td><strong>Quality Reputation Risk</strong></td>
+          <td>BMW's reliability rankings have historically lagged behind Japanese competitors. In a world of social media, one viral quality failure reaches millions in hours.</td>
+          <td><span class="tag tag-blue">Medium</span></td>
+          <td>Continuous quality investment and digital diagnostics (BMW ConnectedDrive) help detect issues early.</td>
+        </tr>
+      </tbody>
+    </div>
+
+    <div class="callout callout-warn">
+      <div class="callout-lbl">⚠ The Deepest Risk</div>
+      <p>BMW's identity is built on "Ultimate Driving Machine." If autonomous driving and EVs make the experience of driving irrelevant — if the car drives itself while you watch Netflix — then BMW's core value proposition loses its entire foundation. The brand must evolve to mean something new for a world where "driving" may not be the point. That rebranding is the most complex strategic challenge BMW has ever faced.</p>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 11: INDUSTRY IMPACT — LIGHT ══ -->
+<section class="s-light reveal" id="impact">
+  <div class="inner">
+    <div class="s-label">11 — Industry Impact</div>
+    <h2 class="s-title">How BMW <em>Changed the Rules</em></h2>
+    <p class="lead">BMW didn't just build great cars. It created a category, defined a buyer archetype, and forced an entire industry to think about premium in a completely new way.</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🏷️</div>
+        <div class="card-title">Created the "Performance Luxury" Category</div>
+        <p>Before BMW's 3 Series became a cultural touchstone in the 1970s–80s, "luxury car" meant large, soft, and comfortable. BMW proved that luxury and performance weren't contradictions. Today, every premium brand offers a "performance luxury" version of each model — because BMW made the market.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📱</div>
+        <div class="card-title">Pioneered the Digital Cockpit</div>
+        <p>BMW's iDrive (2001) was the first integrated digital control system in a production car — years before "connected car" was industry vocabulary. It normalised the idea of the car as a digital platform, forcing competitors to follow.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔄</div>
+        <div class="card-title">Changed Automotive Finance</div>
+        <p>BMW's Financial Services arm demonstrated that carmakers could own the customer financing relationship — and that doing so was dramatically more profitable than selling cars alone. Almost every major manufacturer now has a captive finance arm modelled in part on BMW's approach.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌍</div>
+        <div class="card-title">Globalised Premium Manufacturing</div>
+        <p>BMW's Spartanburg plant proved that premium German cars could be manufactured outside Germany at full quality standards. This unlocked BMW's US market cost competitiveness and became a template for other European premium brands entering new markets.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-dark"></div>
+
+<!-- ══ SEC 12: LESSONS — GRAD ══ -->
+<section class="s-grad reveal" id="lessons">
+  <div class="glow" style="width:400px;height:400px;background:rgba(34,197,94,.07);top:0;right:-100px"></div>
+  <div class="inner">
+    <div class="s-label">12 — Lessons for Builders</div>
+    <h2 class="s-title">What Every Operator Can <em>Steal From BMW</em></h2>
+
+    <ul class="al">
+      <li><strong>Position before you price.</strong> BMW's premium pricing only works because the positioning came first. The brand identity — driving pleasure, precision engineering, German heritage — was built meticulously before BMW could charge significantly more than competitors. Don't try to charge a premium without building the perception that justifies it. <span class="concept">Positioning Strategy</span></li>
+      <li><strong>Make the product the marketing.</strong> Every BMW on the road is an advertisement for BMW. The product is so identifiable — the kidney grille, the proportions, the driving character — that it markets itself. Build products distinctive enough that existing customers become your distribution channel.</li>
+      <li><strong>Own the financial relationship.</strong> BMW Bank doesn't just help customers afford BMWs — it creates a 3-year cycle that locks customers in and generates interest income. In any subscription, SaaS, or consumer business: owning the payment relationship is a strategic asset, not just a convenience.</li>
+      <li><strong>Create sub-brands that elevate the core brand.</strong> BMW M makes every standard BMW feel faster. Rolls-Royce makes every BMW feel more luxurious. The halo effect from BMW's extreme sub-brands lifts the perceived value of the entire range. Identify your "M division" — the most extreme version of your product that makes everything else seem more credible.</li>
+      <li><strong>Invest in markets before they mature.</strong> BMW entered China in 2003 when it was still uncertain territory for Western luxury brands. By the time China became the world's largest luxury car market, BMW had 10 years of brand equity and local manufacturing advantages. Proactive market entry compounds over time. <span class="concept">Proactive vs. Reactive Strategy</span></li>
+      <li><strong>Never let operational complexity justify quality compromise.</strong> At 2.5 million vehicles per year across 31 countries, it would be easy to justify "good enough" quality. BMW's entire business model depends on never doing this. At whatever scale you operate, the product promise is the brand — and protecting it is the first operational priority.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 13: VERDICT — WARM ══ -->
+<section class="s-warm reveal" id="verdict">
+  <div class="inner">
+    <div class="s-label">13 — FounderLens Verdict</div>
+    <h2 class="s-title">What Makes BMW <em>Truly Extraordinary</em></h2>
+    <div class="verdict">
+      <div class="verdict-label">Final Analysis · BMW Group · FounderLens 2025</div>
+      <div class="verdict-title">BMW is not a car company.<br><em>It is a desire company that manufactures cars.</em></div>
+      <p>The most important insight about BMW's business is this: the product is excellent, but the product alone doesn't explain the margins. Mercedes builds excellent cars. Audi builds excellent cars. They all have strong engineering. What BMW has that no competitor has fully replicated is the <strong>coherence of its identity</strong> — a 50-year-old promise about what driving can feel like, delivered consistently at scale, reinforced by motorsport, design language, and financial engineering.</p>
+      <p>BMW's strategy is not secret. It's not built on one clever invention or one market insight. It's built on <strong>decades of doing the obvious things — making the car great, maintaining the brand, investing in the customer — without cutting corners when it would have been convenient to.</strong></p>
+      <p>In a world obsessed with disruption and shortcuts, BMW's longevity is its most underrated quality. The brand has survived two world wars, multiple recessions, the oil crisis, the digital revolution, and now faces the EV transition. Each time, the core strategy has held: make drivers feel that owning a BMW is different from owning anything else. While the Neue Klasse EV platform is the biggest engineering reinvention in the company's history, the strategic logic remains unchanged. The car will look different. The desire it engineers will not.</p>
+      <p><strong>That is the architecture of a durable brand. And BMW has been building it, quietly, for over a century.</strong></p>
+      <div class="verdict-score">
+        <div class="vs-item">
+          <div class="vs-n">9/10</div>
+          <div class="vs-l">Brand Moat</div>
+          <div class="vs-bar"><div class="vs-fill" style="--w:90%"></div></div>
+        </div>
+        <div class="vs-item">
+          <div class="vs-n">8/10</div>
+          <div class="vs-l">Business Model</div>
+          <div class="vs-bar"><div class="vs-fill" style="--w:80%"></div></div>
+        </div>
+        <div class="vs-item">
+          <div class="vs-n">7/10</div>
+          <div class="vs-l">EV Readiness</div>
+          <div class="vs-bar"><div class="vs-fill" style="--w:70%"></div></div>
+        </div>
+        <div class="vs-item">
+          <div class="vs-n">9/10</div>
+          <div class="vs-l">Operational Excellence</div>
+          <div class="vs-bar"><div class="vs-fill" style="--w:90%"></div></div>
+        </div>
+        <div class="vs-item">
+          <div class="vs-n">8/10</div>
+          <div class="vs-l">Strategic Clarity</div>
+          <div class="vs-bar"><div class="vs-fill" style="--w:80%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Founder<span>Lens</span></div>
+      <div class="footer-sub">Company Strategy Intelligence · Issue 01 · BMW Group · May 2026</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">All Analyses</a>
+      <a href="#">Founders</a>
+      <a href="#">Companies</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <span>FounderLens</span> · BMW Company Analysis · For educational purposes · Data from public filings, annual reports, and verified sources · 2026
+  </div>
+</footer>
+
+<script>
+/* ── Progress bar ── */
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+  document.getElementById('progress').style.width=pct+'%';
+});
+
+/* ── Scroll reveal ── */
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+/* ── Nav pill helpers ── */
+function ss(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'})}
+
+/* ── Nav pill active on scroll ── */
+const secs={overview:'overview',problem:'problem',model:'model',strategy:'strategy',verdict:'verdict'};
+const pills=document.querySelectorAll('.nav-pill');
+window.addEventListener('scroll',()=>{
+  let current='';
+  Object.keys(secs).forEach(id=>{
+    const el=document.getElementById(secs[id]);
+    if(el&&el.getBoundingClientRect().top<200)current=id;
+  });
+  pills.forEach(p=>{
+    p.classList.toggle('active',
+      (current==='overview'&&p.textContent==='Overview')||
+      (current==='model'&&p.textContent==='Business Model')||
+      (current==='strategy'&&p.textContent==='Strategy')||
+      (current==='verdict'&&p.textContent==='Verdict')
+    );
+  });
+},{passive:true});
+
+/* ── Animated KPI bars on scroll ── */
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.vs-fill').forEach(f=>{
+        f.style.animation='none';
+        requestAnimationFrame(()=>{
+          f.style.animation='';
+          f.style.animationDelay='.2s';
+        });
+      });
+    }
+  });
+},{threshold:.3});
+document.querySelectorAll('.verdict').forEach(v=>barObs.observe(v));
+</script>
+</body>
+</html>
