@@ -302,7 +302,7 @@ main {
   .fc-bg {
     height: 100%;
     background:
-      linear-gradient(150deg, rgba(255,255,255,0.72), rgba(223,244,230,0.28)),
+      linear-gradient(150deg, rgba(255,255,255,0.08), rgba(255,255,255,0.28))
       var(--card-color, #e9f7ed) !important;
 }
 .fc-initials {
@@ -656,7 +656,9 @@ body > nav {
   <button class="nav-search-btn" onclick="openSearch()">
     <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
     Search founders…
+    <span aria-hidden="true">⌘K</span>
   </button>
+
   <div class="nav-right">
     <a class="nav-btn home" href="index.html">Home</a>
     <a class="nav-btn active" href="founders.html">Founders</a>
@@ -760,6 +762,7 @@ const FOUNDERS = [
     textColor: "#fff",
     initials: "EM",
     tagline: "First Principles Operator",
+    image: "assets/elon-musk.jpg",
     file: "Founders/elon-musk.html",
 
     added: "2024-12-01"
@@ -786,8 +789,35 @@ const FOUNDERS = [
     initials: "SA",
     tagline: "AI Revolution Architect",
     file: "Founders/sam-altman.html",
+    image: "assets/sam-altman.jpg",
     added: "2024-11-20"
   },
+   {
+   name: "Joel Dsouza",
+   company: "RegisterKaro",
+   industry: "finance",
+   tags: ["bootstrapped","platform"],
+   color: "#191757",
+   textColor: "#fff",
+   initials: "JD",
+   tagline: "Compliance Simplifier",
+   file: "Founders/joel-dsouza.html",
+   image: "assets/joel.jpg",
+   added: "2026-05-26"
+},
+   {
+   name: "Srihari Dhondalay",
+   company: "RegisterKaro",
+   industry: "finance",
+   tags: ["bootstrapped","platform"],
+   color: "#f2b305",
+   textColor: "#fff",
+   initials: "SD",
+   tagline: "Compliance Simplifier",
+   file: "Founders/srihari-dhondalay-registerkaro.html",
+   image: "assets/srihari.JPG",
+   added: "2026-05-26"
+},
   {
     name: "Nithin Kamath",
     company: "Zerodha, True Beacon",
@@ -798,6 +828,7 @@ const FOUNDERS = [
     initials: "NK",
     tagline: "Bootstrapped Billionaire",
     file: "Founders/nithin-kamath.html",
+    image: "",
     added: "2024-11-10"
   },
   {
@@ -805,7 +836,7 @@ const FOUNDERS = [
     company: "Zomato",
     industry: "foodtech",
     tags: ["bootstrapped","disruptor"],
-    color: "#b38c0c",
+    color: "#ed1909",
     textColor: "#fff",
     initials: "DG",
     tagline: "Food Delivery Disruptor",
@@ -839,30 +870,6 @@ const FOUNDERS = [
     file: "ritesh-agarwal.html",
     added: "2024-10-15"
   },*/
-  {
-    name: "Aadit Palicha",
-    company: "Zepto",
-    industry: "quickcommerce",
-    tags: ["disruptor","vc-backed","d2c"],
-    color: "#6a1b9a",
-    textColor: "#fff",
-    initials: "AP",
-    tagline: "Quick Commerce Pioneer",
-    file: "Founders/aadit-palicha.html",
-    added: "2024-11-25"
-  },
-   {
-    name: "Ingvar Kamprad",
-    company: "IKEA",
-    industry: "retail",
-    tags: ["disruptor","bootstrapped","d2c"],
-    color: "#0058a3",
-    textColor: "#fff",
-    initials: "IK",
-    tagline: "Flat-Pack Retail Genius",
-    file: "Founders/ingvar-kamprad-ikea.html",
-    added: "2024-11-25"
-  },
   /*
   {
     name: "Sara Blakely",
@@ -876,42 +883,33 @@ const FOUNDERS = [
     file: "sara-blakely.html",
     added: "2024-10-01"
   },*/
+  
+  {
+    name: "Aadit Palicha",
+    company: "Zepto",
+    industry: "quickcommerce",
+    tags: ["disruptor","vc-backed","d2c"],
+    color: "#730b96",
+    textColor: "#fff",
+    initials: "AP",
+    tagline: "Quick Commerce Pioneer",
+    file: "Founders/aadit-palicha.html",
+    image: "assets/aadit-palicha.jpg",
+    added: "2024-11-25"
+  },
    {
-   name: "Joel Dsouza",
-   company: "RegisterKaro",
-   industry: "finance",
-   tags: ["bootstrapped","platform"],
-   color: "#0f766e",
-   textColor: "#fff",
-   initials: "JD",
-   tagline: "Compliance Simplifier",
-   file: "Founders/joel-dsouza-registerkaro.html",
-   added: "2026-05-26"
-},
-   {
-   name: "Srihari",
-   company: "RegisterKaro",
-   industry: "finance",
-   tags: ["bootstrapped","platform"],
-   color: "#0f766e",
-   textColor: "#fff",
-   initials: "SD",
-   tagline: "Compliance Simplifier",
-   file: "Founders/srihari-dhondalay-registerkaro.html",
-   added: "2026-05-26"
-},
-   {
-   name: "Joel Dsouza",
-   company: "RegisterKaro",
-   industry: "finance",
-   tags: ["bootstrapped","platform"],
-   color: "#0f766e",
-   textColor: "#fff",
-   initials: "JD",
-   tagline: "Compliance Simplifier",
-   file: "Founders/JD2.html",
-   added: "2026-05-26"
-},
+    name: "Ingvar Kamprad",
+    company: "IKEA",
+    industry: "retail",
+    tags: ["disruptor","bootstrapped","d2c"],
+    color: "#22abf5",
+    textColor: "#fff",
+    initials: "IK",
+    tagline: "Flat-Pack Retail Genius",
+    file: "Founders/ingvar-kamprad-ikea.html",
+    image: "assets/ingvar.jpg",
+    added: "2024-11-25"
+  },
   {
     name: "Radhakishan Damani",
     company: "DMart",
@@ -922,6 +920,7 @@ const FOUNDERS = [
     initials: "RD",
     tagline: "India's Retail Minimalist",
     file: "Founders/radhakishan-damani-dmart.html",
+    image: "assets/radhakishan-damani.jpg",
     added: "2024-12-01"
   },
 ];
