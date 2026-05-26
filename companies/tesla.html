@@ -1,1 +1,679 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Tesla — FounderLens</title><link rel="stylesheet" href="../style.css"></head><body><main class="search-page"><a class="back-btn" href="../company.html">← Companies</a><article class="analysis-wrap"><header class="analysis-header"><p class="ah-tag">Company Analysis</p><h1 class="ah-name">Tesla</h1><p class="ah-company">Software-speed manufacturing wrapped in mission-driven demand.</p></header><div class="analysis-body"><section class="section-block"><h3>Strategic Lens</h3><p>Tesla blends vertical integration, direct distribution, battery economics, software updates, and founder-led narrative into a rare manufacturing model.</p></section></div></article></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Tesla — FounderLens Company Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f7fbff;
+      --bg2:#eef6ff;
+      --ink:#0a1022;
+      --muted:rgba(10,16,34,.66);
+      --line:rgba(2,6,23,.12);
+      --card:rgba(255,255,255,.82);
+      --cardDark:#071028;
+      --blue:#1d4ed8;
+      --cyan:#22d3ee;
+      --violet:#7c3aed;
+      --red:#ef4444;
+      --mono:'JetBrains Mono',monospace;
+      --sans:'Inter',system-ui,sans-serif;
+      --serif:'Fraunces',serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:var(--sans);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(34,211,238,.18) 0%, transparent 55%),
+        radial-gradient(circle at 85% 15%, rgba(124,58,237,.14) 0%, transparent 52%),
+        radial-gradient(circle at 65% 90%, rgba(29,78,216,.14) 0%, transparent 45%),
+        linear-gradient(180deg,var(--bg) 0%, var(--bg2) 60%, #ffffff 100%);
+      color:var(--ink);
+      overflow-x:hidden;
+    }
+    ::-webkit-scrollbar{width:3px}
+    ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--cyan),var(--blue));border-radius:99px}
+
+    #progress{
+      position:fixed;top:0;left:0;height:3px;width:0;z-index:999;
+      background:linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));
+      transition:width .1s linear;
+    }
+
+    .top{
+      max-width:1120px;margin:12px auto 0;padding:0 18px;
+      position:sticky;top:10px;z-index:50;
+      display:flex;align-items:center;justify-content:space-between;gap:14px;
+    }
+    .topbar{
+      width:100%;
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      padding:10px 14px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.64);
+      backdrop-filter:blur(14px);
+      box-shadow:0 12px 40px rgba(10,16,34,.05);
+    }
+    .back{
+      display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);
+      font-weight:600;font-size:13px;
+    }
+    .back .b{
+      width:26px;height:26px;border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid var(--line);background:rgba(255,255,255,.8);
+    }
+    .pills{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .pill{
+      font-family:var(--mono);
+      font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+      border:1px solid var(--line);
+      padding:6px 10px;border-radius:999px;
+      background:rgba(255,255,255,.55);
+      cursor:pointer;transition:transform .18s,border-color .18s,background .18s;
+      color:rgba(10,16,34,.66);
+    }
+    .pill:hover{transform:translateY(-1px);border-color:rgba(29,78,216,.35)}
+    .pill.active{background:linear-gradient(90deg,rgba(34,211,238,.16),rgba(124,58,237,.12));border-color:rgba(29,78,216,.35);color:#22315a}
+
+    .hero{
+      max-width:1120px;margin:26px auto 0;padding:0 20px 18px;
+      display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:22px;
+      position:relative;
+    }
+    .field{
+      position:absolute;inset:0 auto 0 -200px;width:760px;height:440px;pointer-events:none;opacity:.9;z-index:0;
+    }
+    .hero-left,.hero-right{position:relative;z-index:1}
+    .hero-left{
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:rgba(255,255,255,.72);
+      padding:22px 20px;
+      box-shadow:0 18px 60px rgba(10,16,34,.06);
+      overflow:hidden;
+    }
+    .hero-left::after{
+      content:"";position:absolute;inset:-50px -60px auto auto;width:280px;height:280px;border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, rgba(34,211,238,.26), transparent 66%);
+      z-index:0;pointer-events:none;
+      animation:pulse 7s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%,100%{transform:scale(1);filter:saturate(1)}
+      50%{transform:scale(1.05);filter:saturate(1.2)}
+    }
+
+    .eyebrow{
+      font-family:var(--mono);
+      font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+      color:rgba(10,16,34,.56);
+      margin-bottom:12px;
+      display:flex;align-items:center;gap:10px;
+    }
+    .eyebrow::before{content:"";width:26px;height:1px;background:linear-gradient(90deg,var(--cyan),var(--blue));}
+    h1{
+      font-family:var(--serif);
+      font-size:clamp(44px,6.2vw,80px);
+      line-height:.93;letter-spacing:-.05em;
+      margin-bottom:10px;
+    }
+    h1 em{font-style:italic;font-weight:500;color:var(--blue)}
+    .sub{
+      font-size:18px;line-height:1.75;color:var(--muted);
+      margin-bottom:18px;max-width:650px;
+    }
+    .kpis{
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;
+      position:relative;z-index:1;
+    }
+    .kpi{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.82);
+      border-radius:16px;
+      padding:14px 14px;
+      position:relative;overflow:hidden;
+    }
+    .kpi::before{
+      content:"";position:absolute;left:-40px;top:-60px;width:160px;height:220px;border-radius:22px;
+      background:linear-gradient(180deg, rgba(29,78,216,.18), transparent 62%);
+      transform:rotate(12deg);
+      opacity:.85;pointer-events:none;
+      animation:sweep2 4.2s ease-in-out infinite;
+    }
+    @keyframes sweep2{
+      0%,100%{transform:translateX(0) rotate(12deg);opacity:.75}
+      50%{transform:translateX(85px) rotate(12deg);opacity:1}
+    }
+    .kpi .v{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:4px}
+    .kpi .l{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(10,16,34,.58)}
+
+    .hero-right{
+      border-radius:20px;
+      border:1px solid rgba(2,6,23,.18);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(29,78,216,.16), transparent 55%),
+        radial-gradient(circle at 70% 25%, rgba(34,211,238,.14), transparent 55%),
+        linear-gradient(180deg, #071028 0%, #070d1d 50%, #051021 100%);
+      color:#e6edf7;
+      padding:16px 16px;
+      box-shadow:0 26px 70px rgba(3,11,34,.35);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero-right::after{
+      content:"";position:absolute;inset:auto -40px -50px auto;width:220px;height:220px;border-radius:50%;
+      background:radial-gradient(circle at center, rgba(34,211,238,.22), transparent 62%);
+      pointer-events:none;filter:blur(0px);
+    }
+    .hero-right h2{
+      font-family:var(--serif);
+      font-size:20px;margin-bottom:6px;
+    }
+    .hero-right p{
+      color:rgba(230,237,247,.86);
+      font-size:13.5px;line-height:1.65;margin-bottom:12px;
+    }
+    .battery{
+      border-top:1px solid rgba(148,163,184,.25);
+      padding-top:12px;
+    }
+    .batteryLabel{
+      font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(148,163,184,.8);margin-bottom:8px
+    }
+    .barWrap{
+      display:grid;gap:10px;
+    }
+    .seg{
+      border-radius:12px;
+      border:1px solid rgba(148,163,184,.18);
+      background:rgba(148,163,184,.06);
+      overflow:hidden;
+      height:28px;display:flex;align-items:center;
+      position:relative;
+    }
+    .seg .fill{
+      height:100%;width:0;
+      background:linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));
+      transition:width 1s ease;
+      position:absolute;left:0;top:0;
+    }
+    .seg .txt{
+      position:relative;z-index:1;
+      padding-left:10px;
+      font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(230,237,247,.9)
+    }
+
+    .sections{
+      max-width:1120px;margin:0 auto;padding:0 20px 50px;
+    }
+    .section{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:var(--card);
+      padding:24px 20px;
+      margin:14px 0;
+      box-shadow:0 16px 55px rgba(10,16,34,.05);
+      position:relative;overflow:hidden;
+    }
+    .section.alt{
+      background:linear-gradient(180deg, rgba(255,255,255,.88), rgba(238,246,255,.65));
+    }
+    .section.darkish{
+      background:linear-gradient(180deg, rgba(7,16,40,.98), rgba(7,13,29,.98));
+      border-color:rgba(2,6,23,.25);
+      color:#e6edf7;
+      box-shadow:0 26px 70px rgba(3,11,34,.2);
+    }
+    .section.darkish p{color:rgba(230,237,247,.86)}
+    .section.darkish .lead{color:rgba(230,237,247,.9);border-color:rgba(148,163,184,.25)}
+    .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .sec-label{
+      font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+      color:rgba(10,16,34,.56);margin-bottom:10px;display:flex;align-items:center;gap:10px;
+    }
+    .sec-label::before{content:"";width:22px;height:1px;background:linear-gradient(90deg,var(--cyan),var(--blue))}
+    .section.darkish .sec-label{color:rgba(148,163,184,.88)}
+    .section.darkish .sec-label::before{background:linear-gradient(90deg,var(--cyan),var(--violet))}
+    .sec-title{
+      font-family:var(--serif);
+      font-size:30px;line-height:1.1;margin-bottom:10px;
+    }
+    .sec-title em{font-style:italic;color:var(--blue);font-weight:500}
+    .lead{
+      font-size:17px;line-height:1.85;color:var(--muted);
+      border-bottom:1px solid var(--line);
+      padding-bottom:14px;margin-bottom:14px;font-style:italic;
+    }
+    .section.darkish .concept{background:rgba(148,163,184,.08);border-color:rgba(148,163,184,.25);color:#bfdbfe}
+    p{font-size:15.5px;line-height:1.85;color:rgba(10,16,34,.74);margin-bottom:10px;max-width:840px}
+
+    .concept{
+      display:inline-block;margin-left:6px;vertical-align:middle;
+      font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+      border:1px solid rgba(29,78,216,.22);
+      background:rgba(29,78,216,.08);
+      color:#0f3ea0;
+      padding:2px 7px;border-radius:999px;
+    }
+    .concept.cyan{border-color:rgba(34,211,238,.28);background:rgba(34,211,238,.1);color:#0b4a5e}
+    .concept.violet{border-color:rgba(124,58,237,.28);background:rgba(124,58,237,.1);color:#4c1d95}
+
+    ul{padding-left:18px}
+    li{font-size:15px;color:rgba(10,16,34,.74);line-height:1.75;margin-bottom:6px}
+    .section.darkish li{color:rgba(230,237,247,.86)}
+
+    .cards{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:14px
+    }
+    .card{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.75);
+      border-radius:16px;
+      padding:16px 15px;
+      transition:transform .18s,border-color .18s,box-shadow .18s;
+    }
+    .card:hover{
+      transform:translateY(-2px);
+      border-color:rgba(34,211,238,.35);
+      box-shadow:0 18px 45px rgba(10,16,34,.08);
+    }
+    .card h3{font-family:var(--serif);font-size:18px;margin-bottom:6px}
+    .card p{margin:0}
+    .section.darkish .card{background:rgba(255,255,255,.04);border-color:rgba(148,163,184,.18)}
+    .section.darkish .card:hover{border-color:rgba(34,211,238,.35);box-shadow:0 18px 55px rgba(3,11,34,.35)}
+    .section.darkish .card h3{color:#e6edf7}
+
+    .swot{
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px
+    }
+    .swotBox{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      background:rgba(255,255,255,.74);
+    }
+    .swotBox h4{
+      font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px;
+      color:rgba(10,16,34,.62)
+    }
+    .swotBox.str{background:rgba(34,211,238,.08);border-color:rgba(34,211,238,.18)}
+    .swotBox.weak{background:rgba(239,68,68,.06);border-color:rgba(239,68,68,.16)}
+    .swotBox.opp{background:rgba(29,78,216,.06);border-color:rgba(29,78,216,.16)}
+    .swotBox.thr{background:rgba(245,158,11,.06);border-color:rgba(245,158,11,.16)}
+
+    .verdict{
+      background:linear-gradient(135deg, rgba(29,78,216,.16), rgba(34,211,238,.14), rgba(124,58,237,.12));
+      border-color:rgba(29,78,216,.25);
+    }
+    .quote{
+      margin-top:14px;
+      padding:14px 14px;
+      border-radius:14px;
+      border:1px solid rgba(34,211,238,.22);
+      background:rgba(34,211,238,.08);
+      font-style:italic;color:rgba(10,16,34,.88);
+    }
+
+    .footer{
+      max-width:1120px;margin:0 auto;padding:18px 20px 34px;
+      border-top:1px solid rgba(2,6,23,.1);
+      font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+      color:rgba(10,16,34,.62);
+    }
+    .footer span{color:var(--blue)}
+
+    @media(max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .field{display:none}
+      .topbar{border-radius:18px;max-width:calc(100% - 24px);margin:0 auto}
+      .pills{justify-content:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <div id="progress"></div>
+
+  <div class="top">
+    <div class="topbar">
+      <a class="back" href="../company.html"><span class="b">&larr;</span> Companies</a>
+      <div class="pills">
+        <button class="pill active" data-target="overview" type="button">Overview</button>
+        <button class="pill" data-target="model" type="button">Business Model</button>
+        <button class="pill" data-target="strategy" type="button">Strategy</button>
+        <button class="pill" data-target="verdict" type="button">Verdict</button>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <!-- Electric field lines (pure CSS/SVG) -->
+    <svg class="field" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="ef" x1="0" y1="0" x2="800" y2="0" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#22d3ee" stop-opacity="0.6"/>
+          <stop offset="0.5" stop-color="#1d4ed8" stop-opacity="0.45"/>
+          <stop offset="1" stop-color="#7c3aed" stop-opacity="0.35"/>
+        </linearGradient>
+      </defs>
+      <g opacity="0.9">
+        <path d="M60 380 C160 280, 220 320, 320 220 S 520 110, 640 170" stroke="url(#ef)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M90 410 C170 320, 250 310, 350 235 S 520 135, 700 180" stroke="url(#ef)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6 10">
+          <animate attributeName="stroke-dashoffset" from="0" to="-60" dur="5s" repeatCount="indefinite"/>
+        </path>
+        <path d="M20 340 C140 260, 210 300, 310 210 S 500 120, 760 160" stroke="url(#ef)" stroke-width="1.3" stroke-linecap="round" stroke-dasharray="5 9">
+          <animate attributeName="stroke-dashoffset" from="0" to="-48" dur="6s" repeatCount="indefinite"/>
+        </path>
+        <circle cx="610" cy="175" r="7" fill="#22d3ee" fill-opacity="0.22">
+          <animate attributeName="r" values="7;10;7" dur="2.6s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="310" cy="210" r="6" fill="#1d4ed8" fill-opacity="0.18">
+          <animate attributeName="r" values="6;9;6" dur="3.2s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+    </svg>
+
+    <div class="hero-left reveal">
+      <div class="eyebrow">FounderLens · Company Study</div>
+      <h1>Tesla<br><em>Software-Speed Industry</em></h1>
+      <p class="sub">
+        Tesla is a manufacturing company that behaves like a software company:
+        it builds, learns, updates, and iterates fast, while using vertical integration to control cost and performance.
+      </p>
+      <div class="kpis">
+        <div class="kpi"><div class="v">~$97B</div><div class="l">Revenue (FY2023)</div></div>
+        <div class="kpi"><div class="v">~1.8M</div><div class="l">Vehicles Delivered</div></div>
+        <div class="kpi"><div class="v">Gigafactories</div><div class="l">Distributed Production</div></div>
+        <div class="kpi"><div class="v">OTA</div><div class="l">Software Updates</div></div>
+      </div>
+    </div>
+
+    <aside class="hero-right reveal">
+      <h2>Strategic Lens</h2>
+      <p>
+        Tesla’s real advantage is not “electric cars.” It is the operating loop that turns manufacturing data into better vehicle software and better economics over time.
+      </p>
+      <div class="battery">
+        <div class="batteryLabel">Execution Capacity Meter</div>
+        <div class="barWrap">
+          <div class="seg"><div class="fill" style="--w:88%"></div><div class="txt">Manufacturing Learning</div></div>
+          <div class="seg"><div class="fill" style="--w:78%"></div><div class="txt">Cost Discipline</div></div>
+          <div class="seg"><div class="fill" style="--w:86%"></div><div class="txt">Software Iteration</div></div>
+        </div>
+      </div>
+    </aside>
+  </header>
+
+  <main class="sections">
+    <section class="section reveal alt" id="overview">
+      <div class="sec-label">01 — Company Overview</div>
+      <h2 class="sec-title">What Tesla <em>Actually Is</em></h2>
+      <p class="lead">Tesla designs and manufactures electric vehicles, but it also sells a software-defined ownership experience and builds supporting energy infrastructure.</p>
+      <p>
+        It operates at the intersection of automotive, battery supply chains, and consumer technology. That matters because car markets are usually slow to update—Tesla chose to update continuously.
+      </p>
+    </section>
+
+    <section class="section reveal" id="problem">
+      <div class="sec-label">02 — The Core Problem</div>
+      <h2 class="sec-title">The problem Tesla solved</h2>
+      <p class="lead">Electric cars were seen as compromises: limited range, high cost, confusing charging, and software that didn’t evolve.</p>
+      <p>
+        Tesla solved those gaps with three moves: improve performance and range through engineering, reduce cost through vertical integration, and make the car’s experience upgradeable through software.
+        <span class="concept cyan">Product + Operations Loop</span>
+      </p>
+      <p>
+        The market opportunity was huge because trust compounds. When customers believe the product improves, they buy sooner and switch confidently.
+      </p>
+    </section>
+
+    <section class="section reveal alt" id="timing">
+      <div class="sec-label">03 — Market Timing</div>
+      <h2 class="sec-title">Why timing worked <em>for Tesla</em></h2>
+      <p class="lead">Tesla scaled when batteries, charging standards, and consumer expectations for “tech products” all improved at the same time.</p>
+      <p>
+        The battery cost curve improved, the cost of sensors and computing fell, and consumers became more comfortable with software-driven experiences in everyday devices.
+      </p>
+      <p>
+        Tesla also timed growth with a political and cultural push toward electrification. But the real advantage was that Tesla was ready to execute, not just ready to believe. (Reactive vs Proactive Strategy)
+      </p>
+    </section>
+
+    <section class="section reveal" id="model">
+      <div class="sec-label">04 — Business Model</div>
+      <h2 class="sec-title">How Tesla makes money</h2>
+      <p class="lead">Tesla earns primarily from vehicle sales, then adds profit and resilience through software features, services, and energy products.</p>
+      <p>
+        The business model scales because Tesla learns at manufacturing scale. When you build enough vehicles, you can improve quality, reduce waste, and compress the cost curve. (Economies of Scale)
+      </p>
+      <div class="cards">
+        <article class="card">
+          <h3>Vehicle sales as the core engine</h3>
+          <p>High volume manufacturing and direct distribution are designed to capture more value per customer.</p>
+        </article>
+        <article class="card">
+          <h3>Energy + software add resilience</h3>
+          <p>Energy storage and solar expand the platform story into power and grid reliability.</p>
+        </article>
+        <article class="card">
+          <h3>Direct distribution & brand control</h3>
+          <p>Fewer middle layers means tighter feedback loops and faster pricing decisions.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section reveal alt" id="product">
+      <div class="sec-label">05 — Product & User Experience</div>
+      <h2 class="sec-title">Why customers choose Tesla</h2>
+      <p class="lead">Tesla’s customer experience feels like a tech product: quick setup, clean UX, and the promise that the car can improve after purchase.</p>
+      <p>
+        The key concept is not “more features.” It is continuity. Software updates and a consistent interface reduce the anxiety of buying a vehicle as a long-term commitment.
+        <span class="concept violet">Customer Loyalty via Continuous Value</span>
+      </p>
+      <p>
+        Tesla also uses performance as a retention tool. When the car feels strong in daily use, charging networks and range planning feel less risky.
+      </p>
+    </section>
+
+    <section class="section reveal" id="growth">
+      <div class="sec-label">06 — Growth & Distribution Strategy</div>
+      <h2 class="sec-title">How Tesla grows without traditional marketing</h2>
+      <p class="lead">Tesla’s distribution strategy is built around direct reach and demand creation through product visibility.</p>
+      <p>
+        Instead of spending heavily on dealer networks, Tesla invests in showrooms, direct customer relationships, and a brand narrative that spreads through communities of early adopters.
+      </p>
+      <p>
+        The growth loop is: better vehicles in the market → more reviews and word-of-mouth → more demand → scale learning for cost reduction → better pricing and availability.
+        (First-Mover Advantage with Iteration)
+      </p>
+    </section>
+
+    <section class="section reveal alt" id="ops">
+      <div class="sec-label">07 — Operational Strategy</div>
+      <h2 class="sec-title">The operational loop behind performance</h2>
+      <p class="lead">Tesla’s operations are designed for rapid iteration. It optimizes for learning speed, not just today’s cost.</p>
+      <p>
+        Vertical integration reduces dependency and stabilizes supply, especially for key components like power electronics and drivetrain engineering. That helps protect performance targets while scaling. (Vertical Integration)
+      </p>
+      <p>
+        Tesla’s manufacturing advantage comes from flexible production thinking: many improvements are data-driven, and changes can propagate across fleets via software rather than waiting for new model-year hardware.
+      </p>
+    </section>
+
+    <section class="section reveal darkish" id="moat">
+      <div class="sec-label">08 — Competitive Advantage</div>
+      <h2 class="sec-title">Why it is hard to copy Tesla</h2>
+      <p class="lead">Competitors can build electric vehicles. But matching Tesla’s integration of manufacturing learning, software iteration, and cost curve discipline is a multi-year systems challenge.</p>
+      <ul>
+        <li><strong>Manufacturing learning at scale:</strong> the more you build, the faster you improve yield and reduce waste. (Operational Efficiency)</li>
+        <li><strong>Software-defined value:</strong> improvements after purchase create switching friction and brand trust.</li>
+        <li><strong>Cost curve control:</strong> vertical integration and continuous design-to-cost work together to compress economics.</li>
+        <li><strong>Distribution feedback:</strong> direct relationships make demand signals clearer and faster.</li>
+      </ul>
+    </section>
+
+    <section class="section reveal alt" id="strategy">
+      <div class="sec-label">09 — Strategic Analysis</div>
+      <h2 class="sec-title">Framework view for Tesla</h2>
+      <p class="lead">Tesla is a differentiation player that also thinks like a cost optimizer. That combination is rare in the auto industry.</p>
+      <p>
+        In Porter’s terms, Tesla competes on differentiation: performance, software experience, and brand meaning. But the strategy is backed by cost work so prices can stay competitive as volumes grow.
+        <span class="concept">Porter’s Differentiation Strategy</span>
+      </p>
+      <p>
+        Economies of scale show up in battery and manufacturing processes: learning reduces unit costs over time, not just across larger factories.
+        <span class="concept cyan">Economies of Scale</span>
+      </p>
+      <p>
+        There is a “behavioral switching” effect too: once a driver learns the charging routine and trusts software updates, switching plans get heavier.
+        <span class="concept violet">Switching Costs (Experience + Habit)</span>
+      </p>
+
+      <div class="swot">
+        <div class="swotBox str">
+          <h4>Strengths</h4>
+          <ul>
+            <li>Software update capability and UX coherence</li>
+            <li>Cost reduction through iteration and integration</li>
+            <li>Manufacturing learning at volume</li>
+            <li>Strong brand signal for innovation</li>
+          </ul>
+        </div>
+        <div class="swotBox weak">
+          <h4>Weaknesses</h4>
+          <ul>
+            <li>Margin volatility in EV price wars</li>
+            <li>Execution risk across product and facility transitions</li>
+            <li>Public narrative can affect perceived risk</li>
+          </ul>
+        </div>
+        <div class="swotBox opp">
+          <h4>Opportunities</h4>
+          <ul>
+            <li>Energy storage expansion with grid demand</li>
+            <li>More software monetization paths</li>
+            <li>International scale and localized supply</li>
+          </ul>
+        </div>
+        <div class="swotBox thr">
+          <h4>Threats</h4>
+          <ul>
+            <li>Competitors with strong pricing and local manufacturing</li>
+            <li>Battery supply constraints and regulation shifts</li>
+            <li>Automotive compliance complexity across regions</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="risks">
+      <div class="sec-label">10 — Key Risks & Weaknesses</div>
+      <h2 class="sec-title">What can break Tesla’s advantage</h2>
+      <p>
+        The biggest risk is losing the learning loop. If manufacturing quality, supply stability, or software iteration slows, Tesla’s differentiation thins.
+      </p>
+      <p>
+        Pricing pressure is another threat: when competitors force aggressive price cuts, cost discipline must keep pace to protect margins.
+        (Reactive vs Proactive Strategy)
+      </p>
+    </section>
+
+    <section class="section reveal alt" id="impact">
+      <div class="sec-label">11 — Industry Impact</div>
+      <h2 class="sec-title">How Tesla changed the rules</h2>
+      <p class="lead">Tesla made EV ownership feel like a tech upgrade cycle instead of a one-time product purchase.</p>
+      <p>
+        It also forced the auto industry to treat software and manufacturing learning as competitive weapons, not support functions.
+      </p>
+    </section>
+
+    <section class="section reveal" id="lessons">
+      <div class="sec-label">12 — Lessons For Builders</div>
+      <h2 class="sec-title">What operators can steal from Tesla</h2>
+      <ul>
+        <li><strong>Design for iteration:</strong> build systems that improve quickly, not just systems that launch.</li>
+        <li><strong>Own the feedback loop:</strong> faster signals beat louder marketing.</li>
+        <li><strong>Use software to compound value:</strong> updates can turn hardware into a living product.</li>
+        <li><strong>Vertical integration where it matters:</strong> don’t integrate for pride; integrate to control cost and performance-critical parts.</li>
+      </ul>
+    </section>
+
+    <section class="section reveal verdict" id="verdict">
+      <div class="sec-label">13 — Final FounderLens Verdict</div>
+      <h2 class="sec-title">Tesla is a <em>systems company</em>, not a car company</h2>
+      <p class="lead">What makes Tesla powerful is the operating system: manufacturing learning + cost discipline + software iteration + direct distribution feedback.</p>
+      <p>
+        That combination turns one product cycle into a repeating advantage. Competitors can copy the output (an EV), but they struggle to replicate the loop that keeps improving both product and economics over time. (Proactive Long-Horizon Strategy)
+      </p>
+      <div class="quote">“Speed isn’t a trait. Speed is an operating design choice.”</div>
+    </section>
+  </main>
+
+  <div class="footer">
+    FounderLens · Tesla Strategic Analysis · May 2026 · Educational use · <span>Data from public filings and industry reports</span>
+  </div>
+
+  <script>
+    const progress=document.getElementById('progress');
+    function setProgress(){
+      const h=document.documentElement;
+      const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+      progress.style.width=pct+'%';
+    }
+    window.addEventListener('scroll',setProgress,{passive:true});
+    setProgress();
+
+    const io=new IntersectionObserver((entries,obs)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    document.querySelectorAll('.pill').forEach(p=>{
+      p.addEventListener('click',()=>{
+        const id=p.getAttribute('data-target');
+        const el=document.getElementById(id);
+        if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+
+    // Fill the "battery" bars when the hero-right comes into view.
+    const segs=[...document.querySelectorAll('.seg .fill')];
+    const fillIo=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          segs.forEach(f=>{
+            const w=f.style.getPropertyValue('--w') || f.dataset.w || '70%';
+            f.style.width=w;
+          });
+          fillIo.disconnect();
+        }
+      });
+    },{threshold:.25});
+    const target=document.querySelector('.hero-right');
+    if(target)fillIo.observe(target);
+
+    const pills=[...document.querySelectorAll('.pill')];
+    const sectionIds=pills.map(p=>p.getAttribute('data-target'));
+    window.addEventListener('scroll',()=>{
+      let current='overview';
+      for(const id of sectionIds){
+        const el=document.getElementById(id);
+        if(!el)continue;
+        if(el.getBoundingClientRect().top<140) current=id;
+      }
+      pills.forEach(p=>p.classList.toggle('active',p.getAttribute('data-target')===current));
+    },{passive:true});
+  </script>
+</body>
+</html>

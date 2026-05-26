@@ -1,1 +1,546 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Stripe — FounderLens</title><link rel="stylesheet" href="../style.css"></head><body><main class="search-page"><a class="back-btn" href="../company.html">← Companies</a><article class="analysis-wrap"><header class="analysis-header"><p class="ah-tag">Company Analysis</p><h1 class="ah-name">Stripe</h1><p class="ah-company">Developer-first payments infrastructure as economic plumbing.</p></header><div class="analysis-body"><section class="section-block"><h3>Strategic Lens</h3><p>Stripe abstracts payment complexity into clean developer tools, then expands from checkout into the operating layer of internet businesses.</p></section></div></article></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FounderLens · Stripe — Strategic Company Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Martian+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --stripe:#635bff;
+      --stripe2:#7c72ff;
+      --stripeDeep:#0b0b22;
+      --mid:#0a0c16;
+      --mid2:#0f1222;
+      --paper:#f7f8ff;
+      --paper2:#eef0ff;
+      --ink:#0b0e18;
+      --ink2:rgba(11,14,24,.72);
+      --ink3:rgba(11,14,24,.46);
+      --ruleL:rgba(11,14,24,.09);
+      --cream:#f6f4ff;
+      --dk:#eef0ff;
+      --dk2:rgba(238,240,255,.72);
+      --dk3:rgba(238,240,255,.42);
+      --ruleD:rgba(238,240,255,.08);
+      --green:#22c55e;
+      --amber:#f59e0b;
+      --red:#ef4444;
+      --serif:'Fraunces',serif;
+      --sans:'Instrument Sans',system-ui,sans-serif;
+      --mono:'Martian Mono',monospace;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:var(--sans);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(99,91,255,.18), transparent 28vw),
+        radial-gradient(circle at 82% 18%, rgba(124,114,255,.12), transparent 30vw),
+        linear-gradient(180deg,#ffffff 0%, var(--paper) 46%, var(--paper2) 100%);
+      color:var(--ink);
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+    ::-webkit-scrollbar{width:3px}
+    ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--stripe),var(--amber));border-radius:99px}
+
+    #progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:999;background:linear-gradient(90deg,var(--stripe),#60a5fa,var(--amber));transition:width .08s}
+
+    /* Blueprint header */
+    .nav{
+      position:sticky;top:0;z-index:200;
+      background:rgba(10,12,22,0.92);
+      backdrop-filter:blur(22px);
+      border-bottom:1px solid rgba(238,240,255,.06);
+      height:56px;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 44px;
+    }
+    .nav-brand{
+      font-family:var(--serif);
+      font-weight:900;
+      letter-spacing:-.02em;
+      color:var(--dk);
+      display:flex;align-items:center;gap:10px;
+    }
+    .nav-dot{width:7px;height:7px;border-radius:50%;background:var(--stripe)}
+    .nav-badges{display:flex;gap:8px;align-items:center}
+    .badge{
+      font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+      padding:4px 10px;border-radius:20px;border:1px solid;line-height:1;
+    }
+    .badge.a{border-color:rgba(99,91,255,.35);color:#b9b5ff;background:rgba(99,91,255,.07)}
+    .badge.b{border-color:rgba(238,240,255,.10);color:var(--dk3)}
+
+    /* HERO */
+    .hero{
+      min-height:92vh;
+      position:relative;
+      overflow:hidden;
+      display:flex;align-items:flex-end;
+      background:linear-gradient(170deg,var(--mid) 0%, var(--mid2) 60%, #0b0b22 100%);
+      color:var(--dk);
+      padding:0 0 70px;
+    }
+    .hero::before{
+      content:"";position:absolute;inset:0;
+      background:
+        radial-gradient(ellipse 60% 70% at 72% 30%, rgba(99,91,255,.22) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 50% at 18% 72%, rgba(124,114,255,.12) 0%, transparent 60%);
+      animation:mesh 10s ease-in-out infinite alternate;
+      opacity:.95;
+    }
+    @keyframes mesh{to{transform:scale(1.03);opacity:1}}
+    .grid{
+      position:absolute;inset:0;opacity:.55;
+      background-image:
+        linear-gradient(rgba(99,91,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99,91,255,0.06) 1px, transparent 1px);
+      background-size:64px 64px;
+      mask-image:radial-gradient(ellipse 80% 80% at 50% 45%, black 28%, transparent 100%);
+    }
+    .hero-inner{
+      position:relative;z-index:2;
+      max-width:980px;margin:0 auto;width:100%;
+      padding:0 44px;
+    }
+    .hero-kicker{
+      display:flex;align-items:center;gap:12px;
+      font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+      color:rgba(238,240,255,.55);
+      margin-bottom:18px;
+      animation:fadeUp .85s ease both;
+    }
+    .hero-kicker::before{content:"";width:28px;height:1px;background:rgba(185,181,255,.7)}
+    h1{
+      font-family:var(--serif);
+      font-size:clamp(54px,8vw,106px);
+      letter-spacing:-.05em;
+      line-height:.92;
+      margin-bottom:12px;
+      animation:fadeUp .85s .06s ease both;
+    }
+    h1 em{display:block;font-style:italic;font-weight:300;color:#b9b5ff;font-size:.64em;letter-spacing:-.01em;line-height:1.15;margin-top:10px}
+    .hero-sub{
+      max-width:620px;
+      font-size:17px;line-height:1.65;font-weight:300;
+      color:var(--dk2);
+      margin:22px 0 40px;
+      animation:fadeUp .85s .14s ease both;
+    }
+    .hero-sub strong{color:var(--dk);font-weight:500}
+    .kpis{
+      display:flex;gap:0;flex-wrap:wrap;
+      border-top:1px solid var(--ruleD);
+      border-bottom:1px solid var(--ruleD);
+      padding:22px 0;
+      animation:fadeUp .85s .22s ease both;
+    }
+    .kpi{padding-right:32px;margin-right:32px;border-right:1px solid var(--ruleD)}
+    .kpi:last-child{border-right:none;padding-right:0;margin-right:0}
+    .kpi-n{font-family:var(--serif);font-weight:900;font-size:28px;line-height:1}
+    .kpi-n em{font-style:normal;color:#b9b5ff}
+    .kpi-l{font-family:var(--mono);font-size:8.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--dk3);margin-top:6px}
+
+    /* BAND SYSTEM */
+    .band{width:100%;position:relative}
+    .inner{max-width:860px;margin:0 auto;padding:76px 44px}
+    .bw{background:#ffffff}
+    .bs{background:var(--paper)}
+    .bd{background:var(--mid);color:var(--dk)}
+    .bg-blue{background:linear-gradient(135deg,#070a18 0%, #0b0b22 55%, #071028 100%);color:var(--dk);position:relative;overflow:hidden}
+    .bg-blue::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 65% 70% at 75% 30%, rgba(99,91,255,.18) 0%, transparent 60%)}
+    .bg-blue .inner{position:relative;z-index:1}
+
+    .sn{
+      font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+      margin-bottom:10px;display:flex;align-items:center;gap:10px;
+    }
+    .bw .sn{color:var(--stripe)}
+    .bs .sn{color:#4652d6}
+    .bd .sn,.bg-blue .sn{color:#b9b5ff}
+    .sn::before{content:"";width:22px;height:1px}
+    .bw .sn::before{background:var(--stripe)}
+    .bs .sn::before{background:#4652d6}
+    .bd .sn::before,.bg-blue .sn::before{background:#b9b5ff}
+    h2{
+      font-family:var(--serif);
+      font-weight:900;
+      font-size:clamp(28px,3.9vw,46px);
+      line-height:1.05;
+      letter-spacing:-.022em;
+      margin-bottom:24px;
+    }
+    .bw h2,.bs h2{color:var(--ink)}
+    .bd h2,.bg-blue h2{color:var(--dk)}
+    h2 em{font-style:italic;font-weight:300}
+    .bw h2 em,.bs h2 em{color:var(--stripe)}
+    .bd h2 em,.bg-blue h2 em{color:#b9b5ff}
+
+    .lead{
+      font-family:var(--serif);
+      font-size:19px;
+      font-style:italic;
+      line-height:1.7;
+      margin-bottom:30px;
+      padding-bottom:26px;
+      border-bottom:1px solid var(--ruleL);
+      color:var(--ink2);
+    }
+    .bd .lead,.bg-blue .lead{color:var(--dk2);border-bottom-color:var(--ruleD)}
+
+    p{font-size:15.5px;line-height:1.85;margin-bottom:16px;font-weight:400;color:var(--ink2)}
+    p strong{color:var(--ink);font-weight:600}
+    .bd p,.bg-blue p{color:var(--dk2)}
+    .bd p strong,.bg-blue p strong{color:var(--dk);font-weight:500}
+
+    .ft{
+      display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+      padding:3px 7px;border-radius:4px;margin-left:3px;vertical-align:middle;font-weight:700;
+      background:rgba(99,91,255,.10);border:1px solid rgba(99,91,255,.20);color:#3c37c8;
+    }
+    .bd .ft,.bg-blue .ft{background:rgba(99,91,255,.16);border-color:rgba(185,181,255,.25);color:#c9c6ff}
+
+    .co{border-radius:0 8px 8px 0;padding:18px 22px;margin:22px 0}
+    .co-i{background:rgba(99,91,255,.08);border-left:3px solid var(--stripe)}
+    .co-g{background:rgba(34,197,94,.08);border-left:3px solid var(--green)}
+    .co-a{background:rgba(245,158,11,.08);border-left:3px solid var(--amber)}
+    .bd .co-i,.bg-blue .co-i{background:rgba(99,91,255,.10);border-left-color:#b9b5ff}
+    .bd .co-g,.bg-blue .co-g{background:rgba(34,197,94,.08)}
+    .bd .co-a,.bg-blue .co-a{background:rgba(245,158,11,.08)}
+    .co-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+    .co-i .co-lbl{color:var(--stripe)}
+    .co-g .co-lbl{color:var(--green)}
+    .co-a .co-lbl{color:var(--amber)}
+    .bd .co-i .co-lbl,.bg-blue .co-i .co-lbl{color:#b9b5ff}
+    .bd .co p,.bg-blue .co p{font-size:14px;margin-bottom:0}
+
+    .strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:2px;margin:26px 0;border-radius:10px;overflow:hidden}
+    .strip{background:rgba(11,14,24,.07)}
+    .bd .strip,.bg-blue .strip{background:rgba(238,240,255,.05)}
+    .sc{padding:16px 12px;text-align:center;background:rgba(255,255,255,.86)}
+    .bs .sc{background:var(--cream)}
+    .bd .sc,.bg-blue .sc{background:rgba(255,255,255,.04)}
+    .sc.h{background:linear-gradient(135deg,rgba(99,91,255,.12),rgba(255,255,255,.86))}
+    .bd .sc.h,.bg-blue .sc.h{background:linear-gradient(135deg,rgba(99,91,255,.18),rgba(255,255,255,.04))}
+    .sv{font-family:var(--serif);font-size:21px;font-weight:900;line-height:1.05;margin-bottom:4px;color:var(--stripe)}
+    .bd .sv,.bg-blue .sv{color:#b9b5ff}
+    .sl{font-family:var(--mono);font-size:8.5px;letter-spacing:.10em;text-transform:uppercase;color:var(--ink3)}
+    .bd .sl,.bg-blue .sl{color:var(--dk3)}
+
+    .al{list-style:none;margin:16px 0}
+    .al li{padding:10px 0 10px 22px;position:relative;border-bottom:1px solid rgba(11,14,24,.10);font-size:15px;color:var(--ink2)}
+    .al li:last-child{border-bottom:none}
+    .al li::before{content:'→';position:absolute;left:0;color:var(--stripe);font-weight:900}
+    .bd .al li,.bg-blue .al li{border-bottom:1px solid var(--ruleD);color:var(--dk2)}
+    .bd .al li::before,.bg-blue .al li::before{color:#b9b5ff}
+    .al li strong{color:var(--ink);font-weight:600}
+    .bd .al li strong,.bg-blue .al li strong{color:var(--dk);font-weight:500}
+
+    /* Verdict */
+    .verdict{background:var(--mid2);position:relative;overflow:hidden}
+    .verdict::before{
+      content:"";position:absolute;inset:0;
+      background:
+        radial-gradient(ellipse 70% 60% at 20% 50%,rgba(99,91,255,.12) 0%,transparent 55%),
+        radial-gradient(ellipse 50% 50% at 85% 20%,rgba(245,158,11,.08) 0%,transparent 50%);
+      animation:mesh 12s ease-in-out infinite alternate;
+    }
+    .vi{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:88px 44px 96px}
+    .v-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#b9b5ff;margin-bottom:18px}
+    .v-title{
+      font-family:var(--serif);
+      font-size:clamp(34px,5vw,60px);
+      font-weight:300;line-height:.97;letter-spacing:-.03em;color:var(--dk);margin-bottom:14px
+    }
+    .v-title strong{font-weight:900;display:block}
+    .v-title em{font-style:italic;color:#b9b5ff}
+    .v-rule{width:44px;height:2px;background:linear-gradient(90deg,#b9b5ff,var(--amber));margin:26px 0}
+    .v-body p{font-family:var(--serif);font-size:19px;font-weight:400;color:var(--dk2);line-height:1.78;margin-bottom:22px}
+    .v-body p strong{color:var(--dk);font-weight:700}
+    .v-sig{margin-top:48px;padding-top:24px;border-top:1px solid var(--ruleD);display:flex;align-items:center;gap:14px}
+    .v-sig-m{font-family:var(--serif);font-size:26px;font-weight:900;font-style:italic;color:#b9b5ff}
+    .v-sig-t{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dk3)}
+
+    .footer{background:var(--night3);border-top:1px solid var(--ruleD);padding:44px 0 28px}
+    .fi{max-width:860px;margin:0 auto;padding:0 44px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px}
+    .fb{font-family:var(--serif);font-size:18px;font-weight:900;color:var(--dk);margin-bottom:6px}
+    .fb span{font-style:italic;color:#b9b5ff;font-weight:300}
+    .fsub{font-size:13px;color:var(--dk3);max-width:280px;font-weight:300}
+    .flinks{display:flex;gap:18px;flex-wrap:wrap;padding-top:4px}
+    .flinks a{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--dk3);text-decoration:none;transition:color .2s}
+    .flinks a:hover{color:#b9b5ff}
+    .fcopy{max-width:860px;margin:26px auto 0;padding:18px 44px 0;border-top:1px solid var(--ruleD);font-family:var(--mono);font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--dk3)}
+    .fcopy span{color:#b9b5ff}
+
+    .fab{position:fixed;bottom:26px;right:26px;z-index:50;width:42px;height:42px;border-radius:50%;background:var(--stripe);border:none;color:#fff;font-size:15px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(99,91,255,.35)}
+    .fab:hover{background:#3c37c8;transform:translateY(-2px)}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+    .r{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
+    .r.v{opacity:1;transform:translateY(0)}
+
+    @media(max-width:700px){
+      .hero-inner,.inner,.vi,.fi{padding-left:20px;padding-right:20px}
+      .nav{padding:0 20px}
+      .kpis{flex-wrap:wrap;gap:16px}
+      .kpi{border-right:none;margin-right:0;padding-right:0}
+      .swot{grid-template-columns:1fr}
+      .fi{flex-direction:column}
+      .nav-badges .badge.b{display:none}
+    }
+    @media (prefers-reduced-motion: reduce){
+      *,*::before,*::after{animation:none !important;transition:none !important;scroll-behavior:auto !important}
+    }
+  </style>
+</head>
+<body>
+  <div id="progress"></div>
+
+  <nav class="nav">
+    <div class="nav-brand"><span class="nav-dot"></span>FounderLens</div>
+    <div class="nav-badges">
+      <span class="badge a">Company Analysis</span>
+      <span class="badge b">Stripe · Payments Infrastructure</span>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="grid"></div>
+    <div class="hero-inner">
+      <div class="hero-kicker">Infrastructure Report · Fintech · May 2026</div>
+      <h1>Stripe<em>The API Layer of Global Money</em></h1>
+      <p class="hero-sub">
+        Stripe looks like “payments.” Strategically, it’s the operating layer for internet businesses: it turns messy financial complexity into clean primitives developers can ship with.
+      </p>
+      <div class="kpis">
+        <div class="kpi"><div class="kpi-n"><em>$1T+</em></div><div class="kpi-l">Payment volume (publicly reported milestone)</div></div>
+        <div class="kpi"><div class="kpi-n"><em>Millions</em></div><div class="kpi-l">Businesses on platform (company statements)</div></div>
+        <div class="kpi"><div class="kpi-n"><em>40+</em></div><div class="kpi-l">Countries with local acquiring (approx)</div></div>
+        <div class="kpi"><div class="kpi-n"><em>Platform</em></div><div class="kpi-l">Payments → Billing → Treasury → Issuing</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="band bw" id="s01">
+    <div class="inner r">
+      <div class="sn">01 — Company Overview</div>
+      <h2>What Stripe <em>actually is</em></h2>
+      <p class="lead">Stripe is a developer-first financial infrastructure company. It makes accepting payments, moving money, managing subscriptions, and running compliance feel like software — not banking.</p>
+      <p>Stripe operates in fintech and payments, but its real competition is friction: the set of small failures that make online businesses abandon global expansion. Stripe’s job is to make that friction disappear.</p>
+      <div class="co co-i">
+        <div class="co-lbl">The real product</div>
+        <p>Stripe sells <strong>reliability and abstraction</strong>. It abstracts card networks, fraud, settlements, taxes, and local rules into APIs that behave consistently for developers. <span class="ft">Product Differentiation</span></p>
+      </div>
+      <div class="strip">
+        <div class="sc h"><div class="sv">$1T+</div><div class="sl">TPV milestone</div></div>
+        <div class="sc"><div class="sv">API</div><div class="sl">Primary channel</div></div>
+        <div class="sc h"><div class="sv">Recurring</div><div class="sl">Billing expansion</div></div>
+        <div class="sc"><div class="sv">Risk</div><div class="sl">Fraud + compliance</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band bs" id="s02">
+    <div class="inner r">
+      <div class="sn">02 — The Core Problem</div>
+      <h2>Payments are <em>deceptively hard</em></h2>
+      <p class="lead">For an internet business, getting “paid” sounds simple. In reality it’s a maze: failed cards, fraud, local regulations, chargebacks, taxes, and settlement delays.</p>
+      <p>Stripe solved this by making payments feel like an API call. In plain language: it turned financial complexity into developer-friendly building blocks. <span class="ft">Reducing Friction</span></p>
+      <ul class="al">
+        <li><strong>Conversion pain:</strong> every failed payment is lost revenue.</li>
+        <li><strong>Fraud pain:</strong> bad transactions look like “growth” until they reverse.</li>
+        <li><strong>Expansion pain:</strong> every new market has different rails and rules.</li>
+        <li><strong>Operations pain:</strong> finance teams need reporting, reconciliation, taxes, and audits.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="band bg-blue" id="s03">
+    <div class="inner r">
+      <div class="sn">03 — Market Timing</div>
+      <h2>Why Stripe arrived <em>at the right time</em></h2>
+      <p class="lead">Stripe grew alongside two shifts: SaaS becoming the default business model, and the internet becoming the default distribution channel.</p>
+      <p>When software companies moved to subscriptions, payments became a product, not a back-office task. Stripe was built for that world — recurring billing, retries, invoicing, and global card acceptance. <span class="ft">Timing + Fit</span></p>
+      <div class="co co-a">
+        <div class="co-lbl">The underpriced tailwind</div>
+        <p>The explosion of online entrepreneurship created millions of “small payment teams” that didn’t want to become banks. Stripe became the outsourced payments org.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band bw" id="s04">
+    <div class="inner r">
+      <div class="sn">04 — Business Model</div>
+      <h2>How Stripe <em>makes money</em></h2>
+      <p class="lead">Stripe earns primarily via take-rate on payment processing, then expands revenue through add-on infrastructure: billing, fraud, issuing, and treasury.</p>
+      <p>The model scales because Stripe rides customer success: as merchants grow, Stripe’s revenue rises automatically. <span class="ft">Usage-based compounding</span></p>
+      <div class="co co-g">
+        <div class="co-lbl">Why it’s scalable</div>
+        <p>Once core rails are built (acquiring, fraud, settlement), marginal cost of serving additional volume is low relative to revenue — especially at scale. <span class="ft">Economies of Scale</span></p>
+      </div>
+      <ul class="al">
+        <li><strong>Payments</strong>: core processing fees.</li>
+        <li><strong>Billing</strong>: subscription logic + invoicing = higher retention.</li>
+        <li><strong>Radar</strong>: fraud prevention — improves net revenue for customers.</li>
+        <li><strong>Issuing</strong>: cards for platforms and marketplaces.</li>
+        <li><strong>Treasury</strong>: money movement, balances, and yield features.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="band bs" id="s05">
+    <div class="inner r">
+      <div class="sn">05 — Product & User Experience</div>
+      <h2>Why developers choose <em>Stripe first</em></h2>
+      <p class="lead">Stripe’s UX is not only UI. It’s developer experience: documentation quality, predictable APIs, and fast integration paths.</p>
+      <p>In simple terms: Stripe makes payments feel like shipping software, not negotiating with banks. That’s why it wins. <span class="ft">Differentiation</span></p>
+      <div class="co co-i">
+        <div class="co-lbl">Retention mechanism</div>
+        <p>Once billing logic, fraud rules, webhooks, and accounting exports are wired in, switching means rewiring revenue itself. <span class="ft">Switching Costs</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band bg-blue" id="s06">
+    <div class="inner r">
+      <div class="sn">06 — Growth & Distribution</div>
+      <h2>The distribution loop: <em>developers → platforms → volume</em></h2>
+      <p class="lead">Stripe’s primary growth channel is technical adoption. Developers integrate Stripe early, then Stripe expands as the business scales.</p>
+      <p>Stripe also wins via platform customers: marketplaces and SaaS platforms bring thousands of sub-merchants, creating a compounding volume engine. <span class="ft">Platform expansion</span></p>
+      <div class="co co-g">
+        <div class="co-lbl">The flywheel</div>
+        <p>More volume improves fraud models and reliability; better reliability attracts more volume. That loop is subtle but powerful. <span class="ft">Data advantage</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band bw" id="s07">
+    <div class="inner r">
+      <div class="sn">07 — Operational Strategy</div>
+      <h2>Stripe’s operations are <em>risk management</em></h2>
+      <p class="lead">Payments is a risk business disguised as a software business. Fraud, disputes, compliance, and uptime determine margins.</p>
+      <p>Stripe’s operational edge comes from building high-throughput systems that can route transactions intelligently, prevent fraud, and remain compliant across geographies. <span class="ft">Operational Efficiency</span></p>
+    </div>
+  </div>
+
+  <div class="band bd" id="s08">
+    <div class="inner r">
+      <div class="sn">08 — Competitive Advantage</div>
+      <h2>Why Stripe is <em>hard to displace</em></h2>
+      <ul class="al">
+        <li><strong>Integration depth:</strong> payments + billing + fraud + reporting become the revenue backbone. <span class="ft">Switching Costs</span></li>
+        <li><strong>Scale economics:</strong> more volume improves routing and cost structure. <span class="ft">Economies of Scale</span></li>
+        <li><strong>Developer mindshare:</strong> “default choice” in modern internet stacks.</li>
+        <li><strong>Platform embedding:</strong> Stripe lives inside platforms that power other businesses. <span class="ft">Network Effects (Indirect)</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="band bs" id="s09">
+    <div class="inner r">
+      <div class="sn">09 — Strategic Analysis</div>
+      <h2>Strategy frameworks, <em>in plain language</em></h2>
+      <p class="lead">Stripe differentiates on developer experience and reliability, then expands horizontally into adjacent financial primitives.</p>
+      <p>It’s not cost leadership. It’s “make the hard thing feel simple” — and charge for the abstraction. <span class="ft">Porter’s Differentiation</span></p>
+      <p>Stripe’s expansion works because payments is the wedge. Once you process revenue, you can sell billing, fraud, financing, and treasury. <span class="ft">Expansion Strategy</span></p>
+    </div>
+  </div>
+
+  <div class="band bg-blue" id="s10">
+    <div class="inner r">
+      <div class="sn">10 — Key Risks & Weaknesses</div>
+      <h2>Where Stripe is <em>exposed</em></h2>
+      <ul class="al">
+        <li><strong>Regulatory pressure:</strong> payments is policy-heavy and changes by region.</li>
+        <li><strong>Price compression:</strong> processing can commoditize; Stripe must keep pushing into higher-value layers.</li>
+        <li><strong>Platform dependency:</strong> OS/browser changes can affect checkout UX and tracking.</li>
+        <li><strong>Fraud shocks:</strong> major fraud events can hurt margins and trust.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="band bw" id="s11">
+    <div class="inner r">
+      <div class="sn">11 — Industry Impact</div>
+      <h2>How Stripe changed <em>internet business</em></h2>
+      <p class="lead">Stripe made “get paid” a default capability for software builders.</p>
+      <p>It set a new standard for API-first fintech: docs, testing, and predictable integration patterns that traditional processors didn’t prioritize.</p>
+    </div>
+  </div>
+
+  <div class="band bs" id="s12">
+    <div class="inner r">
+      <div class="sn">12 — Lessons For Builders</div>
+      <h2>What Stripe <em>teaches</em></h2>
+      <ul class="al">
+        <li><strong>Abstract complexity</strong> into simple primitives users can ship quickly.</li>
+        <li><strong>Win developer trust</strong> with documentation and reliability — not slogans.</li>
+        <li><strong>Expand from the money flow</strong>: once you touch revenue, adjacent products become natural.</li>
+        <li><strong>Operational excellence is the moat</strong> in infrastructure businesses.</li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="verdict" id="verdict">
+    <div class="vi r">
+      <div class="v-lbl">13 — FounderLens Verdict</div>
+      <h2 class="v-title">
+        Not a Payments Company.<br>
+        <em>An Internet Utility</em><br>
+        <strong>Built for Builders</strong>
+      </h2>
+      <div class="v-rule"></div>
+      <div class="v-body">
+        <p>Stripe’s power comes from a simple idea executed relentlessly: make financial infrastructure feel like software.</p>
+        <p>The strategy is durable because it compounds. Every new customer increases volume; volume improves reliability and risk models; better reliability attracts more customers.</p>
+        <p><strong>Stripe doesn’t just move money. It reduces the cost of building companies.</strong> That’s why it matters.</p>
+      </div>
+      <div class="v-sig">
+        <div class="v-sig-m">FL</div>
+        <div class="v-sig-t">FounderLens · Stripe Strategic Analysis · May 2026<br>Business intelligence explained simply through real companies</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="fi">
+      <div>
+        <div class="fb">Founder<span>Lens</span></div>
+        <div class="fsub">Business intelligence explained simply through world-class companies</div>
+      </div>
+      <div class="flinks">
+        <a href="../company.html">Companies</a>
+        <a href="../founders.html">Founders</a>
+        <a href="../about.html">About</a>
+      </div>
+    </div>
+    <div class="fcopy">
+      <span>FounderLens</span> · Stripe Company Analysis · May 2026 · Educational purposes · Data points are public/estimated
+    </div>
+  </footer>
+
+  <button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+  <script>
+    window.addEventListener('scroll',()=>{
+      const h=document.documentElement;
+      const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+      document.getElementById('progress').style.width=pct+'%';
+    },{passive:true});
+
+    const els=document.querySelectorAll('.r');
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('v');
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.06,rootMargin:'0px 0px -36px 0px'});
+    els.forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>

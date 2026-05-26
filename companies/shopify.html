@@ -1,1 +1,622 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Shopify — FounderLens</title><link rel="stylesheet" href="../style.css"></head><body><main class="search-page"><a class="back-btn" href="../company.html">← Companies</a><article class="analysis-wrap"><header class="analysis-header"><p class="ah-tag">Company Analysis</p><h1 class="ah-name">Shopify</h1><p class="ah-company">Merchant operating system turning entrepreneurship into software.</p></header><div class="analysis-body"><section class="section-block"><h3>Strategic Lens</h3><p>Shopify wins by serving merchants first, building an app ecosystem, and positioning itself as the independent commerce counterweight to marketplaces.</p></section></div></article></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FounderLens · Shopify — Strategic Company Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Sora:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --shop-green:#2ea44f;
+  --shop-green2:#4ac86b;
+  --shop-green-deep:#1f7f3a;
+  --shop-green-pale:rgba(46,164,79,.10);
+  --indigo:#5b67d6;
+  --indigo2:#7b86ee;
+  --indigo-deep:#3b44a8;
+  --indigo-pale:rgba(91,103,214,.10);
+  --amber:#d48719;
+  --amber-pale:rgba(212,135,25,.10);
+  --ink:#101217;
+  --ink2:rgba(16,18,23,.69);
+  --ink3:rgba(16,18,23,.42);
+  --rule:rgba(16,18,23,.08);
+  --warm:#faf9f6;
+  --off:#f3f1ea;
+  --stone:#ebe9e2;
+  --night:#0d1117;
+  --night2:#121826;
+  --night3:#171d2e;
+  --dk:#eeedf1;
+  --dk2:rgba(238,237,241,.72);
+  --dk3:rgba(238,237,241,.40);
+  --dk-rule:rgba(238,237,241,.08);
+  --serif:'Lora', Georgia, serif;
+  --sans:'Sora', sans-serif;
+  --mono:'IBM Plex Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;background:var(--warm);overflow-x:hidden}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--night)}
+::-webkit-scrollbar-thumb{background:var(--shop-green);border-radius:2px}
+
+#bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--shop-green),var(--indigo2));z-index:300;width:0;pointer-events:none;transition:width .08s linear}
+
+.nav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(13,17,23,.95);backdrop-filter:blur(20px) saturate(1.4);
+  border-bottom:1px solid rgba(238,237,241,.06);
+  height:54px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 44px;
+}
+.nav-logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--dk);letter-spacing:-.01em}
+.nav-logo span{font-style:italic;color:var(--shop-green2);font-weight:400}
+.nav-badges{display:flex;gap:8px}
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;padding:4px 10px;border-radius:20px;border:1px solid;line-height:1}
+.badge-s{border-color:rgba(46,164,79,.35);color:var(--shop-green2);background:rgba(46,164,79,.08)}
+.badge-t{border-color:rgba(238,237,241,.10);color:var(--dk3)}
+
+.cover{
+  min-height:100vh;position:relative;overflow:hidden;
+  background:var(--night);
+  display:flex;flex-direction:column;justify-content:flex-end;
+}
+.cover-mesh{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 65% 55% at 15% 30%,rgba(46,164,79,.15) 0%,transparent 60%),
+    radial-gradient(ellipse 55% 50% at 85% 70%,rgba(91,103,214,.13) 0%,transparent 55%),
+    radial-gradient(ellipse 40% 60% at 60% 20%,rgba(212,135,25,.07) 0%,transparent 50%);
+  animation:meshPulse 8s ease-in-out infinite alternate;
+}
+@keyframes meshPulse{
+  from{opacity:.82;transform:scale(1)}
+  to{opacity:1;transform:scale(1.03)}
+}
+.cover-dots{
+  position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(238,237,241,.05) 1px,transparent 1px);
+  background-size:32px 32px;
+}
+.cover-inner{
+  position:relative;z-index:2;
+  max-width:920px;margin:0 auto;width:100%;
+  padding:110px 44px 90px;
+}
+.cover-kicker{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-bottom:28px;
+  animation:riseUp .9s cubic-bezier(.16,1,.3,1) both;
+}
+.kicker-pill{
+  font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  padding:5px 12px;border-radius:20px;
+  background:rgba(46,164,79,.15);border:1px solid rgba(46,164,79,.34);
+  color:var(--shop-green2);
+}
+.kicker-sep{width:22px;height:1px;background:rgba(238,237,241,.18)}
+.kicker-txt{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dk3)}
+
+.cover-title{
+  font-family:var(--serif);
+  font-size:clamp(52px,8.5vw,118px);
+  font-weight:700;line-height:.94;
+  letter-spacing:-.035em;
+  color:var(--dk);
+  margin-bottom:10px;
+  animation:riseUp .9s .08s cubic-bezier(.16,1,.3,1) both;
+}
+.cover-title em{
+  display:block;
+  font-style:italic;
+  font-weight:400;
+  color:var(--shop-green2);
+  font-size:.65em;
+  letter-spacing:-.01em;
+  line-height:1.2;
+  margin-top:8px;
+}
+.cover-sub{
+  font-size:17px;color:var(--dk2);max-width:620px;
+  line-height:1.65;font-weight:300;margin:28px 0 44px;
+  animation:riseUp .9s .16s cubic-bezier(.16,1,.3,1) both;
+}
+.cover-sub strong{color:var(--dk);font-weight:500}
+
+.cover-stats{
+  display:flex;gap:0;
+  border-top:1px solid var(--dk-rule);border-bottom:1px solid var(--dk-rule);
+  padding:22px 0;margin-bottom:36px;
+  animation:riseUp .9s .22s cubic-bezier(.16,1,.3,1) both;
+}
+.cs{padding-right:32px;margin-right:32px;border-right:1px solid var(--dk-rule)}
+.cs:last-child{border-right:none;padding-right:0;margin-right:0}
+.cs-val{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--dk);line-height:1}
+.cs-val em{color:var(--shop-green2);font-style:normal}
+.cs-lbl{font-family:var(--mono);font-size:8.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--dk3);margin-top:5px}
+
+.cover-chips{display:flex;gap:7px;flex-wrap:wrap;animation:riseUp .9s .28s cubic-bezier(.16,1,.3,1) both}
+.chip{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:5px 11px;border-radius:20px;border:1px solid var(--dk-rule);color:var(--dk3)}
+.chip-g{border-color:rgba(46,164,79,.4);color:var(--shop-green2);background:rgba(46,164,79,.06)}
+.chip-i{border-color:rgba(91,103,214,.35);color:#a7b0ff;background:rgba(91,103,214,.07)}
+.chip-a{border-color:rgba(212,135,25,.38);color:#efbf77;background:rgba(212,135,25,.07)}
+
+.band{width:100%;position:relative}
+.bi{max-width:860px;margin:0 auto;padding:76px 44px}
+
+.bw{background:var(--warm)}
+.bw .sn{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--shop-green);margin-bottom:10px}
+.bw .st{font-family:var(--serif);font-size:clamp(28px,3.8vw,46px);font-weight:700;color:var(--ink);line-height:1.05;letter-spacing:-.022em;margin-bottom:24px}
+.bw .st em{font-style:italic;color:var(--shop-green);font-weight:400}
+.bw .lead{font-family:var(--serif);font-size:19px;font-style:italic;color:var(--ink2);line-height:1.7;margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid var(--rule)}
+.bw p{font-size:15.5px;color:var(--ink2);line-height:1.85;margin-bottom:16px;font-weight:400}
+.bw p strong{color:var(--ink);font-weight:600}
+.bw mark{background:var(--shop-green-pale);color:var(--shop-green-deep);padding:1px 5px;border-radius:3px;font-weight:500}
+.bw mark.i{background:var(--indigo-pale);color:var(--indigo-deep)}
+.bw .co{border-radius:0 8px 8px 0;padding:18px 22px;margin:22px 0}
+.bw .co-g{background:#e9f8ee;border-left:3px solid var(--shop-green)}
+.bw .co-i{background:#eef0ff;border-left:3px solid var(--indigo)}
+.bw .co-a{background:#fdf3e4;border-left:3px solid var(--amber)}
+.bw .co-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.bw .co-g .co-lbl{color:var(--shop-green)}
+.bw .co-i .co-lbl{color:var(--indigo)}
+.bw .co-a .co-lbl{color:var(--amber)}
+.bw .co p{font-size:14px;color:var(--ink2);margin-bottom:0}
+.bw .co p strong{color:var(--ink)}
+.bw .al{list-style:none;margin:16px 0}
+.bw .al li{padding:10px 0 10px 22px;position:relative;border-bottom:1px solid var(--rule);font-size:15px;color:var(--ink2)}
+.bw .al li:last-child{border-bottom:none}
+.bw .al li::before{content:'→';position:absolute;left:0;color:var(--shop-green);font-weight:700}
+.bw .al.i li::before{color:var(--indigo)}
+.bw .al li strong{color:var(--ink);font-weight:600}
+.bw .pq{margin:32px 0;padding:24px 28px;border-left:3px solid var(--shop-green);background:linear-gradient(to right,rgba(46,164,79,.05),transparent);border-radius:0 8px 8px 0}
+.bw .pq blockquote{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--ink);line-height:1.5;margin-bottom:8px}
+.bw .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--shop-green);font-style:normal}
+.bw .ft{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border-radius:4px;background:var(--shop-green-pale);color:var(--shop-green-deep);margin-left:3px;vertical-align:middle;font-weight:700}
+.bw .ft.i{background:var(--indigo-pale);color:var(--indigo-deep)}
+
+.bs{background:var(--off)}
+.bs .sn{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--indigo);margin-bottom:10px}
+.bs .st{font-family:var(--serif);font-size:clamp(28px,3.8vw,46px);font-weight:700;color:var(--ink);line-height:1.05;letter-spacing:-.022em;margin-bottom:24px}
+.bs .st em{font-style:italic;color:var(--indigo);font-weight:400}
+.bs .lead{font-family:var(--serif);font-size:19px;font-style:italic;color:var(--ink2);line-height:1.7;margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid var(--rule)}
+.bs p{font-size:15.5px;color:var(--ink2);line-height:1.85;margin-bottom:16px;font-weight:400}
+.bs p strong{color:var(--ink);font-weight:600}
+.bs mark{background:var(--indigo-pale);color:var(--indigo-deep);padding:1px 5px;border-radius:3px;font-weight:500}
+.bs .co{border-radius:0 8px 8px 0;padding:18px 22px;margin:22px 0}
+.bs .co-i{background:#eceffd;border-left:3px solid var(--indigo)}
+.bs .co-g{background:#e9f8ee;border-left:3px solid var(--shop-green)}
+.bs .co-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.bs .co-i .co-lbl{color:var(--indigo)}
+.bs .co-g .co-lbl{color:var(--shop-green)}
+.bs .co p{font-size:14px;color:var(--ink2);margin-bottom:0}
+.bs .co p strong{color:var(--ink)}
+.bs .al{list-style:none;margin:16px 0}
+.bs .al li{padding:10px 0 10px 22px;position:relative;border-bottom:1px solid var(--rule);font-size:15px;color:var(--ink2)}
+.bs .al li:last-child{border-bottom:none}
+.bs .al li::before{content:'→';position:absolute;left:0;color:var(--indigo);font-weight:700}
+.bs .al li strong{color:var(--ink);font-weight:600}
+.bs .ft{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border-radius:4px;background:var(--indigo-pale);color:var(--indigo-deep);margin-left:3px;vertical-align:middle;font-weight:700}
+.bs .ft.g{background:var(--shop-green-pale);color:var(--shop-green-deep)}
+
+.bd{background:var(--night)}
+.bd .bi{position:relative;z-index:1}
+.bd .sn{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--shop-green2);margin-bottom:10px}
+.bd .st{font-family:var(--serif);font-size:clamp(28px,3.8vw,46px);font-weight:700;color:var(--dk);line-height:1.05;letter-spacing:-.022em;margin-bottom:24px}
+.bd .st em{font-style:italic;color:var(--shop-green2);font-weight:400}
+.bd .lead{font-family:var(--serif);font-size:19px;font-style:italic;color:var(--dk2);line-height:1.7;margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid var(--dk-rule)}
+.bd p{font-size:15.5px;color:var(--dk2);line-height:1.85;margin-bottom:16px;font-weight:400}
+.bd p strong{color:var(--dk);font-weight:500}
+.bd mark{background:rgba(46,164,79,.18);color:var(--shop-green2);padding:1px 5px;border-radius:3px;font-weight:500}
+.bd mark.i{background:rgba(91,103,214,.20);color:#bbc2ff}
+.bd .co{border-radius:0 8px 8px 0;padding:18px 22px;margin:22px 0}
+.bd .co-g{background:rgba(46,164,79,.09);border-left:3px solid var(--shop-green2)}
+.bd .co-i{background:rgba(91,103,214,.10);border-left:3px solid var(--indigo2)}
+.bd .co-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.bd .co-g .co-lbl{color:var(--shop-green2)}
+.bd .co-i .co-lbl{color:#b4bcff}
+.bd .co p{font-size:14px;color:var(--dk2);margin-bottom:0}
+.bd .co p strong{color:var(--dk)}
+.bd .al{list-style:none;margin:16px 0}
+.bd .al li{padding:10px 0 10px 22px;position:relative;border-bottom:1px solid var(--dk-rule);font-size:15px;color:var(--dk2)}
+.bd .al li:last-child{border-bottom:none}
+.bd .al li::before{content:'→';position:absolute;left:0;color:var(--shop-green2);font-weight:700}
+.bd .al.i li::before{color:#b4bcff}
+.bd .al li strong{color:var(--dk)}
+.bd .ft{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border-radius:4px;background:rgba(46,164,79,.11);color:var(--shop-green2);margin-left:3px;vertical-align:middle;font-weight:700}
+.bd .ft.i{background:rgba(91,103,214,.14);color:#b4bcff}
+
+.bg-g{background:linear-gradient(135deg,#0a2415 0%,#10331d 45%,#0a2415 100%);position:relative}
+.bg-g::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 75% 30%,rgba(46,164,79,.16) 0%,transparent 60%)}
+.bg-g .bi{position:relative;z-index:1}
+.bg-g .sn{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--shop-green2);margin-bottom:10px}
+.bg-g .st{font-family:var(--serif);font-size:clamp(28px,3.8vw,46px);font-weight:700;color:#e6faed;line-height:1.05;letter-spacing:-.022em;margin-bottom:24px}
+.bg-g .st em{font-style:italic;color:var(--shop-green2);font-weight:400}
+.bg-g .lead{font-family:var(--serif);font-size:19px;font-style:italic;color:rgba(230,250,237,.76);line-height:1.7;margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid rgba(46,164,79,.14)}
+.bg-g p{font-size:15.5px;color:rgba(230,250,237,.78);line-height:1.85;margin-bottom:16px;font-weight:400}
+.bg-g p strong{color:#e6faed}
+.bg-g mark{background:rgba(46,164,79,.20);color:#a6f2bf;padding:1px 5px;border-radius:3px;font-weight:500}
+.bg-g .co{border-radius:0 8px 8px 0;padding:18px 22px;margin:22px 0}
+.bg-g .co-g{background:rgba(46,164,79,.12);border-left:3px solid var(--shop-green2)}
+.bg-g .co-i{background:rgba(91,103,214,.10);border-left:3px solid #9fa8ff}
+.bg-g .co-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.bg-g .co-g .co-lbl{color:var(--shop-green2)}
+.bg-g .co-i .co-lbl{color:#b4bcff}
+.bg-g .co p{font-size:14px;color:rgba(230,250,237,.78);margin-bottom:0}
+.bg-g .co p strong{color:#e6faed}
+.bg-g .al{list-style:none;margin:16px 0}
+.bg-g .al li{padding:10px 0 10px 22px;position:relative;border-bottom:1px solid rgba(46,164,79,.12);font-size:15px;color:rgba(230,250,237,.78)}
+.bg-g .al li:last-child{border-bottom:none}
+.bg-g .al li::before{content:'→';position:absolute;left:0;color:var(--shop-green2);font-weight:700}
+.bg-g .al li strong{color:#e6faed}
+.bg-g .ft{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border-radius:4px;background:rgba(46,164,79,.15);color:var(--shop-green2);margin-left:3px;vertical-align:middle;font-weight:700}
+.bg-g .ft.i{background:rgba(91,103,214,.15);color:#b4bcff}
+
+.bg-i{background:linear-gradient(135deg,#f8f8ff 0%,#f1f2ff 50%,#f8f8ff 100%)}
+.bg-i .sn{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--indigo);margin-bottom:10px}
+.bg-i .st{font-family:var(--serif);font-size:clamp(28px,3.8vw,46px);font-weight:700;color:var(--ink);line-height:1.05;letter-spacing:-.022em;margin-bottom:24px}
+.bg-i .st em{font-style:italic;color:var(--indigo);font-weight:400}
+.bg-i .lead{font-family:var(--serif);font-size:19px;font-style:italic;color:var(--ink2);line-height:1.7;margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid rgba(91,103,214,.14)}
+.bg-i p{font-size:15.5px;color:var(--ink2);line-height:1.85;margin-bottom:16px;font-weight:400}
+.bg-i p strong{color:var(--ink);font-weight:600}
+.bg-i mark{background:var(--indigo-pale);color:var(--indigo-deep);padding:1px 5px;border-radius:3px;font-weight:500}
+.bg-i .co{border-radius:0 8px 8px 0;padding:18px 22px;margin:22px 0}
+.bg-i .co-i{background:rgba(91,103,214,.09);border-left:3px solid var(--indigo)}
+.bg-i .co-g{background:rgba(46,164,79,.08);border-left:3px solid var(--shop-green)}
+.bg-i .co-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.bg-i .co-i .co-lbl{color:var(--indigo)}
+.bg-i .co-g .co-lbl{color:var(--shop-green)}
+.bg-i .co p{font-size:14px;color:var(--ink2);margin-bottom:0}
+.bg-i .co p strong{color:var(--ink)}
+.bg-i .al{list-style:none;margin:16px 0}
+.bg-i .al li{padding:10px 0 10px 22px;position:relative;border-bottom:1px solid rgba(91,103,214,.12);font-size:15px;color:var(--ink2)}
+.bg-i .al li:last-child{border-bottom:none}
+.bg-i .al li::before{content:'→';position:absolute;left:0;color:var(--indigo);font-weight:700}
+.bg-i .al li strong{color:var(--ink);font-weight:600}
+.bg-i .ft{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border-radius:4px;background:var(--indigo-pale);color:var(--indigo-deep);margin-left:3px;vertical-align:middle;font-weight:700}
+.bg-i .ft.g{background:var(--shop-green-pale);color:var(--shop-green-deep)}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:2px;margin:26px 0;border-radius:8px;overflow:hidden}
+.sc{padding:16px 12px;text-align:center}
+.bw .strip,.bs .strip,.bg-i .strip{background:rgba(16,18,23,.07)}
+.bd .strip,.bg-g .strip{background:rgba(238,237,241,.05)}
+.bw .sc,.bs .sc,.bg-i .sc{background:var(--stone)}
+.bd .sc,.bg-g .sc{background:rgba(255,255,255,.04)}
+.bw .sc.h,.bs .sc.h,.bg-i .sc.h{background:linear-gradient(135deg,rgba(46,164,79,.10),var(--stone))}
+.bd .sc.h,.bg-g .sc.h{background:linear-gradient(135deg,rgba(91,103,214,.18),rgba(255,255,255,.04))}
+.sv{font-family:var(--serif);font-size:21px;font-weight:700;line-height:1.05;margin-bottom:4px}
+.bw .sv,.bs .sv,.bg-i .sv{color:var(--shop-green)}
+.bd .sv,.bg-g .sv{color:#b4bcff}
+.bw .sc.h .sv,.bs .sc.h .sv{color:var(--shop-green-deep)}
+.sl{font-family:var(--mono);font-size:8.5px;letter-spacing:.10em;text-transform:uppercase}
+.bw .sl,.bs .sl,.bg-i .sl{color:var(--ink3)}
+.bd .sl,.bg-g .sl{color:var(--dk3)}
+
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin:26px 0;border-radius:8px;overflow:hidden}
+.sw{padding:20px 18px}
+.sw h4{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.sw ul{list-style:none}
+.sw ul li{font-size:13.5px;line-height:1.6;padding:3px 0;border-bottom:1px solid rgba(0,0,0,.05)}
+.sw ul li:last-child{border-bottom:none}
+.sw ul li::before{content:'· ';font-weight:700}
+.sw-s{background:#e9f8ee}.sw-s h4{color:var(--shop-green)}.sw-s li{color:var(--ink2)}.sw-s li::before{color:var(--shop-green)}
+.sw-w{background:#f7f2ff}.sw-w h4{color:var(--indigo)}.sw-w li{color:var(--ink2)}.sw-w li::before{color:var(--indigo)}
+.sw-o{background:#fdf4e4}.sw-o h4{color:#7a5300}.sw-o li{color:var(--ink2)}.sw-o li::before{color:#b87900}
+.sw-t{background:#f4f7ff}.sw-t h4{color:#3358bb}.sw-t li{color:var(--ink2)}.sw-t li::before{color:#3358bb}
+
+.verdict{background:var(--night2);position:relative;overflow:hidden}
+.verdict::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 20% 50%,rgba(46,164,79,.11) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 50% at 85% 20%,rgba(91,103,214,.10) 0%,transparent 50%);
+  animation:meshPulse 10s ease-in-out infinite alternate;
+}
+.vi{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:88px 44px 96px}
+.v-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--shop-green2);margin-bottom:18px}
+.v-title{font-family:var(--serif);font-size:clamp(34px,5vw,60px);font-weight:300;line-height:.97;letter-spacing:-.03em;color:var(--dk);margin-bottom:14px}
+.v-title strong{font-weight:700;display:block}
+.v-title em{font-style:italic;color:#b4bcff}
+.v-rule{width:44px;height:2px;background:linear-gradient(90deg,var(--shop-green2),var(--indigo2));margin:26px 0}
+.v-body p{font-family:var(--serif);font-size:19px;font-weight:400;color:var(--dk2);line-height:1.78;margin-bottom:22px}
+.v-body p strong{color:var(--dk);font-weight:600}
+.v-body p em{color:var(--shop-green2);font-style:italic}
+.v-sig{margin-top:48px;padding-top:24px;border-top:1px solid var(--dk-rule);display:flex;align-items:center;gap:14px}
+.v-sig-m{font-family:var(--serif);font-size:26px;font-weight:700;font-style:italic;color:var(--shop-green2)}
+.v-sig-t{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dk3)}
+
+.footer{background:var(--night3);border-top:1px solid var(--dk-rule);padding:44px 0 28px}
+.fi{max-width:860px;margin:0 auto;padding:0 44px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px}
+.fb{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--dk);margin-bottom:6px}
+.fb span{font-style:italic;color:var(--shop-green2);font-weight:400}
+.fsub{font-size:13px;color:var(--dk3);max-width:280px;font-weight:300}
+.flinks{display:flex;gap:18px;flex-wrap:wrap;padding-top:4px}
+.flinks a{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--dk3);text-decoration:none;transition:color .2s}
+.flinks a:hover{color:var(--shop-green2)}
+.fcopy{max-width:860px;margin:26px auto 0;padding:18px 44px 0;border-top:1px solid var(--dk-rule);font-family:var(--mono);font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--dk3)}
+.fcopy span{color:var(--shop-green2)}
+
+.fab{position:fixed;bottom:26px;right:26px;z-index:50;width:42px;height:42px;border-radius:50%;background:var(--shop-green);border:none;color:#fff;font-size:15px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(46,164,79,.35)}
+.fab:hover{background:var(--shop-green-deep);transform:translateY(-2px)}
+
+@keyframes riseUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.r{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
+.r.v{opacity:1;transform:translateY(0)}
+
+.div-rule{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--shop-green),var(--indigo),transparent)}
+
+@media(max-width:700px){
+  .cover-inner,.bi,.vi,.fi{padding-left:20px;padding-right:20px}
+  .nav{padding:0 20px}
+  .cover-stats{flex-wrap:wrap;gap:16px}
+  .cs{border-right:none;margin-right:0;padding-right:0}
+  .swot{grid-template-columns:1fr}
+  .fi{flex-direction:column}
+  .nav-badges .badge-t{display:none}
+}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<nav class="nav">
+  <div class="nav-logo">Founder<span>Lens</span></div>
+  <div class="nav-badges">
+    <span class="badge badge-s">Company Analysis</span>
+    <span class="badge badge-t">Shopify · 2026</span>
+  </div>
+</nav>
+
+<section class="cover">
+  <div class="cover-mesh"></div>
+  <div class="cover-dots"></div>
+  <div class="cover-inner">
+    <div class="cover-kicker">
+      <span class="kicker-pill">FounderLens · Commerce Infrastructure</span>
+      <div class="kicker-sep"></div>
+      <span class="kicker-txt">Strategy · Platform · Moat</span>
+    </div>
+    <h1 class="cover-title">
+      Shopify
+      <em>The Operating System<br>for Independent Commerce</em>
+    </h1>
+    <p class="cover-sub">
+      Shopify turned e-commerce from a technical project into a business workflow. It helps merchants launch, get paid, and scale — while staying independent from marketplace dependency.
+    </p>
+    <div class="cover-stats">
+      <div class="cs"><div class="cs-val"><em>~$7B</em></div><div class="cs-lbl">Annual Revenue</div></div>
+      <div class="cs"><div class="cs-val"><em>2M+</em></div><div class="cs-lbl">Merchants</div></div>
+      <div class="cs"><div class="cs-val"><em>175+</em></div><div class="cs-lbl">Countries</div></div>
+      <div class="cs"><div class="cs-val"><em>Apps @ Scale</em></div><div class="cs-lbl">Ecosystem Depth</div></div>
+    </div>
+    <div class="cover-chips">
+      <span class="chip chip-g">Commerce SaaS</span>
+      <span class="chip chip-g">Merchant OS</span>
+      <span class="chip chip-i">Ecosystem Strategy</span>
+      <span class="chip chip-a">Payments + Checkout</span>
+      <span class="chip">Global Merchant Base</span>
+    </div>
+  </div>
+</section>
+
+<div class="div-rule"></div>
+
+<div class="band bw" id="s01">
+  <div class="bi r">
+    <div class="sn">01 — Company Overview</div>
+    <h2 class="st">What Shopify <em>Actually Is</em></h2>
+    <p class="lead">Shopify is not just a storefront builder. It is the infrastructure layer merchants use to run modern commerce: product catalog, checkout, payments, integrations, and operations in one system.</p>
+    <p>It operates in e-commerce infrastructure, competing with marketplace-led selling models and fragmented tooling stacks. Shopify’s importance comes from one big shift: merchants increasingly want to own the customer relationship, not rent it from a marketplace algorithm.</p>
+    <div class="co co-g">
+      <div class="co-lbl">Why It Matters</div>
+      <p>Shopify helps small and mid-size brands behave like enterprise retailers. <strong>When software lowers the operational barrier, entrepreneurship scales faster.</strong></p>
+    </div>
+    <div class="strip">
+      <div class="sc h"><div class="sv">~$7B</div><div class="sl">Revenue</div></div>
+      <div class="sc"><div class="sv">2M+</div><div class="sl">Merchants</div></div>
+      <div class="sc h"><div class="sv">175+</div><div class="sl">Countries</div></div>
+      <div class="sc"><div class="sv">Multi-layer</div><div class="sl">Monetization</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="band bs" id="s02">
+  <div class="bi r">
+    <div class="sn">02 — The Core Problem</div>
+    <h2 class="st">The Problem Hidden in <em>E-commerce Setup</em></h2>
+    <p class="lead">Starting a store used to mean assembling too many tools: payments, checkout, hosting, shipping, analytics, and compliance — often with high technical friction.</p>
+    <p>Shopify solved this by bundling essential commerce workflows into one coherent product. In simple language: it reduced the time and expertise required to go from “idea” to “selling online.” <span class="ft g">Reducing Friction</span></p>
+    <div class="co co-i">
+      <div class="co-lbl">Market Opportunity</div>
+      <p>As more creators and founders launched direct brands, they needed speed + reliability. Shopify captured that demand by making core operations predictable from day one.</p>
+    </div>
+  </div>
+</div>
+
+<div class="band bd" id="s03">
+  <div class="bi r">
+    <div class="sn">03 — Market Timing</div>
+    <h2 class="st">Why Shopify’s Timing Was <em>Strategically Strong</em></h2>
+    <p class="lead">Shopify scaled during the right convergence: mobile commerce growth, social-driven product discovery, and a merchant preference for owning brand identity.</p>
+    <p>The platform entered as infrastructure demand expanded. Merchants wanted to launch faster, iterate faster, and avoid being trapped by single-channel dependency. Shopify gave them an operational base to do that. <span class="ft i">Proactive Positioning</span></p>
+  </div>
+</div>
+
+<div class="band bg-i" id="s04">
+  <div class="bi r">
+    <div class="sn">04 — Business Model</div>
+    <h2 class="st">How Shopify <em>Makes Money</em></h2>
+    <p class="lead">Shopify monetizes commerce in layers: subscriptions, payments, and ecosystem usage. The first layer gets merchants in; later layers scale revenue with merchant growth.</p>
+    <ul class="al">
+      <li><strong>Platform Subscription:</strong> predictable recurring SaaS revenue.</li>
+      <li><strong>Payments & Checkout:</strong> monetization from transaction flow.</li>
+      <li><strong>Apps & Extensions:</strong> ecosystem-driven value expansion.</li>
+      <li><strong>Services & Operations:</strong> deeper merchant dependency over time.</li>
+    </ul>
+    <div class="co co-i">
+      <div class="co-lbl">Why It Scales</div>
+      <p>Core infrastructure is reused across merchants globally, so scale improves economics. <span class="ft g">Economies of Scale</span></p>
+    </div>
+  </div>
+</div>
+
+<div class="band bg-g" id="s05">
+  <div class="bi r">
+    <div class="sn">05 — Product & User Experience</div>
+    <h2 class="st">Why Merchants Choose <em>Shopify Over Alternatives</em></h2>
+    <p class="lead">Shopify feels practical: fast setup, robust checkout, and modular upgrades as complexity grows.</p>
+    <p>Its product strategy is composable growth. Merchants start simple, then layer apps, payments, automation, and analytics without abandoning the core system. <span class="ft i">Product Differentiation</span></p>
+    <div class="co co-g">
+      <div class="co-lbl">Retention Driver</div>
+      <p>As workflows, integrations, and data history deepen, switching gets operationally painful. That makes the platform sticky. <span class="ft">Switching Costs</span></p>
+    </div>
+  </div>
+</div>
+
+<div class="band bw" id="s06">
+  <div class="bi r">
+    <div class="sn">06 — Growth & Distribution</div>
+    <h2 class="st">How Shopify’s Growth Loop <em>Compounds</em></h2>
+    <p class="lead">Shopify’s loop is ecosystem-led: more merchants attract more developers, better apps attract more merchants, and platform capability keeps rising.</p>
+    <p>This creates a two-sided flywheel where merchant adoption and partner innovation reinforce each other. <span class="ft i">Two-Sided Network Effects</span></p>
+  </div>
+</div>
+
+<div class="band bs" id="s07">
+  <div class="bi r">
+    <div class="sn">07 — Operational Strategy</div>
+    <h2 class="st">The Operations Behind <em>Reliability at Scale</em></h2>
+    <p class="lead">Shopify’s operational challenge is high-stakes reliability: if checkout fails, merchant revenue fails in real time.</p>
+    <p>That is why Shopify invests heavily in platform stability, API consistency, and ecosystem guardrails. Its operational edge is not flashy — it is dependable. <span class="ft g">Operational Efficiency</span></p>
+  </div>
+</div>
+
+<div class="band bd" id="s08">
+  <div class="bi r">
+    <div class="sn">08 — Competitive Advantage</div>
+    <h2 class="st">Why Shopify Is <em>Difficult to Replace</em></h2>
+    <ul class="al i">
+      <li><strong>Ecosystem depth:</strong> apps, themes, and extensions create merchant-specific operating stacks.</li>
+      <li><strong>Payments + checkout integration:</strong> core flow ownership improves control and monetization.</li>
+      <li><strong>Merchant data accumulation:</strong> decision quality improves as operational data compounds.</li>
+      <li><strong>Workflow lock-in:</strong> replacing the platform means rebuilding a live business engine. <span class="ft">Switching Costs</span></li>
+    </ul>
+  </div>
+</div>
+
+<div class="band bg-i" id="s09">
+  <div class="bi r">
+    <div class="sn">09 — Strategic Analysis</div>
+    <h2 class="st">The Strategy Behind Shopify’s <em>Positioning</em></h2>
+    <p class="lead">Shopify follows a differentiated platform strategy: premium in reliability and flexibility, but still accessible enough for first-time merchants.</p>
+    <p>It does not win by being the cheapest tool. It wins by reducing merchant complexity and enabling growth without frequent re-platforming. <span class="ft">Porter’s Differentiation Strategy</span></p>
+    <p>As merchant count grows, Shopify’s partner ecosystem and platform economics improve together. <span class="ft g">Economies of Scale</span></p>
+
+    <div class="swot">
+      <div class="sw sw-s"><h4>Strengths</h4><ul><li>Merchant-first operating workflow</li><li>Strong ecosystem of apps and partners</li><li>Reliable checkout and payments stack</li><li>Global brand trust in independent commerce</li></ul></div>
+      <div class="sw sw-w"><h4>Weaknesses</h4><ul><li>Ecosystem quality variance risk</li><li>Pricing pressure from adjacent platforms</li><li>Feature overlap in a maturing market</li></ul></div>
+      <div class="sw sw-o"><h4>Opportunities</h4><ul><li>AI-powered merchant automation</li><li>Deeper international localization</li><li>Payments and fulfillment expansion</li></ul></div>
+      <div class="sw sw-t"><h4>Threats</h4><ul><li>Marketplace ecosystem lock-in pressure</li><li>Regulatory shifts in payments/data</li><li>Commoditization of baseline storefront tools</li></ul></div>
+    </div>
+  </div>
+</div>
+
+<div class="band bg-g" id="s10">
+  <div class="bi r">
+    <div class="sn">10 — Key Risks & Weaknesses</div>
+    <h2 class="st">What Could <em>Slow Shopify Down</em></h2>
+    <ul class="al">
+      <li><strong>Ecosystem dilution:</strong> low-quality integrations can damage merchant trust.</li>
+      <li><strong>Platform commoditization:</strong> if baseline features converge, differentiation must come from deeper workflows.</li>
+      <li><strong>Regulatory pressure:</strong> payment and data rules can reshape monetization paths.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="band bw" id="s11">
+  <div class="bi r">
+    <div class="sn">11 — Industry Impact</div>
+    <h2 class="st">How Shopify Changed <em>Commerce Expectations</em></h2>
+    <p class="lead">Shopify normalized the idea that entrepreneurs can launch globally with professional-grade infrastructure from day one.</p>
+    <p>It shifted expectations from “build a site” to “run a complete commerce operation,” raising standards for checkout quality, integration design, and merchant control.</p>
+  </div>
+</div>
+
+<div class="band bs" id="s12">
+  <div class="bi r">
+    <div class="sn">12 — Lessons For Builders</div>
+    <h2 class="st">What Shopify <em>Teaches Operators</em></h2>
+    <ul class="al">
+      <li><strong>Build the operating layer, not just interface features.</strong></li>
+      <li><strong>Lower time-to-value so adoption compounds quickly.</strong></li>
+      <li><strong>Use ecosystems to scale capability without scaling headcount linearly.</strong></li>
+      <li><strong>Design for retention via workflow depth, not feature sprawl.</strong></li>
+    </ul>
+  </div>
+</div>
+
+<section class="verdict" id="verdict">
+  <div class="vi r">
+    <div class="v-lbl">13 — FounderLens Verdict</div>
+    <h2 class="v-title">
+      Not Just Store Software.<br>
+      <em>A Merchant Infrastructure Layer</em><br>
+      <strong>Built to Compound</strong>
+    </h2>
+    <div class="v-rule"></div>
+    <div class="v-body">
+      <p>Shopify matters because it transformed e-commerce from technical setup friction into a manageable operating system for businesses of every size.</p>
+      <p>Its strategic strength is systems-level compounding: <strong>merchant adoption improves ecosystem value, and ecosystem value improves merchant adoption</strong>. This keeps the platform resilient even as surface features commoditize.</p>
+      <p>The moat is not a single product line. It is the interaction between workflows, payments, integrations, and merchant trust. That makes Shopify powerful — and hard to copy in full.</p>
+      <p><strong>In strategic terms, Shopify turned independence into infrastructure.</strong></p>
+    </div>
+    <div class="v-sig">
+      <div class="v-sig-m">FL</div>
+      <div class="v-sig-t">FounderLens · Shopify Strategic Analysis · May 2026<br>Business intelligence explained simply through real companies</div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="fi">
+    <div>
+      <div class="fb">Founder<span>Lens</span></div>
+      <div class="fsub">Business intelligence explained simply through world-class companies</div>
+    </div>
+    <div class="flinks">
+      <a href="#">All Analyses</a>
+      <a href="#">Founder Stories</a>
+      <a href="#">Strategy Library</a>
+      <a href="#">Subscribe</a>
+    </div>
+  </div>
+  <div class="fcopy">
+    <span>FounderLens</span> · Shopify Company Analysis · May 2026 · Educational purposes · Data from public filings and industry reports
+  </div>
+</footer>
+
+<button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+const bar=document.getElementById('bar');
+window.addEventListener('scroll',()=>{
+  const pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+  bar.style.width=pct+'%';
+},{passive:true});
+
+const els=document.querySelectorAll('.r');
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('v');
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.06,rootMargin:'0px 0px -36px 0px'});
+els.forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

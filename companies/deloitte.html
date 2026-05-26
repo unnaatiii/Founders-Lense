@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FounderLens · Deloitte — Strategic Company Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300&family=Instrument+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --g:#36b37e;
+      --g2:#22c55e;
+      --ink:#0b0e18;
+      --ink2:rgba(11,14,24,.72);
+      --ink3:rgba(11,14,24,.46);
+      --line:rgba(11,14,24,.10);
+      --paper:#f6faf8;
+      --paper2:#eef7f2;
+      --night:#0b1220;
+      --dk:#ecfdf5;
+      --dk2:rgba(236,253,245,.74);
+      --dk3:rgba(236,253,245,.40);
+      --ruleD:rgba(236,253,245,.08);
+      --serif:'Fraunces',serif;
+      --sans:'Instrument Sans',system-ui,sans-serif;
+      --mono:'IBM Plex Mono',monospace;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:var(--sans);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(54,179,126,.16), transparent 28vw),
+        radial-gradient(circle at 82% 18%, rgba(34,197,94,.10), transparent 30vw),
+        linear-gradient(180deg,#ffffff 0%, var(--paper) 46%, var(--paper2) 100%);
+      color:var(--ink);
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+    }
+    ::-webkit-scrollbar{width:3px}
+    ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--g),#86efac);border-radius:99px}
+
+    #bar{position:fixed;top:0;left:0;height:2px;width:0;z-index:999;background:linear-gradient(90deg,var(--g),#86efac,#60a5fa);transition:width .08s linear}
+
+    .nav{
+      position:sticky;top:0;z-index:200;
+      background:rgba(11,18,32,0.94);backdrop-filter:blur(22px);
+      border-bottom:1px solid rgba(236,253,245,.08);
+      height:56px;display:flex;align-items:center;justify-content:space-between;
+      padding:0 44px;
+    }
+    .nav-logo{font-family:var(--serif);font-size:18px;font-weight:900;color:var(--dk);letter-spacing:-.01em}
+    .nav-logo span{color:#86efac;font-weight:700}
+    .badge{
+      font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+      padding:4px 10px;border-radius:20px;border:1px solid rgba(236,253,245,.12);
+      color:var(--dk3);
+    }
+    .badge strong{color:#86efac;font-weight:700}
+
+    .hero{
+      min-height:86vh;
+      background:linear-gradient(170deg, #0b1220 0%, #0b1220 55%, #08101e 100%);
+      color:var(--dk);
+      position:relative;overflow:hidden;
+      display:flex;align-items:flex-end;
+      padding:0 0 66px;
+    }
+    .hero::before{
+      content:"";position:absolute;inset:0;
+      background:
+        radial-gradient(ellipse 60% 70% at 75% 30%, rgba(54,179,126,.20) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 55% at 18% 75%, rgba(96,165,250,.12) 0%, transparent 62%);
+      animation:mesh 10s ease-in-out infinite alternate;
+    }
+    @keyframes mesh{to{transform:scale(1.03);opacity:1}}
+    .hero-inner{
+      position:relative;z-index:2;
+      max-width:920px;margin:0 auto;width:100%;
+      padding:110px 44px 0;
+    }
+    .kicker{
+      display:inline-flex;align-items:center;gap:10px;margin-bottom:24px;
+      font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--dk3);
+      animation:rise .9s cubic-bezier(.16,1,.3,1) both;
+    }
+    .kicker b{color:#86efac}
+    h1{
+      font-family:var(--serif);
+      font-size:clamp(52px,8.5vw,112px);
+      font-weight:900;line-height:.92;letter-spacing:-.05em;
+      margin-bottom:12px;
+      animation:rise .9s .08s cubic-bezier(.16,1,.3,1) both;
+    }
+    h1 em{display:block;font-style:italic;font-weight:300;color:#86efac;font-size:.62em;letter-spacing:-.01em;line-height:1.18;margin-top:10px}
+    .sub{
+      max-width:680px;
+      font-size:17px;line-height:1.65;font-weight:300;color:var(--dk2);
+      margin:22px 0 40px;
+      animation:rise .9s .16s cubic-bezier(.16,1,.3,1) both;
+    }
+    .sub strong{color:var(--dk);font-weight:500}
+    .kpis{
+      display:flex;gap:0;flex-wrap:wrap;
+      border-top:1px solid var(--ruleD);border-bottom:1px solid var(--ruleD);
+      padding:22px 0;
+      animation:rise .9s .22s cubic-bezier(.16,1,.3,1) both;
+    }
+    .kpi{padding-right:32px;margin-right:32px;border-right:1px solid var(--ruleD)}
+    .kpi:last-child{border-right:none;padding-right:0;margin-right:0}
+    .kpi-n{font-family:var(--serif);font-size:28px;font-weight:900;line-height:1}
+    .kpi-l{font-family:var(--mono);font-size:8.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--dk3);margin-top:6px}
+
+    .band{width:100%;position:relative}
+    .inner{max-width:860px;margin:0 auto;padding:76px 44px}
+    .bw{background:#fff}
+    .bs{background:var(--paper)}
+    .bd{background:var(--night);color:var(--dk)}
+    .sn{
+      font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:10px;
+      display:flex;align-items:center;gap:10px;
+    }
+    .bw .sn,.bs .sn{color:var(--g)}
+    .bd .sn{color:#86efac}
+    .sn::before{content:"";width:22px;height:1px}
+    .bw .sn::before,.bs .sn::before{background:var(--g)}
+    .bd .sn::before{background:#86efac}
+    h2{
+      font-family:var(--serif);
+      font-size:clamp(28px,3.8vw,46px);
+      font-weight:900;line-height:1.05;letter-spacing:-.022em;margin-bottom:24px;
+    }
+    .bw h2,.bs h2{color:var(--ink)}
+    .bd h2{color:var(--dk)}
+    h2 em{font-style:italic;font-weight:300}
+    .bw h2 em,.bs h2 em{color:var(--g)}
+    .bd h2 em{color:#86efac}
+    .lead{
+      font-family:var(--serif);font-size:19px;font-style:italic;line-height:1.7;
+      margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid var(--line);color:var(--ink2)
+    }
+    .bd .lead{color:var(--dk2);border-bottom-color:var(--ruleD)}
+    p{font-size:15.5px;line-height:1.85;margin-bottom:16px;font-weight:400;color:var(--ink2)}
+    p strong{color:var(--ink);font-weight:600}
+    .bd p{color:var(--dk2)}
+    .bd p strong{color:var(--dk);font-weight:500}
+    .ft{
+      display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+      padding:3px 7px;border-radius:4px;background:rgba(54,179,126,.10);
+      color:#0b5a3e;margin-left:3px;vertical-align:middle;font-weight:700;
+    }
+    .bd .ft{background:rgba(54,179,126,.16);color:#a7f3d0}
+    .co{border-radius:0 8px 8px 0;padding:18px 22px;margin:22px 0}
+    .co-g{background:rgba(54,179,126,.08);border-left:3px solid var(--g)}
+    .co-a{background:rgba(245,158,11,.08);border-left:3px solid #f59e0b}
+    .bd .co-g{background:rgba(54,179,126,.10);border-left-color:#86efac}
+    .co-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:6px;color:var(--g)}
+    .co-a .co-lbl{color:#b87800}
+    .bd .co-lbl{color:#86efac}
+    .co p{font-size:14px;margin-bottom:0}
+    .al{list-style:none;margin:16px 0}
+    .al li{padding:10px 0 10px 22px;position:relative;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink2)}
+    .al li:last-child{border-bottom:none}
+    .al li::before{content:'→';position:absolute;left:0;color:var(--g);font-weight:900}
+    .bd .al li{border-bottom:1px solid var(--ruleD);color:var(--dk2)}
+    .bd .al li::before{color:#86efac}
+    .al li strong{color:var(--ink);font-weight:600}
+    .bd .al li strong{color:var(--dk);font-weight:500}
+
+    .strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:2px;margin:26px 0;border-radius:10px;overflow:hidden}
+    .bw .strip,.bs .strip{background:rgba(11,14,24,.07)}
+    .bd .strip{background:rgba(236,253,245,.05)}
+    .sc{padding:16px 12px;text-align:center;background:#edf7f1}
+    .bw .sc{background:#edf7f1}
+    .bs .sc{background:#eaf6ef}
+    .bd .sc{background:rgba(255,255,255,.04)}
+    .sc.h{background:linear-gradient(135deg,rgba(54,179,126,.12),#edf7f1)}
+    .bd .sc.h{background:linear-gradient(135deg,rgba(54,179,126,.18),rgba(255,255,255,.04))}
+    .sv{font-family:var(--serif);font-size:21px;font-weight:900;line-height:1.05;margin-bottom:4px;color:var(--g)}
+    .bd .sv{color:#86efac}
+    .sl{font-family:var(--mono);font-size:8.5px;letter-spacing:.10em;text-transform:uppercase;color:var(--ink3)}
+    .bd .sl{color:var(--dk3)}
+
+    .verdict{background:var(--night2);position:relative;overflow:hidden}
+    .verdict::before{
+      content:"";position:absolute;inset:0;
+      background:
+        radial-gradient(ellipse 70% 60% at 20% 50%,rgba(54,179,126,.12) 0%,transparent 55%),
+        radial-gradient(ellipse 50% 50% at 85% 20%,rgba(96,165,250,.08) 0%,transparent 50%);
+      animation:mesh 12s ease-in-out infinite alternate;
+    }
+    .vi{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:88px 44px 96px}
+    .v-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#86efac;margin-bottom:18px}
+    .v-title{font-family:var(--serif);font-size:clamp(34px,5vw,60px);font-weight:300;line-height:.97;letter-spacing:-.03em;color:var(--dk);margin-bottom:14px}
+    .v-title strong{font-weight:900;display:block}
+    .v-title em{font-style:italic;color:#86efac}
+    .v-rule{width:44px;height:2px;background:linear-gradient(90deg,#86efac,#60a5fa);margin:26px 0}
+    .v-body p{font-family:var(--serif);font-size:19px;font-weight:400;color:var(--dk2);line-height:1.78;margin-bottom:22px}
+    .v-body p strong{color:var(--dk);font-weight:700}
+    .v-sig{margin-top:48px;padding-top:24px;border-top:1px solid var(--ruleD);display:flex;align-items:center;gap:14px}
+    .v-sig-m{font-family:var(--serif);font-size:26px;font-weight:900;font-style:italic;color:#86efac}
+    .v-sig-t{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dk3)}
+
+    .footer{background:var(--night3);border-top:1px solid var(--ruleD);padding:44px 0 28px}
+    .fi{max-width:860px;margin:0 auto;padding:0 44px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px}
+    .fb{font-family:var(--serif);font-size:18px;font-weight:900;color:var(--dk);margin-bottom:6px}
+    .fb span{color:#86efac}
+    .fsub{font-size:13px;color:var(--dk3);max-width:280px;font-weight:300}
+    .flinks{display:flex;gap:18px;flex-wrap:wrap;padding-top:4px}
+    .flinks a{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--dk3);text-decoration:none;transition:color .2s}
+    .flinks a:hover{color:#86efac}
+    .fcopy{max-width:860px;margin:26px auto 0;padding:18px 44px 0;border-top:1px solid var(--ruleD);font-family:var(--mono);font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--dk3)}
+    .fcopy span{color:#86efac}
+
+    .fab{position:fixed;bottom:26px;right:26px;z-index:50;width:42px;height:42px;border-radius:50%;background:var(--g);border:none;color:#fff;font-size:15px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(54,179,126,.35)}
+    .fab:hover{background:#0b5a3e;transform:translateY(-2px)}
+
+    @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    .r{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
+    .r.v{opacity:1;transform:translateY(0)}
+
+    @media(max-width:700px){
+      .hero-inner,.inner,.vi,.fi{padding-left:20px;padding-right:20px}
+      .nav{padding:0 20px}
+      .kpis{flex-wrap:wrap;gap:16px}
+      .kpi{border-right:none;margin-right:0;padding-right:0}
+      .badge{display:none}
+    }
+    @media (prefers-reduced-motion: reduce){
+      *,*::before,*::after{animation:none !important;transition:none !important;scroll-behavior:auto !important}
+    }
+  </style>
+</head>
+<body>
+  <div id="bar"></div>
+
+  <nav class="nav">
+    <div class="nav-logo">Founder<span>Lens</span></div>
+    <div class="badge"><strong>Company Analysis</strong> · Deloitte · Professional Services</div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="kicker">FounderLens · Services & Strategy · <b>Operating Leverage</b></div>
+      <h1>Deloitte<em>A Talent Platform Disguised as a Firm</em></h1>
+      <p class="sub">
+        Deloitte is not just a consulting brand. It’s a global talent + trust system that sells outcomes under a single name — across audit, tax, advisory, and consulting.
+      </p>
+      <div class="kpis">
+        <div class="kpi"><div class="kpi-n">~$65B</div><div class="kpi-l">Global revenue (recent public reports)</div></div>
+        <div class="kpi"><div class="kpi-n">400k+</div><div class="kpi-l">People (approx)</div></div>
+        <div class="kpi"><div class="kpi-n">150+</div><div class="kpi-l">Countries / presence</div></div>
+        <div class="kpi"><div class="kpi-n">Multi-firm</div><div class="kpi-l">Network model structure</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="band bw">
+    <div class="inner r">
+      <div class="sn">01 — Company Overview</div>
+      <h2>What Deloitte <em>actually sells</em></h2>
+      <p class="lead">Deloitte sells trust and execution capacity. In plain terms: when outcomes are high-stakes, clients pay for proven teams and reputational cover.</p>
+      <p>Deloitte operates across audit, tax, consulting, and advisory. Each line strengthens the core brand: audit builds credibility; consulting builds growth; tax builds embedded relationships. <span class="ft">Portfolio Strategy</span></p>
+      <div class="strip">
+        <div class="sc h"><div class="sv">$65B+</div><div class="sl">Revenue scale</div></div>
+        <div class="sc"><div class="sv">Trust</div><div class="sl">Primary asset</div></div>
+        <div class="sc h"><div class="sv">Talent</div><div class="sl">Primary engine</div></div>
+        <div class="sc"><div class="sv">Delivery</div><div class="sl">Execution moat</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band bs">
+    <div class="inner r">
+      <div class="sn">02 — The Core Problem</div>
+      <h2>Why enterprises pay for <em>expensive help</em></h2>
+      <p class="lead">Big organizations don’t hire Deloitte for “ideas.” They hire Deloitte to reduce risk and speed up execution when the internal org is too slow or too political.</p>
+      <ul class="al">
+        <li><strong>Risk transfer:</strong> “We used a top firm” protects leadership decisions.</li>
+        <li><strong>Specialized capability:</strong> niche skills for short windows (cloud, cyber, M&A integration).</li>
+        <li><strong>Scale capacity:</strong> 50–500 person project teams assembled quickly.</li>
+      </ul>
+      <div class="co co-g">
+        <div class="co-lbl">Simple explanation</div>
+        <p>Deloitte sells <strong>organizational acceleration</strong>: compress months of alignment and hiring into a staffed plan and delivery team.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band bd">
+    <div class="inner r">
+      <div class="sn">03 — Business Model</div>
+      <h2>How Deloitte <em>makes money</em></h2>
+      <p class="lead">The model is utilization × rate × leverage. Deloitte turns junior hours into senior-owned outcomes — at scale.</p>
+      <p>Projects are priced via time-and-materials, fixed bids, or managed services. Margins depend on utilization (how full teams are), rate cards, and delivery efficiency. <span class="ft">Operational Efficiency</span></p>
+      <div class="co co-a">
+        <div class="co-lbl">What makes it scalable</div>
+        <p>Reusable playbooks + global delivery centers create leverage. The best firms turn “one project learning” into a template for the next 100.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band bw">
+    <div class="inner r">
+      <div class="sn">04 — Competitive Advantage</div>
+      <h2>The moat is <em>trust + talent supply</em></h2>
+      <p class="lead">Deloitte is hard to compete against because it compounds credibility and talent pipelines over decades.</p>
+      <ul class="al">
+        <li><strong>Brand trust:</strong> audit heritage and enterprise track record. <span class="ft">Reputation Moat</span></li>
+        <li><strong>Talent pipeline:</strong> campus recruiting + training creates scale labor supply.</li>
+        <li><strong>Cross-sell:</strong> one relationship opens multiple service lines.</li>
+        <li><strong>Global delivery:</strong> follow-the-sun execution capacity.</li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="verdict" id="verdict">
+    <div class="vi r">
+      <div class="v-lbl">05 — FounderLens Verdict</div>
+      <h2 class="v-title">Deloitte is a <em>trust machine</em><strong>at global scale</strong></h2>
+      <div class="v-rule"></div>
+      <div class="v-body">
+        <p>What makes Deloitte powerful is not a single practice. It’s the system: reputation, recruitment, training, delivery leverage, and enterprise access.</p>
+        <p>In services, the product is people. Deloitte industrialized the people business — while keeping enough trust and brand strength to charge premium rates.</p>
+      </div>
+      <div class="v-sig">
+        <div class="v-sig-m">FL</div>
+        <div class="v-sig-t">FounderLens · Deloitte Strategic Analysis · May 2026<br>Business intelligence explained simply through real companies</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="fi">
+      <div>
+        <div class="fb">Founder<span>Lens</span></div>
+        <div class="fsub">Business intelligence explained simply through world-class companies</div>
+      </div>
+      <div class="flinks">
+        <a href="../company.html">Companies</a>
+        <a href="../founders.html">Founders</a>
+        <a href="../about.html">About</a>
+      </div>
+    </div>
+    <div class="fcopy">
+      <span>FounderLens</span> · Deloitte Company Analysis · May 2026 · Educational purposes · Data points are directional/public
+    </div>
+  </footer>
+
+  <button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+  <script>
+    const bar=document.getElementById('bar');
+    window.addEventListener('scroll',()=>{
+      const pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+      bar.style.width=pct+'%';
+    },{passive:true});
+    const els=document.querySelectorAll('.r');
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){e.target.classList.add('v');io.unobserve(e.target);}
+      });
+    },{threshold:.06,rootMargin:'0px 0px -36px 0px'});
+    els.forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>

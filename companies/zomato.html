@@ -1,1 +1,491 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Zomato — FounderLens</title><link rel="stylesheet" href="../style.css"></head><body><main class="search-page"><a class="back-btn" href="../company.html">← Companies</a><article class="analysis-wrap"><header class="analysis-header"><p class="ah-tag">Company Analysis</p><h1 class="ah-name">Zomato</h1><p class="ah-company">Demand aggregation, logistics density, and city-level habit loops.</p></header><div class="analysis-body"><section class="section-block"><h3>Strategic Lens</h3><p>Zomato turns restaurant discovery, delivery density, subscriptions, and quick commerce experiments into an expanding urban consumption platform.</p></section></div></article></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FounderLens · Zomato — Strategic Company Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --z:#e23744;
+      --z2:#ff5864;
+      --ink:#1a1320;
+      --ink2:rgba(26,19,32,.70);
+      --ink3:rgba(26,19,32,.45);
+      --line:rgba(26,19,32,.10);
+      --cream:#fff7f1;
+      --cream2:#fff0f2;
+      --stone:#f3eef0;
+      --night:#0f0f18;
+      --night2:#131325;
+      --dk:#f4f2f6;
+      --dk2:rgba(244,242,246,.74);
+      --dk3:rgba(244,242,246,.40);
+      --ruleD:rgba(244,242,246,.08);
+      --serif:'Cormorant Garamond',serif;
+      --sans:'Outfit',system-ui,sans-serif;
+      --mono:'JetBrains Mono',monospace;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:var(--sans);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(226,55,68,.18), transparent 28vw),
+        radial-gradient(circle at 82% 18%, rgba(255,88,100,.10), transparent 30vw),
+        linear-gradient(180deg, #fffdfb 0%, var(--cream) 46%, var(--cream2) 100%);
+      color:var(--ink);
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+    }
+    ::-webkit-scrollbar{width:3px}
+    ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--z),#fb7185);border-radius:99px}
+
+    #bar{position:fixed;top:0;left:0;height:2px;width:0;z-index:999;background:linear-gradient(90deg,var(--z),#fb7185,#f59e0b);transition:width .08s linear}
+
+    .nav{
+      position:sticky;top:0;z-index:200;
+      background:rgba(15,15,24,0.94);backdrop-filter:blur(22px);
+      border-bottom:1px solid rgba(244,242,246,.08);
+      height:56px;display:flex;align-items:center;justify-content:space-between;
+      padding:0 44px;
+    }
+    .nav-logo{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--dk);letter-spacing:-.01em}
+    .nav-logo em{font-style:italic;color:#ff8a93;font-weight:400}
+    .nav-badges{display:flex;gap:8px;align-items:center}
+    .badge{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;padding:4px 10px;border-radius:20px;border:1px solid;line-height:1}
+    .badge-a{border-color:rgba(226,55,68,.35);color:#ff8a93;background:rgba(226,55,68,.08)}
+    .badge-b{border-color:rgba(244,242,246,.10);color:var(--dk3)}
+
+    .cover{
+      min-height:92vh;position:relative;overflow:hidden;background:var(--night);
+      display:flex;flex-direction:column;justify-content:flex-end;
+      padding:0 0 70px;
+    }
+    .mesh{
+      position:absolute;inset:0;
+      background:
+        radial-gradient(ellipse 60% 65% at 18% 35%, rgba(226,55,68,.20) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 55% at 85% 65%, rgba(255,88,100,.12) 0%, transparent 58%),
+        radial-gradient(ellipse 40% 60% at 60% 25%, rgba(245,158,11,.07) 0%, transparent 55%);
+      animation:meshPulse 10s ease-in-out infinite alternate;
+    }
+    @keyframes meshPulse{to{transform:scale(1.03);opacity:1}}
+    .dots{
+      position:absolute;inset:0;
+      background-image:radial-gradient(circle,rgba(244,242,246,.05) 1px,transparent 1px);
+      background-size:32px 32px;
+      opacity:.9;
+    }
+    .cover-inner{
+      position:relative;z-index:2;
+      max-width:920px;margin:0 auto;width:100%;
+      padding:110px 44px 0;
+    }
+    .kicker{
+      display:inline-flex;align-items:center;gap:10px;margin-bottom:26px;
+      animation:rise .9s cubic-bezier(.16,1,.3,1) both;
+    }
+    .pill{
+      font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+      padding:5px 12px;border-radius:20px;
+      background:rgba(226,55,68,.12);border:1px solid rgba(226,55,68,.32);
+      color:#ff8a93;
+    }
+    .sep{width:22px;height:1px;background:rgba(244,242,246,.18)}
+    .ktxt{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dk3)}
+    h1{
+      font-family:var(--serif);
+      font-size:clamp(52px,8.5vw,118px);
+      font-weight:700;line-height:.94;letter-spacing:-.035em;
+      color:var(--dk);
+      margin-bottom:10px;
+      animation:rise .9s .08s cubic-bezier(.16,1,.3,1) both;
+    }
+    h1 em{
+      display:block;font-style:italic;font-weight:400;color:#ff8a93;
+      font-size:.65em;letter-spacing:-.01em;line-height:1.2;margin-top:10px;
+    }
+    .sub{
+      font-size:17px;color:var(--dk2);max-width:640px;line-height:1.65;font-weight:300;
+      margin:26px 0 42px;
+      animation:rise .9s .16s cubic-bezier(.16,1,.3,1) both;
+    }
+    .sub strong{color:var(--dk);font-weight:500}
+    .stats{
+      display:flex;gap:0;flex-wrap:wrap;
+      border-top:1px solid var(--ruleD);border-bottom:1px solid var(--ruleD);
+      padding:22px 0;margin-bottom:34px;
+      animation:rise .9s .22s cubic-bezier(.16,1,.3,1) both;
+    }
+    .cs{padding-right:32px;margin-right:32px;border-right:1px solid var(--ruleD)}
+    .cs:last-child{border-right:none;padding-right:0;margin-right:0}
+    .cs-v{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--dk);line-height:1}
+    .cs-v em{color:#ff8a93;font-style:normal}
+    .cs-l{font-family:var(--mono);font-size:8.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--dk3);margin-top:6px}
+    .chips{display:flex;gap:7px;flex-wrap:wrap;animation:rise .9s .28s cubic-bezier(.16,1,.3,1) both}
+    .chip{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:5px 11px;border-radius:20px;border:1px solid var(--ruleD);color:var(--dk3)}
+    .chip.z{border-color:rgba(226,55,68,.4);color:#ff8a93;background:rgba(226,55,68,.06)}
+    .chip.a{border-color:rgba(245,158,11,.4);color:#ffd19a;background:rgba(245,158,11,.06)}
+
+    .div{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--z),#fb7185,transparent)}
+
+    .band{width:100%;position:relative}
+    .bi{max-width:860px;margin:0 auto;padding:76px 44px}
+    .bw{background:#fff}
+    .bs{background:var(--cream)}
+    .bd{background:var(--night);color:var(--dk)}
+    .bg-z{background:linear-gradient(135deg,#fff7f1 0%,#ffe9ec 50%,#fff7f1 100%)}
+    .sn{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:10px}
+    .bw .sn{color:var(--z)}
+    .bs .sn{color:#fb7185}
+    .bd .sn{color:#ff8a93}
+    .st{font-family:var(--serif);font-size:clamp(28px,3.8vw,46px);font-weight:700;line-height:1.05;letter-spacing:-.022em;margin-bottom:24px}
+    .bw .st,.bs .st,.bg-z .st{color:var(--ink)}
+    .bd .st{color:var(--dk)}
+    .st em{font-style:italic;font-weight:400}
+    .bw .st em,.bs .st em,.bg-z .st em{color:var(--z)}
+    .bd .st em{color:#ff8a93}
+    .lead{font-family:var(--serif);font-size:19px;font-style:italic;line-height:1.7;margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid var(--line);color:var(--ink2)}
+    .bd .lead{color:var(--dk2);border-bottom-color:var(--ruleD)}
+    p{font-size:15.5px;line-height:1.85;margin-bottom:16px;font-weight:400;color:var(--ink2)}
+    .bd p{color:var(--dk2)}
+    p strong{color:var(--ink);font-weight:600}
+    .bd p strong{color:var(--dk);font-weight:500}
+    .ft{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border-radius:4px;background:rgba(226,55,68,.10);color:#8a0c16;margin-left:3px;vertical-align:middle;font-weight:700}
+    .bd .ft{background:rgba(226,55,68,.14);color:#ffb0b7}
+    .co{border-radius:0 8px 8px 0;padding:18px 22px;margin:22px 0}
+    .co-z{background:rgba(226,55,68,.08);border-left:3px solid var(--z)}
+    .co-a{background:rgba(245,158,11,.08);border-left:3px solid #f59e0b}
+    .bd .co-z{background:rgba(226,55,68,.10);border-left-color:#ff8a93}
+    .co-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:6px;color:var(--z)}
+    .co-a .co-lbl{color:#b87800}
+    .bd .co-lbl{color:#ff8a93}
+    .co p{font-size:14px;margin-bottom:0}
+    .al{list-style:none;margin:16px 0}
+    .al li{padding:10px 0 10px 22px;position:relative;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink2)}
+    .al li:last-child{border-bottom:none}
+    .al li::before{content:'→';position:absolute;left:0;color:var(--z);font-weight:900}
+    .bd .al li{border-bottom:1px solid var(--ruleD);color:var(--dk2)}
+    .bd .al li::before{color:#ff8a93}
+    .al li strong{color:var(--ink);font-weight:600}
+    .bd .al li strong{color:var(--dk);font-weight:500}
+
+    .strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:2px;margin:26px 0;border-radius:10px;overflow:hidden}
+    .bw .strip,.bs .strip,.bg-z .strip{background:rgba(26,19,32,.07)}
+    .bd .strip{background:rgba(244,242,246,.05)}
+    .sc{padding:16px 12px;text-align:center;background:var(--stone)}
+    .bd .sc{background:rgba(255,255,255,.04)}
+    .sc.h{background:linear-gradient(135deg,rgba(226,55,68,.10),var(--stone))}
+    .bd .sc.h{background:linear-gradient(135deg,rgba(226,55,68,.16),rgba(255,255,255,.04))}
+    .sv{font-family:var(--serif);font-size:21px;font-weight:700;line-height:1.05;margin-bottom:4px;color:var(--z)}
+    .bd .sv{color:#ff8a93}
+    .sl{font-family:var(--mono);font-size:8.5px;letter-spacing:.10em;text-transform:uppercase;color:var(--ink3)}
+    .bd .sl{color:var(--dk3)}
+
+    .verdict{background:var(--night2);position:relative;overflow:hidden}
+    .verdict::before{
+      content:"";position:absolute;inset:0;
+      background:
+        radial-gradient(ellipse 70% 60% at 20% 50%,rgba(226,55,68,.12) 0%,transparent 55%),
+        radial-gradient(ellipse 50% 50% at 85% 20%,rgba(245,158,11,.08) 0%,transparent 50%);
+      animation:meshPulse 12s ease-in-out infinite alternate;
+    }
+    .vi{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:88px 44px 96px}
+    .v-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#ff8a93;margin-bottom:18px}
+    .v-title{font-family:var(--serif);font-size:clamp(34px,5vw,60px);font-weight:300;line-height:.97;letter-spacing:-.03em;color:var(--dk);margin-bottom:14px}
+    .v-title strong{font-weight:700;display:block}
+    .v-title em{font-style:italic;color:#ff8a93}
+    .v-rule{width:44px;height:2px;background:linear-gradient(90deg,#ff8a93,#f59e0b);margin:26px 0}
+    .v-body p{font-family:var(--serif);font-size:19px;font-weight:400;color:var(--dk2);line-height:1.78;margin-bottom:22px}
+    .v-body p strong{color:var(--dk);font-weight:600}
+    .v-sig{margin-top:48px;padding-top:24px;border-top:1px solid var(--ruleD);display:flex;align-items:center;gap:14px}
+    .v-sig-m{font-family:var(--serif);font-size:26px;font-weight:700;font-style:italic;color:#ff8a93}
+    .v-sig-t{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dk3)}
+
+    .footer{background:var(--night3);border-top:1px solid var(--ruleD);padding:44px 0 28px}
+    .fi{max-width:860px;margin:0 auto;padding:0 44px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px}
+    .fb{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--dk);margin-bottom:6px}
+    .fb em{font-style:italic;color:#ff8a93;font-weight:400}
+    .fsub{font-size:13px;color:var(--dk3);max-width:280px;font-weight:300}
+    .flinks{display:flex;gap:18px;flex-wrap:wrap;padding-top:4px}
+    .flinks a{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--dk3);text-decoration:none;transition:color .2s}
+    .flinks a:hover{color:#ff8a93}
+    .fcopy{max-width:860px;margin:26px auto 0;padding:18px 44px 0;border-top:1px solid var(--ruleD);font-family:var(--mono);font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--dk3)}
+    .fcopy span{color:#ff8a93}
+
+    .fab{position:fixed;bottom:26px;right:26px;z-index:50;width:42px;height:42px;border-radius:50%;background:var(--z);border:none;color:#fff;font-size:15px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(226,55,68,.35)}
+    .fab:hover{background:#b91c1c;transform:translateY(-2px)}
+
+    @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    .r{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
+    .r.v{opacity:1;transform:translateY(0)}
+
+    @media(max-width:700px){
+      .cover-inner,.bi,.vi,.fi{padding-left:20px;padding-right:20px}
+      .nav{padding:0 20px}
+      .stats{flex-wrap:wrap;gap:16px}
+      .cs{border-right:none;margin-right:0;padding-right:0}
+      .nav-badges .badge-b{display:none}
+    }
+    @media (prefers-reduced-motion: reduce){
+      *,*::before,*::after{animation:none !important;transition:none !important;scroll-behavior:auto !important}
+    }
+  </style>
+</head>
+<body>
+  <div id="bar"></div>
+
+  <nav class="nav">
+    <div class="nav-logo">Founder<em>Lens</em></div>
+    <div class="nav-badges">
+      <span class="badge badge-a">Company Analysis</span>
+      <span class="badge badge-b">Zomato · Urban Logistics</span>
+    </div>
+  </nav>
+
+  <section class="cover">
+    <div class="mesh"></div>
+    <div class="dots"></div>
+    <div class="cover-inner">
+      <div class="kicker">
+        <span class="pill">FounderLens · FoodTech India</span>
+        <div class="sep"></div>
+        <span class="ktxt">Strategy · Operations · Moat</span>
+      </div>
+      <h1>Zomato<em>Density as a Business Model</em></h1>
+      <p class="sub">
+        Zomato is not “food delivery.” It is a city-by-city logistics system that turns <strong>repeat demand</strong> into
+        <strong>route density</strong> — and route density into better unit economics.
+      </p>
+      <div class="stats">
+        <div class="cs"><div class="cs-v"><em>₹</em> Scale</div><div class="cs-l">Large public platform (India)</div></div>
+        <div class="cs"><div class="cs-v"><em>2-sided</em></div><div class="cs-l">Restaurants ↔ Consumers</div></div>
+        <div class="cs"><div class="cs-v"><em>3-sided</em></div><div class="cs-l">+ Delivery partners</div></div>
+        <div class="cs"><div class="cs-v"><em>Blinkit</em></div><div class="cs-l">Quick commerce adjacency</div></div>
+      </div>
+      <div class="chips">
+        <span class="chip z">Food Delivery</span>
+        <span class="chip z">Restaurant Discovery</span>
+        <span class="chip a">Quick Commerce</span>
+        <span class="chip">Subscriptions</span>
+        <span class="chip">City-level Playbook</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <div class="band bw" id="s01">
+    <div class="bi r">
+      <div class="sn">01 — Company Overview</div>
+      <h2 class="st">What Zomato <em>actually is</em></h2>
+      <p class="lead">Zomato is an urban consumption platform: it aggregates demand, routes delivery, and builds a default interface for “what to eat now.”</p>
+      <p>It operates in a market where logistics cost can destroy margin. Zomato’s core strategic advantage is not branding — it’s density: more orders per zone improves delivery efficiency and customer experience simultaneously. <span class="ft">Operational Efficiency</span></p>
+      <div class="strip">
+        <div class="sc h"><div class="sv">Habit</div><div class="sl">Repeat usage</div></div>
+        <div class="sc"><div class="sv">Logistics</div><div class="sl">Cost driver</div></div>
+        <div class="sc h"><div class="sv">Density</div><div class="sl">Margin lever</div></div>
+        <div class="sc"><div class="sv">Adjacency</div><div class="sl">Quick commerce</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band bs" id="s02">
+    <div class="bi r">
+      <div class="sn">02 — The Core Problem</div>
+      <h2 class="st">The problem Zomato solved in <em>plain language</em></h2>
+      <p class="lead">In cities, people want food fast — but restaurants aren’t built for delivery logistics. The pain is coordination, not cooking.</p>
+      <p>Zomato solved the coordination layer: discovery + ordering + delivery assignment + tracking + support. It made ordering as frictionless as opening a feed. <span class="ft">Reducing Friction</span></p>
+      <div class="co co-z">
+        <div class="co-lbl">The real unlock</div>
+        <p>Food delivery becomes viable when you can route thousands of small trips cheaply. That only happens with dense demand, consistent supply, and tight dispatch systems.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band bd" id="s03">
+    <div class="bi r">
+      <div class="sn">03 — Market Timing</div>
+      <h2 class="st">Why timing mattered for <em>scale</em></h2>
+      <p class="lead">Zomato benefited from smartphone penetration, UPI adoption, and a shift toward convenience-led consumption in Indian metros.</p>
+      <p>When payments became one-tap and tracking became normal, delivery moved from “occasion” to “habit.” Zomato’s job became building the default habit loop. <span class="ft">Market Timing</span></p>
+    </div>
+  </div>
+
+  <div class="band bg-z" id="s04">
+    <div class="bi r">
+      <div class="sn">04 — Business Model</div>
+      <h2 class="st">How Zomato <em>makes money</em></h2>
+      <p class="lead">Zomato’s revenue comes from platform take rates (restaurant commissions), delivery fees, ads/visibility, and subscription programs — with Blinkit adding an adjacent basket.</p>
+      <ul class="al">
+        <li><strong>Marketplace take-rate:</strong> monetizes orders routed through the platform.</li>
+        <li><strong>Delivery fees:</strong> partially offsets logistics cost.</li>
+        <li><strong>Ads:</strong> restaurants pay for visibility (a high-margin layer).</li>
+        <li><strong>Subscriptions:</strong> converts frequent users into predictable demand.</li>
+      </ul>
+      <div class="co co-a">
+        <div class="co-lbl">Scalability logic</div>
+        <p>As order density rises, delivery cost per order drops — and margin expands. The model improves with scale if operations stay tight. <span class="ft">Economies of Scale</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band bw" id="s05">
+    <div class="bi r">
+      <div class="sn">05 — Product & User Experience</div>
+      <h2 class="st">Why customers choose <em>Zomato</em></h2>
+      <p class="lead">Users choose Zomato because it’s predictable: clear options, quick ordering, delivery tracking, and reliable support when things go wrong.</p>
+      <p>At a product level, the feed matters. The interface doesn’t just show restaurants — it shapes cravings, promotions, and repeat behavior. <span class="ft">Market Positioning</span></p>
+    </div>
+  </div>
+
+  <div class="band bs" id="s06">
+    <div class="bi r">
+      <div class="sn">06 — Growth & Distribution</div>
+      <h2 class="st">The growth loop is <em>city density</em></h2>
+      <p class="lead">Zomato scales one city at a time: demand pulls supply, supply improves choice, choice increases demand — then logistics density improves unit economics.</p>
+      <div class="co co-z">
+        <div class="co-lbl">The compounding flywheel</div>
+        <p>More orders → better rider utilization → faster delivery times → better UX → more orders. This is a compounding operational loop, not just marketing. <span class="ft">Growth Loop</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band bd" id="s07">
+    <div class="bi r">
+      <div class="sn">07 — Operational Strategy</div>
+      <h2 class="st">Operations: the hidden strategy</h2>
+      <p class="lead">Food delivery is a logistics business with restaurant partners. The hard part is matching fluctuating demand with real-time supply.</p>
+      <ul class="al">
+        <li><strong>Dispatch efficiency:</strong> good routing lowers cost and improves ETA reliability.</li>
+        <li><strong>Partner management:</strong> restaurant prep time is part of delivery quality.</li>
+        <li><strong>Incentive design:</strong> rider availability depends on payouts and peak-time balancing.</li>
+        <li><strong>Quality control:</strong> customer support protects trust when orders fail.</li>
+      </ul>
+      <p>When operations are tight, Zomato can compete without burning cash. When operations slip, every discount becomes expensive. <span class="ft">Execution Moat</span></p>
+    </div>
+  </div>
+
+  <div class="band bw" id="s08">
+    <div class="bi r">
+      <div class="sn">08 — Competitive Advantage</div>
+      <h2 class="st">Why Zomato is hard to <em>displace</em></h2>
+      <ul class="al">
+        <li><strong>City-level density:</strong> the player with more volume gets better logistics economics.</li>
+        <li><strong>Restaurant relationships:</strong> supply depth improves choice and conversion.</li>
+        <li><strong>Habit:</strong> food ordering becomes a default routine. <span class="ft">Customer Loyalty</span></li>
+        <li><strong>Ads layer:</strong> once restaurants rely on visibility, monetization becomes sticky.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="band bg-z" id="s09">
+    <div class="bi r">
+      <div class="sn">09 — Strategic Analysis</div>
+      <h2 class="st">Framework view, <em>without jargon</em></h2>
+      <p class="lead">Zomato is a scale-and-operations strategy: it wins by building the most efficient delivery network and then monetizing the market it organizes.</p>
+      <p>It has partial network effects: more restaurants attract more users, and more users attract more restaurants. But the strongest effect is operational: more volume improves delivery economics. <span class="ft">Network Effects + Scale</span></p>
+      <div class="co co-z">
+        <div class="co-lbl">Porter lens</div>
+        <p>Zomato competes on differentiation (convenience + reliability) while fighting cost with logistics efficiency. It’s a hybrid strategy that requires constant execution discipline.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band bd" id="s10">
+    <div class="bi r">
+      <div class="sn">10 — Key Risks & Weaknesses</div>
+      <h2 class="st">What can break the model</h2>
+      <ul class="al">
+        <li><strong>Unit economics fragility:</strong> discounts can mask weak operations.</li>
+        <li><strong>Regulatory constraints:</strong> labor and gig rules can change cost structure.</li>
+        <li><strong>Service quality:</strong> delays and missing items destroy habit.</li>
+        <li><strong>Competitive intensity:</strong> price wars compress margins quickly.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="band bw" id="s11">
+    <div class="bi r">
+      <div class="sn">11 — Industry Impact</div>
+      <h2 class="st">How Zomato changed urban consumption</h2>
+      <p class="lead">Zomato helped turn restaurant food into an on-demand utility — shifting behavior from “plan an outing” to “order now.”</p>
+      <p>It also pushed restaurants to optimize menus, packaging, and prep time for delivery — changing operations across the industry.</p>
+    </div>
+  </div>
+
+  <div class="band bs" id="s12">
+    <div class="bi r">
+      <div class="sn">12 — Lessons For Builders</div>
+      <h2 class="st">What builders can steal</h2>
+      <ul class="al">
+        <li><strong>Density is strategy</strong>: in logistics markets, volume in a small area beats volume everywhere.</li>
+        <li><strong>Operations is product</strong>: reliability is the feature users feel.</li>
+        <li><strong>Monetize the market you organize</strong>: ads and subscriptions follow once you control discovery.</li>
+        <li><strong>Expand adjacencies carefully</strong>: quick commerce works only if the operational discipline holds.</li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="verdict" id="verdict">
+    <div class="vi r">
+      <div class="v-lbl">13 — FounderLens Verdict</div>
+      <h2 class="v-title">
+        Zomato wins by building<br>
+        <em>city-level density</em><br>
+        <strong>into economics</strong>
+      </h2>
+      <div class="v-rule"></div>
+      <div class="v-body">
+        <p>Zomato’s power is not a single product feature. It’s the system: demand aggregation → dispatch discipline → faster delivery → habit → more demand.</p>
+        <p>Its strategy is unique because it turns operations into a compounding advantage. In a category where margins are thin, <strong>execution becomes the moat</strong>.</p>
+        <p><strong>Food delivery looks like marketing. The winners are logistics systems.</strong></p>
+      </div>
+      <div class="v-sig">
+        <div class="v-sig-m">FL</div>
+        <div class="v-sig-t">FounderLens · Zomato Strategic Analysis · May 2026<br>Business intelligence explained simply through real companies</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="fi">
+      <div>
+        <div class="fb">Founder<em>Lens</em></div>
+        <div class="fsub">Business intelligence explained simply through world-class companies</div>
+      </div>
+      <div class="flinks">
+        <a href="../company.html">Companies</a>
+        <a href="../founders.html">Founders</a>
+        <a href="../about.html">About</a>
+      </div>
+    </div>
+    <div class="fcopy">
+      <span>FounderLens</span> · Zomato Company Analysis · May 2026 · Educational purposes · Data points are directional/public where applicable
+    </div>
+  </footer>
+
+  <button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+  <script>
+    const bar=document.getElementById('bar');
+    window.addEventListener('scroll',()=>{
+      const pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+      bar.style.width=pct+'%';
+    },{passive:true});
+
+    const els=document.querySelectorAll('.r');
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('v');
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.06, rootMargin:'0px 0px -36px 0px'});
+    els.forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>

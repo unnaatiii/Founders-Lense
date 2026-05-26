@@ -1,1 +1,613 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>DMart — FounderLens</title><link rel="stylesheet" href="../style.css"></head><body><main class="search-page"><a class="back-btn" href="../company.html">← Companies</a><article class="analysis-wrap"><header class="analysis-header"><p class="ah-tag">Company Analysis</p><h1 class="ah-name">DMart</h1><p class="ah-company">Austere retail economics, inventory discipline, everyday value.</p></header><div class="analysis-body"><section class="section-block"><h3>Strategic Lens</h3><p>DMart wins through low operating costs, fast inventory turns, owned stores, vendor trust, and a refusal to chase fashionable expansion.</p></section></div></article></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>DMart — FounderLens Company Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#fffaf3;
+      --bg2:#f1fff6;
+      --ink:#0d1b2a;
+      --muted:rgba(13,27,42,.68);
+      --line:rgba(13,27,42,.12);
+      --card:rgba(255,255,255,.82);
+      --g:#16a34a;
+      --g2:#22c55e;
+      --blue:#2563eb;
+      --amber:#f59e0b;
+      --rose:#fb7185;
+      --mono:'JetBrains Mono',monospace;
+      --sans:'Nunito',system-ui,sans-serif;
+      --serif:'Playfair Display',serif;
+      --shadow:0 18px 60px rgba(13,27,42,.08);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:var(--sans);
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 20% 12%, rgba(245,158,11,.16) 0%, transparent 55%),
+        radial-gradient(circle at 75% 25%, rgba(34,197,94,.16) 0%, transparent 52%),
+        radial-gradient(circle at 35% 85%, rgba(37,99,235,.10) 0%, transparent 50%),
+        linear-gradient(180deg,var(--bg) 0%, #ffffff 48%, var(--bg2) 100%);
+      overflow-x:hidden;
+    }
+    ::-webkit-scrollbar{width:3px}
+    ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--g2),var(--blue));border-radius:99px}
+
+    #progress{
+      position:fixed;top:0;left:0;height:3px;width:0;z-index:999;
+      background:linear-gradient(90deg, var(--amber), var(--g2), var(--blue));
+      transition:width .1s linear;
+    }
+
+    .top{
+      max-width:1120px;margin:12px auto 0;padding:0 18px;
+      position:sticky;top:10px;z-index:50;
+    }
+    .topbar{
+      width:100%;
+      padding:10px 14px;
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.65);
+      backdrop-filter:blur(14px);
+      box-shadow:0 12px 40px rgba(13,27,42,.05);
+    }
+    .back{
+      display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:700;font-size:13px
+    }
+    .back .b{
+      width:26px;height:26px;border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid var(--line);background:rgba(255,255,255,.8);
+    }
+    .pills{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .pill{
+      font-family:var(--mono);
+      font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+      border:1px solid var(--line);
+      padding:6px 10px;border-radius:999px;
+      background:rgba(255,255,255,.55);
+      cursor:pointer;transition:transform .18s,border-color .18s,background .18s;
+      color:rgba(13,27,42,.66);
+    }
+    .pill:hover{transform:translateY(-1px);border-color:rgba(22,163,74,.28)}
+    .pill.active{background:linear-gradient(90deg,rgba(245,158,11,.16),rgba(34,197,94,.14));border-color:rgba(22,163,74,.34);color:#25304b}
+
+    .hero{
+      max-width:1120px;margin:26px auto 0;padding:0 20px 20px;
+      display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:22px;
+    }
+    .hero-left{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.74);
+      border-radius:20px;
+      padding:22px 20px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-left::before{
+      content:"";
+      position:absolute;left:-60px;top:-70px;width:240px;height:240px;border-radius:50%;
+      background:radial-gradient(circle at center, rgba(245,158,11,.26), transparent 65%);
+      pointer-events:none;
+      animation:drift 9s ease-in-out infinite;
+    }
+    @keyframes drift{
+      0%,100%{transform:translate(0,0)}
+      50%{transform:translate(25px,18px)}
+    }
+    .hero-right{
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:linear-gradient(180deg, rgba(22,163,74,.10), rgba(255,255,255,.65));
+      padding:16px 16px;
+      box-shadow:0 18px 60px rgba(13,27,42,.06);
+      position:relative;
+      overflow:hidden;
+    }
+    .conveyor{
+      position:absolute;inset:auto -40px 20px auto;width:260px;height:12px;border-radius:999px;
+      background:linear-gradient(90deg, rgba(34,197,94,.12), rgba(37,99,235,.14), rgba(245,158,11,.12));
+      filter:saturate(1.3);
+      overflow:hidden;
+      opacity:.65;
+    }
+    .conveyor::before{
+      content:"";position:absolute;inset:0;
+      background:repeating-linear-gradient(90deg, rgba(22,163,74,.5) 0 16px, rgba(22,163,74,0) 16px 30px);
+      animation:moveConveyor 2.4s linear infinite;
+      opacity:.8;
+    }
+    @keyframes moveConveyor{
+      from{transform:translateX(-70px)}
+      to{transform:translateX(70px)}
+    }
+
+    .eyebrow{
+      font-family:var(--mono);
+      font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+      color:rgba(13,27,42,.56);
+      margin-bottom:12px;
+      display:flex;align-items:center;gap:10px;
+    }
+    .eyebrow::before{content:"";width:26px;height:1px;background:linear-gradient(90deg,var(--amber),var(--g2))}
+    h1{
+      font-family:var(--serif);
+      font-size:clamp(44px,6.2vw,80px);
+      line-height:.94;letter-spacing:-.05em;margin-bottom:10px;
+    }
+    h1 em{font-style:italic;color:var(--g);font-weight:500}
+    .sub{
+      font-size:18px;line-height:1.75;color:var(--muted);margin-bottom:18px;max-width:650px;
+    }
+    .kpis{
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;position:relative;z-index:1;
+    }
+    .kpi{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.82);
+      border-radius:16px;
+      padding:14px 14px;
+      position:relative;overflow:hidden;
+    }
+    .kpi::after{
+      content:"";position:absolute;right:-50px;bottom:-50px;width:160px;height:160px;border-radius:50%;
+      background:radial-gradient(circle at center, rgba(22,163,74,.22), transparent 60%);
+      pointer-events:none;
+    }
+    .kpi .v{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:4px}
+    .kpi .l{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(13,27,42,.58)}
+
+    .hero-right .block{
+      position:relative;z-index:1;
+    }
+    .block h2{font-family:var(--serif);font-size:20px;margin-bottom:6px}
+    .block p{font-size:13.5px;line-height:1.65;color:rgba(13,27,42,.7);margin-bottom:12px}
+    .mini-grid{
+      display:grid;grid-template-columns:1fr 1fr;gap:10px;
+      margin-top:10px;
+    }
+    .mini{
+      border-radius:14px;
+      border:1px solid rgba(13,27,42,.12);
+      background:rgba(255,255,255,.72);
+      padding:12px 12px;
+    }
+    .mini .t{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(13,27,42,.58);margin-bottom:6px}
+    .mini .n{font-weight:800;font-size:17px;margin-bottom:4px}
+    .mini .d{font-size:13px;color:rgba(13,27,42,.66);line-height:1.45}
+
+    .sections{
+      max-width:1120px;margin:0 auto;padding:0 20px 50px;
+    }
+    .section{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.82);
+      padding:24px 20px;
+      margin:14px 0;
+      box-shadow:0 16px 55px rgba(13,27,42,.05);
+      position:relative;overflow:hidden;
+    }
+    .section.alt{
+      background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(241,255,246,.7));
+    }
+    .section.retail{
+      background:linear-gradient(180deg, rgba(245,158,11,.08), rgba(255,255,255,.88));
+    }
+    .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .sec-label{
+      font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+      color:rgba(13,27,42,.56);margin-bottom:10px;display:flex;align-items:center;gap:10px;
+    }
+    .sec-label::before{content:"";width:22px;height:1px;background:linear-gradient(90deg,var(--amber),var(--g2))}
+    .sec-title{
+      font-family:var(--serif);font-size:30px;line-height:1.1;margin-bottom:10px;
+    }
+    .sec-title em{font-style:italic;color:var(--g);font-weight:500}
+    .lead{
+      font-size:17px;line-height:1.85;color:var(--muted);
+      border-bottom:1px solid var(--line);
+      padding-bottom:14px;margin-bottom:14px;font-style:italic;
+    }
+    p{font-size:15.5px;line-height:1.85;color:rgba(13,27,42,.74);margin-bottom:10px;max-width:840px}
+    .concept{
+      display:inline-block;margin-left:6px;vertical-align:middle;
+      font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+      border:1px solid rgba(22,163,74,.26);
+      background:rgba(22,163,74,.08);
+      color:#0f5132;
+      padding:2px 7px;border-radius:999px;
+    }
+    .concept.blue{border-color:rgba(37,99,235,.25);background:rgba(37,99,235,.08);color:#1d4ed8}
+    .concept.amber{border-color:rgba(245,158,11,.30);background:rgba(245,158,11,.10);color:#7a4a00}
+    ul{padding-left:18px}
+    li{font-size:15px;line-height:1.75;color:rgba(13,27,42,.74);margin-bottom:6px}
+
+    .cards{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:14px
+    }
+    .card{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.78);
+      border-radius:16px;
+      padding:16px 15px;
+      transition:transform .18s,box-shadow .18s,border-color .18s;
+    }
+    .card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 18px 45px rgba(13,27,42,.08);
+      border-color:rgba(22,163,74,.32);
+    }
+    .card h3{font-family:var(--serif);font-size:18px;margin-bottom:6px}
+    .card p{margin:0}
+
+    .swot{
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px
+    }
+    .swotBox{
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      background:rgba(255,255,255,.74);
+    }
+    .swotBox h4{
+      font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px;
+      color:rgba(13,27,42,.62)
+    }
+    .swotBox.str{background:rgba(22,163,74,.10);border-color:rgba(22,163,74,.20)}
+    .swotBox.weak{background:rgba(239,68,68,.06);border-color:rgba(239,68,68,.16)}
+    .swotBox.opp{background:rgba(37,99,235,.06);border-color:rgba(37,99,235,.16)}
+    .swotBox.thr{background:rgba(245,158,11,.06);border-color:rgba(245,158,11,.18)}
+
+    .verdict{
+      background:linear-gradient(135deg, rgba(34,197,94,.15), rgba(245,158,11,.14), rgba(37,99,235,.10));
+      border-color:rgba(34,197,94,.25);
+    }
+    .quote{
+      margin-top:14px;
+      padding:14px 14px;
+      border-radius:14px;
+      border:1px solid rgba(245,158,11,.26);
+      background:rgba(245,158,11,.10);
+      font-style:italic;color:rgba(13,27,42,.88);
+    }
+
+    .footer{
+      max-width:1120px;margin:0 auto;padding:18px 20px 34px;
+      border-top:1px solid rgba(13,27,42,.1);
+      font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+      color:rgba(13,27,42,.62);
+    }
+    .footer span{color:var(--g)}
+
+    @media(max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .topbar{border-radius:18px;max-width:calc(100% - 24px);margin:0 auto}
+      .pills{justify-content:flex-start}
+    }
+    @media(max-width:520px){
+      .kpis{grid-template-columns:1fr}
+      .mini-grid{grid-template-columns:1fr}
+      .swot{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div id="progress"></div>
+
+  <div class="top">
+    <div class="topbar">
+      <a class="back" href="../company.html"><span class="b">&larr;</span> Companies</a>
+      <div class="pills">
+        <button class="pill active" data-target="overview" type="button">Overview</button>
+        <button class="pill" data-target="model" type="button">Business Model</button>
+        <button class="pill" data-target="strategy" type="button">Strategy</button>
+        <button class="pill" data-target="verdict" type="button">Verdict</button>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-left reveal">
+      <div class="eyebrow">FounderLens · Company Study</div>
+      <h1>DMart<br><em>Austere Retail Economics</em></h1>
+      <p class="sub">
+        DMart (Avenue Supermarts) is a low-drama retail company that wins by mastering the boring parts:
+        inventory discipline, store execution, and cost control that protects margins for years.
+      </p>
+      <div class="kpis">
+        <div class="kpi"><div class="v">250+</div><div class="l">Stores (India)</div></div>
+        <div class="kpi"><div class="v">₹20k+</div><div class="l">Revenue Scale (INR)</div></div>
+        <div class="kpi"><div class="v">Mid-single</div><div class="l">Operating Margin</div></div>
+        <div class="kpi"><div class="v">Fast Turns</div><div class="l">Inventory Discipline</div></div>
+      </div>
+    </div>
+
+    <aside class="hero-right reveal">
+      <div class="block">
+        <h2>Strategic Lens</h2>
+        <p>
+          DMart’s moat is not a trendy brand. It is an execution system: keep costs low, keep shelves fresh, and rely on repeat purchase behavior in everyday categories.
+        </p>
+        <div class="mini-grid">
+          <div class="mini">
+            <div class="t">Customer</div>
+            <div class="n">Everyday Value</div>
+            <div class="d">Low price, high reliability on availability.</div>
+          </div>
+          <div class="mini">
+            <div class="t">Engine</div>
+            <div class="n">Inventory</div>
+            <div class="d">Turn money into product, not into excess.</div>
+          </div>
+          <div class="mini">
+            <div class="t">Power</div>
+            <div class="n">Cost</div>
+            <div class="d">Lean operations protect margins and cash.</div>
+          </div>
+          <div class="mini">
+            <div class="t">Growth</div>
+            <div class="n">Disciplined Expansion</div>
+            <div class="d">Add stores without breaking the model.</div>
+          </div>
+        </div>
+      </div>
+      <div class="conveyor" aria-hidden="true"></div>
+    </aside>
+  </header>
+
+  <main class="sections">
+    <section class="section reveal alt" id="overview">
+      <div class="sec-label">01 — Company Overview</div>
+      <h2 class="sec-title">What DMart <em>Actually Is</em></h2>
+      <p class="lead">DMart is a value-focused retail operator selling everyday essentials: groceries, personal care, household needs, and staples that customers buy repeatedly.</p>
+      <p>
+        It operates in India’s highly competitive retail market, where competitors often fight using promotions, aggressive store expansion, and marketing noise.
+        DMart fights differently: it protects cost structure first, then lets consistent execution drive compounding demand. (Operational Efficiency)
+      </p>
+    </section>
+
+    <section class="section reveal" id="problem">
+      <div class="sec-label">02 — The Core Problem</div>
+      <h2 class="sec-title">The customer problem DMart solved</h2>
+      <p class="lead">For many households, shopping is a trade-off: prices are often higher than expected, and availability can be inconsistent.</p>
+      <p>
+        DMart reduces both problems through tight procurement and faster replenishment. In plain language: customers find the staples they need, at prices that stay reasonable, without chaos.
+        <span class="concept">Reliable Value (Customer Experience)</span>
+      </p>
+    </section>
+
+    <section class="section reveal alt" id="timing">
+      <div class="sec-label">03 — Market Timing</div>
+      <h2 class="sec-title">Why DMart grew at the <em>right time</em></h2>
+      <p class="lead">India’s retail shifted as more households moved toward organised stores for predictable pricing and convenience.</p>
+      <p>
+        As urban consumption increased and family shopping routines became more regular, the winners were those with repeat-purchase discipline.
+        DMart’s model fit that behavioural shift: it doesn’t need customers to “discover” it every time; it needs them to come back.
+      </p>
+      <p>
+        The timing advantage was operational: DMart built capacity and vendor relationships before the market became saturated with discount-led noise.
+      </p>
+    </section>
+
+    <section class="section reveal" id="model">
+      <div class="sec-label">04 — Business Model</div>
+      <h2 class="sec-title">How DMart makes money</h2>
+      <p class="lead">DMart makes money by keeping a consistent gross margin profile across everyday categories and protecting operating costs so the thin retail margin doesn’t get eaten.</p>
+      <p>
+        The model scales because larger store footprints create better buying power and smoother inventory economics, while the core retail processes remain repeatable. (Economies of Scale)
+      </p>
+      <div class="cards">
+        <article class="card">
+          <h3>Store-led revenue</h3>
+          <p>Footfall and repeat trips drive sales. The goal is steady demand, not one-off spikes.</p>
+        </article>
+        <article class="card">
+          <h3>Vendor trust + procurement discipline</h3>
+          <p>Consistent ordering and reliable payment behavior improve supply terms over time.</p>
+        </article>
+        <article class="card">
+          <h3>Expense control as strategy</h3>
+          <p>Lower rent efficiency, lean staffing, and reduced waste protect margin after promotions.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section reveal alt" id="product">
+      <div class="sec-label">05 — Product & User Experience</div>
+      <h2 class="sec-title">Why customers prefer DMart</h2>
+      <p class="lead">DMart is designed for “basket predictability.” Customers trust that essentials will be available and prices will be stable enough to plan around.</p>
+      <p>
+        The shopping experience is intentionally functional: clear category layouts, repeat assortments, and fewer surprises. That reduces the mental effort of deciding what to buy each trip.
+        <span class="concept blue">Reduced Decision Fatigue</span>
+      </p>
+    </section>
+
+    <section class="section reveal" id="growth">
+      <div class="sec-label">06 — Growth & Distribution Strategy</div>
+      <h2 class="sec-title">How DMart scales demand</h2>
+      <p class="lead">DMart’s distribution strategy is simple: place stores where repeat buying behavior is strong, then build trust through consistent availability and value.</p>
+      <p>
+        Growth happens through a loyalty loop: stable pricing + frequent product availability → repeat visits → word-of-mouth among local communities → higher footfall without heavy brand spending.
+        (Customer Loyalty)
+      </p>
+    </section>
+
+    <section class="section reveal alt" id="ops">
+      <div class="sec-label">07 — Operational Strategy</div>
+      <h2 class="sec-title">The inventory-first execution engine</h2>
+      <p class="lead">Retail margins get decided in two places: purchasing and waste. DMart’s operational strategy is to minimize both.</p>
+      <p>
+        It runs a fast-turn model: stocking enough to avoid stockouts, but not so much that cash turns slow. This protects profitability in volatile demand periods.
+        <span class="concept">Inventory Turn Advantage</span>
+      </p>
+      <p>
+        Operational discipline also shows up in expansion pace. DMart avoids overextending systems before they can reliably deliver the same experience store-to-store. (Reactive vs Proactive Strategy)
+      </p>
+    </section>
+
+    <section class="section reveal" id="moat">
+      <div class="sec-label">08 — Competitive Advantage</div>
+      <h2 class="sec-title">Why competitors struggle to copy DMart</h2>
+      <ul>
+        <li><strong>Cost structure:</strong> in retail, the winner often has the lowest “fixed burn.” DMart protects it.</li>
+        <li><strong>Inventory discipline:</strong> stable replenishment rhythms build vendor and forecasting advantages.</li>
+        <li><strong>Repeatability:</strong> the model is designed to repeat across locations, not reinvent each time. (Operational Efficiency)</li>
+        <li><strong>Local trust:</strong> customers learn which store delivers value reliably, and that memory is sticky.</li>
+      </ul>
+    </section>
+
+    <section class="section reveal alt" id="strategy">
+      <div class="sec-label">09 — Strategic Analysis</div>
+      <h2 class="sec-title">Framework view of DMart</h2>
+      <p class="lead">DMart fits Porter’s cost leadership logic, but with a key twist: it keeps the experience steady so cost doesn’t become “cheap and messy.”</p>
+      <p>
+        First, cost discipline is the foundation. DMart aims to be consistently low-cost to fund consistent value to customers. (Porter’s Cost Leadership Strategy)
+        <span class="concept">Cost Leadership</span>
+      </p>
+      <p>
+        Second, switching costs are behavioral rather than technical. Customers don’t “switch” because they trust the store for essentials and availability. (Customer Loyalty)
+      </p>
+      <p>
+        Third, scale matters—bigger volume improves procurement economics and supports inventory stability across categories. (Economies of Scale)
+        <span class="concept blue">Economies of Scale</span>
+      </p>
+
+      <div class="swot">
+        <div class="swotBox str">
+          <h4>Strengths</h4>
+          <ul>
+            <li>Low operating cost structure</li>
+            <li>Inventory discipline and faster turns</li>
+            <li>Store-level execution consistency</li>
+            <li>Trusted everyday value proposition</li>
+          </ul>
+        </div>
+        <div class="swotBox weak">
+          <h4>Weaknesses</h4>
+          <ul>
+            <li>Limited ability to chase trend categories quickly</li>
+            <li>Thin margins leave little room for errors</li>
+            <li>Geography expansion increases execution complexity</li>
+          </ul>
+        </div>
+        <div class="swotBox opp">
+          <h4>Opportunities</h4>
+          <ul>
+            <li>Deeper penetration in existing cities through more stores</li>
+            <li>Supply chain upgrades to improve availability further</li>
+            <li>Value formats for smaller towns</li>
+          </ul>
+        </div>
+        <div class="swotBox thr">
+          <h4>Threats</h4>
+          <ul>
+            <li>Discount-heavy competitors compress margins</li>
+            <li>Inflation in key SKUs can stress price-value trust</li>
+            <li>Execution risk during rapid store growth</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="risks">
+      <div class="sec-label">10 — Key Risks & Weaknesses</div>
+      <h2 class="sec-title">What threatens DMart</h2>
+      <p>
+        The model is fragile if inventory discipline slips: stockouts can kill repeat behavior, while overstock kills cash and forces discounting.
+      </p>
+      <p>
+        Another risk is competitive imitation. Many retailers can promise low prices, but few can maintain the same cost structure while scaling store execution.
+        (Operational Complexity)
+      </p>
+    </section>
+
+    <section class="section reveal alt" id="impact">
+      <div class="sec-label">11 — Industry Impact</div>
+      <h2 class="sec-title">How DMart shifted retail expectations</h2>
+      <p class="lead">DMart made “everyday organized retail” feel like a dependable habit: you don’t shop for excitement; you shop for reliability.</p>
+      <p>
+        It also reinforced a hard truth for the sector: retail wins less on marketing creativity and more on inventory economics and cost discipline.
+      </p>
+    </section>
+
+    <section class="section reveal" id="lessons">
+      <div class="sec-label">12 — Lessons For Builders</div>
+      <h2 class="sec-title">Practical lessons for operators</h2>
+      <ul>
+        <li><strong>Make margin protection a strategy:</strong> build systems that keep costs low before you worry about growth.</li>
+        <li><strong>Choose repeat categories:</strong> everyday demand compacts into loyal routines.</li>
+        <li><strong>Inventory is a product:</strong> availability is customer experience. Treat it like a core offering.</li>
+        <li><strong>Scale slowly enough to stay consistent:</strong> replication beats chaos expansion.</li>
+      </ul>
+    </section>
+
+    <section class="section reveal verdict" id="verdict">
+      <div class="sec-label">13 — Final FounderLens Verdict</div>
+      <h2 class="sec-title">DMart proves the power of <em>boring excellence</em></h2>
+      <p class="lead">
+        What makes DMart powerful is that it builds a retail machine around inventory discipline and low-cost execution. The result is a value proposition customers can trust repeatedly.
+      </p>
+      <p>
+        Competing with DMart is difficult because the moat isn’t a special brand. It is the operating system that turns cash into product, stores into trust, and discipline into compounding economics. (Operational Efficiency + Cost Leadership)
+      </p>
+      <div class="quote">“In retail, strategy is what you do every day without noticing.”</div>
+    </section>
+  </main>
+
+  <div class="footer">
+    FounderLens · DMart Strategic Analysis · May 2026 · Educational use · <span>Data from public filings and industry reports</span>
+  </div>
+
+  <script>
+    const progress=document.getElementById('progress');
+    function setProgress(){
+      const h=document.documentElement;
+      const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+      progress.style.width=pct+'%';
+    }
+    window.addEventListener('scroll',setProgress,{passive:true});
+    setProgress();
+
+    const io=new IntersectionObserver((entries,obs)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    document.querySelectorAll('.pill').forEach(p=>{
+      p.addEventListener('click',()=>{
+        const id=p.getAttribute('data-target');
+        const el=document.getElementById(id);
+        if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+
+    const pills=[...document.querySelectorAll('.pill')];
+    window.addEventListener('scroll',()=>{
+      let current='overview';
+      for(const p of pills){
+        const id=p.getAttribute('data-target');
+        const el=document.getElementById(id);
+        if(!el)continue;
+        if(el.getBoundingClientRect().top<140) current=id;
+      }
+      pills.forEach(p=>p.classList.toggle('active',p.getAttribute('data-target')===current));
+    },{passive:true});
+  </script>
+</body>
+</html>

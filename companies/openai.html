@@ -1,1 +1,564 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>OpenAI — FounderLens</title><link rel="stylesheet" href="../style.css"></head><body><main class="search-page"><a class="back-btn" href="../company.html">← Companies</a><article class="analysis-wrap"><header class="analysis-header"><p class="ah-tag">Company Analysis</p><h1 class="ah-name">OpenAI</h1><p class="ah-company">Frontier-model gravity reshaping software distribution.</p></header><div class="analysis-body"><section class="section-block"><h3>Strategic Lens</h3><p>OpenAI's leverage comes from research velocity, product packaging, developer distribution, strategic partnerships, and the speed of AI adoption.</p></section></div></article></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FounderLens · OpenAI — Strategic Company Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#fbf8ff;
+      --ink:#251735;
+      --muted:#6f607d;
+      --line:rgba(91,33,182,0.13);
+      --accent:#7c3aed;
+      --accent2:#22c55e;
+      --gold:#b8862f;
+      --soft:rgba(255,255,255,0.72);
+      --serif:'Playfair Display',serif;
+      --sans:'DM Sans',system-ui,sans-serif;
+      --mono:'IBM Plex Mono',monospace;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      min-height:100vh;
+      font-family:var(--sans);
+      background:
+        radial-gradient(circle at 16% 12%, rgba(196,181,253,0.46), transparent 28vw),
+        radial-gradient(circle at 82% 18%, rgba(251,191,36,0.2), transparent 30vw),
+        radial-gradient(circle at 70% 78%, rgba(34,197,94,0.12), transparent 34vw),
+        linear-gradient(180deg, #fffafe 0%, #f3edff 46%, #fffaf4 100%);
+      color:var(--ink);
+      overflow-x:hidden;
+    }
+    body::before{
+      content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.32;
+      background-image:
+        linear-gradient(rgba(91,33,182,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(91,33,182,0.035) 1px, transparent 1px);
+      background-size:82px 82px;
+      mask-image:radial-gradient(circle at center, black 0%, transparent 76%);
+    }
+    body::after{
+      content:"";position:fixed;inset:0;z-index:999;pointer-events:none;opacity:.06;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.64'/%3E%3C/svg%3E");
+      mix-blend-mode:soft-light;
+    }
+    ::-webkit-scrollbar{width:3px}
+    ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--accent),var(--gold));border-radius:99px}
+
+    #bar{position:fixed;top:0;left:0;height:3px;width:0;z-index:1000;background:linear-gradient(90deg,var(--accent),var(--gold),var(--accent2));transition:width .08s linear}
+
+    nav{
+      position:fixed;top:14px;left:50%;transform:translateX(-50%);
+      width:min(980px,calc(100vw - 28px));
+      z-index:500;
+      display:flex;align-items:center;justify-content:space-between;gap:14px;
+      padding:0.72rem 0.82rem;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,0.72);
+      backdrop-filter:blur(18px);
+      box-shadow:0 24px 80px rgba(91,33,182,0.12);
+      transition:background .35s ease,border-color .35s ease,box-shadow .35s ease;
+    }
+    nav.is-scrolled{
+      background:rgba(255,255,255,0.92);
+      border-color:rgba(91,33,182,0.2);
+      box-shadow:0 28px 90px rgba(91,33,182,0.18);
+    }
+    .logo{font-family:var(--serif);font-weight:900;letter-spacing:-.04em;color:var(--ink);text-decoration:none;font-size:1.05rem;padding-left:.55rem}
+    .logo span{color:var(--accent)}
+    .nav-right{display:flex;gap:8px;align-items:center}
+    .btn{
+      font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+      padding:7px 10px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,0.62);
+      color:rgba(37,23,53,0.68);
+      text-decoration:none;
+      transition:transform .2s ease, background .2s ease, border-color .2s ease;
+      cursor:pointer;
+    }
+    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,0.86);border-color:rgba(124,58,237,.3)}
+    .btn.primary{background:var(--accent);border-color:transparent;color:#fff}
+    .btn.primary:hover{background:#6d28d9}
+
+    .hero{
+      position:relative;z-index:1;
+      width:min(1120px,calc(100vw - 36px));
+      margin:0 auto;
+      padding:8.5rem 0 1.5rem;
+    }
+    .hero-card{
+      border:1px solid var(--line);
+      border-radius:26px;
+      background:rgba(255,255,255,0.66);
+      backdrop-filter:blur(14px);
+      box-shadow:0 44px 140px rgba(91,33,182,0.14);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero-card::before{
+      content:"";position:absolute;inset:0;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(124,58,237,0.20), transparent 44%),
+        radial-gradient(circle at 82% 30%, rgba(184,134,47,0.18), transparent 46%),
+        radial-gradient(circle at 70% 85%, rgba(34,197,94,0.10), transparent 45%);
+      opacity:.9;
+      pointer-events:none;
+      animation:drift 16s ease-in-out infinite alternate;
+    }
+    @keyframes drift{to{transform:translate3d(48px,34px,0) scale(1.04)}}
+    .hero-inner{position:relative;z-index:1;padding:54px 46px}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;
+      font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(124,58,237,.92);
+    }
+    .eyebrow::before,.eyebrow::after{content:"";width:38px;height:1px;background:linear-gradient(90deg,transparent,rgba(124,58,237,.6))}
+    .eyebrow::after{background:linear-gradient(90deg,rgba(124,58,237,.6),transparent)}
+    h1{
+      font-family:var(--serif);
+      font-size:clamp(3.0rem,6vw,6.2rem);
+      line-height:.92;
+      letter-spacing:-.06em;
+      margin-bottom:14px;
+      color:var(--ink);
+    }
+    h1 em{font-style:italic;color:var(--accent)}
+    .sub{
+      max-width:720px;
+      font-size:1.12rem;
+      color:var(--muted);
+      font-weight:400;
+      line-height:1.7;
+      margin-bottom:22px;
+    }
+    .kpis{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+      gap:10px;
+      margin-top:18px;
+    }
+    .kpi{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,0.62);
+      padding:14px 14px;
+    }
+    .kpi .v{font-family:var(--serif);font-weight:900;font-size:1.35rem;letter-spacing:-.02em}
+    .kpi .l{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(37,23,53,0.66);margin-top:4px;line-height:1.35}
+    .kpi .l b{color:rgba(37,23,53,0.88);font-weight:700}
+
+    .shell{
+      position:relative;z-index:1;
+      width:min(1120px,calc(100vw - 36px));
+      margin:18px auto 60px;
+      display:grid;
+      grid-template-columns:minmax(210px,240px) minmax(0,1fr);
+      gap:1rem;
+    }
+    aside{
+      position:sticky;top:96px;
+      height:fit-content;
+      padding:1rem;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,0.56);
+      backdrop-filter:blur(18px);
+      box-shadow:0 24px 70px rgba(91,33,182,0.10);
+    }
+    .aside-label{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(37,23,53,0.45);margin-bottom:10px}
+    .aside-link{
+      display:block;
+      padding:0.48rem 0.8rem;
+      border-radius:999px;
+      text-decoration:none;
+      color:#5b4d68;
+      font-weight:600;
+      font-size:0.86rem;
+      transition:background .2s ease,color .2s ease,transform .2s ease;
+      cursor:pointer;
+    }
+    .aside-link:hover{background:rgba(124,58,237,0.10);transform:translateY(-1px)}
+    .aside-link.active{background:var(--accent);color:#fff}
+
+    main{padding:0}
+    .band{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,0.62);
+      backdrop-filter:blur(14px);
+      padding:24px 22px;
+      margin:0 0 1rem;
+      box-shadow:0 22px 70px rgba(91,33,182,0.08);
+    }
+    .band.alt{background:linear-gradient(135deg, rgba(255,255,255,0.72), rgba(242,232,255,0.26))}
+    .band.dark{
+      background:linear-gradient(150deg, rgba(18,12,28,0.94), rgba(25,18,42,0.94));
+      border-color:rgba(255,255,255,0.08);
+      color:#eee;
+      box-shadow:0 30px 90px rgba(18,12,28,0.30);
+    }
+    .band.dark p{color:rgba(238,237,241,.82)}
+    .band.dark .sec{color:#bca8ff}
+    .band.dark h2{color:#fff}
+    .sec{
+      font-family:var(--mono);
+      font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+      color:rgba(124,58,237,.9);
+      margin-bottom:10px;
+      display:flex;align-items:center;gap:10px;
+    }
+    .sec::before{content:"";width:18px;height:1px;background:linear-gradient(90deg,var(--accent),transparent)}
+    h2{
+      font-family:var(--serif);
+      font-weight:900;
+      letter-spacing:-.03em;
+      font-size:clamp(1.7rem,3.0vw,2.4rem);
+      line-height:1.12;
+      margin-bottom:12px;
+    }
+    h2 em{font-style:italic;color:var(--accent);font-weight:700}
+    p{color:var(--muted);font-size:15.5px;line-height:1.85;margin-bottom:12px}
+    p strong{color:var(--ink)}
+    .lead{font-family:var(--serif);font-style:italic;color:rgba(37,23,53,.72);font-size:18px;line-height:1.7;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:14px}
+    .band.dark .lead{color:rgba(238,237,241,.86);border-bottom-color:rgba(255,255,255,0.08)}
+    .callout{
+      border-left:3px solid var(--accent);
+      background:rgba(124,58,237,0.06);
+      border-radius:0 12px 12px 0;
+      padding:16px 18px;
+      margin:16px 0;
+    }
+    .callout .lbl{
+      font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+      color:var(--accent);font-weight:700;margin-bottom:6px
+    }
+    .callout p{margin:0;color:rgba(37,23,53,0.72);font-size:14.5px}
+    .band.dark .callout{background:rgba(124,58,237,0.10);border-left-color:#bca8ff}
+    .band.dark .callout p{color:rgba(238,237,241,.82)}
+    .list{list-style:none;margin:10px 0}
+    .list li{padding:9px 0 9px 20px;position:relative;border-bottom:1px solid rgba(91,33,182,0.10);color:var(--muted);font-size:15px}
+    .list li:last-child{border-bottom:none}
+    .list li::before{content:"→";position:absolute;left:0;color:var(--accent);font-weight:900}
+    .tag{
+      display:inline-block;
+      font-family:var(--mono);
+      font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+      padding:3px 8px;border-radius:999px;
+      border:1px solid rgba(124,58,237,0.22);
+      background:rgba(124,58,237,0.08);
+      color:#5b21b6;
+      margin-left:4px;
+      vertical-align:middle;
+      font-weight:700;
+    }
+    .tag.gold{border-color:rgba(184,134,47,0.22);background:rgba(184,134,47,0.10);color:#7a5b18}
+    .tag.green{border-color:rgba(34,197,94,0.22);background:rgba(34,197,94,0.10);color:#166534}
+    .data-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:10px;
+      margin-top:14px;
+    }
+    .data-card{
+      border:1px solid rgba(91,33,182,0.12);
+      border-radius:16px;
+      background:rgba(255,255,255,0.66);
+      padding:14px 14px;
+    }
+    .band.dark .data-card{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.10)}
+    .dc-k{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(37,23,53,0.55)}
+    .band.dark .dc-k{color:rgba(238,237,241,.55)}
+    .dc-v{font-family:var(--serif);font-weight:900;font-size:22px;letter-spacing:-.02em;margin-top:6px}
+    .dc-n{color:var(--muted);font-size:13.5px;line-height:1.55;margin-top:6px}
+    .band.dark .dc-n{color:rgba(238,237,241,.78)}
+
+    footer{
+      position:relative;z-index:1;
+      width:min(1120px,calc(100vw - 36px));
+      margin:0 auto 50px;
+      padding:16px 2px 0;
+      color:rgba(37,23,53,0.55);
+      font-family:var(--mono);
+      font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+    }
+    footer span{color:var(--accent)}
+
+    .r{opacity:0;transform:translateY(20px);transition:opacity .65s cubic-bezier(.2,.8,.2,1),transform .65s cubic-bezier(.2,.8,.2,1)}
+    .r.v{opacity:1;transform:translateY(0)}
+
+    @media(max-width:980px){
+      nav{position:fixed}
+      .shell{grid-template-columns:1fr}
+      aside{position:relative;top:auto}
+      .hero-inner{padding:42px 22px}
+    }
+    @media (prefers-reduced-motion: reduce){
+      *,*::before,*::after{animation:none !important;transition:none !important;scroll-behavior:auto !important}
+    }
+  </style>
+</head>
+<body>
+  <div id="bar"></div>
+
+  <nav id="topNav">
+    <a class="logo" href="../index.html">Founder<span>Lens</span></a>
+    <div class="nav-right">
+      <a class="btn" href="../company.html">Companies</a>
+      <a class="btn primary" href="#verdict">Verdict</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-card r">
+      <div class="hero-inner">
+        <div class="eyebrow">FounderLens · Company Analysis · AI Infrastructure</div>
+        <h1>OpenAI<br><em>Frontier Models as Distribution</em></h1>
+        <p class="sub">
+          OpenAI is not “an AI lab that sometimes ships products.” It is a product company whose inputs are research, compute, and data —
+          and whose output is <strong>a new software interface</strong> that developers and businesses are rapidly standardizing on.
+        </p>
+        <div class="kpis">
+          <div class="kpi"><div class="v">$10B+</div><div class="l"><b>Annualized run-rate</b> (reported, 2025 estimates)</div></div>
+          <div class="kpi"><div class="v">100M+</div><div class="l"><b>Weekly users</b> for ChatGPT (reported 2024)</div></div>
+          <div class="kpi"><div class="v">API + Chat</div><div class="l"><b>Dual distribution</b> (devs + consumers)</div></div>
+          <div class="kpi"><div class="v">Microsoft</div><div class="l"><b>Strategic partner</b> (cloud + enterprise)</div></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell">
+    <aside class="r">
+      <div class="aside-label">Navigate</div>
+      <a class="aside-link active" data-to="s01">Overview</a>
+      <a class="aside-link" data-to="s04">Business Model</a>
+      <a class="aside-link" data-to="s06">Growth</a>
+      <a class="aside-link" data-to="s09">Strategy</a>
+      <a class="aside-link" data-to="verdict">Verdict</a>
+    </aside>
+
+    <main>
+      <section class="band alt r" id="s01">
+        <div class="sec">01 — Company Overview</div>
+        <h2>What OpenAI <em>actually does</em></h2>
+        <p class="lead">OpenAI builds frontier AI models and packages them into products (ChatGPT) and infrastructure (APIs) that other companies build on.</p>
+        <p>It operates in a market that looks like “AI,” but behaves like a new platform cycle: whoever owns the default interface for intelligence gets leverage over software distribution.</p>
+        <div class="callout">
+          <div class="lbl">Key idea</div>
+          <p>OpenAI’s core product is not a model. It’s <strong>reliable inference at scale</strong>, wrapped in an interface developers trust.</p>
+        </div>
+      </section>
+
+      <section class="band r" id="s02">
+        <div class="sec">02 — The Core Problem</div>
+        <h2>The job-to-be-done: <em>make cognition usable</em></h2>
+        <p class="lead">Most software makes people click. OpenAI makes software understand. The problem was not “lack of information” — it was “lack of usable help.”</p>
+        <p>ChatGPT solved a simple, universal pain: turning messy intent into a useful output (writing, code, analysis, plans) without training or setup. <span class="tag">Reducing friction</span></p>
+        <ul class="list">
+          <li><strong>For consumers</strong>: instant help without learning a tool.</li>
+          <li><strong>For developers</strong>: add intelligence without building ML teams.</li>
+          <li><strong>For enterprises</strong>: compress knowledge-work cycles (draft → review → iterate).</li>
+        </ul>
+      </section>
+
+      <section class="band dark r" id="s03">
+        <div class="sec">03 — Market Timing</div>
+        <h2>Why this moment <em>unlocked</em> OpenAI</h2>
+        <p class="lead">Two curves crossed: models became good enough to be trusted, and distribution became digital enough to spread instantly.</p>
+        <p>Once AI outputs passed a “useful most of the time” threshold, adoption shifted from experimentation to habit. The interface (chat + API) made the new capability legible. <span class="tag green">Product packaging</span></p>
+        <div class="data-grid">
+          <div class="data-card">
+            <div class="dc-k">Adoption speed</div>
+            <div class="dc-v">Fastest ever</div>
+            <div class="dc-n">ChatGPT became one of the fastest-growing consumer products in history (publicly discussed widely).</div>
+          </div>
+          <div class="data-card">
+            <div class="dc-k">Compute constraint</div>
+            <div class="dc-v">Scarce input</div>
+            <div class="dc-n">At frontier scale, access to GPUs + optimization talent is the bottleneck, not “ideas”.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band alt r" id="s04">
+        <div class="sec">04 — Business Model</div>
+        <h2>How OpenAI <em>makes money</em></h2>
+        <p class="lead">OpenAI monetizes across three layers: subscriptions, usage-based APIs, and enterprise deployments.</p>
+        <p>The model scales because software margins are high — but costs are unusual: inference is a real variable cost. Strategy is about keeping value per user above compute per user. <span class="tag gold">Unit economics</span></p>
+        <div class="data-grid">
+          <div class="data-card">
+            <div class="dc-k">Consumer</div>
+            <div class="dc-v">ChatGPT Plus</div>
+            <div class="dc-n">Recurring subscription anchors a large base of predictable demand.</div>
+          </div>
+          <div class="data-card">
+            <div class="dc-k">Developers</div>
+            <div class="dc-v">API usage</div>
+            <div class="dc-n">Pay-per-token behaves like cloud: revenue grows with customer success.</div>
+          </div>
+          <div class="data-card">
+            <div class="dc-k">Enterprise</div>
+            <div class="dc-v">Seat + governance</div>
+            <div class="dc-n">Higher ARPU, compliance controls, and data policies create retention.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band r" id="s05">
+        <div class="sec">05 — Product & UX</div>
+        <h2>Why users choose <em>OpenAI</em></h2>
+        <p class="lead">The best product decision was making AI feel like a conversation, not a toolchain.</p>
+        <p>OpenAI reduced “prompting” into normal language, then improved outcomes with memory, tools, and multimodality. Each upgrade makes the interface feel more like a teammate than a search engine. <span class="tag">Differentiation</span></p>
+        <div class="callout">
+          <div class="lbl">Simple explanation</div>
+          <p>When the product is an intelligence layer, <strong>trust and consistency</strong> become the UX.</p>
+        </div>
+      </section>
+
+      <section class="band dark r" id="s06">
+        <div class="sec">06 — Growth & Distribution</div>
+        <h2>The loop: <em>usage → data → better product</em></h2>
+        <p class="lead">OpenAI grows through two distribution engines: consumer habit (ChatGPT) and developer embedding (API).</p>
+        <p>When developers ship OpenAI into their apps, OpenAI becomes invisible infrastructure — and the switching cost becomes “rewrite your product.” <span class="tag">Switching costs</span></p>
+        <ul class="list">
+          <li><strong>Consumer</strong>: chat becomes a daily workflow for learning and writing.</li>
+          <li><strong>Developer</strong>: API becomes a dependency for features users now expect.</li>
+          <li><strong>Enterprise</strong>: governance + integration create institutional lock-in.</li>
+        </ul>
+      </section>
+
+      <section class="band alt r" id="s07">
+        <div class="sec">07 — Operational Strategy</div>
+        <h2>Operations: <em>compute orchestration</em> at scale</h2>
+        <p class="lead">OpenAI’s operational strategy is the art of serving intelligence reliably under cost and latency constraints.</p>
+        <p>Key levers include model efficiency, routing, caching patterns, and capacity planning. Unlike pure SaaS, the product has “COGS” that can spike with usage.</p>
+        <div class="callout">
+          <div class="lbl">Moat in practice</div>
+          <p>At frontier scale, operational excellence is not support — it’s competitive advantage. <span class="tag gold">Operational efficiency</span></p>
+        </div>
+      </section>
+
+      <section class="band r" id="s08">
+        <div class="sec">08 — Competitive Advantage</div>
+        <h2>Why it’s hard to <em>compete head-on</em></h2>
+        <p class="lead">OpenAI’s moat is layered: research velocity, product packaging, distribution, and strategic infrastructure partnerships.</p>
+        <ul class="list">
+          <li><strong>Research-to-product speed</strong>: faster iteration compresses competitors’ catch-up window.</li>
+          <li><strong>Developer distribution</strong>: APIs embed inside other products. <span class="tag">Platform</span></li>
+          <li><strong>Brand trust</strong>: “default AI” becomes a mental shortcut for teams and users.</li>
+          <li><strong>Partnership leverage</strong>: cloud + enterprise routes are hard to replicate quickly.</li>
+        </ul>
+      </section>
+
+      <section class="band alt r" id="s09">
+        <div class="sec">09 — Strategic Analysis</div>
+        <h2>Strategy frameworks, <em>plain language</em></h2>
+        <p>The company differentiates by shipping more capable models and turning them into usable workflows, not by being cheapest. <span class="tag">Porter’s Differentiation</span></p>
+        <p>It benefits from scale: more users justify more compute and better infra, which improves reliability and cost-per-output over time. <span class="tag gold">Economies of scale</span></p>
+        <p>Switching costs grow as OpenAI becomes embedded in products and internal processes. <span class="tag">Switching costs</span></p>
+        <div class="data-grid">
+          <div class="data-card">
+            <div class="dc-k">Strength</div>
+            <div class="dc-v">Distribution</div>
+            <div class="dc-n">Consumer + developer channels simultaneously is rare platform positioning.</div>
+          </div>
+          <div class="data-card">
+            <div class="dc-k">Weakness</div>
+            <div class="dc-v">Compute COGS</div>
+            <div class="dc-n">High variable cost means pricing and efficiency are strategic, not tactical.</div>
+          </div>
+          <div class="data-card">
+            <div class="dc-k">Threat</div>
+            <div class="dc-v">Commoditization</div>
+            <div class="dc-n">If models converge, the interface + ecosystem must carry the moat.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band dark r" id="s10">
+        <div class="sec">10 — Key Risks</div>
+        <h2>What can <em>break the compounding</em></h2>
+        <ul class="list">
+          <li><strong>Margin compression</strong> if inference costs fall slower than prices.</li>
+          <li><strong>Regulatory constraints</strong> that slow deployment or raise compliance cost.</li>
+          <li><strong>Trust shocks</strong> (hallucinations, safety incidents) that reduce willingness to rely on AI.</li>
+          <li><strong>Distribution shifts</strong> if OS/platform owners capture the interface layer.</li>
+        </ul>
+      </section>
+
+      <section class="band alt r" id="s11">
+        <div class="sec">11 — Industry Impact</div>
+        <h2>OpenAI changed <em>software expectations</em></h2>
+        <p class="lead">Users now expect software to help them think, not just help them click.</p>
+        <p>That reset forces every product category to adapt: writing tools, search, CRM, coding, support — all must embed intelligence or risk feeling outdated.</p>
+      </section>
+
+      <section class="band r" id="s12">
+        <div class="sec">12 — Lessons for Builders</div>
+        <h2>Practical lessons you can <em>reuse</em></h2>
+        <ul class="list">
+          <li><strong>Package new tech into a habit</strong>, not a demo.</li>
+          <li><strong>Own distribution</strong> (consumer + developer) before you optimize monetization.</li>
+          <li><strong>Make reliability a feature</strong> when your product is an infrastructure layer.</li>
+          <li><strong>Design your unit economics</strong> when variable costs are real.</li>
+        </ul>
+      </section>
+
+      <section class="band alt r" id="verdict">
+        <div class="sec">13 — FounderLens Verdict</div>
+        <h2>OpenAI is building the <em>default interface</em> to intelligence</h2>
+        <p class="lead">The strategy is simple: ship frontier capability fast, package it into workflow, and become infrastructure inside other products.</p>
+        <p>If the previous era’s winners owned distribution for apps, this era’s winners will own distribution for intelligence. OpenAI is positioned to be one of them — as long as it can keep efficiency and trust ahead of scale.</p>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <span>FounderLens</span> · OpenAI Strategic Analysis · May 2026 · Educational use · Data points are public/estimated where noted
+  </footer>
+
+  <script>
+    const topNav=document.getElementById('topNav');
+    window.addEventListener('scroll',()=>topNav.classList.toggle('is-scrolled', window.scrollY>24),{passive:true});
+
+    const bar=document.getElementById('bar');
+    window.addEventListener('scroll',()=>{
+      const pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+      bar.style.width=pct+'%';
+    },{passive:true});
+
+    const els=document.querySelectorAll('.r');
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('v');
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:0.08, rootMargin:'0px 0px -36px 0px'});
+    els.forEach(el=>io.observe(el));
+
+    const links=[...document.querySelectorAll('.aside-link')];
+    links.forEach(a=>{
+      a.addEventListener('click',()=>{
+        const id=a.getAttribute('data-to');
+        const el=document.getElementById(id);
+        if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+    window.addEventListener('scroll',()=>{
+      let current='s01';
+      const ids=links.map(l=>l.getAttribute('data-to'));
+      ids.forEach(id=>{
+        const el=document.getElementById(id);
+        if(el && el.getBoundingClientRect().top<160) current=id;
+      });
+      links.forEach(l=>l.classList.toggle('active', l.getAttribute('data-to')===current));
+    },{passive:true});
+  </script>
+</body>
+</html>
