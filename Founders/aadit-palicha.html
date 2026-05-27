@@ -44,6 +44,21 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 ::-webkit-scrollbar-track{background:var(--ink)}
 ::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px}
 
+/* ── ORIGIN BACK (Founders) ── */
+.origin-back{
+  position:fixed;top:14px;left:14px;z-index:1000;
+  font-family:var(--mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  padding:8px 10px;border-radius:999px;
+  border:1px solid rgba(255,255,255,0.14);
+  background:rgba(10,10,12,0.62);
+  backdrop-filter:blur(18px) saturate(1.4);
+  color:rgba(255,255,255,0.78);
+  box-shadow:0 14px 50px rgba(0,0,0,0.22);
+  transition:transform .2s ease, border-color .2s ease, background .2s ease, color .2s ease;
+}
+.origin-back:hover{transform:translateY(-1px);border-color:rgba(239,68,68,0.34);color:#fff;background:rgba(10,10,12,0.78)}
+
 /* ═══ BANNER ═══ */
 .banner{background:var(--red);color:#fff;text-align:center;padding:8px 20px;font-family:var(--mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;position:sticky;top:0;z-index:100}
 
@@ -234,6 +249,8 @@ ul.alist li strong{color:var(--cream);font-weight:500}
 </style>
 </head>
 <body>
+
+<a class="origin-back" href="../founders.html">← Back to Founders</a>
 
 <div class="banner">Founder Deep-Dive Series &nbsp;·&nbsp; Indian Startup Ecosystem &nbsp;·&nbsp; FounderLens 2025</div>
 

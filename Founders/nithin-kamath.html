@@ -37,6 +37,33 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* ── ORIGIN BACK (Founders) ── */
+  .origin-back{
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 1000;
+    font-family: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 8px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(26,22,18,0.14);
+    background: rgba(250,247,242,0.86);
+    backdrop-filter: blur(18px) saturate(1.4);
+    color: rgba(26,22,18,0.72);
+    box-shadow: 0 14px 50px rgba(26,22,18,0.10);
+    transition: transform .2s ease, border-color .2s ease, background .2s ease, color .2s ease;
+    text-decoration: none;
+  }
+  .origin-back:hover{
+    transform: translateY(-1px);
+    border-color: rgba(200,131,10,0.30);
+    color: rgba(26,22,18,0.92);
+    background: rgba(250,247,242,0.96);
+  }
+
   /* ── TOP BANNER ── */
   .banner {
     background: var(--ink);
@@ -561,6 +588,8 @@
 </style>
 </head>
 <body>
+
+<a class="origin-back" href="../founders.html">← Back to Founders</a>
 
 <div class="banner">Founder Deep-Dive Series &nbsp;·&nbsp; Startup Analysis &nbsp;·&nbsp; Indian Entrepreneurship</div>
 

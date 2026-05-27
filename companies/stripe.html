@@ -52,6 +52,32 @@
 
     #progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:999;background:linear-gradient(90deg,var(--stripe),#60a5fa,var(--amber));transition:width .08s}
 
+    /* ── BACK TO COMPANIES (topbar) ── */
+    .top{
+      max-width:1120px;margin:12px auto 0;padding:0 18px;
+      position:sticky;top:10px;z-index:500;
+    }
+    .topbar{
+      width:100%;
+      padding:10px 14px;
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.65);
+      backdrop-filter:blur(14px);
+      box-shadow:0 12px 40px rgba(13,27,42,.05);
+    }
+    .back{
+      display:flex;align-items:center;gap:10px;text-decoration:none;
+      color:var(--ink);font-weight:650;font-size:13px;
+    }
+    .back .b{
+      width:26px;height:26px;border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid var(--line);background:rgba(255,255,255,.8);
+    }
+    .back:hover{color:var(--stripe)}
+
     /* Blueprint header */
     .nav{
       position:sticky;top:0;z-index:200;
@@ -301,6 +327,11 @@
   </style>
 </head>
 <body>
+  <div class="top">
+    <div class="topbar">
+      <a class="back" href="../company.html"><span class="b">&larr;</span> Companies</a>
+    </div>
+  </div>
   <div id="progress"></div>
 
   <nav class="nav">

@@ -73,6 +73,21 @@ body::before{
 ::-webkit-scrollbar-track{background:#faf7f4}
 ::-webkit-scrollbar-thumb{background:var(--primary);border-radius:2px}
 
+/* ── ORIGIN BACK (Founders) ── */
+.origin-back{
+  position:fixed;top:14px;left:14px;z-index:1000;
+  font-family:var(--mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  padding:8px 10px;border-radius:999px;
+  border:1px solid rgba(13,27,42,0.14);
+  background:rgba(255,255,255,0.82);
+  backdrop-filter:blur(18px) saturate(1.4);
+  color:rgba(13,27,42,0.72);
+  box-shadow:0 14px 50px rgba(13,27,42,0.10);
+  transition:transform .2s ease, border-color .2s ease, background .2s ease, color .2s ease;
+}
+.origin-back:hover{transform:translateY(-1px);border-color:rgba(34,197,94,0.30);color:rgba(13,27,42,0.92);background:rgba(255,255,255,0.94)}
+
 /* ═══════════ TOP BANNER ═══════════ */
 .banner{
   background: linear-gradient(90deg, var(--primary-d), var(--gold), var(--primary-d));
@@ -805,6 +820,8 @@ ul.alist li strong{color:var(--ink2);font-weight:600}
 </style>
 </head>
 <body>
+
+<a class="origin-back" href="../founders.html">← Back to Founders</a>
 
 <div class="banner">Founder Deep-Dive Series &nbsp;·&nbsp; Indian Retail & Stock Market &nbsp;·&nbsp; FounderLens 2025</div>
 

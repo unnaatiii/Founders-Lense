@@ -55,6 +55,21 @@ body{font-family:var(--sans);font-size:17px;line-height:1.75;-webkit-font-smooth
 ::-webkit-scrollbar-track{background:var(--dk-bg)}
 ::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px}
 
+/* ── ORIGIN BACK (Founders) ── */
+.origin-back{
+  position:fixed;top:14px;left:14px;z-index:1000;
+  font-family:var(--mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  padding:8px 10px;border-radius:999px;
+  border:1px solid rgba(15,23,42,0.14);
+  background:rgba(255,255,255,0.82);
+  backdrop-filter:blur(18px) saturate(1.4);
+  color:rgba(15,23,42,0.72);
+  box-shadow:0 14px 50px rgba(15,23,42,0.10);
+  transition:transform .2s ease, border-color .2s ease, background .2s ease, color .2s ease;
+}
+.origin-back:hover{transform:translateY(-1px);border-color:rgba(59,130,246,0.30);color:rgba(15,23,42,0.92);background:rgba(255,255,255,0.94)}
+
 /* grain on dark sections only */
 .dark-sec::before,.hero::before,.footer::before{
   content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
@@ -427,6 +442,8 @@ ul.alist li:last-child{border-bottom:none}
 </style>
 </head>
 <body>
+
+<a class="origin-back" href="../founders.html">← Back to Founders</a>
 
 <!-- BANNER -->
 <div class="banner">Founder Deep-Dive Series &nbsp;·&nbsp; American Business Legends &nbsp;·&nbsp; FounderLens 2025</div>

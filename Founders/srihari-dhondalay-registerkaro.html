@@ -51,6 +51,21 @@ body{font-family:var(--sans);font-size:17px;line-height:1.75;-webkit-font-smooth
 ::-webkit-scrollbar-track{background:#f5f7ff}
 ::-webkit-scrollbar-thumb{background:var(--teal);border-radius:2px}
 
+/* ── ORIGIN BACK (Founders) ── */
+.origin-back{
+  position:fixed;top:14px;left:14px;z-index:1000;
+  font-family:var(--mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  padding:8px 10px;border-radius:999px;
+  border:1px solid rgba(18,15,11,0.12);
+  background:rgba(255,255,255,0.82);
+  backdrop-filter:blur(18px) saturate(1.4);
+  color:rgba(18,15,11,0.72);
+  box-shadow:0 14px 50px rgba(10,158,138,0.10);
+  transition:transform .2s ease, border-color .2s ease, background .2s ease, color .2s ease;
+}
+.origin-back:hover{transform:translateY(-1px);border-color:rgba(10,158,138,0.30);color:rgba(18,15,11,0.92);background:rgba(255,255,255,0.94)}
+
 /* ═══ BANNER ═══ */
 .banner{
   background:linear-gradient(90deg,#009e84 0%,#0d1b3e 100%);
@@ -475,6 +490,8 @@ ul.alist li::before{content:'→';position:absolute;left:0;font-weight:700}
 </style>
 </head>
 <body>
+
+<a class="origin-back" href="../founders.html">← Back to Founders</a>
 
 <!-- ════════ BANNER ════════ -->
 <div class="banner">FounderLens · Srihari R Dhondalay × RegisterKaro · Deep-Dive Analysis · May 2026</div>

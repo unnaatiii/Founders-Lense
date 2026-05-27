@@ -55,6 +55,32 @@
 
     #bar{position:fixed;top:0;left:0;height:3px;width:0;z-index:1000;background:linear-gradient(90deg,var(--accent),var(--gold),var(--accent2));transition:width .08s linear}
 
+    /* ── BACK TO COMPANIES (topbar) ── */
+    .top{
+      max-width:1120px;margin:12px auto 0;padding:0 18px;
+      position:sticky;top:10px;z-index:1100;
+    }
+    .topbar{
+      width:100%;
+      padding:10px 14px;
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.65);
+      backdrop-filter:blur(14px);
+      box-shadow:0 12px 40px rgba(91,33,182,0.10);
+    }
+    .back{
+      display:flex;align-items:center;gap:10px;text-decoration:none;
+      color:var(--ink);font-weight:650;font-size:13px;
+    }
+    .back .b{
+      width:26px;height:26px;border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid var(--line);background:rgba(255,255,255,.8);
+    }
+    .back:hover{color:var(--accent)}
+
     nav{
       position:fixed;top:14px;left:50%;transform:translateX(-50%);
       width:min(980px,calc(100vw - 28px));
@@ -306,6 +332,11 @@
   </style>
 </head>
 <body>
+  <div class="top">
+    <div class="topbar">
+      <a class="back" href="../company.html"><span class="b">&larr;</span> Companies</a>
+    </div>
+  </div>
   <div id="bar"></div>
 
   <nav id="topNav">

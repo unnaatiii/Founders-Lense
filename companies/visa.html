@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FounderLens · Visa Inc. — Strategic Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:       #0a1628;
+  --navy2:      #0f1e36;
+  --navy3:      #162444;
+  --blue:       #1a56db;
+  --blue2:      #2563eb;
+  --gold:       #d4a017;
+  --gold2:      #f0bc2e;
+  --gold-pale:  rgba(212,160,23,.10);
+  --cream:      #faf9f6;
+  --off:        #f3f1ec;
+  --stone:      #e8e4da;
+  --ink:        #0e1520;
+  --ink2:       rgba(14,21,32,.65);
+  --ink3:       rgba(14,21,32,.38);
+  --lr:         rgba(14,21,32,.08);
+  --dk:         #f4f2ec;
+  --dk2:        rgba(244,242,236,.70);
+  --dk3:        rgba(244,242,236,.35);
+  --dr:         rgba(244,242,236,.07);
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  'Manrope', sans-serif;
+  --mono:  'Roboto Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--navy)}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+
+/* ── PROGRESS ── */
+#pg{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--blue2));z-index:999;width:0;transition:width .06s linear;pointer-events:none}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:100;
+  height:52px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;
+  background:rgba(10,22,40,.96);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--dr);
+}
+.n-logo{font-family:var(--serif);font-size:17px;color:var(--dk);font-weight:700;letter-spacing:-.01em}
+.n-logo em{font-style:italic;color:var(--gold2);font-weight:400}
+.n-tags{display:flex;gap:8px}
+.ntag{font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;padding:4px 10px;border-radius:20px;border:1px solid;line-height:1}
+.ntag-g{border-color:rgba(212,160,23,.35);color:var(--gold2);background:rgba(212,160,23,.06)}
+.ntag-d{border-color:var(--dr);color:var(--dk3)}
+
+/* ── HERO ── */
+.hero{
+  min-height:96vh;display:flex;flex-direction:column;justify-content:flex-end;
+  background:var(--navy);position:relative;overflow:hidden;
+  padding:0;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 70% at 100% 0%,rgba(26,86,219,.15) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 50% at 0% 100%,rgba(212,160,23,.09) 0%,transparent 50%);
+  animation:hpulse 9s ease-in-out infinite alternate;
+}
+@keyframes hpulse{from{opacity:.7}to{opacity:1}}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(var(--dr) 1px,transparent 1px),linear-gradient(90deg,var(--dr) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse 85% 85% at 50% 50%,black 40%,transparent 100%);
+}
+.hero-inner{
+  position:relative;z-index:2;
+  max-width:900px;margin:0 auto;width:100%;
+  padding:100px 48px 88px;
+}
+.h-kicker{display:flex;align-items:center;gap:12px;margin-bottom:26px;animation:up .8s ease both}
+.h-pill{font-family:var(--mono);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;padding:5px 12px;border-radius:20px;background:rgba(26,86,219,.14);border:1px solid rgba(26,86,219,.3);color:#7eb3ff}
+.h-line{width:24px;height:1px;background:var(--dr)}
+.h-sub-kicker{font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dk3)}
+.hero h1{
+  font-family:var(--serif);
+  font-size:clamp(56px,8vw,112px);
+  font-weight:900;line-height:.92;
+  letter-spacing:-.04em;
+  color:var(--dk);
+  animation:up .8s .08s ease both;
+}
+.hero h1 em{display:block;font-style:italic;font-weight:400;color:var(--gold2);font-size:.55em;letter-spacing:-.01em;margin-top:10px;line-height:1.25}
+.hero-desc{
+  font-size:17px;color:var(--dk2);max-width:560px;line-height:1.65;
+  font-weight:300;margin:26px 0 42px;
+  animation:up .8s .16s ease both;
+}
+.hero-desc strong{color:var(--dk);font-weight:500}
+.hero-stats{
+  display:flex;gap:0;
+  border-top:1px solid var(--dr);border-bottom:1px solid var(--dr);
+  padding:20px 0;margin-bottom:32px;
+  animation:up .8s .22s ease both;
+}
+.hs{padding-right:28px;margin-right:28px;border-right:1px solid var(--dr)}
+.hs:last-child{border-right:none;padding-right:0;margin-right:0}
+.hs-v{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--dk);line-height:1}
+.hs-v em{color:var(--gold2);font-style:normal}
+.hs-l{font-family:var(--mono);font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--dk3);margin-top:5px}
+.hero-chips{display:flex;gap:7px;flex-wrap:wrap;animation:up .8s .28s ease both}
+.chip{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;padding:5px 11px;border-radius:20px;border:1px solid var(--dr);color:var(--dk3)}
+.chip-b{border-color:rgba(26,86,219,.4);color:#7eb3ff;background:rgba(26,86,219,.07)}
+.chip-g{border-color:rgba(212,160,23,.4);color:var(--gold2);background:rgba(212,160,23,.06)}
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── SECTION BANDS ── */
+/* light */
+.bl{background:var(--cream)}
+/* off-white */
+.bo{background:var(--off)}
+/* dark navy */
+.bd{background:var(--navy)}
+/* gold gradient */
+.bg{background:linear-gradient(135deg,#fdfaf0 0%,#fef6d8 50%,#fdfaf0 100%)}
+/* blue-dark gradient */
+.bb{background:linear-gradient(135deg,#040d1c 0%,#081529 50%,#040d1c 100%);position:relative}
+.bb::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 80% 30%,rgba(26,86,219,.11) 0%,transparent 55%)}
+.bi{max-width:860px;margin:0 auto;padding:72px 48px;position:relative;z-index:1}
+
+/* ── TYPOGRAPHY PER THEME ── */
+/* shared */
+.sn{font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:10px;display:block}
+.st{font-family:var(--serif);font-size:clamp(28px,3.5vw,44px);font-weight:700;line-height:1.06;letter-spacing:-.022em;margin-bottom:22px}
+.st em{font-style:italic;font-weight:400}
+.ld{font-family:var(--serif);font-size:18.5px;font-style:italic;line-height:1.68;margin-bottom:28px;padding-bottom:24px}
+p{font-size:15.5px;line-height:1.85;margin-bottom:15px;font-weight:400}
+p:last-child{margin-bottom:0}
+p strong{font-weight:600}
+
+/* light / off-white */
+.bl .sn,.bo .sn,.bg .sn{color:var(--blue)}
+.bl .st,.bo .st,.bg .st{color:var(--ink)}
+.bl .st em,.bo .st em,.bg .st em{color:var(--blue)}
+.bg .st em{color:var(--gold)}
+.bl .ld,.bo .ld,.bg .ld{color:var(--ink2);border-bottom:1px solid var(--lr)}
+.bl p,.bo p,.bg p{color:var(--ink2)}
+.bl p strong,.bo p strong,.bg p strong{color:var(--ink)}
+.bg .sn{color:var(--gold)}
+.bg p{color:rgba(14,21,32,.68)}
+.bg p strong{color:var(--ink)}
+
+/* dark */
+.bd .sn,.bb .sn{color:var(--gold2)}
+.bd .st,.bb .st{color:var(--dk)}
+.bd .st em{color:var(--gold2)}
+.bb .st em{color:#7eb3ff}
+.bd .ld,.bb .ld{color:var(--dk2);border-bottom:1px solid var(--dr)}
+.bd p,.bb p{color:var(--dk2)}
+.bd p strong,.bb p strong{color:var(--dk)}
+
+/* mark */
+.bl mark,.bo mark{background:rgba(26,86,219,.10);color:#1035a0;padding:1px 5px;border-radius:3px;font-weight:500}
+.bg mark{background:rgba(212,160,23,.14);color:#7a4e00;padding:1px 5px;border-radius:3px;font-weight:500}
+.bd mark,.bb mark{background:rgba(212,160,23,.16);color:var(--gold2);padding:1px 5px;border-radius:3px;font-weight:500}
+
+/* ── FRAMEWORK TAG ── */
+.ft{display:inline;font-family:var(--mono);font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-left:2px;vertical-align:middle;font-weight:700;white-space:nowrap}
+.bl .ft,.bo .ft{background:rgba(26,86,219,.09);color:#1035a0}
+.bg .ft{background:rgba(212,160,23,.12);color:#7a4e00}
+.bd .ft,.bb .ft{background:rgba(212,160,23,.13);color:var(--gold2)}
+.bb .ft.b{background:rgba(26,86,219,.14);color:#7eb3ff}
+
+/* ── CALLOUTS ── */
+.co{border-radius:0 8px 8px 0;padding:16px 20px;margin:20px 0}
+.bl .co-b,.bo .co-b{background:#e8f0ff;border-left:3px solid var(--blue)}
+.bl .co-b .cl,.bo .co-b .cl{color:var(--blue)}
+.bl .co-g,.bg .co-g{background:#fdf5de;border-left:3px solid var(--gold)}
+.bl .co-g .cl,.bg .co-g .cl{color:var(--gold)}
+.bd .co-g,.bb .co-g{background:rgba(212,160,23,.08);border-left:3px solid var(--gold2)}
+.bd .co-g .cl,.bb .co-g .cl{color:var(--gold2)}
+.bd .co-b,.bb .co-b{background:rgba(26,86,219,.10);border-left:3px solid var(--blue2)}
+.bd .co-b .cl,.bb .co-b .cl{color:#7eb3ff}
+.bl .co-r,.bo .co-r{background:#fff0f0;border-left:3px solid #d63f3f}
+.bl .co-r .cl,.bo .co-r .cl{color:#c43030}
+.cl{font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.co p{font-size:13.5px;margin-bottom:0;line-height:1.65}
+.co p strong{font-weight:600}
+
+/* ── LIST ── */
+ul.al{list-style:none;margin:14px 0}
+ul.al li{padding:9px 0 9px 22px;position:relative;font-size:15px;line-height:1.7}
+ul.al li::before{content:'—';position:absolute;left:0;font-weight:700}
+.bl ul.al li,.bo ul.al li,.bg ul.al li{color:var(--ink2);border-bottom:1px solid var(--lr)}
+.bl ul.al li::before,.bo ul.al li::before{color:var(--blue)}
+.bg ul.al li::before{color:var(--gold)}
+.bd ul.al li,.bb ul.al li{color:var(--dk2);border-bottom:1px solid var(--dr)}
+.bd ul.al li::before,.bb ul.al li::before{color:var(--gold2)}
+ul.al li:last-child{border-bottom:none}
+ul.al li strong{font-weight:600}
+.bl ul.al li strong,.bo ul.al li strong,.bg ul.al li strong{color:var(--ink)}
+.bd ul.al li strong,.bb ul.al li strong{color:var(--dk)}
+
+/* ── PULL QUOTE ── */
+.pq{margin:28px 0;padding:22px 26px;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;background:linear-gradient(to right,rgba(212,160,23,.06),transparent)}
+.pq blockquote{font-family:var(--serif);font-size:19px;font-style:italic;line-height:1.5;margin-bottom:8px}
+.bl .pq blockquote,.bg .pq blockquote{color:var(--ink)}
+.bd .pq blockquote,.bb .pq blockquote{color:var(--dk)}
+.pq cite{font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;font-style:normal;color:var(--gold)}
+
+/* ── STAT STRIP ── */
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:2px;margin:24px 0;border-radius:8px;overflow:hidden}
+.sc{padding:16px 12px;text-align:center}
+.bl .strip,.bo .strip,.bg .strip{background:rgba(14,21,32,.07)}
+.bd .strip,.bb .strip{background:rgba(244,242,236,.05)}
+.bl .sc,.bo .sc,.bg .sc{background:var(--stone)}
+.bd .sc,.bb .sc{background:rgba(255,255,255,.04)}
+.bl .sc.h,.bo .sc.h{background:linear-gradient(135deg,rgba(26,86,219,.10),var(--stone))}
+.bg .sc.h{background:linear-gradient(135deg,rgba(212,160,23,.12),var(--stone))}
+.bd .sc.h,.bb .sc.h{background:linear-gradient(135deg,rgba(212,160,23,.13),rgba(255,255,255,.04))}
+.sv{font-family:var(--serif);font-size:20px;font-weight:700;line-height:1.05;margin-bottom:4px}
+.bl .sv,.bo .sv{color:var(--blue)}
+.bg .sv{color:var(--gold)}
+.bd .sv,.bb .sv{color:var(--gold2)}
+.sl{font-family:var(--mono);font-size:8px;letter-spacing:.10em;text-transform:uppercase}
+.bl .sl,.bo .sl,.bg .sl{color:var(--ink3)}
+.bd .sl,.bb .sl{color:var(--dk3)}
+
+/* ── SWOT ── */
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin:24px 0;border-radius:8px;overflow:hidden}
+.sw{padding:20px 17px}
+.sw h4{font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.sw ul{list-style:none}
+.sw ul li{font-size:13px;line-height:1.6;padding:3px 0;border-bottom:1px solid rgba(0,0,0,.05)}
+.sw ul li:last-child{border-bottom:none}
+.sw ul li::before{content:'· ';font-weight:700}
+.sw-s{background:#e8f2ff}.sw-s h4{color:var(--blue)}.sw-s li{color:var(--ink2)}.sw-s li::before{color:var(--blue)}
+.sw-w{background:#fff5e8}.sw-w h4{color:#b35c00}.sw-w li{color:var(--ink2)}.sw-w li::before{color:#c96e00}
+.sw-o{background:#f0ffe8}.sw-o h4{color:#2a6b00}.sw-o li{color:var(--ink2)}.sw-o li::before{color:#3a8f00}
+.sw-t{background:#fff0f0}.sw-t h4{color:#c43030}.sw-t li{color:var(--ink2)}.sw-t li::before{color:#c43030}
+
+/* ── DIVIDER ── */
+.div{height:2px;background:linear-gradient(90deg,transparent,var(--gold),var(--blue2),transparent)}
+
+/* ── VERDICT ── */
+.verdict{background:var(--navy2);position:relative;overflow:hidden}
+.verdict::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 55% at 20% 60%,rgba(26,86,219,.10) 0%,transparent 55%),
+             radial-gradient(ellipse 45% 50% at 85% 20%,rgba(212,160,23,.09) 0%,transparent 50%);
+  animation:hpulse 10s ease-in-out infinite alternate;
+}
+.vi{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:80px 48px 90px}
+.v-label{font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold2);margin-bottom:16px}
+.v-title{font-family:var(--serif);font-size:clamp(32px,4.5vw,58px);font-weight:300;line-height:.97;letter-spacing:-.03em;color:var(--dk);margin-bottom:12px}
+.v-title strong{font-weight:900;display:block}
+.v-title em{font-style:italic;color:var(--gold2)}
+.v-rule{width:42px;height:2px;background:linear-gradient(90deg,var(--gold2),var(--blue2));margin:24px 0}
+.v-body p{font-family:var(--serif);font-size:18px;font-weight:400;color:var(--dk2);line-height:1.76;margin-bottom:20px}
+.v-body p strong{color:var(--dk);font-weight:600}
+.v-body p em{color:var(--gold2);font-style:italic}
+.v-sig{margin-top:44px;padding-top:22px;border-top:1px solid var(--dr);display:flex;align-items:center;gap:14px}
+.v-sig-m{font-family:var(--serif);font-size:24px;font-weight:900;color:var(--gold2);font-style:italic;letter-spacing:-.03em}
+.v-sig-t{font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--dk3);line-height:1.8}
+
+/* ── FOOTER ── */
+footer{background:var(--navy);border-top:1px solid var(--dr);padding:40px 0 24px}
+.fi{max-width:860px;margin:0 auto;padding:0 48px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:22px}
+.fb{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--dk);margin-bottom:5px}
+.fb em{color:var(--gold2);font-style:italic;font-weight:400}
+.fsub{font-size:12.5px;color:var(--dk3);max-width:260px;font-weight:300}
+.flinks{display:flex;gap:18px;flex-wrap:wrap;padding-top:4px}
+.flinks a{font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--dk3);text-decoration:none;transition:color .2s}
+.flinks a:hover{color:var(--gold2)}
+.fcopy{max-width:860px;margin:22px auto 0;padding:16px 48px 0;border-top:1px solid var(--dr);font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dk3)}
+.fcopy span{color:var(--gold2)}
+
+/* ── FAB ── */
+.fab{position:fixed;bottom:24px;right:24px;z-index:50;width:40px;height:40px;border-radius:50%;background:var(--blue2);border:none;color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(26,86,219,.35);transition:all .2s}
+.fab:hover{background:var(--blue);transform:translateY(-2px)}
+
+/* ── REVEAL ── */
+.r{opacity:0;transform:translateY(24px);transition:opacity .72s cubic-bezier(.16,1,.3,1),transform .72s cubic-bezier(.16,1,.3,1)}
+.r.on{opacity:1;transform:none}
+
+@media(max-width:680px){
+  nav,.hero-inner,.bi,.vi,.fi{padding-left:20px;padding-right:20px}
+  .n-tags .ntag-d{display:none}
+  .hero-stats{flex-wrap:wrap;gap:14px}
+  .hs{border-right:none;margin:0;padding:0}
+  .swot{grid-template-columns:1fr}
+  .fi{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<div id="pg"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="n-logo">Founder<em>Lens</em></div>
+  <div class="n-tags">
+    <span class="ntag ntag-g">Company Analysis</span>
+    <span class="ntag ntag-d">Visa Inc. · FinTech</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="h-kicker">
+      <span class="h-pill">FounderLens · Strategic Analysis</span>
+      <div class="h-line"></div>
+      <span class="h-sub-kicker">Business Model · Moat · Strategy</span>
+    </div>
+    <h1>Visa<em>The Company That Owns<br>the World's Money Highways</em></h1>
+    <p class="hero-desc">Visa doesn't hold your money. It doesn't lend it. It simply <strong>moves it</strong> — 259 million times a day — and takes a tiny cut every single time. That's one of the greatest business models ever built.</p>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-v"><em>$35B+</em></div><div class="hs-l">FY24 Revenue</div></div>
+      <div class="hs"><div class="hs-v"><em>$600B+</em></div><div class="hs-l">Market Cap</div></div>
+      <div class="hs"><div class="hs-v"><em>4.1B</em></div><div class="hs-l">Cards in Circulation</div></div>
+      <div class="hs"><div class="hs-v"><em>80M+</em></div><div class="hs-l">Merchant Locations</div></div>
+    </div>
+    <div class="hero-chips">
+      <span class="chip chip-b">Payments Network</span>
+      <span class="chip chip-b">FinTech</span>
+      <span class="chip chip-g">Asset-Light</span>
+      <span class="chip chip-g">~55% Net Margin</span>
+      <span class="chip">San Francisco · 1958</span>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- S01: WHAT VISA DOES — cream -->
+<div class="band bl" id="s01">
+  <div class="bi r">
+    <span class="sn">01 — What Visa Actually Is</span>
+    <h2 class="st">Not a Bank. <em>The Road Between Banks.</em></h2>
+    <p class="ld">Most people think Visa is a bank or a credit card company. It's neither. Visa is a <strong>network</strong> — the pipes that connect your bank to a merchant's bank whenever you swipe a card.</p>
+    <p>Here's what actually happens when you pay with a Visa card: your bank approves the transaction, Visa routes the message to the merchant's bank, the money moves, and Visa charges a small fee for using its network. <strong>Visa never touches the money itself.</strong> It just makes sure the message gets there in under two seconds.</p>
+    <div class="co co-b">
+      <div class="cl">The Core Insight</div>
+      <p>Visa is an infrastructure company, not a financial company. Like a toll road — it doesn't care who's driving or what they're carrying, it just charges for every trip. This structure gives Visa extraordinary economics. <span class="ft">Asset-Light Business Model</span></p>
+    </div>
+    <div class="strip">
+      <div class="sc h"><div class="sv">$14T+</div><div class="sl">Annual Payment Volume</div></div>
+      <div class="sc"><div class="sv">~55%</div><div class="sl">Net Profit Margin</div></div>
+      <div class="sc h"><div class="sv">200+</div><div class="sl">Countries & Territories</div></div>
+      <div class="sc"><div class="sv">16,000</div><div class="sl">Employees Worldwide</div></div>
+    </div>
+    <p>Think about that employee count. <strong>16,000 people generating $35 billion in revenue</strong>. That's over $2 million in revenue per employee. Most banks need 300,000 employees to manage far less.</p>
+  </div>
+</div>
+
+<!-- S02: THE PROBLEM — off-white -->
+<div class="band bo" id="s02">
+  <div class="bi r">
+    <span class="sn">02 — The Problem Visa Solved</span>
+    <h2 class="st">Cash Doesn't <em>Scale.</em></h2>
+    <p class="ld">In the 1950s and 60s, buying something on credit meant the merchant trusted you personally, or you had a paper charge account. There was no reliable, universal system for a stranger in another city — let alone another country — to pay you electronically.</p>
+    <p>Banks wanted to issue credit cards but had no network to make them useful. Merchants couldn't accept cards from every bank separately. The market needed a <strong>neutral shared infrastructure</strong> that every bank and every merchant could plug into once — and then be connected to everyone else automatically.</p>
+    <div class="co co-b">
+      <div class="cl">Why This Was Hard</div>
+      <p>Getting banks to cooperate is notoriously difficult — they compete with each other fiercely. Visa's genius was founding itself as a cooperative, then later going public, which let it be owned by banks while serving as neutral shared infrastructure. Nobody could claim it was "their competitor." <span class="ft">Platform Strategy · Industry Consortium Model</span></p>
+    </div>
+    <p>Once this problem was solved, something powerful happened: every bank that joined made the network more useful, which attracted more merchants, which made it more attractive for other banks to join. <mark>More participants → more value for everyone → even more participants.</mark> <span class="ft">Network Effects</span></p>
+  </div>
+</div>
+
+<!-- S03: BUSINESS MODEL — dark navy -->
+<div class="band bd" id="s03">
+  <div class="bi r">
+    <span class="sn">03 — Business Model</span>
+    <h2 class="st">A Tiny Cut on <em>Everything</em></h2>
+    <p class="ld">Visa's business model is beautifully simple: charge a small percentage every time its network is used. No lending risk. No default risk. No inventory. Just volume × fee — at global scale.</p>
+    <p>Visa has three revenue sources:</p>
+    <ul class="al">
+      <li><strong>Service Fees:</strong> Charged to banks for the right to issue Visa cards and participate in the network.</li>
+      <li><strong>Data Processing Fees:</strong> Charged per transaction for processing, authorisation, and routing — the core network service.</li>
+      <li><strong>International Transaction Fees:</strong> Charged whenever money crosses a border — often the highest-margin revenue stream.</li>
+    </ul>
+    <div class="co co-g">
+      <div class="cl">The Magic of Volume</div>
+      <p>Visa charges fractions of a percent per transaction. But when your volume is $14 trillion annually, fractions of a percent become tens of billions in revenue. <strong>Scale turns small fees into enormous profit.</strong> And unlike banks, Visa takes zero credit risk — if a cardholder defaults, that's the bank's problem, not Visa's. <span class="ft">Economies of Scale · Risk Transfer</span></p>
+    </div>
+    <p>As global e-commerce, digital payments, and financial inclusion grow, Visa's transaction volume grows automatically. It doesn't need to invent new products — <mark>the world moving toward digital payments is Visa's permanent growth engine.</mark></p>
+  </div>
+</div>
+
+<!-- S04: COMPETITIVE ADVANTAGE — gold gradient -->
+<div class="band bg" id="s04">
+  <div class="bi r">
+    <span class="sn">04 — Competitive Advantage</span>
+    <h2 class="st">The Moat That <em>Compounds Every Year</em></h2>
+    <p class="ld">Visa's competitive advantage isn't a clever product feature someone can copy. It's a 65-year-old network that connects 4.1 billion cards to 80 million merchant locations in 200+ countries. Building that from scratch would cost hundreds of billions of dollars and decades of time.</p>
+    <ul class="al">
+      <li><strong>Network Effects:</strong> Every new bank that joins makes Visa more useful to merchants. Every new merchant that accepts Visa makes it more useful to cardholders. This self-reinforcing loop makes Visa stronger every year without extra effort. <span class="ft">Two-Sided Network Effects</span></li>
+      <li><strong>Brand Trust:</strong> "Everywhere you want to be" isn't just a tagline — it's a guarantee. Consumers and merchants worldwide trust that a Visa payment will work. This trust took decades to build and cannot be bought. <span class="ft">Brand Equity</span></li>
+      <li><strong>Switching Costs:</strong> Banks have built entire technology stacks around Visa's systems. Merchants have trained staff and installed terminals for Visa. Switching to a competitor would require replacing all of this infrastructure simultaneously. Almost nobody does it. <span class="ft">High Switching Costs</span></li>
+      <li><strong>Regulatory Relationships:</strong> Operating in 200+ countries means navigating 200+ regulatory environments. Visa has spent decades building those relationships. A new entrant would need years just to get licensed. <span class="ft">Regulatory Moat</span></li>
+    </ul>
+    <div class="co co-g">
+      <div class="cl">The Duopoly Fact</div>
+      <p>Visa and Mastercard together process roughly 90% of global card payments outside China. <strong>No new player has meaningfully broken this duopoly in 40 years.</strong> That's not luck — it's the compounding effect of network effects and switching costs working together. <span class="ft">Oligopoly Positioning</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- S05: STRATEGIC ANALYSIS — dark blue gradient -->
+<div class="band bb" id="s05">
+  <div class="bi r">
+    <span class="sn">05 — Strategic Analysis</span>
+    <h2 class="st">Why Competitors <em>Can't Win</em></h2>
+    <p class="ld">Visa's strategy is not about being cheaper or more innovative than competitors. It's about being so deeply embedded in global commerce that the cost of replacing it exceeds any conceivable benefit.</p>
+    <div class="swot">
+      <div class="sw sw-s"><h4>Strengths</h4><ul><li>65-year network head start</li><li>~55% net profit margins</li><li>Zero credit risk model</li><li>Brand in 200+ countries</li><li>4.1B+ cards in circulation</li></ul></div>
+      <div class="sw sw-w"><h4>Weaknesses</h4><ul><li>Dependent on bank partnerships</li><li>Minimal control over interchange fees</li><li>Excluded from China (UnionPay dominates)</li><li>Not a consumer brand — invisible to users</li></ul></div>
+      <div class="sw sw-o"><h4>Opportunities</h4><ul><li>Financial inclusion in developing markets</li><li>B2B payments (largely untapped)</li><li>Tokenization &amp; embedded finance</li><li>AI-driven fraud prevention services</li></ul></div>
+      <div class="sw sw-t"><h4>Threats</h4><ul><li>Real-time payment rails (UPI, FedNow)</li><li>Crypto &amp; stablecoin bypass networks</li><li>Regulatory antitrust pressure</li><li>Big Tech building payment layers (Apple Pay)</li></ul></div>
+    </div>
+    <div class="co co-b">
+      <div class="cl">Porter's Competitive Position</div>
+      <p>Visa doesn't compete on price — it competes on ubiquity and trust. It doesn't need to be cheaper than competitors; it needs to be <strong>more accepted</strong> than them. That's a fundamentally different competitive game — and one that naturally rewards the market leader. <span class="ft">Porter's Differentiation Strategy · First-Mover Advantage</span></p>
+    </div>
+    <p>The real strategic insight of Visa is that <mark>it created a standard</mark>. When you become the industry standard, your competitors don't just compete with your product — they compete with the entire ecosystem that's been built around you.</p>
+    <div class="pq">
+      <blockquote>Visa doesn't have customers. It has an ecosystem of banks, merchants, and cardholders — all of whom need each other to exist.</blockquote>
+      <cite>— FounderLens Analysis</cite>
+    </div>
+  </div>
+</div>
+
+<!-- S06: RISKS — off white -->
+<div class="band bo" id="s06">
+  <div class="bi r">
+    <span class="sn">06 — Risks &amp; Threats</span>
+    <h2 class="st">What Could Actually <em>Hurt Visa</em></h2>
+    <p class="ld">Visa's moat is deep, but the payments landscape is being disrupted faster than at any point in history. These are the threats worth taking seriously.</p>
+    <ul class="al">
+      <li><strong>Real-Time Payment Rails:</strong> India's UPI moves money instantly between bank accounts — no card, no Visa, no fee. The US's FedNow is doing the same. If governments build better payment infrastructure, merchants and consumers may bypass card networks entirely. <span class="ft">Disintermediation Risk</span></li>
+      <li><strong>Antitrust Scrutiny:</strong> The US Department of Justice sued Visa in 2024, alleging it illegally monopolises the debit card market. A loss could force Visa to open its network to competitors — fundamentally changing its pricing power. <span class="ft">Regulatory Risk</span></li>
+      <li><strong>Big Tech Wallets:</strong> Apple Pay, Google Pay, and PayPal sit between consumers and Visa. They control the user relationship. Over time, they could push for better economics — or build alternative rails. <span class="ft">Bargaining Power of Buyers</span></li>
+      <li><strong>Crypto & Stablecoins:</strong> Blockchain-based payments could theoretically settle transactions without any network intermediary. Still early-stage for mainstream use — but Visa is investing in this space precisely because it cannot afford to ignore it.</li>
+    </ul>
+    <div class="co co-r">
+      <div class="cl">The Honest Assessment</div>
+      <p>Visa is not invincible. But every "threat" it has faced for 30 years — from PayPal to contactless payments to crypto — has so far ended with Visa either adapting or growing despite it. <strong>The network effects are that powerful.</strong> Most disruption ends up running on top of Visa, not replacing it.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S07: LESSONS — cream -->
+<div class="band bl" id="s07">
+  <div class="bi r">
+    <span class="sn">07 — Lessons for Builders</span>
+    <h2 class="st">What Visa <em>Teaches Every Founder</em></h2>
+    <p class="ld">Visa's story is not about a clever product. It's about understanding what kind of business compounds — and then building that kind of business with patience.</p>
+    <ul class="al">
+      <li><strong>Infrastructure businesses win slowly, then forever.</strong> Visa was not an overnight success. It spent decades building its network. But once built, that network created self-reinforcing advantages that competitors cannot overcome. If you can afford to be patient, build infrastructure. <span class="ft">First-Mover Advantage · Network Effects</span></li>
+      <li><strong>Don't hold the risk you don't need to hold.</strong> Visa could have become a bank and lent money itself — far more revenue per transaction. Instead it gave that business to banks and kept only the network fee. By eliminating credit risk, it kept margins extraordinary and the business simple. <span class="ft">Business Model Clarity · Risk Transfer</span></li>
+      <li><strong>Being the standard beats being the best.</strong> Visa isn't necessarily better than every alternative at any given moment. But it is universal. Universality compounds. Once enough people rely on a standard, competing on features becomes almost irrelevant. <span class="ft">Platform Economics · Switching Costs</span></li>
+      <li><strong>Volume × small margin &gt; small volume × large margin.</strong> Visa charges tiny fees. It just charges them 259 million times per day. Design your business for volume if you want to build something that scales without hitting a ceiling. <span class="ft">Economies of Scale</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- VERDICT -->
+<section class="verdict" id="verdict">
+  <div class="vi r">
+    <div class="v-label">Final Verdict — FounderLens</div>
+    <h2 class="v-title">
+      The Invisible Empire<br>
+      <em>Running on Every</em>
+      <strong>Transaction You Make</strong>
+    </h2>
+    <div class="v-rule"></div>
+    <div class="v-body">
+      <p>Visa is the clearest example of what happens when a business builds the right kind of infrastructure at the right moment in history. <strong>It didn't disrupt an industry — it became the industry's foundation.</strong> And foundations, by definition, are very difficult to remove once everything is built on top of them.</p>
+      <p>What makes Visa genuinely extraordinary is not any single decision or product. It's the <em>compounding architecture</em> of its advantages: network effects that grow with every new participant, switching costs that make replacement nearly impossible, margins that let it invest in every emerging threat, and a brand that operates as a silent guarantee in 200+ countries.</p>
+      <p>The lesson Visa teaches is uncomfortable for founders who want to build fast: <strong>the most durable businesses are often the ones that build slowly, capture the critical infrastructure layer, and then let the network effects do the work for decades.</strong></p>
+      <p><em>Visa is proof that the best business to own is not the one that does the most exciting thing — it's the one that everything else depends on.</em></p>
+    </div>
+    <div class="v-sig">
+      <div class="v-sig-m">FL</div>
+      <div class="v-sig-t">FounderLens · Visa Inc. Strategic Analysis · May 2026<br>Business intelligence explained simply through world-class companies</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fi">
+    <div>
+      <div class="fb">Founder<em>Lens</em></div>
+      <div class="fsub">Business intelligence explained simply through world-class companies</div>
+    </div>
+    <div class="flinks">
+      <a href="#">All Analyses</a>
+      <a href="#">Founder Stories</a>
+      <a href="#">Strategy Library</a>
+      <a href="#">Subscribe</a>
+    </div>
+  </div>
+  <div class="fcopy">
+    <span>FounderLens</span> · Visa Inc. Strategic Analysis · May 2026 · For educational purposes · Public data only
+  </div>
+</footer>
+
+<button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// Progress bar
+const pg = document.getElementById('pg');
+window.addEventListener('scroll', () => {
+  pg.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+}, { passive: true });
+
+// Scroll reveal
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+}, { threshold: 0.07, rootMargin: '0px 0px -32px 0px' });
+document.querySelectorAll('.r').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

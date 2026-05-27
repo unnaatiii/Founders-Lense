@@ -40,6 +40,8 @@ body { font-family: var(--sans); background: var(--ivory); color: var(--charcoal
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
 
+/* ── BACK TO COMPANIES (topbar) ── */
+
 /* ───── PROGRESS BAR ───── */
 #progress-bar {
   position: fixed; top: 0; left: 0; height: 3px;
@@ -544,11 +546,47 @@ p.bp strong { font-weight: 600; }
   .lessons-grid{grid-template-columns:1fr;}
   .swot-grid{grid-template-columns:1fr;}
 }
+ .top{
+      max-width:1120px;margin:12px auto 0;padding:0 18px;
+      position:sticky;top:10px;z-index:50;
+    }
+    .topbar{
+      width:100%;
+      padding:10px 14px;
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.65);
+      backdrop-filter:blur(14px);
+      box-shadow:0 12px 40px rgba(13,27,42,.05);
+    }
+    .back{
+      display:flex;align-items:center;gap:10px;
+      text-decoration:none;
+      color:var(--charcoal);
+      font-weight:700;font-size:13px;
+    }
+    .back .b{
+      width:26px;height:26px;border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.8);
+    }
+    .back:hover{color:var(--gold)}
 </style>
 </head>
 <body>
 
 <div id="progress-bar"></div>
+
+ <div id="progress"></div>
+
+  <div class="top">
+    <div class="topbar">
+      <a class="back" href="../company.html"><span class="b">&larr;</span> Companies</a>
+    
+    </div>
+  </div>
 
 <!-- TICKER -->
 <div class="ticker">
