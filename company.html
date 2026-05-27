@@ -266,7 +266,7 @@ main { position: relative; z-index: 1; }
 
 .scroll-cue {
   position: absolute;
-  bottom: 1.3rem;
+  bottom: 0.3rem;
   left: 50%;
   transform: translateX(-50%);
   color: rgba(244,240,232,0.44);
@@ -336,7 +336,7 @@ main { position: relative; z-index: 1; }
 
 .library {
   position: relative;
-  padding: 7rem 0 8rem;
+  padding: 1rem 0 8rem;
 }
 .library-inner {
   width: min(1180px, calc(100vw - 36px));
@@ -560,7 +560,7 @@ main { position: relative; z-index: 1; }
   font-size: clamp(2.2rem, 7vw, 6rem);
   line-height: 1;
   white-space: nowrap;
-  padding: 1.6rem 0;
+  padding: 0.1rem 0;
 }
 .marquee-track {
   display: inline-flex;
@@ -926,8 +926,8 @@ body::after { opacity: 0.075; }
   width: min(960px, calc(100vw - 32px));
 }
 .hero {
-  min-height: 92svh;
-  padding: 9rem 0 5rem;
+  min-height: 78svh;
+  padding: 7rem 0 2rem;
 }
 .hero-content,
 .editorial,
@@ -944,7 +944,7 @@ body::after { opacity: 0.075; }
   font-size: clamp(1rem, 1.35vw, 1.16rem);
 }
 .hero-depth {
-  inset: 15vh max(18px, calc((100vw - 1180px) / 2)) 5vh;
+  inset: 12vh max(18px, calc((100vw - 1180px) / 2)) 2vh;
   border-radius: 28px;
 }
 .editorial {
@@ -1099,7 +1099,12 @@ body::after { opacity: 0.075; }
     </div>
     <p class="scroll-cue">Scroll to enter</p>
   </section>
-
+ <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>MOATS • DISTRIBUTION • CULTURE • PRICING POWER • TIMING • </span>
+      <span>MOATS • DISTRIBUTION • CULTURE • PRICING POWER • TIMING • </span>
+    </div>
+  </div>
   <section class="editorial">
     <div>
       <p class="section-label">Not profiles. Operating systems.</p>
@@ -1114,20 +1119,13 @@ body::after { opacity: 0.075; }
       </div>
     </div>
   </section>
-
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>MOATS • DISTRIBUTION • CULTURE • PRICING POWER • TIMING • </span>
-      <span>MOATS • DISTRIBUTION • CULTURE • PRICING POWER • TIMING • </span>
-    </div>
-  </div>
-
+  <hr>
   <section class="library" id="library">
     <div class="library-inner">
       <div class="library-head">
         <div>
           <p class="section-label">Company Atlas</p>
-          <h2>Choose your market.</h2>
+          <h2>Choose your <i>market</i></h2>
         </div>
         <p class="library-note">Filter by category, or open the command palette for company, industry, business model, and keyword search.</p>
       </div>
@@ -1191,6 +1189,15 @@ const COMPANIES = [
     file: "companies/tesla.html",
     color: "linear-gradient(135deg, #7f1d1d, #e82127, #ff6b6b)"
   },
+   {
+    name: "Deloitte",
+    category: "SaaS",
+    description: "Global consulting powerhouse shaping enterprises through strategy, audit, technology, and transformation services.",
+    logo: "assets/deloittee.jpg",
+    tags:  ["consulting", "audit", "enterprise", "strategy"],
+    file: "companies/deloitte.html",
+    color: "linear-gradient(135deg, #0a0f0d, #163026 45%, #1db954 100%)"
+  },
   {
     name: "DMart",
     category: "Retail",
@@ -1200,25 +1207,25 @@ const COMPANIES = [
     file: "companies/dmart.html",
     color: "linear-gradient(135deg, #f5f0e8, #d6c7b2, #8f7b67)"
   },
- 
-  {
-    name: "OpenAI",
-    category: "AI",
-    description: "Frontier-model gravity reshaping software distribution.",
-    logo: "assets/openai.jpg",
-    tags: ["ai", "platform", "research", "api"],
-    file: "companies/openai.html",
-    color: "linear-gradient(135deg, #18181b, #71717a, #fafafa)"
-  },
    {
-    name: "Netflix",
-    category: "Media",
-    description: "Attention engine built on taste, distribution, and original IP.",
-    logo: "https://cdn.simpleicons.org/netflix/ffffff",
-    tags: ["media", "subscription", "content", "culture"],
-    file: "companies/netflix.html",
-    color: "linear-gradient(135deg, #141414, #b20710, #7f1d1d)"
-},
+    name: "McDonald",
+    category: "Consumer" , 
+    description: "Franchise-powered global scale built on operational consistency, real estate leverage, and consumer habit loops.",
+    logo: "assets/mcd.jpg",
+    tags:   ["franchise", "consumer", "fast food", "global"],
+    file: "companies/mcdonald.html",
+    color: "linear-gradient(135deg, #7f1d1d, #dc2626 55%, #facc15 100%)"
+ },
+   {
+    name: "Visa",
+    category: "E-commerce",
+    description:  "Marketplace scale powered by logistics density, pricing reach, and Indian consumer internet behavior.",
+    logo: "assets/visa.png",
+    tags: ["ecommerce", "marketplace", "india", "logistics"],
+    file: "companies/visa.html",
+   color: "linear-gradient(145deg, #1e3a8a 0%, #2563eb 45%, #3b82f6 72%, #93c5fd 100%)"
+  }, 
+ 
   {
     name: "Stripe",
     category: "Finance",
@@ -1237,7 +1244,27 @@ const COMPANIES = [
     file: "companies/shopify.html",
     color: "linear-gradient(135deg, #365314, #95bf47, #bef264)"
   },
-  {
+ {
+    name: "LVMH",
+    category: "Luxury",
+    description: "Portfolio luxury built through scarcity, heritage, and control.",
+    logo: "assets/LV.jpg",
+    tags: ["luxury", "portfolio", "brand", "scarcity"],
+    file: "companies/lvmh.html",
+    color: "linear-gradient(135deg, #f8f1e7, #d9c2a3 45%, #8b6b3f 100%)"
+  },
+ {
+    name: "OpenAI",
+    category: "AI",
+    description: "Frontier-model gravity reshaping software distribution.",
+    logo: "assets/openai.jpg",
+    tags: ["ai", "platform", "research", "api"],
+    file: "companies/openai.html",
+    color: "linear-gradient(135deg, #18181b, #71717a, #fafafa)"
+  },
+  
+ 
+    {
     name: "Zomato",
     category: "Quick Commerce",
     description: "Demand aggregation, logistics density, and city-level habit loops.",
@@ -1246,7 +1273,6 @@ const COMPANIES = [
     file: "companies/zomato.html",
     color: "linear-gradient(135deg, #ff6b6b, #e23744 45%, #7a0012)"
   },
- 
   {
     name: "Nike",
     category: "Consumer",
@@ -1257,41 +1283,24 @@ const COMPANIES = [
     color: "linear-gradient(135deg, #111111, #f26a2e, #fb923c)"
   },
   {
-    name: "LVMH",
-    category: "Luxury",
-    description: "Portfolio luxury built through scarcity, heritage, and control.",
-    logo: "assets/LV.jpg",
-    tags: ["luxury", "portfolio", "brand", "scarcity"],
-    file: "companies/lvmh.html",
-    color: "linear-gradient(135deg, #f8f1e7, #d9c2a3 45%, #8b6b3f 100%)"
-  },
-  {
     name: "RegisterKaro",
-    category: "SaaS",
+    category: "Finance",
     description: "Compliance workflows made legible for Indian founders and SMEs.",
     logo: "assets/Registerkaro.jpg",
     tags: ["compliance", "india", "sme", "services"],
     file: "companies/registerkaro.html",
     color: "linear-gradient(145deg, #071a3d, #123c74 45%, #f59e0b 78%, #ea580c)"
   },
+ 
   {
-    name: "Deloitte",
-    category: "SaaS",
-    description: "Global consulting powerhouse shaping enterprises through strategy, audit, technology, and transformation services.",
-    logo: "assets/deloittee.jpg",
-    tags:  ["consulting", "audit", "enterprise", "strategy"],
-    file: "companies/deloitte.html",
-    color: "linear-gradient(135deg, #0a0f0d, #163026 45%, #1db954 100%)"
-  },
-  {
-    name: "McDonald",
-    category: "Consumer" , 
-    description: "Franchise-powered global scale built on operational consistency, real estate leverage, and consumer habit loops.",
-    logo: "assets/mcd.jpg",
-    tags:   ["franchise", "consumer", "fast food", "global"],
-    file: "companies/mcdonald.html",
-    color: "linear-gradient(135deg, #7f1d1d, #dc2626 55%, #facc15 100%)"
- },
+    name: "Netflix",
+    category: "Media",
+    description: "Attention engine built on taste, distribution, and original IP.",
+    logo: "https://cdn.simpleicons.org/netflix/ffffff",
+    tags: ["media", "subscription", "content", "culture"],
+    file: "companies/netflix.html",
+    color: "linear-gradient(135deg, #141414, #b20710, #7f1d1d)"
+},
   {
     name: "Flipkart",
     category: "E-commerce",
@@ -1299,17 +1308,9 @@ const COMPANIES = [
     logo: "assets/flipkart.jpg",
     tags: ["ecommerce", "marketplace", "india", "logistics"],
     file: "companies/flipkart.html",
-    color: "linear-gradient(135deg, #0f172a, #2563eb 55%, #fde047 100%)"
+  color: "linear-gradient(145deg, #7c5a00 0%, #b8860b 32%, #facc15 68%, #fde68a 100%)"
   },
-  {
-    name: "Visa",
-    category: "E-commerce",
-    description:  "Marketplace scale powered by logistics density, pricing reach, and Indian consumer internet behavior.",
-    logo: "assets/flipkart.jpg",
-    tags: ["ecommerce", "marketplace", "india", "logistics"],
-    file: "companies/visa.html",
-    color: "linear-gradient(135deg, #0f172a, #2563eb 55%, #fde047 100%)"
-  }
+
 ];
 
 let activeCategory = "All";

@@ -303,7 +303,7 @@
   #page-home .hero-right::before {
     content: "";
     position: absolute;
-    inset: -12vh -5vw;
+    inset: -4vh -5vw;
     z-index: -1;
     background:
       linear-gradient(180deg, rgba(248,251,255,0.12), rgba(232,243,255,0.92)),
@@ -350,16 +350,47 @@
     background: rgba(255,255,255,0.52);
     backdrop-filter: blur(16px);
   }
-  #page-home .stat-item {
-    border-right-color: rgba(37,99,235,0.12);
-  }
-  #page-home .stat-num {
-    color: #2563eb;
-    letter-spacing: -0.04em;
-  }
+ #page-home .stat-item {
+  min-height: 190px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1.6rem 2rem;
+
+  border-right: 1px solid rgba(37,99,235,0.12);
+
+  text-align: center;
+}
+#page-home .stat-num {
+  font-family: var(--serif);
+
+  font-size: clamp(3rem, 4vw, 4.2rem);
+
+  line-height: 0.9;
+
+  color: #2563eb;
+
+  letter-spacing: -0.06em;
+
+  margin-bottom: 1rem;
+}
   #page-home .stat-label {
-    color: #5d779d;
-  }
+  color: #5d779d;
+
+  font-size: 1rem;
+
+  letter-spacing: 0.02em;
+
+  max-width: 180px;
+
+  line-height: 1.5;
+}
+#page-home .stat-item:last-child {
+  border-right: none;
+}
 
   @media (max-width: 768px) {
     #page-home .hero {
@@ -379,7 +410,7 @@
       grid-template-columns: 1fr;
     }
     #page-home .stat-item {
-      border-right: 0;
+      border-right: 3;
       border-bottom: 1px solid rgba(37,99,235,0.12);
     }
   }
@@ -394,7 +425,7 @@
     margin: 0 auto;
     grid-template-columns: minmax(0, 1fr) minmax(280px, 0.62fr);
     gap: clamp(2rem, 6vw, 6rem);
-    padding: 9rem 0 5rem;
+    padding: 5.8rem 0 5rem;
   }
   #page-home .hero-title {
     font-size: clamp(2.8rem, 6.8vw, 6.2rem);
@@ -413,8 +444,21 @@
     padding: 1.05rem;
   }
   #page-home .stats-row {
-    width: min(1180px, calc(100vw - 36px));
-  }
+  width: min(1180px, calc(100vw - 36px));
+  margin: 0 auto 4rem;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  border: 1px solid rgba(37,99,235,0.12);
+  background: rgba(255,255,255,0.52);
+
+  backdrop-filter: blur(16px);
+
+  border-radius: 0;
+
+  overflow: hidden;
+}
   @media (max-width: 900px) {
     #page-home .hero {
       grid-template-columns: 1fr;
@@ -451,9 +495,8 @@
   <div class="hero">
     <div class="hero-left">
       <p class="hero-tag">Founder Intelligence Platform</p>
-      <h1 class="hero-title">Learn how great<br>companies were<br><em>really</em> built.</h1>
+      <h2 class="hero-title">Learn how great<br>companies were<br><em>really</em> built.</h2>
       <p class="hero-sub">
-        
         Deep-dive founder analysis, not biographies. <br>
         We decode business thinking, 
         startup strategy, 
@@ -463,28 +506,30 @@
       </p>
       <div class="hero-cta-row">
         <a href="founders.html" class="home-cta primary" target="_blank" rel="noopener noreferrer">Search a Founder</a>
-        <a href="Blog.html" class="home-cta" target="_blank" rel="noopener noreferrer">Browse Articles</a>
+        <!-- <a href="Blog.html" class="home-cta" target="_blank" rel="noopener noreferrer">Browse Articles</a> -->
       </div>
     </div>
     <div class="hero-right">
-      <div class="featured-card" onclick="runSearch('founder','Elon Musk')">
+      <div class="featured-card" onclick="window.location.href='founders/deepinder-goyal.html'">
+        <p class="fc-tag">Zomato · Blinkit· Temple </p>
+        <p class="fc-name">Deepinder Goyal</p>
+        <p class="fc-company">The Relentless Market Builder</p>
+        <p class="fc-preview">A normal Employee, who transformed a simple restaurant discovery platform   into        India’s food delivery and quick-commerce giant.</p>
+      </div> 
+      <div class="featured-card" onclick="window.location.href='founders/elon-musk.html'">
         <p class="fc-tag">Tesla · SpaceX · X</p>
         <p class="fc-name">Elon Musk</p>
         <p class="fc-company">The Contrarian Operator</p>
         <p class="fc-preview">How a South African kid built multiple trillion-dollar companies by betting on what the world laughed at.</p>
       </div>
-      <div class="featured-card" onclick="runSearch('founder','Sam Walton')">
+      <div class="featured-card" onclick="window.location.href='founders/sam-walton.html'">
         <p class="fc-tag">Walmart</p>
         <p class="fc-name">Sam Walton</p>
         <p class="fc-company">The Frugal Revolutionary</p>
         <p class="fc-preview">How obsessive low prices and deep retail psychology created the world's largest retailer from a small-town store.</p>
+      
       </div>
-      <div class="featured-card" onclick="runSearch('founder','Nikhil Kamath')">
-        <p class="fc-tag">Zerodha · True Beacon</p>
-        <p class="fc-name">Nikhil Kamath</p>
-        <p class="fc-company">The Market Maverick</p>
-        <p class="fc-preview">A school dropout who disrupted Indian finance, built a profitable bootstrapped billion-dollar firm, and never raised VC money.</p>
-      </div>
+      
     </div>
   </div>
   <div class="stats-row">

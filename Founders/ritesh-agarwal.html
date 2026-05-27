@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ritesh Agarwal — The Teenager Who Checked In India's Hotel Problem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,600;1,9..144,800&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Martian+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════ DESIGN TOKENS ═══════════ */
+:root{
+  --red:        #e8192c;
+  --red-dark:   #b01020;
+  --red-deep:   #6b0010;
+  --red-pale:   rgba(232,25,44,0.08);
+  --red-glow:   rgba(232,25,44,0.18);
+  --gold:       #f5a623;
+  --gold-pale:  rgba(245,166,35,0.13);
+  --orange:     #f97316;
+
+  --dk-bg:      #0d0a0b;
+  --dk-bg2:     #150f10;
+  --dk-bg3:     #1c1416;
+  --dk-bg4:     #23191a;
+  --dk-text:    #fdf0f0;
+  --dk-text2:   rgba(253,240,240,0.72);
+  --dk-text3:   rgba(253,240,240,0.42);
+  --dk-rule:    rgba(253,240,240,0.09);
+
+  --lt-bg:      #fdf8f8;
+  --lt-bg2:     #f5eeee;
+  --lt-bg3:     #ede0e0;
+  --lt-bg4:     #ffffff;
+  --lt-text:    #1a0a0c;
+  --lt-text2:   #3d1f22;
+  --lt-text3:   #8c6060;
+  --lt-rule:    rgba(26,10,12,0.10);
+
+  --serif:      'Fraunces',Georgia,serif;
+  --sans:       'Instrument Sans',sans-serif;
+  --mono:       'Martian Mono',monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased;background:var(--dk-bg)}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--dk-bg)}
+::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px}
+
+/* ── ORIGIN BACK ── */
+.origin-back{
+  position:fixed;top:14px;left:14px;z-index:1000;
+  font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  padding:8px 10px;border-radius:999px;
+  border:1px solid rgba(15,23,42,0.14);
+  background:rgba(255,255,255,0.82);backdrop-filter:blur(18px) saturate(1.4);
+  color:rgba(15,23,42,0.72);box-shadow:0 14px 50px rgba(15,23,42,0.10);
+  transition:transform .2s ease,border-color .2s ease,background .2s ease,color .2s ease;
+  text-decoration:none;display:inline-block;
+}
+.origin-back:hover{transform:translateY(-1px);border-color:rgba(232,25,44,0.30);color:rgba(15,23,42,0.92);background:rgba(255,255,255,0.94)}
+
+/* BANNER */
+.banner{background:var(--red);color:#fff;text-align:center;padding:8px 20px;font-family:var(--mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;position:sticky;top:0;z-index:200;}
+
+/* NAV */
+.nav{background:rgba(13,10,11,0.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--dk-rule);display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:60px;position:sticky;top:33px;z-index:199;}
+.nav-brand{font-family:var(--serif);font-size:17px;font-weight:800;color:var(--dk-text);letter-spacing:-0.01em;display:flex;align-items:center;gap:10px}
+.nav-brand-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);display:inline-block}
+.nav-chips{display:flex;gap:6px;flex-wrap:wrap}
+.nav-chip{font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;padding:5px 12px;border-radius:20px;border:1px solid var(--dk-rule);color:var(--dk-text3);background:none;cursor:pointer;transition:all .2s}
+.nav-chip:hover,.nav-chip.active{border-color:var(--gold);color:var(--gold);background:var(--gold-pale)}
+.nav-cta{font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--dk-bg);background:var(--gold);padding:8px 18px;border-radius:6px;border:none;cursor:pointer;transition:all .2s;font-weight:600}
+.nav-cta:hover{background:#d48a00;transform:translateY(-1px)}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 480px;gap:0;position:relative;overflow:hidden;background:var(--dk-bg);}
+.hero-left{padding:90px 60px 80px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1;background:radial-gradient(ellipse 70% 60% at -10% 60%,rgba(232,25,44,0.12) 0%,transparent 65%),var(--dk-bg);}
+.hero-left::after{content:'';position:absolute;right:-2px;top:0;bottom:0;width:80px;background:linear-gradient(to right,transparent,var(--dk-bg2));z-index:2}
+.hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:24px;animation:slideIn .7s ease both}
+.hero-eyebrow-line{width:36px;height:2px;background:var(--gold)}
+.hero-eyebrow-text{font-family:var(--mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold)}
+.hero-title{font-family:var(--serif);font-size:clamp(44px,5.5vw,76px);font-weight:900;line-height:1.0;letter-spacing:-0.025em;margin-bottom:16px;animation:slideIn .7s .1s ease both;color:var(--dk-text)}
+.hero-title em{font-style:italic;color:var(--gold);font-weight:300;display:block}
+.hero-sub{font-size:17px;color:var(--dk-text2);max-width:520px;line-height:1.7;margin-bottom:40px;font-weight:300;animation:slideIn .7s .2s ease both}
+.hero-sub strong{color:var(--dk-text);font-weight:500}
+.hero-kpis{display:flex;gap:36px;flex-wrap:wrap;padding:28px 0;border-top:1px solid var(--dk-rule);border-bottom:1px solid var(--dk-rule);margin-bottom:36px;animation:slideIn .7s .3s ease both}
+.kpi-val{font-family:var(--serif);font-size:28px;font-weight:800;color:var(--gold);line-height:1.1}
+.kpi-label{font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--dk-text3);margin-top:2px}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;animation:slideIn .7s .35s ease both}
+.hero-tag{font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;padding:5px 12px;border-radius:20px;border:1px solid var(--dk-rule);color:var(--dk-text3)}
+.hero-tag.gold{border-color:rgba(245,166,35,.4);color:var(--gold);background:var(--gold-pale)}
+.hero-tag.red{border-color:rgba(232,25,44,.4);color:#f87171;background:var(--red-pale)}
+.hero-right{position:relative;overflow:hidden;background:var(--dk-bg2)}
+.hero-right::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 40%,rgba(232,25,44,0.1) 0%,transparent 65%);z-index:1}
+.hero-right::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(245,166,35,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(245,166,35,0.04) 1px,transparent 1px);background-size:40px 40px;z-index:0}
+.hero-img-frame{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2}
+.founder-photo-wrap{position:relative;width:340px;height:400px}
+.founder-photo{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;filter:grayscale(15%) contrast(1.05);border-radius:12px;position:relative;z-index:2}
+.founder-photo-bg{position:absolute;top:20px;left:20px;right:-20px;bottom:-20px;background:linear-gradient(135deg,var(--red-dark),var(--red-deep));border-radius:12px;z-index:1}
+.photo-badge{position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--dk-bg);font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;padding:5px 14px;border-radius:20px;white-space:nowrap;z-index:3;font-weight:600}
+.hero-float-quote{position:absolute;bottom:40px;left:20px;right:20px;background:rgba(13,10,11,0.88);border:1px solid rgba(245,166,35,0.3);border-left:3px solid var(--gold);border-radius:8px;padding:16px 18px;z-index:3;backdrop-filter:blur(8px)}
+.hero-float-quote-text{font-family:var(--serif);font-size:14px;font-style:italic;font-weight:300;color:var(--dk-text2);line-height:1.5;margin-bottom:6px}
+.hero-float-quote-by{font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold)}
+
+/* SECTION THEMES */
+.sec-dark{background:var(--dk-bg);color:var(--dk-text);position:relative;overflow:hidden;padding:80px 0;}
+.sec-dark + .sec-dark{border-top:1px solid var(--dk-rule)}
+.sec-light{background:var(--lt-bg);color:var(--lt-text);position:relative;padding:80px 0;border-top:3px solid var(--gold);border-bottom:3px solid var(--gold);}
+.sec-blue{background:linear-gradient(135deg,var(--red-deep) 0%,var(--dk-bg3) 60%,var(--dk-bg2) 100%);color:var(--dk-text);position:relative;overflow:hidden;padding:80px 0;border-top:1px solid rgba(232,25,44,0.3);border-bottom:1px solid rgba(232,25,44,0.3);}
+.sec-yellow-accent{background:linear-gradient(135deg,#fff8f0 0%,#fef5e7 60%,#fffdf5 100%);color:var(--lt-text);position:relative;padding:80px 0;border-top:3px solid var(--red);border-bottom:3px solid var(--red);}
+
+.sec-inner{max-width:1140px;margin:0 auto;padding:0 80px;position:relative;z-index:1}
+
+/* TOC */
+.article-shell{display:grid;grid-template-columns:260px 1fr;max-width:100%;background:var(--dk-bg)}
+.toc-col{background:var(--dk-bg);padding:48px 0 48px 40px;position:sticky;top:93px;height:calc(100vh - 93px);overflow-y:auto;scrollbar-width:none;border-right:1px solid var(--dk-rule);}
+.toc-col::-webkit-scrollbar{display:none}
+.toc-heading{font-family:var(--mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.toc-item{display:block;width:100%;text-align:left;font-family:var(--sans);font-size:12px;color:var(--dk-text3);padding:7px 0 7px 12px;border-left:2px solid transparent;background:none;border-top:none;border-right:none;border-bottom:none;cursor:pointer;transition:all .2s;line-height:1.4}
+.toc-item:hover{color:var(--dk-text);border-left-color:rgba(253,240,240,0.2)}
+.toc-item.active{color:var(--gold);border-left-color:var(--gold)}
+
+/* SECTION TYPOGRAPHY */
+.sec-num{font-family:var(--mono);font-size:9px;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:8px}
+.sec-dark .sec-num,.sec-blue .sec-num{color:var(--gold)}
+.sec-light .sec-num,.sec-yellow-accent .sec-num{color:var(--red)}
+
+.sec-title{font-family:var(--serif);font-size:clamp(26px,3.5vw,42px);font-weight:800;margin-bottom:24px;padding-bottom:14px;display:inline-block;line-height:1.15;letter-spacing:-0.015em}
+.sec-dark .sec-title,.sec-blue .sec-title{color:var(--dk-text);border-bottom:2px solid var(--gold)}
+.sec-light .sec-title,.sec-yellow-accent .sec-title{color:var(--lt-text);border-bottom:2px solid var(--red)}
+.sec-title em{font-style:italic;font-weight:300}
+.sec-dark .sec-title em,.sec-blue .sec-title em{color:var(--gold)}
+.sec-light .sec-title em,.sec-yellow-accent .sec-title em{color:var(--red)}
+
+.subsec-title{font-family:var(--serif);font-size:22px;font-weight:600;margin-top:36px;margin-bottom:14px;letter-spacing:-0.01em}
+.sec-dark .subsec-title,.sec-blue .subsec-title{color:var(--dk-text2)}
+.sec-light .subsec-title,.sec-yellow-accent .subsec-title{color:var(--lt-text2)}
+
+.lead{font-family:var(--serif);font-size:19px;font-style:italic;font-weight:300;line-height:1.7;margin-bottom:28px;padding-bottom:28px}
+.sec-dark .lead,.sec-blue .lead{color:var(--dk-text2);border-bottom:1px solid var(--dk-rule)}
+.sec-light .lead,.sec-yellow-accent .lead{color:var(--lt-text2);border-bottom:1px solid var(--lt-rule)}
+
+p{font-size:16px;line-height:1.8;margin-bottom:18px;font-weight:300}
+p:last-child{margin-bottom:0}
+.sec-dark p,.sec-blue p{color:var(--dk-text2)}
+.sec-dark p strong,.sec-blue p strong{color:var(--dk-text);font-weight:500}
+.sec-light p,.sec-yellow-accent p{color:var(--lt-text2)}
+.sec-light p strong,.sec-yellow-accent p strong{color:var(--lt-text);font-weight:500}
+
+/* PULL QUOTE */
+.pq{margin:36px 0;padding:24px 32px;border-radius:0 8px 8px 0}
+.sec-dark .pq,.sec-blue .pq{border-left:3px solid var(--gold);background:rgba(245,166,35,0.05)}
+.sec-light .pq,.sec-yellow-accent .pq{border-left:3px solid var(--red);background:rgba(232,25,44,0.05)}
+.pq blockquote{font-family:var(--serif);font-size:20px;font-style:italic;font-weight:300;line-height:1.55;margin-bottom:10px}
+.sec-dark .pq blockquote,.sec-blue .pq blockquote{color:var(--dk-text)}
+.sec-light .pq blockquote,.sec-yellow-accent .pq blockquote{color:var(--lt-text)}
+.pq cite{font-family:var(--mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;font-style:normal}
+.sec-dark .pq cite,.sec-blue .pq cite{color:var(--gold)}
+.sec-light .pq cite,.sec-yellow-accent .pq cite{color:var(--red)}
+
+/* CALLOUTS */
+.callout{margin:28px 0;padding:20px 24px;border-radius:8px}
+.callout-lesson-dk{background:rgba(6,182,212,0.1);border-left:3px solid #06b6d4}
+.callout-lesson-lt{background:rgba(6,182,212,0.08);border-left:3px solid #0891b2}
+.callout-warn-dk{background:rgba(245,166,35,0.08);border-left:3px solid var(--gold)}
+.callout-warn-lt{background:rgba(232,25,44,0.08);border-left:3px solid var(--red)}
+.callout-green-dk{background:rgba(34,197,94,0.1);border-left:3px solid #22c55e}
+.callout-green-lt{background:rgba(22,163,74,0.08);border-left:3px solid #16a34a}
+.callout-label{font-family:var(--mono);font-size:9px;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:8px;font-weight:500}
+.callout-lesson-dk .callout-label{color:#06b6d4}
+.callout-lesson-lt .callout-label{color:#0891b2}
+.callout-warn-dk .callout-label{color:var(--gold)}
+.callout-warn-lt .callout-label{color:var(--red)}
+.callout-green-dk .callout-label{color:#22c55e}
+.callout-green-lt .callout-label{color:#16a34a}
+.callout p{font-size:14px;line-height:1.65;margin-bottom:6px;font-weight:300}
+.callout p:last-child{margin-bottom:0}
+.sec-dark .callout p,.sec-blue .callout p{color:var(--dk-text2)}
+.sec-dark .callout p strong,.sec-blue .callout p strong{color:var(--dk-text)}
+.sec-light .callout p,.sec-yellow-accent .callout p{color:var(--lt-text2)}
+.sec-light .callout p strong,.sec-yellow-accent .callout p strong{color:var(--lt-text)}
+
+/* ARROW LISTS */
+ul.alist{list-style:none;margin:18px 0}
+ul.alist li{padding:11px 0 11px 26px;position:relative;font-size:15px;line-height:1.65;font-weight:300}
+.sec-dark ul.alist li,.sec-blue ul.alist li{color:var(--dk-text2);border-bottom:1px solid var(--dk-rule)}
+.sec-light ul.alist li,.sec-yellow-accent ul.alist li{color:var(--lt-text2);border-bottom:1px solid var(--lt-rule)}
+ul.alist li:last-child{border-bottom:none}
+.sec-dark ul.alist li::before,.sec-blue ul.alist li::before{content:'→';position:absolute;left:0;color:var(--gold);font-weight:700}
+.sec-light ul.alist li::before,.sec-yellow-accent ul.alist li::before{content:'→';position:absolute;left:0;color:var(--red);font-weight:700}
+.sec-dark ul.alist li strong,.sec-blue ul.alist li strong{color:var(--dk-text);font-weight:500}
+.sec-light ul.alist li strong,.sec-yellow-accent ul.alist li strong{color:var(--lt-text);font-weight:500}
+
+/* STATS STRIP */
+.stats-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:2px;margin:28px 0;border-radius:8px;overflow:hidden}
+.sec-dark .stats-strip,.sec-blue .stats-strip{background:var(--dk-rule)}
+.sec-light .stats-strip,.sec-yellow-accent .stats-strip{background:var(--lt-rule)}
+.stat-card{padding:16px 14px;text-align:center}
+.sec-dark .stat-card,.sec-blue .stat-card{background:var(--dk-bg2)}
+.sec-light .stat-card,.sec-yellow-accent .stat-card{background:#fff;border:1px solid var(--lt-rule)}
+.stat-val{font-family:var(--serif);font-size:22px;font-weight:800;line-height:1.1;margin-bottom:4px}
+.sec-dark .stat-val,.sec-blue .stat-val{color:var(--gold)}
+.sec-light .stat-val,.sec-yellow-accent .stat-val{color:var(--red)}
+.stat-lbl{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase}
+.sec-dark .stat-lbl,.sec-blue .stat-lbl{color:var(--dk-text3)}
+.sec-light .stat-lbl,.sec-yellow-accent .stat-lbl{color:var(--lt-text3)}
+
+/* INFO ROWS */
+.info-rows{margin:20px 0}
+.info-row{display:flex;gap:20px;padding:11px 0;font-size:15px;align-items:flex-start}
+.sec-dark .info-row,.sec-blue .info-row{border-bottom:1px solid var(--dk-rule)}
+.sec-light .info-row,.sec-yellow-accent .info-row{border-bottom:1px solid var(--lt-rule)}
+.info-row:last-child{border-bottom:none}
+.info-key{font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;flex-shrink:0;width:160px;padding-top:3px;font-weight:500}
+.sec-dark .info-key,.sec-blue .info-key{color:var(--gold)}
+.sec-light .info-key,.sec-yellow-accent .info-key{color:var(--red)}
+.info-val{line-height:1.6;font-weight:300}
+.sec-dark .info-val,.sec-blue .info-val{color:var(--dk-text2)}
+.sec-dark .info-val strong,.sec-blue .info-val strong{color:var(--dk-text)}
+.sec-light .info-val,.sec-yellow-accent .info-val{color:var(--lt-text2)}
+.sec-light .info-val strong,.sec-yellow-accent .info-val strong{color:var(--lt-text)}
+
+/* TIMELINE */
+.timeline{margin:28px 0}
+.tl-item{display:flex;gap:18px;padding-bottom:24px;position:relative}
+.tl-item::before{content:'';position:absolute;left:28px;top:52px;bottom:0;width:1px}
+.sec-dark .tl-item::before,.sec-blue .tl-item::before{background:var(--dk-rule)}
+.sec-light .tl-item::before,.sec-yellow-accent .tl-item::before{background:var(--lt-rule)}
+.tl-item:last-child::before{display:none}
+.tl-dot{flex-shrink:0;width:56px;height:56px;border-radius:50%;font-family:var(--serif);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2}
+.sec-dark .tl-dot,.sec-blue .tl-dot{background:var(--dk-bg3);border:1px solid rgba(245,166,35,.3);color:var(--gold)}
+.sec-light .tl-dot,.sec-yellow-accent .tl-dot{background:#fde8e8;border:1px solid rgba(232,25,44,.3);color:var(--red)}
+.tl-content{flex:1;padding-top:10px}
+.tl-content strong{display:block;font-size:15px;font-weight:500;margin-bottom:4px}
+.sec-dark .tl-content strong,.sec-blue .tl-content strong{color:var(--dk-text)}
+.sec-light .tl-content strong,.sec-yellow-accent .tl-content strong{color:var(--lt-text)}
+.tl-content p{font-size:13px;margin:0;line-height:1.55}
+.sec-dark .tl-content p,.sec-blue .tl-content p{color:var(--dk-text3)}
+.sec-light .tl-content p,.sec-yellow-accent .tl-content p{color:var(--lt-text3)}
+
+/* QUOTE GRID */
+.quotes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;margin:24px 0}
+.qcard{border-radius:10px;padding:22px 20px;transition:transform .2s}
+.qcard:hover{transform:translateY(-2px)}
+.sec-dark .qcard{background:var(--dk-bg2);border:1px solid var(--dk-rule)}
+.sec-dark .qcard:hover{border-color:rgba(245,166,35,.3)}
+.sec-light .qcard,.sec-yellow-accent .qcard{background:#fff;border:1px solid var(--lt-rule);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.qnum{font-family:var(--serif);font-size:44px;font-weight:800;line-height:1;margin-bottom:-8px}
+.sec-dark .qnum{color:rgba(245,166,35,0.1)}
+.sec-light .qnum,.sec-yellow-accent .qnum{color:rgba(232,25,44,0.08)}
+.qtext{font-family:var(--serif);font-size:15px;font-style:italic;font-weight:300;line-height:1.6;margin-bottom:12px}
+.sec-dark .qtext{color:var(--dk-text2)}
+.sec-light .qtext,.sec-yellow-accent .qtext{color:var(--lt-text2)}
+.qmeta{font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase}
+.sec-dark .qmeta{color:var(--gold)}
+.sec-light .qmeta,.sec-yellow-accent .qmeta{color:var(--red)}
+
+/* INLINE IMAGE */
+.inline-img-wrap{float:right;width:240px;margin:0 0 24px 32px;position:relative}
+.inline-img{width:100%;border-radius:10px;display:block;object-fit:cover;filter:grayscale(15%)}
+.sec-dark .inline-img{border:1px solid var(--dk-rule)}
+.sec-light .inline-img{border:1px solid var(--lt-rule);box-shadow:0 4px 16px rgba(0,0,0,0.1)}
+.inline-img-caption{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;text-align:center;margin-top:8px;padding:6px 10px;border-radius:0 0 10px 10px}
+.sec-light .inline-img-caption{color:var(--lt-text3);background:var(--lt-bg2);border:1px solid var(--lt-rule);border-top:none}
+.inline-img-accent{position:absolute;top:-8px;right:-8px;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;z-index:1;background:var(--red)}
+.clearfix::after{content:'';display:table;clear:both}
+
+/* SUMMARY TABLE */
+.sum-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:14px;border-radius:8px;overflow:hidden}
+.sec-dark .sum-table{border:1px solid var(--dk-rule)}
+.sec-light .sum-table,.sec-yellow-accent .sum-table{border:1px solid var(--lt-rule);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.sum-table th{font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;padding:12px 16px;text-align:left;font-weight:500}
+.sec-dark .sum-table th{background:var(--dk-bg3);color:var(--gold)}
+.sec-light .sum-table th,.sec-yellow-accent .sum-table th{background:#fde8e8;color:var(--red-dark)}
+.sum-table td{padding:13px 16px;vertical-align:top;line-height:1.55;font-weight:300}
+.sec-dark .sum-table td{border-bottom:1px solid var(--dk-rule)}
+.sec-light .sum-table td,.sec-yellow-accent .sum-table td{border-bottom:1px solid var(--lt-rule)}
+.sum-table td:first-child{font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;width:28%}
+.sec-dark .sum-table td:first-child{color:var(--gold)}
+.sec-light .sum-table td:first-child,.sec-yellow-accent .sum-table td:first-child{color:var(--red-dark)}
+.sec-dark .sum-table td:last-child{color:var(--dk-text2)}
+.sec-light .sum-table td:last-child,.sec-yellow-accent .sum-table td:last-child{color:var(--lt-text2)}
+.sum-table tr:last-child td{border-bottom:none}
+.sec-dark .sum-table tr:nth-child(even) td{background:rgba(255,255,255,0.02)}
+.sec-light .sum-table tr:nth-child(even) td,.sec-yellow-accent .sum-table tr:nth-child(even) td{background:#fff5f5}
+
+/* REVISION */
+.revision{border-radius:12px;padding:36px 32px;margin:32px 0}
+.sec-light .revision{background:#fff;border:1px solid var(--lt-rule);box-shadow:0 4px 20px rgba(0,0,0,0.07)}
+.revision h3{font-family:var(--serif);font-size:24px;font-weight:800;margin-bottom:24px;padding-bottom:14px}
+.sec-light .revision h3{color:var(--red-dark);border-bottom:1px solid var(--lt-rule)}
+.qr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.qr-item{padding:13px 16px}
+.sec-light .qr-item{border-bottom:1px solid var(--lt-rule);border-right:1px solid var(--lt-rule)}
+.qr-item:nth-child(2n){border-right:none}
+.qr-label{font-family:var(--mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px}
+.sec-light .qr-label{color:var(--red-dark)}
+.qr-val{font-size:13px;line-height:1.5;font-weight:300}
+.sec-light .qr-val{color:var(--lt-text2)}
+
+/* FINAL BOX */
+.final-box{border-radius:12px;padding:36px 32px;margin:32px 0}
+.sec-yellow-accent .final-box{background:linear-gradient(135deg,#fde8e8,#fff0e8);border:1px solid rgba(232,25,44,.25)}
+.final-box h3{font-family:var(--serif);font-size:20px;font-style:italic;font-weight:300;margin-bottom:18px;line-height:1.4}
+.sec-yellow-accent .final-box h3{color:var(--red-dark)}
+.final-box p{font-size:15px;line-height:1.75;margin-bottom:16px;font-weight:300}
+.sec-yellow-accent .final-box p{color:var(--lt-text2)}
+.sec-yellow-accent .final-box p strong{color:var(--red-dark);font-weight:600}
+.final-box .footnote{font-style:italic;font-size:14px;margin-top:24px;padding-top:20px}
+.sec-yellow-accent .final-box .footnote{color:var(--lt-text3);border-top:1px solid var(--lt-rule)}
+
+/* FOOTER */
+.footer{background:var(--dk-bg2);border-top:3px solid var(--gold);padding:48px 48px 32px;margin-top:0;position:relative}
+.footer-inner{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;position:relative;z-index:1}
+.footer-brand{font-family:var(--serif);font-size:18px;font-weight:800;color:var(--dk-text)}
+.footer-brand span{color:var(--gold)}
+.footer-sub{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;color:var(--dk-text3);margin-top:6px}
+.footer-links{display:flex;gap:20px;font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase}
+.footer-links a{color:var(--dk-text3);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-copy{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;color:var(--dk-text3);margin-top:28px;padding-top:20px;border-top:1px solid var(--dk-rule);text-align:center;position:relative;z-index:1}
+.footer-copy span{color:var(--gold)}
+
+/* DIVIDERS */
+.divider-to-light{height:4px;background:linear-gradient(90deg,var(--red),var(--gold))}
+.divider-to-dark{height:4px;background:linear-gradient(90deg,var(--gold),var(--red))}
+
+/* ANIMATIONS */
+@keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-left{padding:90px 24px 60px}
+  .hero-left::after{display:none}
+  .hero-right{height:380px}
+  .sec-inner{padding:0 24px}
+  .toc-col{display:none}
+  .article-shell{display:block}
+  .nav{padding:0 20px}
+  .inline-img-wrap{float:none;width:100%;margin:0 0 24px}
+  .footer{padding:40px 24px 28px}
+}
+</style>
+</head>
+<body>
+
+<a class="origin-back" href="../founders.html">← Back to Founders</a>
+
+<!-- BANNER -->
+<div class="banner">Founder Deep-Dive Series &nbsp;·&nbsp; India's Startup Legends &nbsp;·&nbsp; FounderLens 2025</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <span class="nav-brand-dot"></span>
+    FounderLens
+  </div>
+  <div class="nav-chips">
+    <button class="nav-chip active" onclick="scrollToTop()">Overview</button>
+    <button class="nav-chip" onclick="document.getElementById('sec-background').scrollIntoView({behavior:'smooth'})">Background</button>
+    <button class="nav-chip" onclick="document.getElementById('sec-strategy').scrollIntoView({behavior:'smooth'})">Strategy</button>
+    <button class="nav-chip" onclick="document.getElementById('sec-lessons').scrollIntoView({behavior:'smooth'})">Lessons</button>
+    <button class="nav-chip" onclick="document.getElementById('sec-quotes').scrollIntoView({behavior:'smooth'})">Quotes</button>
+  </div>
+  <button class="nav-cta" onclick="document.getElementById('sec-identity').scrollIntoView({behavior:'smooth'})">Read Analysis ↓</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      <span class="hero-eyebrow-text">Founder Analysis — Issue #07</span>
+    </div>
+    <h1 class="hero-title">
+      Ritesh Agarwal<br>
+      <em>The Teenager Who Checked India's Broken Hotels Into a $10 Billion Empire</em>
+    </h1>
+    <p class="hero-sub">
+      From sleeping in budget hotels across India at age 17 to building one of the world's largest hospitality companies — the inside story of how a curious boy from Odisha spotted a problem no one else would touch, and turned it into <strong>a global brand that rewrote the hotel industry forever.</strong>
+    </p>
+    <div class="hero-kpis">
+      <div><div class="kpi-val">$10 Bn+</div><div class="kpi-label">Peak Valuation (2019)</div></div>
+      <div><div class="kpi-val">157+</div><div class="kpi-label">Countries Operated In</div></div>
+      <div><div class="kpi-val">19</div><div class="kpi-label">Age When He Started OYO</div></div>
+      <div><div class="kpi-val">$3.2 Bn+</div><div class="kpi-label">Total Funding Raised</div></div>
+    </div>
+    <div class="hero-tags">
+      <span class="hero-tag gold">Budget Hospitality</span>
+      <span class="hero-tag gold">Supply Aggregation</span>
+      <span class="hero-tag red">Teen Founder</span>
+      <span class="hero-tag red">SoftBank-Backed</span>
+      <span class="hero-tag">India's Airbnb</span>
+      <span class="hero-tag">Global Expansion</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-frame">
+      <div class="founder-photo-wrap">
+        <div class="founder-photo-bg"></div>
+       <img 
+  src="../assets/ritesh-agarwal.jpg" 
+  alt="Ritesh Agarwal" 
+  class="founder-photo"
+/>
+        <span class="photo-badge">Founder &amp; CEO · OYO Rooms</span>
+      </div>
+    </div>
+    <div class="hero-float-quote">
+      <div class="hero-float-quote-text">"The biggest risk is not taking any risk. In a world changing this fast, the only strategy that's guaranteed to fail is not taking risks."</div>
+      <div class="hero-float-quote-by">— Ritesh Agarwal</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-to-light"></div>
+
+<!-- ARTICLE SHELL -->
+<div class="article-shell">
+
+  <!-- TOC -->
+  <div class="toc-col">
+    <div class="toc-heading">Contents</div>
+    <button class="toc-item active" onclick="scrollSec('sec-identity')">01 · Founder &amp; Company</button>
+    <button class="toc-item" onclick="scrollSec('sec-background')">02 · Background</button>
+    <button class="toc-item" onclick="scrollSec('sec-problem')">03 · Problem Solved</button>
+    <button class="toc-item" onclick="scrollSec('sec-opportunity')">04 · Opportunity</button>
+    <button class="toc-item" onclick="scrollSec('sec-revenue')">05 · Revenue Model</button>
+    <button class="toc-item" onclick="scrollSec('sec-business')">06 · Business Model</button>
+    <button class="toc-item" onclick="scrollSec('sec-struggles')">07 · Initial Struggles</button>
+    <button class="toc-item" onclick="scrollSec('sec-strategy')">08 · Growth Strategy</button>
+    <button class="toc-item" onclick="scrollSec('sec-branding')">09 · Branding Strategy</button>
+    <button class="toc-item" onclick="scrollSec('sec-supply')">10 · Supply Model</button>
+    <button class="toc-item" onclick="scrollSec('sec-funding')">11 · Funding Journey</button>
+    <button class="toc-item" onclick="scrollSec('sec-expansion')">12 · Global Expansion</button>
+    <button class="toc-item" onclick="scrollSec('sec-mistakes')">13 · Mistakes</button>
+    <button class="toc-item" onclick="scrollSec('sec-controversies')">14 · Controversies</button>
+    <button class="toc-item" onclick="scrollSec('sec-strengths')">15 · Strengths</button>
+    <button class="toc-item" onclick="scrollSec('sec-psychology')">16 · Psychology of Success</button>
+    <button class="toc-item" onclick="scrollSec('sec-turning')">17 · Turning Points</button>
+    <button class="toc-item" onclick="scrollSec('sec-moat')">18 · Competitive Edge</button>
+    <button class="toc-item" onclick="scrollSec('sec-lessons')">19 · Key Lessons</button>
+    <button class="toc-item" onclick="scrollSec('sec-quotes')">20 · 10 Quotes</button>
+    <button class="toc-item" onclick="scrollSec('sec-summary')">21 · Final Summary</button>
+    <button class="toc-item" onclick="scrollSec('sec-revision')">22 · Quick Revision</button>
+    <button class="toc-item" onclick="scrollSec('sec-table')">23 · Strategy Table</button>
+    <button class="toc-item" onclick="scrollSec('sec-final')">24 · If Starting Over</button>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div>
+
+<!-- ─── SEC 01 DARK: IDENTITY ─── -->
+<div class="sec-dark" id="sec-identity" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">01 — Who He Is</div>
+    <h2 class="sec-title">Founder &amp; <em>Company</em></h2>
+    <div class="info-rows">
+      <div class="info-row"><div class="info-key">Founder</div><div class="info-val"><strong>Ritesh Agarwal</strong> — Founder &amp; Group CEO</div></div>
+      <div class="info-row"><div class="info-key">Born</div><div class="info-val">November 16, 1993 — Bissam Cuttack, Odisha, India</div></div>
+      <div class="info-row"><div class="info-key">Company</div><div class="info-val"><strong>OYO Rooms</strong> (Oravel Stays Private Limited)</div></div>
+      <div class="info-row"><div class="info-key">Founded</div><div class="info-val">2013 — Gurugram, India (as Oravel Stays, pivoted to OYO)</div></div>
+      <div class="info-row"><div class="info-key">Sector</div><div class="info-val">Budget Hospitality / Proptech / Travel &amp; Lodging</div></div>
+      <div class="info-row"><div class="info-key">Core Philosophy</div><div class="info-val">"Standardised, affordable hospitality for every Indian traveller"</div></div>
+      <div class="info-row"><div class="info-key">Peak Valuation</div><div class="info-val">$10 Billion (2019) — one of India's fastest decacorns</div></div>
+      <div class="info-row"><div class="info-key">Major Investors</div><div class="info-val">SoftBank, Sequoia Capital, Lightspeed, Airbnb Inc., Hero Enterprise, Microsoft</div></div>
+      <div class="info-row"><div class="info-key">IPO Status</div><div class="info-val">Filed DRHP in 2021 (SEBI), re-filed 2023; IPO pending as of 2025</div></div>
+      <div class="info-row"><div class="info-key">Age When Started</div><div class="info-val"><strong>19 years old</strong> — one of Asia's youngest startup founders at scale</div></div>
+    </div>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 02 LIGHT: BACKGROUND ─── -->
+<div class="sec-light reveal" id="sec-background" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">02 — The Origin Story</div>
+    <h2 class="sec-title">Background of the <em>Founder</em></h2>
+    <p class="lead">Ritesh Agarwal didn't come from a hotel family. He didn't study at IIT or IIM. He didn't have a famous mentor or rich parents. What he had was relentless curiosity, a habit of talking to strangers, and the audacity to believe a 19-year-old from a small town in Odisha could fix one of India's most broken industries.</p>
+    <p>Born in the small town of Bissam Cuttack in Odisha, Ritesh was always different from the kids around him. While others studied textbooks, he <strong>read everything he could about business and tech</strong>. By the time he was 13, he was already selling SIM cards. He applied to and got into the Indian School of Business &amp; Finance in Delhi, but <strong>he didn't complete his degree</strong> — he left to build OYO. The classroom couldn't teach him what the road could.</p>
+    <p>The story really starts with a very simple habit: Ritesh loved to travel. Not in luxury — in budget hotels, dhabas, and tiny guesthouses across India. And every single time, he was shocked by how bad the experience was. The bed would be dirty. The Wi-Fi password wouldn't work. The room looked nothing like the photo online. The staff didn't care. <strong>He experienced the problem hundreds of times, first-hand, before he decided to solve it.</strong></p>
+
+    <div class="subsec-title">The Pre-OYO Years</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">1993</div>
+        <div class="tl-content"><strong>Born — Bissam Cuttack, Odisha</strong><p>Small-town upbringing. Early curiosity about business, technology, and the world beyond his district.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2011</div>
+        <div class="tl-content"><strong>Moves to Delhi — Enrolls at ISB&F</strong><p>Leaves home at 17. Quickly more interested in the startup world than the classroom. Begins travelling cheap across India, staying in budget hotels — and getting frustrated at every one.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2012</div>
+        <div class="tl-content"><strong>Founds Oravel Stays</strong><p>Inspired by Airbnb, creates a platform to list Indian bed-and-breakfasts online. Realises quickly that listing is not enough — the properties themselves need to improve.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2013</div>
+        <div class="tl-content"><strong>Wins Thiel Fellowship — $100,000 grant</strong><p>Applies for Peter Thiel's "20 Under 20" fellowship — a grant for brilliant young people to skip college and build something real. He wins. It is his first real fuel. He pivots Oravel into OYO Rooms.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2013</div>
+        <div class="tl-content"><strong>First OYO Room — Gurugram</strong><p>Partners with a single budget hotel in Gurugram. OYO guarantees the hotel a minimum occupancy. In return, OYO controls quality standards. The model that will change everything is born from one room.</p></div>
+      </div>
+    </div>
+    <div class="callout callout-lesson-lt">
+      <div class="callout-label">🎯 Startup Lesson</div>
+      <p><strong>The best founders are power users of the problem they solve.</strong> Ritesh didn't read a market report about Indian hotel quality. He slept in 200+ bad hotels. The frustration was personal, real, and specific. If you are annoyed enough at a problem to obsess over it for years, you are likely the right person to fix it.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 03 DARK: PROBLEM ─── -->
+<div class="sec-dark reveal" id="sec-problem" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">03 — The Real Problem</div>
+    <h2 class="sec-title">Problem <em>They Solved</em></h2>
+    <p class="lead">India had thousands of budget hotels. Millions of travellers needed them every night. And yet, everyone hated the experience. That gap — between supply that existed and quality that didn't — was OYO's entire reason to exist.</p>
+    <p>India has one of the world's largest travel markets, but until 2013, most of it was deeply broken. There were roughly 4.5 million hotel rooms in India — mostly unbranded, independently owned budget hotels that had no quality control, no digital presence, and no consistency. <strong>A traveller booking a ₹800/night room in an Indian city was playing Russian roulette with their comfort.</strong> They had no way to know what they were going to get.</p>
+    <ul class="alist">
+      <li><strong>Problem 1 — No standardisation:</strong> The photo online looked clean. The room was not. Travellers had no way to trust budget hotels because no one enforced any standards. There were no Marriotts for ₹800 rooms.</li>
+      <li><strong>Problem 2 — No branding:</strong> Most budget hotels had names like "Hotel Shiv Kripa" or "Laxmi Guest House" — no brand recall, no ratings system, no loyalty. Every booking was a leap of faith.</li>
+      <li><strong>Problem 3 — Low occupancy for hotel owners:</strong> Independent budget hotel owners had zero marketing reach. Their rooms sat empty because they couldn't compete with OTAs (online travel agents) or branded chains. They were losing money on empty rooms every night.</li>
+      <li><strong>Problem 4 — The missing middle:</strong> There were luxury hotels (expensive) and absolutely terrible budget hotels (cheap). There was nothing in between — a clean, predictable, affordable experience with consistent basics: working AC, clean sheets, Wi-Fi, TV, clean bathroom. OYO decided to own that middle.</li>
+    </ul>
+    <div class="callout callout-green-dk">
+      <div class="callout-label">💡 Simple Explanation</div>
+      <p>Think of it this way: every budget hotel in India was like a local chai shop — unpredictable quality, no branding, different experience every time. OYO wanted to be the <strong>McDonald's of budget hotels</strong>. Not the fanciest, but perfectly consistent. You know exactly what you get, every single time, in every city.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 04 LIGHT: OPPORTUNITY ─── -->
+<div class="sec-light reveal" id="sec-opportunity" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">04 — Spotting the Gap</div>
+    <h2 class="sec-title">How He Identified <em>the Opportunity</em></h2>
+    <p class="lead">The insight was hiding in plain sight. Millions of budget rooms were empty every night. Millions of travellers hated what they were booking. All that was needed was someone to connect quality supply with trusting demand — and actually enforce the quality.</p>
+    <p>Ritesh's original idea — Oravel Stays — was a simple listing platform, inspired by Airbnb. But when he started talking to hotel owners and travellers, he realized the problem was deeper. <strong>Listing bad rooms online doesn't help anyone.</strong> You need to make the rooms good first. That's when the pivot happened — from a listing platform to a hospitality brand that takes over the experience completely.</p>
+    <div class="pq">
+      <blockquote>"I realized listing was not the answer. Quality was the answer. And quality required us to get into the room itself."</blockquote>
+      <cite>— Ritesh Agarwal on the OYO pivot</cite>
+    </div>
+    <p>The market opportunity was staggering: India had only about 150,000 branded hotel rooms in 2013 — serving a country of 1.4 billion people with a rapidly growing middle class that was starting to travel domestically at scale. <strong>The informal, unbranded hotel sector was 15x larger than the branded sector</strong> and almost completely untouched by technology or quality standards.</p>
+    <ul class="alist">
+      <li><strong>The Thiel Fellowship moment:</strong> Winning the $100,000 Peter Thiel Fellowship in 2013 wasn't just money — it was validation from some of the world's smartest investors that Ritesh's idea had global potential. It also gave him the network, the credibility, and the confidence to drop college and pursue OYO full time.</li>
+      <li><strong>First pilot — one hotel in Gurugram:</strong> The first OYO was a single hotel in Gurugram. Ritesh negotiated a minimum occupancy guarantee with the owner. In return, OYO got to control quality — linen standards, check-in experience, pricing. It worked. The pilot room was fully booked almost immediately.</li>
+      <li><strong>The demand-supply insight:</strong> Travellers were searching for "clean, affordable rooms" — not "Taj" or "Marriott." They didn't need luxury. They needed predictability. OYO could deliver predictability at ₹999/night. No one else was doing it.</li>
+    </ul>
+    <div class="callout callout-lesson-lt">
+      <div class="callout-label">🎯 Startup Lesson</div>
+      <p><strong>The best pivots happen when you dig into WHY your first idea isn't working.</strong> Oravel (listing) failed because India's hotel supply wasn't listable — it was too bad. Instead of blaming the market, Ritesh asked: "What needs to be true for this to work?" The answer was: the supply itself must be fixed. That answer became OYO.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 05 BLUE: REVENUE MODEL ─── -->
+<div class="sec-blue reveal" id="sec-revenue" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">05 — The Money Model</div>
+    <h2 class="sec-title">Revenue <em>Model</em></h2>
+    <p class="lead">OYO's revenue model sounds simple — they take a commission from every room booking. But underneath that simplicity is a carefully designed system of minimum guarantees, dynamic pricing, and platform fees that generates money from every layer of the hotel relationship.</p>
+    <div class="stats-strip">
+      <div class="stat-card"><div class="stat-val">~20–25%</div><div class="stat-lbl">Commission per booking</div></div>
+      <div class="stat-card"><div class="stat-val">157+</div><div class="stat-lbl">Countries (peak)</div></div>
+      <div class="stat-card"><div class="stat-val">₹999</div><div class="stat-lbl">Starting room price (India)</div></div>
+      <div class="stat-card"><div class="stat-val">$600 Mn+</div><div class="stat-lbl">Revenue (FY2023)</div></div>
+    </div>
+    <ul class="alist">
+      <li><strong>Commission model (core revenue):</strong> OYO takes a percentage — roughly 20–25% — of every room night booked through its platform or branded under its name. The hotel owner keeps the rest. OYO's job is to drive bookings and enforce quality. In the early days this was sometimes a flat revenue-share; later it evolved into more complex arrangements.</li>
+      <li><strong>Minimum guarantee (early model):</strong> In its earliest phase, OYO would promise a hotel owner a minimum number of occupied rooms per month, regardless of actual bookings. This guaranteed income attracted hotel owners — but it was also a huge financial risk for OYO, because they had to pay even when rooms were empty.</li>
+      <li><strong>Dynamic pricing:</strong> OYO used data and algorithms to change room prices in real time based on demand, season, local events, and competitor pricing — exactly like airline pricing. This meant OYO could charge ₹799 on a quiet Tuesday and ₹2,500 on Diwali weekend for the same room, maximising revenue for both OYO and the hotel owner.</li>
+      <li><strong>OYO Townhouse and premium tiers:</strong> As OYO grew, it launched higher-value offerings (OYO Townhouse, Collection O, Capital O) targeting business travellers and longer stays. These commanded higher rates and higher commissions — improving OYO's revenue per room.</li>
+      <li><strong>Technology and SaaS fees:</strong> OYO charges hotel partners for access to its property management system (PMS), revenue management tools, and digital booking infrastructure. This creates a recurring fee income separate from booking commissions.</li>
+    </ul>
+    <div class="callout callout-lesson-dk">
+      <div class="callout-label">💡 Simple Explanation</div>
+      <p>OYO's model is like being a hotel franchise that doesn't own any hotels. Think of it as the <strong>"brains" of the hotel</strong> — OYO handles the technology, brand, marketing, and quality standards. The hotel owner supplies the building and staff. OYO takes a cut of every booking. When it works, everyone wins. When OYO grows too fast and the quality slips, everyone loses — which is exactly what happened later.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 06 LIGHT: BUSINESS MODEL ─── -->
+<div class="sec-light reveal" id="sec-business" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">06 — How It Actually Works</div>
+    <h2 class="sec-title">Business <em>Model</em></h2>
+    <p class="lead">OYO's business model was genuinely new. It wasn't Airbnb (just a marketplace). It wasn't Marriott (doesn't own properties). It wasn't an OTA (doesn't just aggregate listings). OYO was something in between — a branded operator that uses other people's assets.</p>
+    <ul class="alist">
+      <li><strong>The lease-and-operate model (early phase):</strong> In the beginning, OYO would sometimes sign long-term leases on hotels, renovate them, and run them directly under the OYO brand. This gave maximum quality control but required huge amounts of capital and created massive fixed costs when rooms were empty.</li>
+      <li><strong>The franchise / managed model (scaled phase):</strong> OYO shifted to partnering with hotel owners who retain their building. OYO brands the hotel, provides technology, drives bookings, and enforces standards. The hotel pays OYO a commission or fee. This is far more capital-efficient — OYO has no lease liability.</li>
+      <li><strong>The standardisation checklist:</strong> Every OYO-branded room had to meet a specific checklist: clean white linen, functioning AC, 24-hour hot water, a branded toiletry kit, Wi-Fi, TV with set-top box. A hotel that passed became an OYO. A hotel that didn't was given time and support to upgrade. This checklist — enforced by OYO "Captains" who visited partner hotels — was the entire quality assurance system.</li>
+      <li><strong>The OYO app as demand engine:</strong> All bookings flowed through the OYO app or website. This meant OYO owned the customer relationship, not the hotel. Customers searched for "OYO in Mumbai," not "Hotel Shiv Kripa." The brand loyalty sat with OYO, giving it enormous power over hotel partners.</li>
+      <li><strong>Real-time data feedback loop:</strong> Guests rated their stay immediately after checkout. Hotels with consistently poor ratings were delisted. This created a powerful incentive for hotel partners to maintain quality — or lose access to OYO's demand entirely.</li>
+    </ul>
+    <div class="callout callout-lesson-lt">
+      <div class="callout-label">🎯 Startup Lesson</div>
+      <p><strong>Own the brand, not the asset.</strong> OYO's genius was realising that brand + technology + quality standards is more powerful than physical ownership. You don't need to own the hotel. You need to own the customer's trust. Once customers trust "OYO" more than any individual hotel's name, the business becomes enormously scalable — because trust, unlike buildings, is infinitely replicable.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 07 DARK: STRUGGLES ─── -->
+<div class="sec-dark reveal" id="sec-struggles" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">07 — The Hard Part Nobody Talks About</div>
+    <h2 class="sec-title">Initial <em>Struggles</em></h2>
+    <p class="lead">Building a brand on top of someone else's hotel is one of the hardest things in business. You can control the logo. You cannot always control the person at the front desk at 2 AM who tells a guest the room isn't ready.</p>
+    <ul class="alist">
+      <li><strong>Convincing hotel owners to give up control:</strong> The first battle was persuading hotel owners — many of them conservative family businesses — to let a 19-year-old from Odisha put his brand on their property and tell them how to make beds. Many said no. Ritesh had to personally visit hundreds of hotels, build trust, and demonstrate value before enough owners said yes.</li>
+      <li><strong>Quality that kept slipping:</strong> It's easy to maintain standards across 5 hotels. It's almost impossible across 5,000. As OYO scaled fast, the quality of hotel partners became inconsistent. Some OYO properties were excellent. Others were barely better than before. This inconsistency was the deepest structural threat to the brand — because the brand's entire promise was consistency.</li>
+      <li><strong>The funding drought before Sequoia:</strong> Before Ritesh raised institutional funding, OYO was running on fumes. The Thiel Fellowship money was enough to test, not to scale. He pitched dozens of investors who couldn't understand the model. Why would OYO spend money on quality when it doesn't even own the hotel?</li>
+      <li><strong>The minimum guarantee trap:</strong> Promising hotel owners a minimum occupancy income — regardless of actual bookings — felt like a great sales pitch. But it created massive downside risk. When occupancy fell short, OYO had to pay the difference out of its own pocket. This burned through cash at a terrifying rate in the early growth phase.</li>
+      <li><strong>No talent for hospitality operations:</strong> Ritesh was a tech entrepreneur, not a hotelier. OYO had to build from scratch the operational systems, training programmes, and quality-checking processes that hotel chains like Marriott had refined over 50 years. They were inventing hospitality operations in real-time, at speed, in hundreds of cities simultaneously.</li>
+    </ul>
+    <div class="callout callout-warn-dk">
+      <div class="callout-label">⚠ Critical Insight</div>
+      <p>The hardest thing about OYO's early model wasn't technology — it was <strong>behaviour change</strong>. OYO was asking Indian hotel owners who had run their properties their own way for decades to suddenly change their sheets, fix their bathrooms, and accept that a tech platform would tell them what their rooms should look like. That kind of culture change — at speed, at scale, in hundreds of cities — is extraordinarily difficult. The ones who pulled it off grew. The ones who couldn't became OYO's biggest problem.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 08 YELLOW-ACCENT: GROWTH STRATEGY ─── -->
+<div class="sec-yellow-accent reveal" id="sec-strategy" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">08 — The Growth Playbook</div>
+    <h2 class="sec-title">Growth <em>Strategy</em></h2>
+    <p class="lead">OYO's growth strategy can be described in one phrase: move impossibly fast, worry about profitability later. Ritesh believed — and Masayoshi Son of SoftBank agreed — that in a land-grab market, speed of supply acquisition matters more than margins. Get the hotels first. Fix the economics later.</p>
+    <ul class="alist">
+      <li><strong>City-by-city blitzscaling:</strong> OYO didn't try to be everywhere at once from day one. It would pick a target city, flood it with sales executives, sign up as many hotel partners as possible in that city, create enough supply to dominate search results, and then move to the next city. This "saturate then expand" model created local dominance before national scale.</li>
+      <li><strong>The sales army:</strong> OYO built one of India's largest field sales teams — thousands of relationship managers who did nothing but visit hotel owners, pitch the OYO model, sign partnership agreements, and onboard new properties. This human-intensive sales model was expensive but irreplaceable — hospitality is a relationship business, and you cannot sign up a skeptical hotel owner with a cold email.</li>
+      <li><strong>Aggressive pricing to create demand habit:</strong> OYO's early rooms were priced below market to create a traveller habit. If you book OYO once and it's clean and affordable, you book OYO again. The plan was to acquire customers cheaply, then gradually raise prices as the brand earned trust. This is classic loss-leader growth strategy — Amazon did it with books, Uber did it with rides.</li>
+      <li><strong>Tier-2 and Tier-3 city focus:</strong> While competitors chased Mumbai and Delhi, OYO went to Kota, Patna, Coimbatore, and Dehradun. These cities had huge demand — business travellers, students, medical tourists — and almost no branded hotel supply. OYO had the market to itself in hundreds of these cities before anyone noticed.</li>
+      <li><strong>Technology as the scaling tool:</strong> Every process that could be automated, was. Check-in could happen via the app. Pricing was automated. Ratings were collected automatically. The technology stack was OYO's unfair advantage over hotel chains that still relied on spreadsheets and phone calls.</li>
+    </ul>
+    <div class="callout callout-warn-lt">
+      <div class="callout-label">⚠ Critical Caveat</div>
+      <p>Speed worked until it didn't. The same blitzscaling that made OYO India's fastest-growing startup also made it impossible to maintain quality. When you onboard 10,000 hotel rooms in 6 months, you cannot check the quality of every room. The growth strategy that created the brand also, eventually, began to destroy it.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 09 DARK: BRANDING ─── -->
+<div class="sec-dark reveal" id="sec-branding" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">09 — The Brand Architecture</div>
+    <h2 class="sec-title">Branding <em>Strategy</em></h2>
+    <p class="lead">OYO's branding achievement is remarkable: it made a category that no one trusted — Indian budget hotels — feel trustworthy. That's not a logo decision. That's a systems decision. The brand was built not through advertising alone but through the experience of 5 million guests who slept in a clean, affordable OYO room and told their friends about it.</p>
+    <p>The name "OYO" is an acronym for "On Your Own" — which is almost philosophically perfect for a solo budget traveller. But the brand was built on <strong>three promises</strong> that Ritesh made and had to relentlessly deliver:</p>
+    <ul class="alist">
+      <li><strong>Promise 1 — Consistency:</strong> Every OYO room, in every city, would meet the same minimum standard. Clean linen. Working AC. Hot water. Wi-Fi. The red-and-white OYO branding on the door was a trust signal — it meant the room on the other side had been checked. This promise was the entire brand.</li>
+      <li><strong>Promise 2 — Affordability:</strong> OYO would always be in the budget segment. Starting prices would stay accessible — originally ₹999, later adjusted by city and tier. The brand was never meant to compete with luxury chains. It was meant to make cleanliness and comfort available to the masses.</li>
+      <li><strong>Promise 3 — Predictability:</strong> Unlike random hotel searches on OTAs where each result was a mystery, an OYO result meant you knew what you were getting. The predictability promise — knowing in advance what your room will be — is enormously powerful in a country where trust is the scarcest commodity in budget travel.</li>
+    </ul>
+    <p>As OYO grew, it launched a multi-brand architecture: <strong>OYO Rooms</strong> (base budget), <strong>OYO Townhouse</strong> (mid-market, targeting millennials), <strong>Collection O</strong> (premium independent hotels), <strong>Capital O</strong> (business travel), and <strong>Palette Resorts</strong> (leisure escapes). This allowed OYO to move up-market and capture higher revenue per room without abandoning its core budget identity.</p>
+    <div class="callout callout-lesson-dk">
+      <div class="callout-label">🎯 Startup Lesson</div>
+      <p><strong>A brand promise is only as strong as the operational system behind it.</strong> OYO promised consistency. When its operations couldn't scale as fast as its ambitions, the brand took damage. Every bad hotel experience posted on social media was a crack in the brand. The lesson: don't make a promise your operations cannot keep, especially when you're scaling 10x every year.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 10 LIGHT: SUPPLY MODEL ─── -->
+<div class="sec-light reveal" id="sec-supply" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">10 — The Supply Architecture</div>
+    <h2 class="sec-title">The Supply <em>Model</em></h2>
+    <p class="lead">OYO's supply strategy is the most misunderstood part of its business. Most people think OYO is just a website where you book hotels. In reality, OYO built a sophisticated, technology-driven system to onboard, standardise, monitor, and scale an entirely fragmented hospitality market.</p>
+    <div class="subsec-title">How OYO Signed Up Hotels</div>
+    <p>The onboarding process for a new hotel partner was a carefully designed sales and operations system. Here's how it worked in practice:</p>
+    <ul class="alist">
+      <li><strong>Step 1 — Field scouting:</strong> OYO's sales executives ("property acquisition managers") would literally walk the streets of a target city identifying budget hotels by eyeballing the building. They'd knock on the door and pitch the OYO model in the local language.</li>
+      <li><strong>Step 2 — The pitch:</strong> The hotel owner was shown an earnings calculator — "Here is how much you are earning now (empty rooms). Here is how much you could earn with OYO sending you customers." The pitch was financial, not emotional. Hotel owners cared about occupancy, not brand stories.</li>
+      <li><strong>Step 3 — The renovation kit:</strong> Once an owner agreed, OYO would provide (sometimes subsidise) a "standardisation kit" — white linen, OYO-branded pillows, bathroom amenities, a smart lock, a Wi-Fi router, and a tablet device for managing bookings. The cost of this kit came off future commissions — OYO effectively financed the hotel's upgrade.</li>
+      <li><strong>Step 4 — The Captain visit:</strong> An OYO "Captain" (quality auditor) would visit the hotel, run through a 50-point checklist, photograph every room, and certify it as OYO-compliant. The room would then go live on the OYO app within hours.</li>
+      <li><strong>Step 5 — Ongoing monitoring:</strong> Guest ratings after each stay were sent directly to OYO's algorithm. Hotels below a certain rating threshold would receive warning flags. Repeated poor performance led to delisting — the ultimate punishment, because the hotel owner would lose OYO's demand immediately.</li>
+    </ul>
+    <div class="callout callout-green-lt">
+      <div class="callout-label">💡 Simple Explanation</div>
+      <p>OYO's supply model is like a <strong>franchise system without owning any restaurants</strong>. McDonald's doesn't own every restaurant it operates — most are franchised. But McDonald's controls the recipe, the standards, the branding, and the customer experience. OYO did the same with hotels. The hotel owner supplies the building. OYO supplies the brand, the bookings, and the standards. Both sides benefit — when it works.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 11 BLUE: FUNDING ─── -->
+<div class="sec-blue reveal" id="sec-funding" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">11 — The Money Journey</div>
+    <h2 class="sec-title">Funding <em>Journey</em></h2>
+    <p class="lead">OYO's funding story is one of the most dramatic in Indian startup history — from a $100,000 fellowship to a $10 billion valuation, and then the painful process of learning that money does not automatically equal business health.</p>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">2013</div>
+        <div class="tl-content"><strong>Thiel Fellowship — $100,000</strong><p>Peter Thiel's "20 Under 20" fellowship. Ritesh is 19. This $100K is what lets him turn Oravel into OYO. More valuable than the money: the network, the validation, and the forced urgency of building something real.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2014</div>
+        <div class="tl-content"><strong>Seed Round — $600,000 from Lightspeed</strong><p>Lightspeed India becomes OYO's first institutional investor. The bet was on the founder as much as the model — OYO had only a handful of hotels at this point.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2015</div>
+        <div class="tl-content"><strong>Series A — $25 Million (Sequoia Capital)</strong><p>Sequoia leads. This is OYO's real fuel injection. Ritesh is now 21. OYO has 2,500+ rooms across 10 cities. The model is working. The race to scale begins.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2016</div>
+        <div class="tl-content"><strong>Series B — $100 Million (SoftBank, Sequoia, Lightspeed)</strong><p>SoftBank enters for the first time. This is the beginning of the relationship between Ritesh Agarwal and Masayoshi Son that will define OYO's next chapter. SoftBank's Vision Fund model — "grow impossibly fast, win the market" — aligns perfectly with Ritesh's ambitions.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2018</div>
+        <div class="tl-content"><strong>Series D — $1 Billion (SoftBank Vision Fund)</strong><p>$1 Billion in a single round. OYO is now valued at $5 Billion. Ritesh is 24. This is the money that funds the global expansion — China, the US, Europe, Southeast Asia.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2019</div>
+        <div class="tl-content"><strong>Airbnb Invests — OYO hits $10 Billion valuation</strong><p>Airbnb makes a strategic investment — a fascinating moment where the world's largest home-sharing platform invests in the world's fastest-growing budget hotel brand. OYO's valuation peaks at $10 Billion.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2019–20</div>
+        <div class="tl-content"><strong>Ritesh's personal buyback — $2 Billion</strong><p>In one of the boldest founder moves in startup history, Ritesh personally borrows ~$2 Billion (from a consortium including SoftBank and others) to buy back a significant stake in OYO from early investors. He increases his ownership from ~10% to ~30%. The debt will later become a burden.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2020–23</div>
+        <div class="tl-content"><strong>COVID collapse + restructuring</strong><p>COVID-19 hits OYO with catastrophic force. Hotel bookings go to near zero. OYO lays off thousands of employees globally, exits multiple markets, and begins the painful shift from growth-at-all-costs to sustainable profitability. The valuation drops significantly.</p></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2023</div>
+        <div class="tl-content"><strong>IPO filing — path to public markets</strong><p>OYO refiled its DRHP with SEBI. The company reports a narrowing of losses and improvement in key financial metrics. The IPO ambition remains live — but investors now want profitability, not just growth.</p></div>
+      </div>
+    </div>
+    <div class="callout callout-warn-dk">
+      <div class="callout-label">⚠ Critical Insight</div>
+      <p>OYO's funding story has one brutal lesson hidden inside it: <strong>valuation is not the same as value.</strong> A $10 Billion valuation in 2019 meant investors believed OYO would be worth that much someday. It didn't mean the company was generating $10 Billion worth of sustainable business. When the growth stopped and the losses mounted, the gap between valuation and reality became painfully visible.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 12 LIGHT: GLOBAL EXPANSION ─── -->
+<div class="sec-light reveal" id="sec-expansion" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">12 — The World Push</div>
+    <h2 class="sec-title">Global <em>Expansion</em></h2>
+    <p class="lead">Fuelled by SoftBank's billions, OYO attempted something few Indian startups had ever tried: building a global hospitality brand from India. The ambition was extraordinary. The execution was, in many places, a painful lesson in the limits of growth capital.</p>
+    <ul class="alist">
+      <li><strong>China (2017–2019) — Fastest expansion, fastest collapse:</strong> OYO entered China and grew to become one of the largest hotel chains in the country within two years — more than 500,000 rooms. But the model was copied instantly by Chinese competitors, the unit economics were broken, and when COVID hit, OYO had to exit most of China at enormous cost. China was both OYO's greatest growth story and its most expensive mistake.</li>
+      <li><strong>United States (2019) — The wrong market:</strong> OYO entered the US market at a massive scale, partnering with hotels across major cities. But the US hotel industry was already highly consolidated, customer expectations were higher, and OYO's ability to enforce quality standards across American hotel owners was limited. The US expansion was expensive and largely unsuccessful.</li>
+      <li><strong>Southeast Asia (2018+) — Moderate success:</strong> OYO's expansion into Malaysia, Indonesia, and the Philippines was more measured and more successful. These markets had a closer resemblance to India — fragmented budget hotel supply, a rapidly growing middle class, and low brand penetration.</li>
+      <li><strong>Europe (2019) — Motel One and beyond:</strong> OYO entered Europe, acquiring the European budget hotel chain @Leisure Group (now Belvilla) to gain inventory without the partner onboarding challenge. Europe represented a different model — acquisition-led rather than organic.</li>
+      <li><strong>The lesson from global expansion:</strong> OYO's India model worked because Ritesh understood India — the economics, the hotel owner psychology, the traveller expectations — deeply and personally. When he tried to apply the same model to China, the US, and Europe without equivalent deep market understanding, it frequently failed. The model was not plug-and-play across cultures.</li>
+    </ul>
+    <div class="callout callout-lesson-lt">
+      <div class="callout-label">🎯 Startup Lesson</div>
+      <p><strong>Understanding why something works in one market is more important than copying what works.</strong> OYO's India success came from specific insights about India. Scaling to China required specific insights about China. Insights don't automatically transfer — you have to re-earn them in every new market. Assuming they do is one of the most expensive mistakes a scaling company can make.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 13 DARK: MISTAKES ─── -->
+<div class="sec-dark reveal" id="sec-mistakes" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">13 — What Went Wrong</div>
+    <h2 class="sec-title">Mistakes &amp; <em>Failures</em></h2>
+    <p class="lead">OYO's mistakes were not small. They were structural, expensive, and deeply honest lessons in what happens when a company prioritises growth over operations, valuation over unit economics, and headlines over hotel quality.</p>
+    <ul class="alist">
+      <li><strong>Mistake 1 — Growing faster than quality could follow:</strong> OYO went from 10,000 rooms to 300,000 rooms in three years. At that speed, quality control becomes nearly impossible. The brand promise was "consistent experience" — but the operations couldn't deliver consistency at that scale. Thousands of hotel partners were onboarded who weren't ready, and guests started reporting bad experiences. The gap between the brand promise and the reality became the biggest threat to the company.</li>
+      <li><strong>Mistake 2 — The minimum guarantee model:</strong> Promising hotel owners a minimum monthly income regardless of actual bookings was a great sales tool and a financial disaster. OYO was essentially betting that its demand generation would always outpace its supply additions. When growth slowed or bookings dipped, OYO was on the hook for millions of dollars in minimum payouts to hotel owners who sat empty. This burned through cash at unsustainable rates.</li>
+      <li><strong>Mistake 3 — China at all costs:</strong> OYO's China expansion was a $1 Billion+ bet that failed. Chinese competitors replicated the model almost immediately, the government regulatory environment was complex, and COVID delivered the final blow. The money spent building China's OYO could have strengthened the India business significantly.</li>
+      <li><strong>Mistake 4 — Ritesh's personal debt-funded share buyback:</strong> Borrowing $2 Billion personally to buy back shares was extraordinarily aggressive for a 25-year-old running a loss-making startup. It showed enormous confidence — and became enormous pressure. The personal debt made Ritesh's financial future dependent on OYO's IPO success, creating a conflict of interest between his personal interest and the company's long-term health.</li>
+      <li><strong>Mistake 5 — Mass layoffs with poor communication:</strong> OYO laid off thousands of employees — sometimes via WhatsApp messages, conference calls, or in ways that felt brutal and impersonal. The optics were terrible and damaged the company's employer brand significantly. Talented people stopped wanting to join OYO, which then made the operational problems worse.</li>
+    </ul>
+    <div class="callout callout-warn-dk">
+      <div class="callout-label">⚠ The Blitzscaling Paradox</div>
+      <p>There's a paradox at the heart of OYO's mistakes: <strong>the things that made OYO great in 2015–2018 became the things that nearly destroyed it in 2019–2021</strong>. Speed, aggression, and capital-fuelled growth were strengths when the market was open. They became weaknesses when operational discipline, quality control, and sustainable economics became the new requirements. Recognising when to shift gears — from growth mode to profitability mode — is one of the hardest transitions any startup must make.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 14 LIGHT: CONTROVERSIES ─── -->
+<div class="sec-light reveal" id="sec-controversies" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">14 — The Controversies</div>
+    <h2 class="sec-title">Controversies &amp; <em>Criticisms</em></h2>
+    <p class="lead">OYO's rapid growth generated headlines — but not all of them were positive. From hotel owner protests to employee layoffs to questions about governance, OYO faced scrutiny that any company scaling this fast would encounter — and some that were specific to the choices OYO made.</p>
+    <ul class="alist">
+      <li><strong>Hotel owner protests — "OYO betrayed us":</strong> As OYO scaled, thousands of hotel owners across India began complaining publicly that OYO was withholding payments, changing commission structures without notice, and prioritising new partner onboarding over keeping existing partners satisfied. In 2019, the Federation of Hotel &amp; Restaurant Associations of India (FHRAI) called for action against OYO, accusing it of "unethical practices." Some hotel owners held public protests. This controversy struck at the core of OYO's supply model — if hotel partners don't trust you, the whole system breaks.</li>
+      <li><strong>The China numbers controversy:</strong> OYO's claimed room count in China — at its peak, more than 500,000 rooms — was questioned by analysts who suggested the actual active room count was significantly lower. The gap between "signed partnerships" and "actually operational, bookable rooms" became a credibility issue for OYO's reported metrics.</li>
+      <li><strong>Employee layoffs via WhatsApp:</strong> During the 2020 restructuring, reports emerged of employees being laid off via WhatsApp messages, with little notice or severance clarity. For a company valued at $10 Billion, the handling of these layoffs drew widespread criticism from the Indian startup community.</li>
+      <li><strong>Quality gap vs brand promise:</strong> Consumer complaints about OYO rooms — dirty linen, broken ACs, check-in refused, room photos not matching reality — became a persistent social media problem. The hashtag #OYOFail appeared regularly. Each complaint was a public reminder of the gap between OYO's brand promise and its operational reality.</li>
+      <li><strong>Governance questions around the buyback:</strong> Ritesh's $2 Billion personal share buyback — funded partly by SoftBank, which was also OYO's largest shareholder — raised questions about whether this was a conflict of interest. Was SoftBank financing a founder's share increase in a company SoftBank already controlled? Governance watchers flagged it as unusual for a pre-IPO company.</li>
+    </ul>
+    <div class="callout callout-lesson-lt">
+      <div class="callout-label">🎯 Startup Lesson</div>
+      <p><strong>At high speed, every structural weakness becomes a scandal.</strong> OYO's controversies were not the cause of its problems — they were symptoms. The cause was growing so fast that it couldn't keep its promises to hotel owners, employees, and guests simultaneously. When you can only keep two of three promises, someone always feels betrayed — and in the social media era, they tell the world.</p>
+    </div>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 15 DARK: STRENGTHS ─── -->
+<div class="sec-dark reveal" id="sec-strengths" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">15 — What He Got Right</div>
+    <h2 class="sec-title">Genuine <em>Strengths</em></h2>
+    <p class="lead">It would be unfair to talk only about OYO's mistakes. Ritesh Agarwal built something genuinely extraordinary. He created a brand from nothing, in one of the world's most fragmented industries, in a developing market, as a teenager with no family money, no industry experience, and no famous surname. That deserves enormous respect.</p>
+    <ul class="alist">
+      <li><strong>Category creation:</strong> OYO didn't join an existing market — it created a new category. "Standardised budget hospitality" didn't exist in India before OYO. Ritesh had to define the category, educate both hotel owners and travellers about it, and then scale it. Creating a category from scratch is the hardest and most valuable thing a startup can do.</li>
+      <li><strong>Technology as a competitive moat:</strong> OYO built an impressive technology stack — dynamic pricing algorithms, property management systems, demand prediction engines, a consumer app with millions of users, and a real-time quality monitoring dashboard. This technology was years ahead of what traditional hotel chains had in India, and created a real advantage in pricing and operations.</li>
+      <li><strong>Fundraising genius:</strong> Ritesh is one of India's most gifted fundraisers. Convincing SoftBank to invest $1 Billion in a budget hotel aggregator run by a 24-year-old requires extraordinary storytelling, conviction, and personal charisma. The ability to raise capital — and to raise it from the world's most sophisticated technology investors — is itself a rare and valuable skill.</li>
+      <li><strong>Personal resilience:</strong> OYO faced multiple near-death experiences — the 2019 hotel owner crisis, COVID in 2020, the valuation collapse, the personal debt. Most founders would have stepped back or given up. Ritesh fought through every one of them, restructured the company, and kept pushing toward the IPO. Resilience at this level is not common.</li>
+      <li><strong>Market insight — Tier 2 and Tier 3 India:</strong> Ritesh understood something that most educated urban entrepreneurs miss: the biggest opportunity in India is not in the metros — it's in the 400+ cities with populations between 500,000 and 5 million. OYO's dominance in these cities created a demand base that no competitor has been able to replicate.</li>
+    </ul>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 16 LIGHT: PSYCHOLOGY ─── -->
+<div class="sec-light reveal" id="sec-psychology" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">16 — What's Inside the Mind</div>
+    <h2 class="sec-title">Psychology of <em>Success</em></h2>
+    <p class="lead">Ritesh Agarwal is one of the most psychologically interesting founders in Indian business. He was 19 when he started. He had no safety net, no famous family, no fallback plan. What he had instead was a kind of fearlessness that comes from having nothing to lose — and a hunger that came from having everything to prove.</p>
+    <ul class="alist">
+      <li><strong>Outsider advantage:</strong> Being from a small town in Odisha, not from Delhi or Mumbai, meant Ritesh had no assumption that budget travellers in Tier-2 cities didn't matter. Elite entrepreneurs tend to build for people like themselves. Ritesh built for people like the travellers he met sleeping in ₹500/night hotels in Patna and Varanasi — because he was one of them.</li>
+      <li><strong>Comfort with uncertainty:</strong> Starting a company at 19 with no experience, in an industry you know nothing about, takes a specific kind of psychological wiring. Ritesh has described his thinking as: "The worst that could happen is it fails and I go back to doing something else." This absence of catastrophising allowed him to take risks that more experienced, more comfortable founders would not.</li>
+      <li><strong>Obsessive learning speed:</strong> What Ritesh lacked in formal education, he compensated for with an extraordinary speed of learning. He has spoken about reading voraciously — not just business books, but about hospitality, real estate, consumer psychology. He would walk into an investor meeting knowing as much about the market as investors who had been studying it for years.</li>
+      <li><strong>Storytelling as a superpower:</strong> Ritesh's ability to tell the OYO story — to hotel owners in Hindi, to investors in English, to governments in regulatory meetings — is one of his most underrated skills. Great startup founders are always part-salesperson. The ones who can tell the story compellingly at every level — from the hotel owner in Lucknow to Masayoshi Son in Tokyo — are extraordinarily rare.</li>
+      <li><strong>Identity merged with mission:</strong> For Ritesh, OYO was never just a business. It was personal. He had experienced the problem personally. He understood the customer personally. He had come from a place where affordable, dignified travel felt like a luxury. Making affordable, dignified travel accessible to millions of Indians was something he genuinely cared about — and that passion was visible and infectious.</li>
+    </ul>
+    <div class="pq">
+      <blockquote>"I never thought of myself as someone building a startup. I thought of myself as someone trying to fix a real problem for real people. The startup was just the tool."</blockquote>
+      <cite>— Ritesh Agarwal on founder motivation</cite>
+    </div>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 17 BLUE: TURNING POINTS ─── -->
+<div class="sec-blue reveal" id="sec-turning" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">17 — Moments That Changed Everything</div>
+    <h2 class="sec-title">Turning <em>Points</em></h2>
+    <p class="lead">Every great company has a handful of moments where one decision, one conversation, or one external shock changes the trajectory forever. OYO has had several.</p>
+    <ul class="alist">
+      <li><strong>The Thiel Fellowship (2013):</strong> This was OYO's ignition moment. Without the $100K and the credibility of being a Thiel Fellow, Ritesh would have had enormous difficulty raising even seed funding in India in 2013. The fellowship gave him access, validation, and — most importantly — the permission he needed from himself to pursue this full time.</li>
+      <li><strong>The Sequoia investment (2015):</strong> Sequoia Capital India investing $25 Million in OYO was the moment the startup world took Ritesh seriously. Sequoia had invested in Google, WhatsApp, Airbnb globally. When Sequoia says yes, other investors follow. The Sequoia bet unlocked the next three years of growth.</li>
+      <li><strong>SoftBank's $1 Billion (2018):</strong> Masayoshi Son was famous for making large bets based on founder instinct. When he bet $1 Billion on OYO, he essentially gave Ritesh permission to think globally. Before this, OYO was an India story. After this, it became a world story. Whether this was the right moment to go global is a different question — but this was the decision point.</li>
+      <li><strong>COVID-19 (March 2020):</strong> OYO went from its highest peak (10 Billion valuation, 1.2 million rooms globally) to near-shutdown within weeks. Hotel bookings dropped 80–90%. OYO had to lay off thousands of people and exit multiple markets. Paradoxically, COVID forced the operational discipline and financial focus that OYO had been avoiding in its growth years. It was painful, but it may have saved the company.</li>
+      <li><strong>The pivot to profitability (2022–23):</strong> OYO's decision to stop chasing rooms at any cost, exit unprofitable markets, focus on its core India and Europe business, and prioritise EBITDA over GMV was the maturation moment. OYO reported improving financial metrics in 2023 for the first time — not a profitable company, but a company visibly moving in the right direction.</li>
+    </ul>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 18 LIGHT: MOAT ─── -->
+<div class="sec-light reveal" id="sec-moat" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">18 — The Competitive Edge</div>
+    <h2 class="sec-title">What Makes OYO <em>Hard to Copy</em></h2>
+    <p class="lead">Competitors have tried to copy OYO. FabHotels, Treebo, Zostel — India had several attempts at the same model. Most of them remain much smaller or have pivoted. Why? Because OYO's real advantages are not the app or the brand — they are the network, the data, and the time it takes to build trust at scale.</p>
+    <ul class="alist">
+      <li><strong>Supply network density:</strong> OYO has tens of thousands of hotel partnerships built over years across hundreds of Indian cities. A new competitor has to build that same network from scratch — hotel by hotel, city by city. It took OYO years of boots-on-the-ground sales effort. It cannot be shortcut with money alone.</li>
+      <li><strong>Data advantage:</strong> OYO has pricing and demand data across India's budget hotel market that no competitor has. Millions of bookings, ratings, and check-out reviews have created a dataset that powers OYO's pricing algorithms and demand predictions. This data advantage compounds over time — the more bookings, the better the algorithm, the better the pricing, the more bookings.</li>
+      <li><strong>Consumer brand recognition:</strong> "OYO" is the most recognised budget hotel brand in India. When a traveller in India says "book me an OYO," they don't mean a specific hotel — they mean a specific experience. That kind of category ownership is almost impossible to displace without a decade of marketing investment.</li>
+      <li><strong>Hotel owner relationships:</strong> Despite controversies, OYO still has the largest base of hotel partner relationships in India. The history, the contracts, the operational systems, and the shared revenue data create switching costs. A hotel that has been OYO-dependent for years doesn't easily move its business elsewhere.</li>
+    </ul>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 19 DARK: LESSONS ─── -->
+<div class="sec-dark reveal" id="sec-lessons" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">19 — What You Should Take Away</div>
+    <h2 class="sec-title">Key <em>Lessons</em></h2>
+    <p class="lead">OYO's story is not a simple success story or a cautionary tale. It is both — simultaneously — which makes it one of the richest case studies in Indian business history. Here is what every commerce student, startup enthusiast, and entrepreneur should take from it.</p>
+    <ul class="alist">
+      <li><strong>Lesson 1 — Personal experience of the problem is the best research:</strong> Ritesh didn't read a McKinsey report about Indian hotel quality. He slept in the problem for three years. The founder who has lived the problem is almost always more motivated, more insightful, and more persistent than the founder who read about it.</li>
+      <li><strong>Lesson 2 — Own the brand, not the asset:</strong> OYO's capital-light model — branding hotels it doesn't own — was the right structural insight. The challenge was execution at scale. The insight itself was correct and remains the blueprint for many modern marketplace businesses.</li>
+      <li><strong>Lesson 3 — Speed and quality are genuinely in tension:</strong> There is no formula that lets you scale 10x every year while maintaining quality. OYO learned this the hard way. Every founder who raises a lot of money and is told to "grow fast" needs to understand what quality is sacrificed in the process — and whether that sacrifice is acceptable.</li>
+      <li><strong>Lesson 4 — Valuation is not success:</strong> OYO was called a success at $10 Billion valuation. It was not yet a success — it was a bet. True business success is sustainable revenue, satisfied customers, and a business model that works without constant infusion of new capital. OYO had to learn the difference the painful way.</li>
+      <li><strong>Lesson 5 — Know your market before you enter it:</strong> OYO's India model was built on deep personal understanding of India. Its global failures came from assuming that understanding would transfer automatically. Every new market requires new understanding. Capital can open doors — but it cannot substitute for insight.</li>
+      <li><strong>Lesson 6 — Resilience is the highest business skill:</strong> OYO has been through more crises than most companies face in a decade. Ritesh's ability to survive, restructure, and keep going — through COVID, through the hotel owner protests, through the valuation collapse — is the single most instructive thing about the OYO story. The founders who succeed are not the ones who avoid crises. They are the ones who survive them.</li>
+    </ul>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 20 LIGHT: QUOTES ─── -->
+<div class="sec-light reveal" id="sec-quotes" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">20 — In His Own Words</div>
+    <h2 class="sec-title">10 Quotes That Reveal <em>His Mind</em></h2>
+    <div class="quotes-grid">
+      <div class="qcard">
+        <div class="qnum">01</div>
+        <div class="qtext">"The biggest risk is not taking any risk. In a world changing this fast, the only strategy that's guaranteed to fail is not taking risks."</div>
+        <div class="qmeta">On boldness and speed</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">02</div>
+        <div class="qtext">"I never thought of myself as someone who came from a privileged background. But I also never thought that was a disadvantage. It made me hungry."</div>
+        <div class="qmeta">On his Odisha roots</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">03</div>
+        <div class="qtext">"We are not in the hotel business. We are in the trust business. Hotels are just where trust happens to sleep."</div>
+        <div class="qmeta">On OYO's real product</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">04</div>
+        <div class="qtext">"Every setback taught me something. COVID was the most painful teacher, but also the most honest one."</div>
+        <div class="qmeta">On the pandemic lessons</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">05</div>
+        <div class="qtext">"When you're 19 and you have no money and no reputation, the only thing you have is the strength of your idea and how clearly you can explain it."</div>
+        <div class="qmeta">On fundraising without credentials</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">06</div>
+        <div class="qtext">"Disruption is not about technology. Technology is just the tool. Disruption is about identifying who is being underserved and serving them better than anyone else."</div>
+        <div class="qmeta">On what disruption really means</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">07</div>
+        <div class="qtext">"India's real opportunity is not in the metros. The metros are crowded with smart people with good ideas. The real India is in the 400 cities nobody is thinking about."</div>
+        <div class="qmeta">On Tier 2 and Tier 3 India</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">08</div>
+        <div class="qtext">"I made mistakes. Big ones. But I made them while trying to build something real. I'd rather make mistakes at speed than be perfectly cautious and irrelevant."</div>
+        <div class="qmeta">On the cost of ambition</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">09</div>
+        <div class="qtext">"Funding is oxygen. You need it to survive. But oxygen is not a business model."</div>
+        <div class="qmeta">On confusing capital with business health</div>
+      </div>
+      <div class="qcard">
+        <div class="qnum">10</div>
+        <div class="qtext">"The traveller who books a ₹999 OYO room is not less important than the one who books a ₹15,000 room at a five-star hotel. They both deserve a clean room, a hot shower, and to be treated with dignity."</div>
+        <div class="qmeta">On affordable dignity as a mission</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 21 DARK: FINAL SUMMARY ─── -->
+<div class="sec-dark reveal" id="sec-summary" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">21 — The Big Picture</div>
+    <h2 class="sec-title">Final <em>Summary</em></h2>
+    <p class="lead">Ritesh Agarwal didn't just build a hotel company. He proved that a kid from a small town in Odisha, with no family wealth and no formal degree, could spot a real problem, build a real solution, raise real money from the world's best investors, and create something that changed how hundreds of millions of Indians experience travel.</p>
+    <p>The OYO story is ultimately about <strong>two kinds of courage</strong>: the courage to start, and the harder, less glamorous courage to keep going when everything falls apart. Ritesh had both. The first is rare. The second is rarer.</p>
+    <p>What OYO built at its best was genuinely valuable: a brand that made the unpredictable predictable, that gave a budget traveller in Patna the dignity of knowing what their room would look like before they opened the door. That is not a small achievement. In a country where quality and affordability have always seemed like a trade-off, OYO briefly made them coexist.</p>
+    <ul class="alist">
+      <li>From ₹600,000 seed funding to a $10 Billion valuation in 6 years. <strong>This is what happens when the right founder meets the right market at the right moment with the right conviction.</strong></li>
+      <li>From a single hotel room in Gurugram to operations in 157 countries. <strong>Not all of it worked. But the ambition itself — that one room can become a global brand — was real.</strong></li>
+      <li>From growth-at-all-costs to the slow, painful work of sustainable profitability. <strong>Every company that survives learns this lesson. OYO learned it publicly, expensively, and more honestly than most.</strong></li>
+    </ul>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 22 LIGHT: QUICK REVISION ─── -->
+<div class="sec-light reveal" id="sec-revision" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">22 — One Page Summary</div>
+    <h2 class="sec-title">Quick Revision <em>Summary</em></h2>
+    <div class="revision">
+      <h3>📋 Ritesh Agarwal × OYO — Complete Snapshot</h3>
+      <div class="qr-grid">
+        <div class="qr-item"><div class="qr-label">Founder</div><div class="qr-val">Ritesh Agarwal — born November 16, 1993, Odisha</div></div>
+        <div class="qr-item"><div class="qr-label">Company</div><div class="qr-val">OYO Rooms (Oravel Stays Pvt Ltd) — founded 2013</div></div>
+        <div class="qr-item"><div class="qr-label">Core Insight</div><div class="qr-val">India's budget hotels existed in abundance but had zero quality standards. Standardise them and a brand would be born.</div></div>
+        <div class="qr-item"><div class="qr-label">Peak Valuation</div><div class="qr-val">$10 Billion (2019) — one of India's fastest decacorns</div></div>
+        <div class="qr-item"><div class="qr-label">Total Funding</div><div class="qr-val">$3.2 Billion+ — led by SoftBank, Sequoia, Lightspeed, Airbnb</div></div>
+        <div class="qr-item"><div class="qr-label">Revenue Model</div><div class="qr-val">20–25% commission per booking + tech/SaaS fees to hotel partners + premium tier upsells</div></div>
+        <div class="qr-item"><div class="qr-label">Growth Engine</div><div class="qr-val">Field sales army → hotel onboarding → app demand → quality ratings → delisting of bad hotels → brand trust → more bookings</div></div>
+        <div class="qr-item"><div class="qr-label">Biggest Strength</div><div class="qr-val">Category creation + technology pricing + Tier 2/3 India market insight + personal resilience</div></div>
+        <div class="qr-item"><div class="qr-label">Biggest Mistake</div><div class="qr-val">Growing supply faster than quality could follow + minimum guarantee model + China expansion at any cost</div></div>
+        <div class="qr-item"><div class="qr-label">Biggest Controversy</div><div class="qr-val">Hotel owner payment disputes + China metric questions + mass layoffs via WhatsApp + personal share buyback governance</div></div>
+        <div class="qr-item"><div class="qr-label">COVID Impact</div><div class="qr-val">Near-collapse in 2020 → massive layoffs → exit from unprofitable markets → forced shift to sustainable economics</div></div>
+        <div class="qr-item"><div class="qr-label">IPO Status</div><div class="qr-val">DRHP refiled 2023 with SEBI — IPO pending, narrowing losses reported</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="divider-to-dark"></div>
+
+<!-- ─── SEC 23 BLUE: STRATEGY TABLE ─── -->
+<div class="sec-blue reveal" id="sec-table" style="scroll-margin-top:100px;background:linear-gradient(135deg,#1c0a0c 0%,#150f10 100%);">
+  <div class="sec-inner">
+    <div class="sec-num">23 — Framework at a Glance</div>
+    <h2 class="sec-title">The OYO <em>Framework Table</em></h2>
+    <table class="sum-table">
+      <thead><tr><th>Dimension</th><th>Analysis</th></tr></thead>
+      <tbody>
+        <tr><td>Problem Solved</td><td>India's 4.5 million budget hotel rooms were almost entirely unbranded, unstandardised, and untrustworthy. Travellers had no way to know what they were booking. OYO created a brand that made the unpredictable predictable at an affordable price point.</td></tr>
+        <tr><td>Revenue Model</td><td>20–25% commission on every room booking routed through OYO's platform + technology/SaaS subscription fees from hotel partners + dynamic pricing premiums + premium tier upsells (Townhouse, Collection O, Capital O).</td></tr>
+        <tr><td>Growth Engine</td><td>Boots-on-the-ground hotel partner onboarding → standardisation kit + brand → OYO app demand → guest ratings feedback loop → delistings of bad partners → brand trust compounds → more travellers book OYO → more hotel owners want to be OYO → flywheel spins.</td></tr>
+        <tr><td>Key Strategy</td><td>Own the brand and the customer relationship, not the physical asset. Dominate Tier 2 and Tier 3 cities where competition was absent. Use technology (dynamic pricing, app, rating systems) as a moat. Scale supply aggressively, then fix quality.</td></tr>
+        <tr><td>Biggest Mistake</td><td>Scaling supply faster than quality could follow, creating a brand-reality gap. The minimum guarantee model created unsustainable financial commitments. China expansion was too large and too fast for genuine market understanding to develop.</td></tr>
+        <tr><td>Biggest Strength</td><td>Category creation in a market with enormous latent demand. Technology-driven pricing and operations. Personal resilience of the founder through multiple near-death moments. Deep Tier 2 India insight that competitors overlooked.</td></tr>
+        <tr><td>Competitive Moat</td><td>Supply network density (tens of thousands of hotel partnerships) + proprietary pricing and demand data + consumer brand recognition in the "OYO" category + hotel partner switching costs + technology stack that took years to build.</td></tr>
+        <tr><td>Most Important Lesson</td><td>Speed of growth and depth of quality are in fundamental tension. A brand promise is only as strong as the operational system that delivers it. Valuation is not the same as value. Resilience — not funding — is the ultimate startup resource.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="divider-to-light"></div>
+
+<!-- ─── SEC 24 YELLOW-ACCENT: IF STARTING OVER ─── -->
+<div class="sec-yellow-accent reveal" id="sec-final" style="scroll-margin-top:100px;">
+  <div class="sec-inner">
+    <div class="sec-num">24 — The Counter-Factual</div>
+    <h2 class="sec-title">If Starting From <em>Zero Today</em></h2>
+    <div class="final-box">
+      <h3>"If Ritesh Agarwal started OYO from zero in 2025, what would he do differently?"</h3>
+      <p>OYO was born in 2013 — before UPI changed Indian payments, before short-video platforms changed consumer behaviour, before AI made dynamic pricing trivially deployable, and before COVID brutally taught the hospitality industry the value of operational discipline over headline room count. Starting in 2025 with full knowledge of what worked and what destroyed value, here is what Ritesh would most likely do differently:</p>
+      <p><strong>1. Fix quality before scaling supply.</strong> The sequence that created OYO's biggest problems was: sign hotels fast, fix quality later. Starting in 2025, Ritesh would reverse that sequence. He would build a ruthless quality certification system first — AI-powered photo verification, instant rating feedback, automated delisting — and only allow the platform to scale as fast as quality could be verified. A smaller, more trusted OYO network is more valuable than a massive, unreliable one.</p>
+      <p><strong>2. Never offer minimum guarantees to hotel owners again.</strong> The minimum occupancy guarantee was a brilliant sales tool that created a financial time bomb. Starting from zero, Ritesh would build a purely commission-based model — OYO makes money when hotels make money, and absorbs zero risk when rooms are empty. Aligning incentives perfectly between OYO and its hotel partners would prevent the payment disputes that became OYO's most damaging controversy.</p>
+      <p><strong>3. Build AI into the quality system from day one.</strong> In 2013, checking whether a hotel partner's room met OYO standards required a human being to physically visit. In 2025, AI can analyse photos of a room submitted by the hotel owner, compare them against OYO's standards, and flag failures instantly. This means quality verification becomes scalable in a way it simply couldn't be in 2013.</p>
+      <p><strong>4. Go global more slowly, with genuine market expertise first.</strong> OYO's China failure was partially a failure of local market understanding. Starting in 2025, Ritesh would hire market-native leaders in each new country before spending a dollar on supply acquisition. The playbook would be: understand first, then expand. Capital would be budgeted per market based on demonstrated unit economics, not ambitious projections.</p>
+      <p><strong>5. Target profitability from Series B, not post-COVID crisis.</strong> The pressure to "grow at all costs" came partly from SoftBank's investment thesis and partly from the competitive land-grab dynamic of Indian hospitality in 2016–2019. Starting fresh in 2025, Ritesh would set EBITDA-positive unit economics as a condition for entering each new city — not as an afterthought forced by a global pandemic.</p>
+      <p class="footnote">But here is the truth about Ritesh Agarwal that no counter-factual changes: he would still be the kid who slept in 200 budget hotels across India before he understood the problem. He would still walk into investor meetings and tell the story of the ₹800 hotel room in Varanasi with a broken AC and dirty linen. He would still go to Patna and Raipur before Mumbai. The strategic mistakes were correctable. The founder instinct — find the underserved, build for them, refuse to give up — is the irreplaceable thing. And that cannot be taught.</p>
+    </div>
+  </div>
+</div>
+
+  </div><!-- end main content -->
+</div><!-- end article shell -->
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Founder<span>Lens</span></div>
+      <div class="footer-sub">Deep-Dive Founder Analysis for the Next Generation of Entrepreneurs</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">About</a>
+      <a href="#">All Analyses</a>
+      <a href="#">Next Issue</a>
+      <a href="#">Subscribe</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <span>FounderLens</span> · Ritesh Agarwal × OYO Analysis · Research compiled May 2026 ·
+    For educational purposes — data sourced from public filings, press interviews, media reports, and SEBI DRHP documents
+  </div>
+</footer>
+
+<script>
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+function scrollSec(id){
+  const el=document.getElementById(id);
+  if(el)el.scrollIntoView({behavior:'smooth'});
+}
+
+const allSections=['sec-identity','sec-background','sec-problem','sec-opportunity','sec-revenue','sec-business','sec-struggles','sec-strategy','sec-branding','sec-supply','sec-funding','sec-expansion','sec-mistakes','sec-controversies','sec-strengths','sec-psychology','sec-turning','sec-moat','sec-lessons','sec-quotes','sec-summary','sec-revision','sec-table','sec-final'];
+const tocItems=document.querySelectorAll('.toc-item');
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      tocItems.forEach(t=>t.classList.remove('active'));
+      const target=document.querySelector(`.toc-item[onclick*="${e.target.id}"]`);
+      if(target)target.classList.add('active');
+    }
+  });
+},{rootMargin:'-15% 0px -75% 0px'});
+allSections.forEach(id=>{const el=document.getElementById(id);if(el)observer.observe(el)});
+
+const revealObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')});
+},{threshold:0.06});
+document.querySelectorAll('.reveal').forEach(el=>{revealObs.observe(el)});
+</script>
+</body>
+</html>

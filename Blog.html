@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FounderLens — Ideas Worth Studying</title>
+  <link rel="stylesheet" href="blog.css" />
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js"></script>
+
+  <!-- Google Fonts: Editorial Pairing -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ============================================
+       CUSTOM CURSOR
+  ============================================ -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursor-follower"></div>
+
+  <!-- ============================================
+       NAVIGATION
+  ============================================ -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <span class="logo-mark">FL</span>
+        <span class="logo-text">FounderLens</span>
+      </a>
+      <div class="nav-links">
+        <a href="#" class="nav-link">Stories</a>
+        <a href="#" class="nav-link">Founders</a>
+        <a href="#" class="nav-link">Playbooks</a>
+        <a href="#" class="nav-link">About</a>
+      </div>
+      <a href="#newsletter" class="nav-cta">Subscribe</a>
+      <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============================================
+       SECTION 1: FULLSCREEN HERO
+  ============================================ -->
+  <section class="hero" id="hero">
+
+    <!-- Animated background grid -->
+    <div class="hero-grid" aria-hidden="true"></div>
+
+    <!-- Ambient gradient orbs -->
+    <div class="orb orb-1" aria-hidden="true"></div>
+    <div class="orb orb-2" aria-hidden="true"></div>
+    <div class="orb orb-3" aria-hidden="true"></div>
+
+    <!-- Mouse-follow glow -->
+    <div class="mouse-glow" id="mouseGlow" aria-hidden="true"></div>
+
+    <!-- Noise overlay -->
+    <div class="noise-overlay" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-text">Founder Intelligence</span>
+      </div>
+
+      <h1 class="hero-headline">
+        <span class="headline-line" data-line="1">
+          <span class="word-wrap"><em>Ideas</em></span>
+        </span>
+        <span class="headline-line" data-line="2">
+          <span class="word-wrap">Worth</span>
+        </span>
+        <span class="headline-line" data-line="3">
+          <span class="word-wrap">Studying.</span>
+        </span>
+      </h1>
+
+      <p class="hero-sub">
+        Deep dives into how the world's most ambitious founders
+        think, build, and scale — distilled into intelligence
+        you can actually use.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#featured" class="btn-primary magnetic">
+          <span>Explore Stories</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="#" class="btn-ghost magnetic">
+          <span>Latest Issue</span>
+        </a>
+      </div>
+
+      <div class="hero-meta">
+        <span class="meta-item">12 Deep Dives</span>
+        <span class="meta-divider">·</span>
+        <span class="meta-item">Updated Weekly</span>
+        <span class="meta-divider">·</span>
+        <span class="meta-item">4,200+ Readers</span>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator" id="scrollIndicator">
+      <div class="scroll-line"></div>
+      <span class="scroll-label">Scroll</span>
+    </div>
+
+    <!-- Marquee ticker -->
+    <div class="hero-marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Strategy</span><span class="marquee-dot">◆</span>
+        <span>Branding</span><span class="marquee-dot">◆</span>
+        <span>Growth</span><span class="marquee-dot">◆</span>
+        <span>Psychology</span><span class="marquee-dot">◆</span>
+        <span>Execution</span><span class="marquee-dot">◆</span>
+        <span>Product</span><span class="marquee-dot">◆</span>
+        <span>Retail</span><span class="marquee-dot">◆</span>
+        <span>Leadership</span><span class="marquee-dot">◆</span>
+        <span>Strategy</span><span class="marquee-dot">◆</span>
+        <span>Branding</span><span class="marquee-dot">◆</span>
+        <span>Growth</span><span class="marquee-dot">◆</span>
+        <span>Psychology</span><span class="marquee-dot">◆</span>
+        <span>Execution</span><span class="marquee-dot">◆</span>
+        <span>Product</span><span class="marquee-dot">◆</span>
+        <span>Retail</span><span class="marquee-dot">◆</span>
+        <span>Leadership</span><span class="marquee-dot">◆</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 2: FEATURED ARTICLE
+  ============================================ -->
+  <section class="featured" id="featured">
+    <div class="section-label">
+      <span class="label-line"></span>
+      <span class="label-text">Featured Story</span>
+    </div>
+
+    <div class="featured-card" id="featuredCard">
+      <!-- Background image with parallax -->
+      <div class="featured-bg" id="featuredBg">
+        <div class="featured-img-wrap">
+          <!-- Cinematic gradient background representing Apple -->
+          <div class="featured-visual"></div>
+        </div>
+        <div class="featured-overlay"></div>
+      </div>
+
+      <!-- Progress line -->
+      <div class="featured-progress">
+        <div class="progress-line" id="progressLine"></div>
+      </div>
+
+      <div class="featured-body">
+        <div class="featured-meta">
+          <span class="tag tag-strategy">Strategy</span>
+          <span class="read-time">14 min read</span>
+        </div>
+
+        <h2 class="featured-title">
+          The Obsession Economy:<br />
+          <em>How Steve Jobs Invented Desire Itself</em>
+        </h2>
+
+        <p class="featured-excerpt">
+          Before Apple became a trillion-dollar company, it was a conviction — 
+          that technology should feel inevitable, beautiful, and deeply personal. 
+          Inside the psychology of a founder who didn't sell products. He sold belief.
+        </p>
+
+        <div class="featured-footer">
+          <div class="featured-author">
+            <div class="author-avatar">SJ</div>
+            <div class="author-info">
+              <span class="author-name">Apple · Steve Jobs</span>
+              <span class="author-date">May 2025</span>
+            </div>
+          </div>
+          <a href="#" class="read-link magnetic">
+            <span>Read Story</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1"/>
+              <path d="M7 10h6M10 7l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 3: CATEGORY FILTER BAR
+  ============================================ -->
+  <section class="filter-section" id="filterSection">
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-pill active" data-filter="all">All</button>
+      <button class="filter-pill" data-filter="strategy">Strategy</button>
+      <button class="filter-pill" data-filter="branding">Branding</button>
+      <button class="filter-pill" data-filter="growth">Growth</button>
+      <button class="filter-pill" data-filter="psychology">Psychology</button>
+      <button class="filter-pill" data-filter="retail">Retail</button>
+      <button class="filter-pill" data-filter="product">Product</button>
+      <button class="filter-pill" data-filter="execution">Execution</button>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 4: EDITORIAL BLOG GRID
+  ============================================ -->
+  <section class="grid-section" id="gridSection">
+    <div class="blog-grid" id="blogGrid">
+
+      <!-- Card 1 — Large -->
+      <article class="blog-card card-large" data-category="strategy" data-index="0">
+        <div class="card-visual" style="--card-hue: 220deg;">
+          <div class="card-gradient"></div>
+          <span class="card-icon">⬡</span>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag tag-strategy">Strategy</span>
+            <span class="card-time">11 min</span>
+          </div>
+          <h3 class="card-title">Elon Musk's First Principles: How He Reverse-Engineers Every Industry</h3>
+          <p class="card-excerpt">The mental framework behind SpaceX, Tesla, and Neuralink — and why most founders never think this way.</p>
+          <div class="card-footer">
+            <span class="card-company">Tesla · SpaceX</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 — Medium -->
+      <article class="blog-card card-medium" data-category="branding" data-index="1">
+        <div class="card-visual" style="--card-hue: 340deg;">
+          <div class="card-gradient"></div>
+          <span class="card-icon">◈</span>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag tag-branding">Branding</span>
+            <span class="card-time">8 min</span>
+          </div>
+          <h3 class="card-title">Nike's Silence Strategy: Why the Swoosh Needs No Explanation</h3>
+          <p class="card-excerpt">Brand silence as a power move. What Phil Knight understood about identity that most CMOs still don't.</p>
+          <div class="card-footer">
+            <span class="card-company">Nike</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 — Small -->
+      <article class="blog-card card-small" data-category="growth" data-index="2">
+        <div class="card-visual" style="--card-hue: 160deg;">
+          <div class="card-gradient"></div>
+          <span class="card-icon">◎</span>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag tag-growth">Growth</span>
+            <span class="card-time">6 min</span>
+          </div>
+          <h3 class="card-title">Zerodha's Zero-Marketing Playbook</h3>
+          <p class="card-excerpt">How Nithin Kamath built India's largest broker without spending a rupee on ads.</p>
+          <div class="card-footer">
+            <span class="card-company">Zerodha</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4 — Medium -->
+      <article class="blog-card card-medium" data-category="psychology" data-index="3">
+        <div class="card-visual" style="--card-hue: 270deg;">
+          <div class="card-gradient"></div>
+          <span class="card-icon">◇</span>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag tag-psychology">Psychology</span>
+            <span class="card-time">9 min</span>
+          </div>
+          <h3 class="card-title">The Netflix Paradox: Abundance as a Design Weapon</h3>
+          <p class="card-excerpt">Reed Hastings didn't build a streaming service. He built a psychological trap made of comfort and infinite choice.</p>
+          <div class="card-footer">
+            <span class="card-company">Netflix</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 5 — Small -->
+      <article class="blog-card card-small" data-category="product" data-index="4">
+        <div class="card-visual" style="--card-hue: 30deg;">
+          <div class="card-gradient"></div>
+          <span class="card-icon">⬖</span>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag tag-product">Product</span>
+            <span class="card-time">7 min</span>
+          </div>
+          <h3 class="card-title">Shopify's Merchant-First Religion</h3>
+          <p class="card-excerpt">Why Tobi Lütke made a deliberate choice to serve the underdog — and how it became a $100B company.</p>
+          <div class="card-footer">
+            <span class="card-company">Shopify</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 6 — Large -->
+      <article class="blog-card card-large" data-category="execution" data-index="5">
+        <div class="card-visual" style="--card-hue: 195deg;">
+          <div class="card-gradient"></div>
+          <span class="card-icon">◉</span>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag tag-execution">Execution</span>
+            <span class="card-time">13 min</span>
+          </div>
+          <h3 class="card-title">Jeff Bezos and the Art of Long-Game Thinking: Day One Forever</h3>
+          <p class="card-excerpt">The philosophy of permanent urgency. How Amazon's internal culture was engineered to never feel like a winner — even when it was dominating everything.</p>
+          <div class="card-footer">
+            <span class="card-company">Amazon</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 7 — Small -->
+      <article class="blog-card card-small" data-category="retail" data-index="6">
+        <div class="card-visual" style="--card-hue: 50deg;">
+          <div class="card-gradient"></div>
+          <span class="card-icon">▣</span>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag tag-retail">Retail</span>
+            <span class="card-time">5 min</span>
+          </div>
+          <h3 class="card-title">Warby Parker's Defiance Blueprint</h3>
+          <p class="card-excerpt">How four MBA students broke a monopoly by simply deciding not to accept it.</p>
+          <div class="card-footer">
+            <span class="card-company">Warby Parker</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 8 — Medium -->
+      <article class="blog-card card-medium" data-category="branding" data-index="7">
+        <div class="card-visual" style="--card-hue: 310deg;">
+          <div class="card-gradient"></div>
+          <span class="card-icon">◫</span>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag tag-branding">Branding</span>
+            <span class="card-time">10 min</span>
+          </div>
+          <h3 class="card-title">Patagonia's Moral Brand: Selling Values Over Products</h3>
+          <p class="card-excerpt">Yvon Chouinard built a $3B company by telling customers not to buy his products. And they bought more.</p>
+          <div class="card-footer">
+            <span class="card-company">Patagonia</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 9 — Small -->
+      <article class="blog-card card-small" data-category="strategy" data-index="8">
+        <div class="card-visual" style="--card-hue: 140deg;">
+          <div class="card-gradient"></div>
+          <span class="card-icon">◬</span>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag tag-strategy">Strategy</span>
+            <span class="card-time">6 min</span>
+          </div>
+          <h3 class="card-title">Airbnb's Crazy Idea: Trusting Strangers</h3>
+          <p class="card-excerpt">Brian Chesky's thesis that human connection is the ultimate competitive moat.</p>
+          <div class="card-footer">
+            <span class="card-company">Airbnb</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 5: CINEMATIC TIMELINE
+  ============================================ -->
+  <section class="timeline-section" id="timelineSection">
+    <div class="timeline-header">
+      <div class="section-label">
+        <span class="label-line"></span>
+        <span class="label-text">Founder Timelines</span>
+      </div>
+      <h2 class="timeline-heading">
+        The Defining<br /><em>Moments</em>
+      </h2>
+    </div>
+
+    <div class="timeline-track-wrap">
+      <div class="timeline-ruler">
+        <div class="ruler-line" id="rulerLine"></div>
+      </div>
+
+      <div class="timeline-cards-wrap" id="timelineScroll">
+        <div class="timeline-cards">
+
+          <div class="timeline-card" data-year="1976">
+            <div class="timeline-card-inner">
+              <div class="timeline-dot"></div>
+              <span class="timeline-year">1976</span>
+              <div class="tc-logo">&#63743;</div>
+              <h3 class="tc-title">Apple</h3>
+              <p class="tc-desc">Steve Jobs and Wozniak build the first Apple I in a garage. The computer for the rest of us begins.</p>
+              <span class="tc-tag">Inception</span>
+            </div>
+          </div>
+
+          <div class="timeline-card" data-year="1994">
+            <div class="timeline-card-inner">
+              <div class="timeline-dot"></div>
+              <span class="timeline-year">1994</span>
+              <div class="tc-logo">📦</div>
+              <h3 class="tc-title">Amazon</h3>
+              <p class="tc-desc">Bezos quits hedge fund, drives cross-country, and writes the business plan. Day One begins.</p>
+              <span class="tc-tag">Origin</span>
+            </div>
+          </div>
+
+          <div class="timeline-card" data-year="1997">
+            <div class="timeline-card-inner">
+              <div class="timeline-dot"></div>
+              <span class="timeline-year">1997</span>
+              <div class="tc-logo">📼</div>
+              <h3 class="tc-title">Netflix</h3>
+              <p class="tc-desc">Reed Hastings mails a DVD as a test. A $40 late fee from Blockbuster becomes the founding myth.</p>
+              <span class="tc-tag">Disruption</span>
+            </div>
+          </div>
+
+          <div class="timeline-card" data-year="2003">
+            <div class="timeline-card-inner">
+              <div class="timeline-dot"></div>
+              <span class="timeline-year">2003</span>
+              <div class="tc-logo">⚡</div>
+              <h3 class="tc-title">Tesla</h3>
+              <p class="tc-desc">Eberhard and Tarpenning found Tesla. Musk joins, reimagines the EV as a luxury aspiration.</p>
+              <span class="tc-tag">Conviction</span>
+            </div>
+          </div>
+
+          <div class="timeline-card" data-year="2004">
+            <div class="timeline-card-inner">
+              <div class="timeline-dot"></div>
+              <span class="timeline-year">2004</span>
+              <div class="tc-logo">🛍</div>
+              <h3 class="tc-title">Shopify</h3>
+              <p class="tc-desc">Tobi Lütke builds an e-commerce platform for his snowboard shop because no good one existed.</p>
+              <span class="tc-tag">Scratch Your Own Itch</span>
+            </div>
+          </div>
+
+          <div class="timeline-card" data-year="2010">
+            <div class="timeline-card-inner">
+              <div class="timeline-dot"></div>
+              <span class="timeline-year">2010</span>
+              <div class="tc-logo">📈</div>
+              <h3 class="tc-title">Zerodha</h3>
+              <p class="tc-desc">Nithin Kamath launches India's first discount broker — no ads, no branch offices. Just low cost and trust.</p>
+              <span class="tc-tag">Frugal Genius</span>
+            </div>
+          </div>
+
+          <div class="timeline-card" data-year="1964">
+            <div class="timeline-card-inner">
+              <div class="timeline-dot"></div>
+              <span class="timeline-year">1964</span>
+              <div class="tc-logo">✓</div>
+              <h3 class="tc-title">Nike</h3>
+              <p class="tc-desc">Phil Knight and Bill Bowerman sell running shoes from the trunk of a car. The swoosh is still 7 years away.</p>
+              <span class="tc-tag">Hustle</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 6: FULLSCREEN QUOTE
+  ============================================ -->
+  <section class="quote-section" id="quoteSection">
+    <div class="quote-orb quote-orb-1" aria-hidden="true"></div>
+    <div class="quote-orb quote-orb-2" aria-hidden="true"></div>
+    <div class="noise-overlay" aria-hidden="true"></div>
+
+    <div class="quote-inner">
+      <span class="quote-mark">"</span>
+      <blockquote class="quote-text" id="quoteText">
+        <span class="q-word">Great</span>
+        <span class="q-word">companies</span>
+        <span class="q-word">are</span>
+        <span class="q-word">built</span>
+        <span class="q-word">on</span>
+        <span class="q-word italic">unusual</span>
+        <span class="q-word">convictions.</span>
+      </blockquote>
+      <div class="quote-attribution">
+        <span class="attribution-line"></span>
+        <span class="attribution-text">The FounderLens Thesis</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SECTION 7: NEWSLETTER CTA
+  ============================================ -->
+  <section class="newsletter-section" id="newsletter">
+    <div class="nl-orb nl-orb-1" aria-hidden="true"></div>
+    <div class="noise-overlay" aria-hidden="true"></div>
+
+    <div class="nl-card" id="nlCard">
+      <div class="nl-glow" aria-hidden="true"></div>
+
+      <div class="nl-badge">
+        <span class="badge-dot"></span>
+        Weekly Intelligence
+      </div>
+
+      <h2 class="nl-heading">
+        Think Like<br />
+        a <em>Founder.</em>
+      </h2>
+
+      <p class="nl-sub">
+        One deep dive per week. The mental models, frameworks, and
+        decisions behind the companies shaping the world. No noise.
+        No fluff. Just signal.
+      </p>
+
+      <div class="nl-form">
+        <div class="nl-input-wrap">
+          <input
+            type="email"
+            class="nl-input"
+            placeholder="your@email.com"
+            aria-label="Email address"
+          />
+          <button class="nl-submit magnetic" type="submit">
+            <span>Subscribe</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <p class="nl-disclaimer">No spam. Cancel anytime. Read by 4,200+ founders.</p>
+      </div>
+
+      <div class="nl-stats">
+        <div class="nl-stat">
+          <span class="stat-num">4.2K</span>
+          <span class="stat-label">Readers</span>
+        </div>
+        <div class="nl-stat-divider"></div>
+        <div class="nl-stat">
+          <span class="stat-num">52</span>
+          <span class="stat-label">Issues</span>
+        </div>
+        <div class="nl-stat-divider"></div>
+        <div class="nl-stat">
+          <span class="stat-num">98%</span>
+          <span class="stat-label">Open Rate</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FOOTER
+  ============================================ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">
+          <span class="logo-mark">FL</span>
+          <span class="logo-text">FounderLens</span>
+        </a>
+        <p class="footer-tagline">Founder intelligence for the ambitious.</p>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-group-title">Stories</h4>
+        <a href="#">Strategy</a>
+        <a href="#">Branding</a>
+        <a href="#">Growth</a>
+        <a href="#">Psychology</a>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-group-title">Company</h4>
+        <a href="#">About</a>
+        <a href="#">Archive</a>
+        <a href="#">Founders</a>
+        <a href="#">Subscribe</a>
+      </div>
+      <div class="footer-links-group">
+        <h4 class="footer-group-title">Follow</h4>
+        <a href="#">Twitter / X</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">RSS Feed</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 FounderLens. All rights reserved.</span>
+      <span>Built with obsession.</span>
+    </div>
+  </footer>
+
+  <script src="blog.js"></script>
+</body>
+</html>
