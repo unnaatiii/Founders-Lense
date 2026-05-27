@@ -252,7 +252,7 @@ h1 {
 .story-card,
 .social-card {
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: 28px;
   padding: clamp(1.2rem, 3vw, 2rem);
   background: rgba(255,255,255,0.08);
   box-shadow: 0 24px 70px rgba(0,0,0,0.18);
@@ -279,47 +279,92 @@ h1 {
 .social-grid {
   display: grid;
   grid-template-columns: repeat(3,1fr);
-  gap: 0.65rem;
-  margin-top: 1rem;
+  gap: 1rem;
+  margin-top: 1.6rem;
 }
 .social-link {
-  min-height: 86px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 0.82rem;
-  background: rgba(255,255,255,0.07);
-  transition: transform 0.22s ease, background 0.22s ease;
-}
-.social-link:hover {
-  transform: translateY(-4px);
-  background: rgba(143,180,255,0.14);
-}
-.social-link strong {
+  position: relative;
+  min-height: 120px;
+
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-  font-size: 1.05rem;
+  gap: 1rem;
+
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 28px;
+
+  padding: 1.2rem 1.3rem;
+
+  background:
+    linear-gradient(135deg,
+      rgba(255,255,255,0.08),
+      rgba(255,255,255,0.03));
+
+  backdrop-filter: blur(18px);
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.social-link:hover {
+  transform: translateY(-6px);
+
+  border-color: rgba(143,180,255,0.28);
+
+  background:
+    linear-gradient(135deg,
+      rgba(143,180,255,0.16),
+      rgba(255,255,255,0.06));
+
+  box-shadow:
+    0 20px 45px rgba(0,0,0,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.social-link strong {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  align-items: center;
+  column-gap: 1rem;
+
+  width: 100%;
+
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
 }
 .social-link img {
-  width: 26px;
-  height: 26px;
+  width: 42px;
+  height: 42px;
   object-fit: contain;
+  justify-self: center;
 }
 .social-link span {
   color: var(--muted);
   font-size: 0.82rem;
 }
 .connect-section {
-  width: min(820px, 100%);
+  width: min(720px, 100%);
   margin: -3rem 0 6rem auto;
 }
 .connect-section .social-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 36px;
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+
   background:
-    linear-gradient(135deg, rgba(255,255,255,0.09), rgba(143,180,255,0.08));
-  padding: 1.25rem;
+    radial-gradient(circle at top left, rgba(143,180,255,0.18), transparent 34%),
+    linear-gradient(135deg, rgba(8,20,62,0.92), rgba(15,36,92,0.94));
+
+  backdrop-filter: blur(22px);
+
+  box-shadow:
+    0 30px 90px rgba(0,0,0,0.24),
+    inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
 @media (max-width: 900px) {
@@ -397,19 +442,19 @@ h1 {
   <section class="connect-section">
     <article class="social-card">
       <h2>Connect</h2>
-      <p style="color:var(--muted);margin-top:1rem">Add your own profile links below when you are ready.</p>
+      <!-- <p style="color:var(--muted);margin-top:1rem">Add your own profile links below when you are ready.</p> -->
       <div class="social-grid">
         <a class="social-link" href="https://www.linkedin.com/in/unnatisrivastav" target="_blank" rel="noopener noreferrer">
-          <strong><img src="https://cdn.simpleicons.org/linkedin/0A66C2" alt="">LinkedIn</strong>
-          <span>Add your LinkedIn URL</span>
+          <strong><img src="assets/linkedin.jpg" alt="">LinkedIn</strong>
+          <!-- <span>Add your LinkedIn URL</span> -->
         </a>
         <a class="social-link" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
           <strong><img src="https://cdn.simpleicons.org/instagram/E4405F" alt="">Instagram</strong>
-          <span>Add your Instagram handle</span>
+          <!-- <span>Add your Instagram handle</span> -->
         </a>
         <a class="social-link" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
           <strong><img src="https://cdn.simpleicons.org/youtube/FF0000" alt="">YouTube</strong>
-          <span>Add your YouTube channel</span>
+          <!-- <span>Add your YouTube channel</span> -->
         </a>
       </div>
     </article>

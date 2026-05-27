@@ -379,6 +379,33 @@ ul.al li:last-child{border-bottom:none}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
+/* ── BACK TO COMPANIES (topbar) ── */
+.top{
+  max-width:1120px;margin:12px auto 0;padding:0 18px;
+  position:sticky;top:10px;z-index:500;
+}
+.topbar{
+  width:100%;
+  padding:10px 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  border:1px solid var(--rule-dk);
+  border-radius:999px;
+  background:rgba(10,10,15,0.56);
+  backdrop-filter:blur(18px) saturate(1.4);
+  box-shadow:0 12px 40px rgba(0,0,0,.22);
+}
+.back{
+  display:flex;align-items:center;gap:10px;text-decoration:none;
+  color:var(--text-on-dk);font-weight:650;font-size:13px;
+}
+.back .b{
+  width:26px;height:26px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--rule-dk);background:rgba(255,255,255,.06);
+  color:var(--bmw);
+}
+.back:hover{color:#fff}
+
 /* ── RESPONSIVE ── */
 @media(max-width:768px){
   .nav{padding:0 20px}
@@ -396,6 +423,12 @@ ul.al li:last-child{border-bottom:none}
 
 <div id="progress"></div>
 <div class="banner">Company Deep-Dive · Automotive &amp; Luxury Strategy · FounderLens Intelligence</div>
+
+<div class="top">
+  <div class="topbar">
+    <a class="back" href="../company.html"><span class="b">&larr;</span> Companies</a>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav class="nav">

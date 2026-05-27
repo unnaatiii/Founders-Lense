@@ -64,6 +64,21 @@ body::after{
 ::-webkit-scrollbar-track{background:var(--ink)}
 ::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px}
 
+/* ── ORIGIN BACK (Founders) ── */
+.origin-back{
+  position:fixed;top:14px;left:14px;z-index:1000;
+  font-family:var(--mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  padding:8px 10px;border-radius:999px;
+  border:1px solid rgba(255,255,255,0.14);
+  background:rgba(11,15,26,0.62);
+  backdrop-filter:blur(18px) saturate(1.4);
+  color:rgba(255,255,255,0.78);
+  box-shadow:0 14px 50px rgba(0,0,0,0.22);
+  transition:transform .2s ease, border-color .2s ease, background .2s ease, color .2s ease;
+}
+.origin-back:hover{transform:translateY(-1px);border-color:rgba(59,130,246,0.34);color:#fff;background:rgba(11,15,26,0.78)}
+
 /* ═══════════ TOP BANNER ═══════════ */
 .banner{
   background:linear-gradient(90deg,var(--blue-dark),var(--violet));
@@ -745,6 +760,8 @@ ul.alist li strong{color:var(--cream);font-weight:500}
 </style>
 </head>
 <body>
+
+<a class="origin-back" href="../founders.html">← Back to Founders</a>
 
 <div class="banner">Founder Deep-Dive Series &nbsp;·&nbsp; Global AI & Tech Ecosystem &nbsp;·&nbsp; FounderLens 2025</div>
 

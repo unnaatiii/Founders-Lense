@@ -49,6 +49,36 @@ body{font-family:var(--sans);font-size:16px;line-height:1.75;-webkit-font-smooth
 ::-webkit-scrollbar-track{background:var(--midnight)}
 ::-webkit-scrollbar-thumb{background:var(--apple-blue);border-radius:2px}
 
+/* ═══ BACK TO COMPANIES (topbar) ═══ */
+.top{
+  max-width:1120px;margin:12px auto 0;padding:0 18px;
+  position:sticky;top:10px;z-index:500;
+}
+.topbar{
+  width:100%;
+  padding:10px 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  border:1px solid rgba(240,240,236,0.14);
+  border-radius:999px;
+  background:rgba(10,10,15,0.62);
+  backdrop-filter:blur(18px) saturate(1.4);
+  box-shadow:0 12px 40px rgba(0,0,0,.22);
+}
+.back{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;
+  color:var(--dark-cream);
+  font-weight:600;font-size:13px;
+}
+.back .b{
+  width:26px;height:26px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(240,240,236,0.14);
+  background:rgba(255,255,255,.06);
+  color:var(--gold2);
+}
+.back:hover{color:#fff}
+
 /* ═══ PROGRESS BAR ═══ */
 #progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--apple-blue),var(--gold));z-index:200;width:0%;transition:width .1s linear}
 
@@ -388,6 +418,12 @@ body{font-family:var(--sans);font-size:16px;line-height:1.75;-webkit-font-smooth
 <body>
 
 <div id="progress"></div>
+
+<div class="top">
+  <div class="topbar">
+    <a class="back" href="../company.html"><span class="b">&larr;</span> Companies</a>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav class="nav">
