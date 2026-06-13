@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tinder — Engineering the Spark | FounderLens Company Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Martian+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+/* ══════════════════════════════
+   TINDER DESIGN SYSTEM
+   Palette: Carbon · Tinder Flame (Red→Orange Gradient) · Ice
+══════════════════════════════ */
+:root{
+  --tin:        #FD5068;
+  --tin-dark:   #E1306C;
+  --tin-deep:   #8C1A4B;
+  --tin-pale:   rgba(253,80,104,0.09);
+  --silver:     #d4d8e2;
+  --silver-dark:#9aa0b4;
+  --carbon:     #0d0f14;
+  --carbon2:    #13161f;
+  --carbon3:    #191d2a;
+  --carbon4:    #2a1320;
+  --ice:        #fff4f6;
+  --ice2:       #ffe9ed;
+  --ice3:       #ffdde3;
+  --text-on-dk: #edf0f9;
+  --text2-dk:   rgba(237,240,249,0.70);
+  --text3-dk:   rgba(237,240,249,0.40);
+  --rule-dk:    rgba(237,240,249,0.08);
+  --text-on-lt: #0b0e18;
+  --text2-lt:   #2a3145;
+  --text3-lt:   #6b7494;
+  --rule-lt:    rgba(11,14,24,0.09);
+  --red:        #e8312a;
+  --green:      #22c55e;
+  --amber:      #f59e0b;
+  --serif:      'Fraunces', Georgia, serif;
+  --sans:       'Instrument Sans', system-ui, sans-serif;
+  --mono:       'Martian Mono', monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--carbon);color:var(--text-on-dk);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--carbon)}
+::-webkit-scrollbar-thumb{background:var(--tin);border-radius:2px}
+
+/* ── PROGRESS BAR ── */
+#progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--tin),#ff8a5c);z-index:999;width:0%;transition:width .1s}
+
+/* ── BANNER ── */
+.banner{background:var(--tin-dark);color:#fff;text-align:center;padding:7px 20px;font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;position:sticky;top:0;z-index:200}
+
+/* ── NAV ── */
+.nav{
+  background:rgba(13,15,20,0.92);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--rule-dk);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:58px;position:sticky;top:29px;z-index:199;
+}
+.nav-brand{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--text-on-dk);display:flex;align-items:center;gap:10px;letter-spacing:-.01em}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--tin);flex-shrink:0}
+.nav-tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text3-dk);border:1px solid var(--rule-dk);padding:3px 10px;border-radius:20px}
+.nav-pills{display:flex;gap:4px}
+.nav-pill{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;padding:5px 11px;border-radius:20px;border:1px solid var(--rule-dk);color:var(--text3-dk);background:none;cursor:pointer;transition:all .2s}
+.nav-pill:hover{border-color:var(--tin);color:var(--tin)}
+.nav-pill.active{background:var(--tin);border-color:var(--tin);color:#fff}
+
+/* ══════════════════════════════
+   HERO — cinematic full-height
+══════════════════════════════ */
+.hero{
+  min-height:100vh;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 0 80px;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 60% 70% at 75% 40%, rgba(253,80,104,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 50% at 20% 70%, rgba(140,26,75,0.20) 0%, transparent 55%),
+    linear-gradient(170deg, #0d0f14 0%, #1a1118 50%, #2a0e16 100%);
+}
+.hero-grid{
+  position:absolute;inset:0;z-index:1;
+  background-image:
+    linear-gradient(rgba(253,80,104,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(253,80,104,0.05) 1px, transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+.hero-logo-bg{
+  position:absolute;right:-5%;top:50%;transform:translateY(-50%);
+  width:600px;height:600px;z-index:1;opacity:0.05;
+}
+.hero-logo-bg svg{width:100%;height:100%}
+.hero-inner{position:relative;z-index:2;padding:0 80px;max-width:1100px}
+.hero-label{
+  font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--tin);margin-bottom:20px;display:flex;align-items:center;gap:12px;
+  animation:fadeUp .8s ease both;
+}
+.hero-label::before{content:'';width:32px;height:1px;background:var(--tin)}
+.hero-h1{
+  font-family:var(--serif);
+  font-size:clamp(48px,7vw,96px);
+  font-weight:900;line-height:.95;letter-spacing:-.03em;
+  color:var(--text-on-dk);margin-bottom:12px;
+  animation:fadeUp .8s .1s ease both;
+}
+.hero-h1 em{font-style:italic;font-weight:300;color:var(--tin);display:block}
+.hero-sub{
+  font-size:17px;color:var(--text2-dk);font-weight:300;line-height:1.7;
+  max-width:560px;margin-bottom:48px;
+  animation:fadeUp .8s .2s ease both;
+}
+.hero-sub strong{color:var(--text-on-dk);font-weight:500}
+.hero-kpis{
+  display:flex;gap:0;flex-wrap:wrap;
+  border:1px solid var(--rule-dk);border-radius:10px;
+  overflow:hidden;max-width:700px;
+  animation:fadeUp .8s .3s ease both;
+}
+.kpi{padding:18px 28px;flex:1;min-width:140px;border-right:1px solid var(--rule-dk);position:relative}
+.kpi:last-child{border-right:none}
+.kpi::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--tin);transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+.kpi:hover::before{transform:scaleX(1)}
+.kpi-n{font-family:var(--serif);font-size:26px;font-weight:900;color:var(--tin);line-height:1}
+.kpi-l{font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--text3-dk);margin-top:4px}
+.hero-scroll{
+  position:absolute;bottom:32px;right:80px;z-index:2;
+  font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text3-dk);display:flex;align-items:center;gap:10px;
+  animation:fadeUp .8s .5s ease both;
+}
+.hero-scroll::after{content:'';width:40px;height:1px;background:var(--text3-dk)}
+
+/* ══════════════════════════════
+   SECTION SYSTEM
+══════════════════════════════ */
+
+/* DARK section */
+.s-dark{background:var(--carbon);color:var(--text-on-dk);position:relative;overflow:hidden;padding:80px 0}
+/* LIGHT section */
+.s-light{background:var(--ice);color:var(--text-on-lt);position:relative;padding:80px 0}
+/* GRADIENT DARK section */
+.s-grad{
+  background:linear-gradient(135deg,var(--carbon3) 0%,var(--carbon2) 60%,var(--carbon4) 100%);
+  color:var(--text-on-dk);position:relative;overflow:hidden;padding:80px 0;
+}
+/* GRADIENT PINK section */
+.s-blue{
+  background:linear-gradient(135deg,var(--tin-deep) 0%,var(--carbon3) 55%,var(--carbon2) 100%);
+  color:var(--text-on-dk);position:relative;overflow:hidden;padding:80px 0;
+  border-top:1px solid rgba(253,80,104,.2);border-bottom:1px solid rgba(253,80,104,.2);
+}
+/* LIGHT WARM section */
+.s-warm{
+  background:linear-gradient(135deg,#fff7f8 0%,var(--ice2) 100%);
+  color:var(--text-on-lt);padding:80px 0;position:relative;
+  border-top:3px solid var(--tin);border-bottom:3px solid var(--tin);
+}
+
+.inner{max-width:920px;margin:0 auto;padding:0 60px;position:relative;z-index:1}
+
+/* Ambient glow in dark sections */
+.s-dark .glow,.s-grad .glow,.s-blue .glow{
+  position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;
+}
+
+/* ── SECTION LABEL + TITLE ── */
+.s-label{
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;
+  margin-bottom:8px;display:flex;align-items:center;gap:10px;
+}
+.s-dark .s-label,.s-grad .s-label,.s-blue .s-label{color:var(--tin)}
+.s-light .s-label,.s-warm .s-label{color:var(--tin-dark)}
+.s-label::before{content:'';width:24px;height:1px}
+.s-dark .s-label::before,.s-grad .s-label::before,.s-blue .s-label::before{background:var(--tin)}
+.s-light .s-label::before,.s-warm .s-label::before{background:var(--tin-dark)}
+
+.s-title{
+  font-family:var(--serif);font-size:clamp(28px,4vw,46px);font-weight:900;
+  line-height:1.08;letter-spacing:-.02em;margin-bottom:32px;
+}
+.s-dark .s-title,.s-grad .s-title,.s-blue .s-title{color:var(--text-on-dk)}
+.s-light .s-title,.s-warm .s-title{color:var(--text-on-lt)}
+.s-title em{font-style:italic;font-weight:300}
+.s-dark .s-title em,.s-grad .s-title em,.s-blue .s-title em{color:var(--tin)}
+.s-light .s-title em,.s-warm .s-title em{color:var(--tin-dark)}
+
+/* ── BODY TEXT ── */
+p{font-size:15.5px;line-height:1.82;margin-bottom:16px;font-weight:300}
+p:last-child{margin-bottom:0}
+.s-dark p,.s-grad p,.s-blue p{color:var(--text2-dk)}
+.s-dark p strong,.s-grad p strong,.s-blue p strong{color:var(--text-on-dk);font-weight:500}
+.s-light p,.s-warm p{color:var(--text2-lt)}
+.s-light p strong,.s-warm p strong{color:var(--text-on-lt);font-weight:500}
+.concept{
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  padding:2px 8px;border-radius:4px;vertical-align:middle;display:inline-block;margin-left:4px;
+}
+.s-dark .concept,.s-grad .concept,.s-blue .concept{
+  background:rgba(253,80,104,.15);color:#ff8fa3;border:1px solid rgba(253,80,104,.25)
+}
+.s-light .concept,.s-warm .concept{
+  background:rgba(253,80,104,.08);color:var(--tin-dark);border:1px solid rgba(253,80,104,.2)
+}
+
+/* ── LEAD ── */
+.lead{
+  font-family:var(--serif);font-size:18px;font-style:italic;font-weight:300;
+  line-height:1.72;margin-bottom:28px;padding-bottom:24px;
+}
+.s-dark .lead,.s-grad .lead,.s-blue .lead{color:var(--text2-dk);border-bottom:1px solid var(--rule-dk)}
+.s-light .lead,.s-warm .lead{color:var(--text2-lt);border-bottom:1px solid var(--rule-lt)}
+
+/* ── PULL QUOTE ── */
+.pq{margin:32px 0;padding:20px 28px;border-radius:0 8px 8px 0}
+.s-dark .pq,.s-grad .pq,.s-blue .pq{border-left:3px solid var(--tin);background:rgba(253,80,104,.07)}
+.s-light .pq,.s-warm .pq{border-left:3px solid var(--tin);background:rgba(253,80,104,.06)}
+.pq p{font-family:var(--serif);font-size:17px;font-style:italic;font-weight:300;line-height:1.6;margin:0}
+.s-dark .pq p,.s-grad .pq p,.s-blue .pq p{color:var(--text-on-dk)}
+.s-light .pq p,.s-warm .pq p{color:var(--text-on-lt)}
+
+/* ── ARROW LIST ── */
+ul.al{list-style:none;margin:16px 0}
+ul.al li{padding:10px 0 10px 24px;position:relative;font-size:15px;font-weight:300;line-height:1.7}
+.s-dark ul.al li,.s-grad ul.al li,.s-blue ul.al li{border-bottom:1px solid var(--rule-dk);color:var(--text2-dk)}
+.s-light ul.al li,.s-warm ul.al li{border-bottom:1px solid var(--rule-lt);color:var(--text2-lt)}
+ul.al li:last-child{border-bottom:none}
+.s-dark ul.al li::before,.s-grad ul.al li::before,.s-blue ul.al li::before{content:'→';position:absolute;left:0;color:var(--tin);font-weight:700}
+.s-light ul.al li::before,.s-warm ul.al li::before{content:'→';position:absolute;left:0;color:var(--tin-dark);font-weight:700}
+.s-dark ul.al li strong,.s-grad ul.al li strong,.s-blue ul.al li strong{color:var(--text-on-dk);font-weight:500}
+.s-light ul.al li strong,.s-warm ul.al li strong{color:var(--text-on-lt);font-weight:500}
+
+/* ── CALLOUT ── */
+.callout{margin:24px 0;padding:18px 22px;border-radius:8px}
+.callout-insight{border-left:3px solid #06b6d4}
+.callout-lesson{border-left:3px solid var(--green)}
+.callout-warn{border-left:3px solid var(--amber)}
+.s-dark .callout-insight,.s-grad .callout-insight,.s-blue .callout-insight{background:rgba(6,182,212,.07)}
+.s-light .callout-insight,.s-warm .callout-insight{background:rgba(6,182,212,.06)}
+.s-dark .callout-lesson,.s-grad .callout-lesson,.s-blue .callout-lesson{background:rgba(34,197,94,.07)}
+.s-light .callout-lesson,.s-warm .callout-lesson{background:rgba(34,197,94,.06)}
+.s-dark .callout-warn,.s-grad .callout-warn,.s-blue .callout-warn{background:rgba(245,158,11,.07)}
+.s-light .callout-warn,.s-warm .callout-warn{background:rgba(245,158,11,.06)}
+.callout-lbl{font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;font-weight:500}
+.callout-insight .callout-lbl{color:#06b6d4}
+.callout-lesson .callout-lbl{color:var(--green)}
+.callout-warn .callout-lbl{color:var(--amber)}
+.callout p{font-size:14px;margin:0;line-height:1.65}
+
+/* ── STAT STRIP ── */
+.stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));border-radius:10px;overflow:hidden;margin:28px 0;gap:1px}
+.s-dark .stat-strip,.s-grad .stat-strip,.s-blue .stat-strip{background:var(--rule-dk)}
+.s-light .stat-strip,.s-warm .stat-strip{background:var(--rule-lt)}
+.stat-c{padding:18px 16px;text-align:center}
+.s-dark .stat-c,.s-grad .stat-c,.s-blue .stat-c{background:var(--carbon2)}
+.s-light .stat-c,.s-warm .stat-c{background:#fff}
+.stat-n{font-family:var(--serif);font-size:22px;font-weight:900;line-height:1;margin-bottom:4px}
+.s-dark .stat-n,.s-grad .stat-n,.s-blue .stat-n{color:var(--tin)}
+.s-light .stat-n,.s-warm .stat-n{color:var(--tin-dark)}
+.stat-l{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase}
+.s-dark .stat-l,.s-grad .stat-l,.s-blue .stat-l{color:var(--text3-dk)}
+.s-light .stat-l,.s-warm .stat-l{color:var(--text3-lt)}
+
+/* ── CARD GRID ── */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:24px 0}
+.card{padding:22px 20px;border-radius:10px;transition:transform .2s}
+.card:hover{transform:translateY(-3px)}
+.s-dark .card,.s-grad .card{background:var(--carbon2);border:1px solid var(--rule-dk)}
+.s-dark .card:hover,.s-grad .card:hover{border-color:rgba(253,80,104,.35)}
+.s-light .card,.s-warm .card{background:#fff;border:1px solid var(--rule-lt);box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-icon{font-size:20px;margin-bottom:10px}
+.card-title{font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:6px}
+.s-dark .card-title,.s-grad .card-title{color:var(--text-on-dk)}
+.s-light .card-title,.s-warm .card-title{color:var(--text-on-lt)}
+.card p{font-size:13.5px;margin:0;line-height:1.6}
+
+/* ── COMPARISON TABLE ── */
+.comp-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:13.5px;border-radius:8px;overflow:hidden}
+.s-dark .comp-table{border:1px solid var(--rule-dk)}
+.s-light .comp-table,.s-warm .comp-table{border:1px solid var(--rule-lt)}
+.comp-table th{font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;padding:11px 14px;text-align:left}
+.s-dark .comp-table th,.s-blue .comp-table th{background:var(--carbon3);color:var(--tin)}
+.s-light .comp-table th,.s-warm .comp-table th{background:var(--ice3);color:var(--tin-dark)}
+.comp-table td{padding:11px 14px;font-weight:300;line-height:1.5}
+.s-dark .comp-table td{border-bottom:1px solid var(--rule-dk);color:var(--text2-dk)}
+.s-light .comp-table td,.s-warm .comp-table td{border-bottom:1px solid var(--rule-lt);color:var(--text2-lt)}
+.comp-table tr:last-child td{border-bottom:none}
+.s-dark .comp-table tr:hover td{background:rgba(255,255,255,.02)}
+.s-light .comp-table tr:hover td,.s-warm .comp-table tr:hover td{background:#fff8f9}
+.tag{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.tag-green{background:rgba(34,197,94,.12);color:#22c55e}
+.tag-amber{background:rgba(245,158,11,.12);color:var(--amber)}
+.tag-red{background:rgba(232,49,42,.12);color:var(--red)}
+.tag-blue{background:rgba(253,80,104,.12);color:#ff8fa3}
+
+/* ── SWOT ── */
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:1px;border-radius:10px;overflow:hidden;margin:24px 0}
+.swot-c{padding:20px;position:relative}
+.sw-str{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2)}
+.sw-wk{background:rgba(232,49,42,.08);border:1px solid rgba(232,49,42,.18)}
+.sw-op{background:rgba(253,80,104,.1);border:1px solid rgba(253,80,104,.2)}
+.sw-th{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.18)}
+.swot-label{font-family:var(--mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px;font-weight:500}
+.sw-str .swot-label{color:#22c55e}
+.sw-wk .swot-label{color:var(--red)}
+.sw-op .swot-label{color:#ff8fa3}
+.sw-th .swot-label{color:var(--amber)}
+.swot-c ul{list-style:none}
+.swot-c ul li{font-size:13px;font-weight:300;padding:4px 0 4px 16px;position:relative;line-height:1.5}
+.s-dark .swot-c ul li,.s-grad .swot-c ul li,.s-blue .swot-c ul li{color:var(--text2-dk)}
+.s-light .swot-c ul li,.s-warm .swot-c ul li{color:var(--text2-lt)}
+.swot-c ul li::before{content:'·';position:absolute;left:0;font-weight:700}
+.sw-str li::before{color:#22c55e}
+.sw-wk li::before{color:var(--red)}
+.sw-op li::before{color:#ff8fa3}
+.sw-th li::before{color:var(--amber)}
+
+/* ── VERDICT BOX ── */
+.verdict{
+  background:linear-gradient(135deg,var(--tin-deep) 0%,var(--tin-dark) 40%,#5e1233 100%);
+  border-radius:12px;padding:40px 36px;margin:32px 0;position:relative;overflow:hidden;
+}
+.verdict::before{
+  content:'';position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;
+}
+.verdict::after{
+  content:'';position:absolute;right:-60px;top:-60px;width:260px;height:260px;
+  border-radius:50%;background:rgba(253,80,104,.18);filter:blur(40px);z-index:0;
+}
+.verdict>*{position:relative;z-index:1}
+.verdict-label{font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:14px}
+.verdict-title{font-family:var(--serif);font-size:clamp(22px,3vw,34px);font-weight:700;color:#fff;line-height:1.2;margin-bottom:20px}
+.verdict-title em{font-style:italic;font-weight:300;color:#ffb3bf}
+.verdict p{font-size:15px;color:rgba(255,255,255,.75);line-height:1.78;margin-bottom:14px;font-weight:300}
+.verdict p strong{color:#fff;font-weight:500}
+.verdict-score{display:flex;gap:20px;margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);flex-wrap:wrap}
+.vs-item{text-align:center;flex:1;min-width:90px}
+.vs-n{font-family:var(--serif);font-size:28px;font-weight:900;color:#fff;line-height:1}
+.vs-l{font-family:var(--mono);font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:3px}
+.vs-bar{height:3px;border-radius:2px;background:rgba(255,255,255,.15);margin-top:8px;overflow:hidden}
+.vs-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#ff8a9b,#ffb56b);animation:fillBar 1.2s ease both}
+@keyframes fillBar{from{width:0}to{width:var(--w)}}
+
+/* ── DIVIDERS ── */
+.div-to-light{height:3px;background:linear-gradient(90deg,var(--tin),#ff8a5c,transparent)}
+.div-to-dark{height:3px;background:linear-gradient(90deg,transparent,#ff8a5c,var(--tin))}
+.div-silent{height:1px;background:var(--rule-dk)}
+
+/* ── FOOTER ── */
+.footer{
+  background:var(--carbon2);border-top:1px solid var(--rule-dk);
+  padding:40px 60px 28px;
+}
+.footer-inner{max-width:920px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
+.footer-brand{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--text-on-dk)}
+.footer-brand span{color:var(--tin)}
+.footer-sub{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--text3-dk);margin-top:4px}
+.footer-links{display:flex;gap:18px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+.footer-links a{color:var(--text3-dk);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--tin)}
+.footer-copy{max-width:920px;margin:24px auto 0;padding-top:18px;border-top:1px solid var(--rule-dk);font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;color:var(--text3-dk);text-align:center}
+.footer-copy span{color:var(--tin)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── BACK TO COMPANIES (topbar) ── */
+.top{
+  max-width:1120px;margin:12px auto 0;padding:0 18px;
+  position:sticky;top:10px;z-index:500;
+}
+.topbar{
+  width:100%;
+  padding:10px 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  border:1px solid var(--rule-dk);
+  border-radius:999px;
+  background:rgba(10,10,15,0.56);
+  backdrop-filter:blur(18px) saturate(1.4);
+  box-shadow:0 12px 40px rgba(0,0,0,.22);
+}
+.back{
+  display:flex;align-items:center;gap:10px;text-decoration:none;
+  color:var(--text-on-dk);font-weight:650;font-size:13px;
+}
+.back .b{
+  width:26px;height:26px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--rule-dk);background:rgba(255,255,255,.06);
+  color:var(--tin);
+}
+.back:hover{color:#fff}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .nav{padding:0 20px}
+  .nav-pills{display:none}
+  .hero-inner,.inner{padding:0 24px}
+  .hero-scroll{right:24px}
+  .swot{grid-template-columns:1fr}
+  .hero-logo-bg{display:none}
+  .footer{padding:32px 24px 20px}
+  .verdict{padding:28px 20px}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div class="banner">Company Deep-Dive · Consumer Tech &amp; Dating · FounderLens Intelligence</div>
+
+<div class="top">
+  <div class="topbar">
+    <a class="back" href="../company.html"><span class="b">&larr;</span> Companies</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand"><span class="nav-dot"></span>FounderLens</div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <span class="nav-tag">Company Analysis</span>
+  </div>
+  <div class="nav-pills">
+    <button class="nav-pill active" onclick="scrollTo({top:0,behavior:'smooth'})">Overview</button>
+    <button class="nav-pill" onclick="ss('model')">Business Model</button>
+    <button class="nav-pill" onclick="ss('strategy')">Strategy</button>
+    <button class="nav-pill" onclick="ss('verdict')">Verdict</button>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-logo-bg">
+    <svg viewBox="0 0 200 200" fill="none">
+      <path d="M100 180 C40 130, 15 95, 15 65 C15 35, 40 20, 65 20 C85 20, 100 35, 100 55 C100 35, 115 20, 135 20 C160 20, 185 35, 185 65 C185 95, 160 130, 100 180 Z" stroke="white" stroke-width="3" opacity=".5"/>
+      <circle cx="100" cy="100" r="98" stroke="white" stroke-width="1.5" opacity=".25"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-label">Company Intelligence Report · Issue 02 · Consumer Tech</div>
+    <h1 class="hero-h1">Tinder<br><em>Engineering the Spark</em></h1>
+    <p class="hero-sub">How a swipe gesture, a scarcity mechanic, and a freemium paywall turned <strong>flirting into the most lucrative subscription business in social media.</strong></p>
+    <div class="hero-kpis">
+      <div class="kpi"><div class="kpi-n">$1.8B+</div><div class="kpi-l">Annual Revenue</div></div>
+      <div class="kpi"><div class="kpi-n">75M+</div><div class="kpi-l">Monthly Active Users</div></div>
+      <div class="kpi"><div class="kpi-n">~10M</div><div class="kpi-l">Paying Subscribers</div></div>
+      <div class="kpi"><div class="kpi-n">~70%</div><div class="kpi-l">Of Match Group Revenue</div></div>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll to explore</div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 01: OVERVIEW — LIGHT ══ -->
+<section class="s-light reveal" id="overview">
+  <div class="inner">
+    <div class="s-label">01 — Company Overview</div>
+    <h2 class="s-title">What Tinder <em>Actually Is</em></h2>
+    <p class="lead">Tinder is not a dating app in the way a matchmaking service is a dating app. It is a behavioural engine — a habit-forming interaction loop that happens to result, occasionally, in romance.</p>
+    <p>Launched in 2012 out of the startup incubator Hatch Labs (a partnership between IAC and Xtreme Labs), Tinder introduced the double-sided swipe — a binary "yes/no" gesture that removed the friction, awkwardness, and rejection-anxiety that had defined online dating since its inception. Within months it became the fastest-growing dating app in history, and within a few years it became the cash engine of its parent company, <strong>Match Group</strong>, which owns Hinge, OkCupid, Match.com, and dozens of other dating brands.</p>
+    <p>The dating app category is brutally competitive and notoriously difficult to monetise — most users actively want to stop using the product (because they want to find a partner and leave). Tinder solved this paradox by building a business model that profits from engagement <em>regardless</em> of whether users find what they're looking for, while still being good enough at matchmaking to keep its reputation intact.</p>
+    <div class="stat-strip">
+      <div class="stat-c"><div class="stat-n">190+</div><div class="stat-l">Countries Available</div></div>
+      <div class="stat-c"><div class="stat-n">~30B</div><div class="stat-l">Matches Made (Lifetime)</div></div>
+      <div class="stat-c"><div class="stat-n">2012</div><div class="stat-l">Founded</div></div>
+      <div class="stat-c"><div class="stat-n">#1</div><div class="stat-l">Grossing Dating App Globally</div></div>
+      <div class="stat-c"><div class="stat-n">3</div><div class="stat-l">Subscription Tiers</div></div>
+    </div>
+    <div class="callout callout-insight">
+      <div class="callout-lbl">💡 Key Insight</div>
+      <p>Tinder doesn't sell relationships. It sells <strong>access and probability</strong> — a higher chance of being seen, of seeing more people, of acting on impulse without limits. The product's emotional core (attraction, validation, possibility) is what gets monetised, not the outcome (a date, a relationship).</p>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-dark"></div>
+
+<!-- ══ SEC 02: CORE PROBLEM — DARK ══ -->
+<section class="s-dark reveal" id="problem">
+  <div class="glow" style="width:400px;height:400px;background:rgba(253,80,104,.12);top:-100px;right:-100px"></div>
+  <div class="inner">
+    <div class="s-label">02 — The Core Problem</div>
+    <h2 class="s-title">The Problem Tinder <em>Actually Solved</em></h2>
+    <p class="lead">By 2012, online dating already existed — but it was slow, form-heavy, and emotionally loaded. Every interaction carried the risk of explicit rejection.</p>
+    <p>Sites like Match.com and eHarmony required long profiles, compatibility questionnaires, and a willingness to message strangers who might never reply — or might reply with rejection. The psychological cost of "putting yourself out there" was high, and the smartphone hadn't yet been used to remove that cost.</p>
+    <p>Tinder's founders identified a deceptively simple insight: <strong>if both people have to say "yes" before anything happens, nobody experiences rejection.</strong> A swipe left is invisible — the other person never knows. This removed the single biggest psychological barrier to using a dating product, and it did so with a gesture so simple it required zero explanation.</p>
+    <div class="pq"><p>"Tinder didn't invent online dating. It invented a way to do it without ever feeling like you were doing it — until it worked."</p></div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <div class="card-title">The Target User</div>
+        <p>Young, mobile-first, urban singles (initially college students at USC) who found existing dating sites slow, formal, and socially embarrassing.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🕳️</div>
+        <div class="card-title">The Market Gap</div>
+        <p>A mobile-native, low-friction, low-stakes way to express interest — without the vulnerability of cold messaging or visible rejection.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚙️</div>
+        <div class="card-title">The Solution</div>
+        <p>The double opt-in swipe: binary, gamified, anonymous-on-rejection, and built entirely around the smartphone's core gesture vocabulary.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 03: MARKET TIMING — WARM ══ -->
+<section class="s-warm reveal" id="timing">
+  <div class="inner">
+    <div class="s-label">03 — Market Timing</div>
+    <h2 class="s-title">Why Tinder Launched at <em>Exactly the Right Moment</em></h2>
+    <p class="lead">Tinder launched in September 2012 — precisely at the intersection of three converging shifts in technology and culture.</p>
+    <p>The iPhone had normalised always-on, GPS-aware smartphones across a critical mass of young adults. Facebook had spent years quietly removing the stigma around having a public digital identity tied to your real name and photo. And a generation that had grown up with instant messaging, social feeds, and casual digital self-presentation was entering its dating years with none of the shame earlier generations attached to "meeting someone online."</p>
+    <p>Tinder also benefited from a uniquely permissive distribution moment: it launched its initial growth campaign at <strong>fraternity and sorority parties at USC</strong>, requiring attendees to download the app to enter. This created instant, hyper-local critical mass — the network effect that every dating app desperately needs (a dating app with five users in your city is useless; one with five thousand is magic).</p>
+    <ul class="al">
+      <li><strong>Smartphone ubiquity + GPS:</strong> Location-based matching only became possible — and felt natural — once everyone carried a GPS-enabled phone.</li>
+      <li><strong>Facebook normalisation:</strong> A decade of social networking had already trained users to put their real face and name online publicly. <span class="concept">Cultural Pre-Conditioning</span></li>
+      <li><strong>Generational stigma collapse:</strong> Online dating shifted from "last resort" to "how everyone meets people" within roughly one generation.</li>
+      <li><strong>Campus-seeded network effects:</strong> Concentrated, real-world launch events created the density required for a two-sided marketplace to work from day one. <span class="concept">Cold-Start Solution</span></li>
+    </ul>
+    <div class="callout callout-lesson">
+      <div class="callout-lbl">📐 Strategic Lesson</div>
+      <p>Tinder didn't try to be everywhere at once. It went hyper-dense in one campus, then city, then country — solving the two-sided marketplace cold-start problem through geographic concentration rather than broad, thin distribution.</p>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-dark"></div>
+
+<!-- ══ SEC 04: BUSINESS MODEL — GRAD ══ -->
+<section class="s-grad reveal" id="model">
+  <div class="glow" style="width:350px;height:350px;background:rgba(253,80,104,.10);bottom:-80px;left:-80px"></div>
+  <div class="inner">
+    <div class="s-label">04 — Business Model</div>
+    <h2 class="s-title">How Tinder <em>Makes Money</em></h2>
+    <p class="lead">Tinder is free to use — and that's precisely the engine. The free tier is the acquisition funnel; the paid tiers are where the entire business lives. This is a textbook <strong>freemium-to-subscription</strong> model layered with impulse-driven micro-transactions.</p>
+
+    <p>Roughly 6% of Tinder's user base pays for a subscription — a conversion rate most freemium products would envy — but the real genius is in <em>how</em> the free experience is deliberately constrained to create urgency at exactly the moments users are most emotionally invested. <span class="concept">Freemium Funnel Design</span></p>
+
+    <div class="stat-strip">
+      <div class="stat-c"><div class="stat-n">3</div><div class="stat-l">Tiers: Plus, Gold, Platinum</div></div>
+      <div class="stat-c"><div class="stat-n">~6%</div><div class="stat-l">Free-to-Paid Conversion</div></div>
+      <div class="stat-c"><div class="stat-n">A La Carte</div><div class="stat-l">Boosts, Super Likes, Read Receipts</div></div>
+      <div class="stat-c"><div class="stat-n">~70%</div><div class="stat-l">Of Match Group's Revenue</div></div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">⏳</div>
+        <div class="card-title">Artificial Scarcity → Subscription</div>
+        <p>Free users get a limited number of swipes per 12 hours. The moment a user hits "swipe mode" — high engagement, high dopamine — they're told to wait or pay. Scarcity is engineered at the peak of desire, not at a neutral moment. <span class="concept">Scarcity-Driven Conversion</span></p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⭐</div>
+        <div class="card-title">Á La Carte Impulse Purchases</div>
+        <p>Super Likes, Boosts, and "Top Picks" are sold individually for users who won't subscribe but will spend $1–5 in a moment of motivation — capturing revenue from non-subscribers too.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎂</div>
+        <div class="card-title">Age-Based Price Discrimination</div>
+        <p>Tinder Plus famously charges users under 30 roughly half what it charges users over 30 — a pricing strategy based on price elasticity by demographic, a practice that has drawn regulatory scrutiny but remains a meaningful margin lever.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💎</div>
+        <div class="card-title">Platinum — The Anxiety Tier</div>
+        <p>The top tier sells "Message Before Matching" and priority placement — directly monetising the anxiety of not knowing if your message will be seen. The product literally sells certainty as a premium feature.</p>
+      </div>
+    </div>
+
+    <div class="callout callout-insight">
+      <div class="callout-lbl">💡 The Model's Hidden Genius</div>
+      <p>Tinder's monetisation doesn't depend on users finding love — it depends on users <strong>remaining in a state of hopeful uncertainty</strong>. A user who matches immediately and leaves the app is a lost subscriber. A user who swipes for months, occasionally matches, and keeps refreshing for "the one" is the ideal customer. <span class="concept">Engagement-Over-Outcome Design</span></p>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 05: PRODUCT — LIGHT ══ -->
+<section class="s-light reveal" id="product">
+  <div class="inner">
+    <div class="s-label">05 — Product & Experience</div>
+    <h2 class="s-title">The Mechanics That Make Tinder <em>Addictive by Design</em></h2>
+    <p class="lead">Tinder's product strategy is less about matchmaking quality and more about behavioural psychology — specifically, the application of variable-ratio reinforcement schedules, the same mechanism that makes slot machines compelling.</p>
+
+    <p>Every swipe is a small bet. Most of the time, nothing happens. Occasionally — unpredictably — there's a match, accompanied by a celebratory animation and a notification. This <strong>unpredictable reward pattern</strong> is one of the most powerful behaviour-reinforcement mechanisms known in psychology, and Tinder built its entire core loop around it, whether intentionally or not.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">👆</div>
+        <div class="card-title">The Swipe (Core Gesture)</div>
+        <p>Binary, instant, requires no typing or thought. Reduces decision-making to its simplest possible form — a single physical motion repeatable hundreds of times per session.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎉</div>
+        <div class="card-title">The "It's a Match!" Moment</div>
+        <p>A deliberate dopamine spike — full-screen animation, sound, immediate call-to-action to message. This is the emotional payoff that keeps users swiping through dozens of "no's" to get to one "yes."</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔄</div>
+        <div class="card-title">ELO / Desirability Algorithm</div>
+        <p>Tinder historically used an ELO-style scoring system (later evolved) to match users with others of similar perceived desirability — quietly shaping who you see without ever surfacing the mechanism.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📍</div>
+        <div class="card-title">Hyper-Local, Real-Time</div>
+        <p>Unlike legacy dating sites built around long-term profile matching, Tinder is built for "who is near me, right now" — making it feel immediate and situational rather than a long-term search project.</p>
+      </div>
+    </div>
+
+    <div class="pq"><p>"The product doesn't ask 'is this person compatible with you long-term?' It asks 'do you want to look at this person again or not?' — and that question can be answered in under a second, infinitely."</p></div>
+
+    <div class="callout callout-lesson">
+      <div class="callout-lbl">📐 Strategic Lesson</div>
+      <p>Tinder optimised for session frequency and session length — the metrics that drive ad impressions and subscription renewals — not for "successful matches that lead to deleted accounts." The product's design incentives and the user's stated goals are structurally misaligned, and that tension is the business model.</p>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-dark"></div>
+
+<!-- ══ SEC 06: GROWTH STRATEGY — GRAD ══ -->
+<section class="s-grad reveal" id="growth">
+  <div class="glow" style="width:380px;height:380px;background:rgba(253,80,104,.10);top:-60px;right:-60px"></div>
+  <div class="inner">
+    <div class="s-label">06 — Growth Strategy</div>
+    <h2 class="s-title">How Tinder <em>Scaled Globally</em></h2>
+    <p class="lead">Tinder's growth playbook combined three distinct strategies in sequence: hyper-local seeding, viral social mechanics, and platform-level distribution advantages from its parent company.</p>
+
+    <ul class="al">
+      <li><strong>Campus-by-campus seeding (2012–13):</strong> Co-founder Whitney Wolfe Herd travelled to college campuses, signing up entire sororities — creating an immediate gender-balanced, hyper-local user base that made the app feel "alive" from the first download in any new market.</li>
+      <li><strong>Facebook integration as identity layer:</strong> Early Tinder required Facebook login, instantly populating profiles with photos, mutual friends, and basic verification — solving the "fake profile" trust problem that plagued earlier dating sites, at near-zero cost.</li>
+      <li><strong>City-by-city international rollout:</strong> Rather than a simultaneous global launch, Tinder expanded market-by-market, ensuring local critical mass (the two-sided marketplace density problem) before moving to the next city.</li>
+      <li><strong>Match Group's portfolio leverage:</strong> Once acquired by IAC/Match Group, Tinder benefited from cross-promotion, shared infrastructure, payment processing, and the ability to absorb early losses while it built its monetisation engine. <span class="concept">Corporate Portfolio Advantage</span></li>
+      <li><strong>Cultural saturation as marketing:</strong> Tinder became a verb ("we Tindered," "swipe right on") — a level of cultural penetration that made paid user-acquisition largely unnecessary for years.</li>
+    </ul>
+
+    <div class="callout callout-insight">
+      <div class="callout-lbl">💡 Key Insight</div>
+      <p>Tinder spent almost nothing on traditional marketing for its first several years. Its growth was a function of <strong>network density + cultural virality</strong> — every match, every "swipe right" joke, every screenshot shared with friends was free distribution. The product itself was the marketing channel.</p>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 07: COMPETITIVE STRATEGY — WARM ══ -->
+<section class="s-warm reveal" id="competition">
+  <div class="inner">
+    <div class="s-label">07 — Competitive Strategy</div>
+    <h2 class="s-title">How Tinder <em>Positions Against Rivals</em></h2>
+    <p class="lead">Tinder occupies a deliberately broad, casual positioning — "the place everyone is" — while Match Group's other brands (Hinge, OkCupid, Match.com) are positioned for more specific intents, allowing the parent company to capture users at every stage of dating intent without cannibalising itself.</p>
+
+    <div class="comp-table">
+      <thead><tr><th>App</th><th>Positioning</th><th>Primary Intent</th><th>Owner</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Tinder</strong></td>
+          <td>Casual, mass-market, "everyone's on it"</td>
+          <td>Broad — dating, casual, friendship</td>
+          <td>Match Group</td>
+        </tr>
+        <tr>
+          <td><strong>Hinge</strong></td>
+          <td>"Designed to be deleted" — relationship-focused</td>
+          <td>Long-term relationships</td>
+          <td>Match Group</td>
+        </tr>
+        <tr>
+          <td><strong>Bumble</strong></td>
+          <td>Women message first — empowerment framing</td>
+          <td>Dating + friendship (BFF) + networking</td>
+          <td>Bumble Inc.</td>
+        </tr>
+        <tr>
+          <td><strong>OkCupid</strong></td>
+          <td>Compatibility-driven, questionnaire-based</td>
+          <td>Values/compatibility matching</td>
+          <td>Match Group</td>
+        </tr>
+        <tr>
+          <td><strong>Hily / Feeld / Niche apps</strong></td>
+          <td>Specific demographics or relationship structures</td>
+          <td>Highly targeted segments</td>
+          <td>Independent</td>
+        </tr>
+      </tbody>
+    </div>
+
+    <p>The most interesting competitive dynamic is that <strong>Tinder's biggest competitor is partly itself</strong> — Hinge, also owned by Match Group, has been the fastest-growing dating app of the last several years precisely by positioning against Tinder's "hookup app" reputation. Match Group has effectively built a portfolio that hedges against shifting cultural attitudes toward casual vs. serious dating, regardless of which brand wins.</p>
+
+    <div class="callout callout-warn">
+      <div class="callout-lbl">⚠ Strategic Tension</div>
+      <p>Tinder's brand has drifted toward a "hookup app" perception among younger users (particularly Gen Z), who increasingly favour Hinge and Bumble for serious dating. Tinder has responded with features aimed at intentionality (e.g., prompts, "relationship goals" settings) — but repositioning a decade-old brand identity is one of the hardest problems in consumer tech. <span class="concept">Brand Drift</span></p>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-dark"></div>
+
+<!-- ══ SEC 08: RETENTION & DATA STRATEGY — BLUE ══ -->
+<section class="s-blue reveal" id="retention">
+  <div class="glow" style="width:360px;height:360px;background:rgba(253,80,104,.14);bottom:-80px;right:-40px"></div>
+  <div class="inner">
+    <div class="s-label">08 — Retention & Data Strategy</div>
+    <h2 class="s-title">How Tinder <em>Keeps You Coming Back</em></h2>
+    <p class="lead">Tinder's retention strategy rests on a quiet paradox: the product's stated goal (helping you find someone and stop using it) is in direct tension with its business goal (keeping you subscribed). Tinder resolves this through continuous re-engagement mechanics rather than outcome guarantees.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🔔</div>
+        <div class="card-title">Push Notification Engineering</div>
+        <p>"Someone likes you," "Your matches are waiting," "New people in your area" — notifications are tuned to re-activate dormant users at intervals calibrated to maximise return-session probability without triggering uninstalls.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔁</div>
+        <div class="card-title">Refreshing Supply</div>
+        <p>The "new people nearby" feed constantly refreshes, ensuring that even long-time users always have new profiles to swipe — preventing the feed from ever feeling "exhausted," which would be a natural exit point.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <div class="card-title">Behavioural Data Flywheel</div>
+        <p>Every swipe, message, and match feeds Tinder's recommendation algorithms — the more you use it, the better (in theory) your matches get, creating a soft lock-in around accumulated "preference data."</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌐</div>
+        <div class="card-title">Travel Mode & Passport</div>
+        <p>A premium feature that lets paying users change their location — turning travel, relocation, or even idle curiosity about other cities into a monetisable, retention-extending use case.</p>
+      </div>
+    </div>
+
+    <div class="callout callout-insight">
+      <div class="callout-lbl">💡 Key Insight</div>
+      <p>Tinder's retention strategy implicitly treats "success" (finding a partner and deleting the app) as <strong>churn to be minimised</strong>, just like any subscription business. The product features that genuinely help users find relationships faster (better algorithms, more intentional prompts) exist in tension with the company's revenue incentives — a dynamic common to many attention-based subscription products, but unusually visible in dating.</p>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 09: SWOT — WARM ══ -->
+<section class="s-warm reveal" id="swot">
+  <div class="inner">
+    <div class="s-label">09 — SWOT Analysis</div>
+    <h2 class="s-title">Tinder's Position <em>Today</em></h2>
+    <div class="swot">
+      <div class="swot-c sw-str">
+        <div class="swot-label">Strengths</div>
+        <ul>
+          <li>Category-defining brand recognition globally</li>
+          <li>Massive network effects — biggest user base</li>
+          <li>Proven freemium-to-subscription model</li>
+          <li>Match Group's data, infra, and capital backing</li>
+          <li>Cultural ubiquity — "swipe" entered the lexicon</li>
+        </ul>
+      </div>
+      <div class="swot-c sw-wk">
+        <div class="swot-label">Weaknesses</div>
+        <ul>
+          <li>"Hookup app" brand perception limits some segments</li>
+          <li>Low free-to-paid conversion ceiling (~6%)</li>
+          <li>User fatigue — "dating app burnout" is widespread</li>
+          <li>Age-based pricing draws regulatory/legal scrutiny</li>
+          <li>High dependency on continuous new user inflow</li>
+        </ul>
+      </div>
+      <div class="swot-c sw-op">
+        <div class="swot-label">Opportunities</div>
+        <ul>
+          <li>AI-driven matching & profile assistance features</li>
+          <li>Video-first interactions (pre-match video chat)</li>
+          <li>Emerging markets — India, LatAm, SE Asia growth</li>
+          <li>Safety & verification as a premium differentiator</li>
+          <li>Expanding beyond romance — friendship, social</li>
+        </ul>
+      </div>
+      <div class="swot-c sw-th">
+        <div class="swot-label">Threats</div>
+        <ul>
+          <li>Hinge (sister brand) eating into serious-dating segment</li>
+          <li>Gen Z shifting toward dating-via-social-media (IG, TikTok)</li>
+          <li>Regulatory pressure on dark patterns & pricing</li>
+          <li>"Dating app fatigue" reducing overall category growth</li>
+          <li>AI-generated fake profiles & catfishing eroding trust</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout callout-warn">
+      <div class="callout-lbl">⚠ Strategic Tension</div>
+      <p>Tinder's defining challenge is structural: its core monetisation depends on sustained engagement from users whose stated goal is to stop needing the product. Every improvement that genuinely accelerates "success" for users (better matching, faster relationship formation) is, from a pure revenue lens, a retention risk. Tinder must continuously attract new users to replace those who succeed — making top-of-funnel growth permanently load-bearing in a way few other subscription businesses experience. <span class="concept">Structural Churn-by-Success</span></p>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-dark"></div>
+
+<!-- ══ SEC 10: RISKS — DARK ══ -->
+<section class="s-dark reveal" id="risks">
+  <div class="glow" style="width:350px;height:350px;background:rgba(232,49,42,.06);bottom:-60px;right:-60px"></div>
+  <div class="inner">
+    <div class="s-label">10 — Key Risks</div>
+    <h2 class="s-title">Where Tinder Is <em>Genuinely Vulnerable</em></h2>
+
+    <div class="comp-table">
+      <thead><tr><th>Risk</th><th>Description</th><th>Severity</th><th>Tinder's Response</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Brand Perception ("Hookup App")</strong></td>
+          <td>Younger users increasingly view Tinder as casual-only, pushing serious daters toward Hinge and Bumble at the top of the funnel.</td>
+          <td><span class="tag tag-red">High</span></td>
+          <td>Adding intentionality features, prompts, and "relationship goals" filters to broaden positioning.</td>
+        </tr>
+        <tr>
+          <td><strong>Cannibalisation by Hinge</strong></td>
+          <td>Match Group's own portfolio strategy means Tinder's losses in the "serious dating" segment are partially captured by a sister brand — good for the parent, structurally limiting for Tinder.</td>
+          <td><span class="tag tag-amber">Medium</span></td>
+          <td>Tinder is repositioned as the "broad discovery" layer; Hinge handles serious intent.</td>
+        </tr>
+        <tr>
+          <td><strong>Regulatory Scrutiny on Pricing</strong></td>
+          <td>Age-based pricing has triggered lawsuits and regulatory complaints in multiple jurisdictions over discriminatory pricing practices.</td>
+          <td><span class="tag tag-amber">Medium</span></td>
+          <td>Gradual shift toward more uniform, feature-based pricing tiers in some markets.</td>
+        </tr>
+        <tr>
+          <td><strong>AI-Generated Fake Profiles</strong></td>
+          <td>Generative AI makes convincing fake profiles and catfishing dramatically easier and cheaper, threatening the trust layer the entire category depends on.</td>
+          <td><span class="tag tag-red">High</span></td>
+          <td>Investment in photo verification, ID checks, and AI-detection systems.</td>
+        </tr>
+        <tr>
+          <td><strong>Category-Wide Fatigue</strong></td>
+          <td>"Dating app burnout" is now a widely discussed cultural phenomenon, with surveys showing declining satisfaction and usage among long-time users across all apps.</td>
+          <td><span class="tag tag-amber">Medium</span></td>
+          <td>New formats (video, events, AI wingman features) aimed at reducing swipe fatigue.</td>
+        </tr>
+      </tbody>
+    </div>
+
+    <div class="callout callout-warn">
+      <div class="callout-lbl">⚠ The Deepest Risk</div>
+      <p>Tinder's core mechanic — the swipe — is now over a decade old and has been copied by every competitor on earth. The interaction that once felt novel and delightful now feels, to many users, like digital labor. If the category shifts toward AI-mediated matching (where an assistant pre-filters and suggests, rather than the user swiping through hundreds of profiles), Tinder's foundational interaction model — and the brand equity built on it — could become a legacy interface rather than an innovation.</p>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 11: INDUSTRY IMPACT — LIGHT ══ -->
+<section class="s-light reveal" id="impact">
+  <div class="inner">
+    <div class="s-label">11 — Industry Impact</div>
+    <h2 class="s-title">How Tinder <em>Changed the Rules</em></h2>
+    <p class="lead">Tinder didn't just build a dating app. It created an interaction pattern, a monetisation playbook, and a cultural vocabulary that extended far beyond dating.</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">👆</div>
+        <div class="card-title">Invented the "Swipe" as a UI Pattern</div>
+        <p>The swipe-to-decide gesture has been copied across e-commerce, job-matching (apps like Bumble Bizz), food delivery, real estate, and even productivity apps — Tinder turned a dating mechanic into a universal interface metaphor.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💳</div>
+        <div class="card-title">Proved Freemium Works for "Anti-Retention" Products</div>
+        <p>Tinder demonstrated that even a product whose success means the user leaves can sustain a massive subscription business — a model now studied across the broader "ephemeral utility" subscription category.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-dark"></div>
+
+<!-- ══ SEC 12: LESSONS — GRAD ══ -->
+<section class="s-grad reveal" id="lessons">
+  <div class="glow" style="width:400px;height:400px;background:rgba(34,197,94,.07);top:0;right:-100px"></div>
+  <div class="inner">
+    <div class="s-label">12 — Lessons for Builders</div>
+    <h2 class="s-title">What Every Operator Can <em>Steal From Tinder</em></h2>
+
+    <ul class="al">
+      <li><strong>Remove the cost of rejection.</strong> Tinder's double opt-in meant no one ever saw a "no." Anywhere your product asks users to take a risk — applying, pitching, asking — consider how to make the downside invisible. Removing visible failure dramatically increases participation. <span class="concept">Friction Removal</span></li>
+      <li><strong>Build scarcity into the moment of highest desire.</strong> Free-tier limits hit users mid-session, at peak engagement — not at login. If you gate a feature, gate it at the point of maximum emotional investment, not at a neutral checkpoint.</li>
+      <li><strong>Solve cold-start with geographic density, not breadth.</strong> Tinder didn't launch everywhere — it saturated single campuses until the network effect kicked in, then expanded city by city. For any two-sided marketplace, density beats reach in the early stage.</li>
+      <li><strong>Let your core mechanic become the marketing.</strong> "Swipe right" became a verb without a single ad campaign. A product interaction distinctive enough to be quoted, joked about, or referenced becomes free, perpetual distribution.</li>
+      <li><strong>Design for the reward, not just the function.</strong> The "It's a Match!" screen serves no functional purpose — users could simply be informed via a notification. But the celebratory moment is what makes the loop feel worth repeating. Emotional payoff design is a retention lever as powerful as any feature.</li>
+      <li><strong>Build a portfolio that hedges your own brand's weaknesses.</strong> Match Group didn't try to fix Tinder's "hookup app" reputation — it let Hinge capture the segment Tinder was losing. Sometimes the right strategic move isn't repositioning your flagship; it's letting a sibling product own the territory you can't credibly claim. <span class="concept">Portfolio Strategy</span></li>
+    </ul>
+  </div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 13: VERDICT — WARM ══ -->
+<section class="s-warm reveal" id="verdict">
+  <div class="inner">
+    <div class="s-label">13 — FounderLens Verdict</div>
+    <h2 class="s-title">What Makes Tinder <em>Truly Extraordinary</em></h2>
+    <div class="verdict">
+      <div class="verdict-label">Final Analysis · Tinder (Match Group) · FounderLens 2025</div>
+      <div class="verdict-title">Tinder is not a dating company.<br><em>It is an attention company that happens to involve dating.</em></div>
+      <p>The most important insight about Tinder's business is this: its product success and its business success point in opposite directions, and the company has built one of the most resilient consumer subscription businesses on earth <strong>despite — or perhaps because of — that contradiction</strong>. A user who finds love and deletes the app is a "win" for the user and a "loss" for the subscription book. Tinder's entire monetisation architecture is built to operate profitably inside that tension.</p>
+      <p>What Tinder got right wasn't matchmaking — plenty of apps match people. What Tinder got right was <strong>behavioural design</strong>: a gesture so simple it needed no instructions, a reward so unpredictable it kept people swiping, and a scarcity mechanism placed at exactly the moment users were least willing to stop.</p>
+      <p>The risks ahead are real — brand drift, AI-driven trust erosion, and a core mechanic that's now over a decade old and universally copied. But Tinder's biggest asset isn't its algorithm or its feature set. It's the fact that <strong>thirteen years later, "swipe right" is still how an entire generation talks about attraction</strong> — and that kind of linguistic ownership is almost impossible for a competitor to dislodge, even with a better product.</p>
+      <p><strong>That is the architecture of a habit-forming brand. And Tinder has been refining it, swipe by swipe, for over a decade.</strong></p>
+      <div class="verdict-score">
+        <div class="vs-item">
+          <div class="vs-n">9/10</div>
+          <div class="vs-l">Brand Moat</div>
+          <div class="vs-bar"><div class="vs-fill" style="--w:90%"></div></div>
+        </div>
+        <div class="vs-item">
+          <div class="vs-n">9/10</div>
+          <div class="vs-l">Business Model</div>
+          <div class="vs-bar"><div class="vs-fill" style="--w:90%"></div></div>
+        </div>
+        <div class="vs-item">
+          <div class="vs-n">6/10</div>
+          <div class="vs-l">Brand Repositioning</div>
+          <div class="vs-bar"><div class="vs-fill" style="--w:60%"></div></div>
+        </div>
+        <div class="vs-item">
+          <div class="vs-n">8/10</div>
+          <div class="vs-l">Retention Engineering</div>
+          <div class="vs-bar"><div class="vs-fill" style="--w:80%"></div></div>
+        </div>
+        <div class="vs-item">
+          <div class="vs-n">7/10</div>
+          <div class="vs-l">Strategic Clarity</div>
+          <div class="vs-bar"><div class="vs-fill" style="--w:70%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Founder<span>Lens</span></div>
+      <div class="footer-sub">Company Strategy Intelligence · Issue 02 · Tinder (Match Group) · May 2026</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">All Analyses</a>
+      <a href="#">Founders</a>
+      <a href="#">Companies</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <span>FounderLens</span> · Tinder Company Analysis · For educational purposes · Data from public filings, annual reports, and verified sources · 2026
+  </div>
+</footer>
+
+<script>
+/* ── Progress bar ── */
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+  document.getElementById('progress').style.width=pct+'%';
+});
+
+/* ── Scroll reveal ── */
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+/* ── Nav pill helpers ── */
+function ss(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'})}
+
+/* ── Nav pill active on scroll ── */
+const secs={overview:'overview',problem:'problem',model:'model',strategy:'strategy',verdict:'verdict'};
+const pills=document.querySelectorAll('.nav-pill');
+window.addEventListener('scroll',()=>{
+  let current='';
+  Object.keys(secs).forEach(id=>{
+    const el=document.getElementById(secs[id]);
+    if(el&&el.getBoundingClientRect().top<200)current=id;
+  });
+  pills.forEach(p=>{
+    p.classList.toggle('active',
+      (current==='overview'&&p.textContent==='Overview')||
+      (current==='model'&&p.textContent==='Business Model')||
+      (current==='verdict'&&p.textContent==='Verdict')
+    );
+  });
+},{passive:true});
+
+/* ── Animated KPI bars on scroll ── */
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.vs-fill').forEach(f=>{
+        f.style.animation='none';
+        requestAnimationFrame(()=>{
+          f.style.animation='';
+          f.style.animationDelay='.2s';
+        });
+      });
+    }
+  });
+},{threshold:.3});
+document.querySelectorAll('.verdict').forEach(v=>barObs.observe(v));
+</script>
+</body>
+</html>

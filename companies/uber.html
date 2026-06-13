@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uber — The Operating System for Cities | FounderLens Company Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Martian+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+/* ══════════════════════════════
+   UBER DESIGN SYSTEM
+   Palette: Pure Black · White · Lime accent
+══════════════════════════════ */
+:root{
+  --ub:         #06C167;
+  --ub-dark:    #04934d;
+  --ub-deep:    #036c39;
+  --ub-pale:    rgba(6,193,103,0.09);
+  --carbon:     #000000;
+  --carbon2:    #121212;
+  --carbon3:    #1a1a1a;
+  --carbon4:    #232323;
+  --ice:        #f6f6f6;
+  --ice2:       #eeeeee;
+  --ice3:       #e2e2e2;
+  --text-on-dk: #ffffff;
+  --text2-dk:   rgba(255,255,255,0.68);
+  --text3-dk:   rgba(255,255,255,0.40);
+  --rule-dk:    rgba(255,255,255,0.09);
+  --text-on-lt: #000000;
+  --text2-lt:   #2e2e2e;
+  --text3-lt:   #767676;
+  --rule-lt:    rgba(0,0,0,0.10);
+  --red:        #e8312a;
+  --green:      #06C167;
+  --amber:      #f59e0b;
+  --serif:      'Fraunces', Georgia, serif;
+  --sans:       'Instrument Sans', system-ui, sans-serif;
+  --mono:       'Martian Mono', monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--carbon);color:var(--text-on-dk);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--carbon)}
+::-webkit-scrollbar-thumb{background:var(--ub);border-radius:2px}
+
+#progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--ub),#9aff8a);z-index:999;width:0%;transition:width .1s}
+
+.banner{background:var(--ub);color:#000;text-align:center;padding:7px 20px;font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;position:sticky;top:0;z-index:200;font-weight:500}
+
+.nav{
+  background:rgba(0,0,0,0.92);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--rule-dk);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:58px;position:sticky;top:29px;z-index:199;
+}
+.nav-brand{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--text-on-dk);display:flex;align-items:center;gap:10px;letter-spacing:-.01em}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:var(--ub);flex-shrink:0}
+.nav-tag{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text3-dk);border:1px solid var(--rule-dk);padding:3px 10px;border-radius:20px}
+.nav-pills{display:flex;gap:4px}
+.nav-pill{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;padding:5px 11px;border-radius:20px;border:1px solid var(--rule-dk);color:var(--text3-dk);background:none;cursor:pointer;transition:all .2s}
+.nav-pill:hover{border-color:var(--ub);color:var(--ub)}
+.nav-pill.active{background:var(--ub);border-color:var(--ub);color:#000}
+
+/* ══════════════════════════════
+   HERO — split layout, left text / right stat column
+══════════════════════════════ */
+.hero{
+  min-height:100vh;position:relative;overflow:hidden;
+  display:grid;grid-template-columns:1.3fr 1fr;align-items:stretch;
+}
+.hero-left{
+  position:relative;display:flex;flex-direction:column;justify-content:center;
+  padding:0 70px;z-index:2;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 70% 70% at 30% 30%, rgba(6,193,103,0.16) 0%, transparent 60%),
+    linear-gradient(170deg, #000 0%, #0a0f0a 60%, #000 100%);
+}
+.hero-grid{
+  position:absolute;inset:0;z-index:1;
+  background-image:
+    linear-gradient(rgba(6,193,103,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6,193,103,0.06) 1px, transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse 80% 80% at 30% 50%, black 30%, transparent 100%);
+}
+.hero-label{
+  font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ub);margin-bottom:20px;display:flex;align-items:center;gap:12px;
+  animation:fadeUp .8s ease both;position:relative;z-index:2;
+}
+.hero-label::before{content:'';width:32px;height:1px;background:var(--ub)}
+.hero-h1{
+  font-family:var(--serif);
+  font-size:clamp(44px,6.5vw,84px);
+  font-weight:900;line-height:.98;letter-spacing:-.03em;
+  color:var(--text-on-dk);margin-bottom:12px;
+  animation:fadeUp .8s .1s ease both;position:relative;z-index:2;
+}
+.hero-h1 em{font-style:italic;font-weight:300;color:var(--ub);display:block}
+.hero-sub{
+  font-size:17px;color:var(--text2-dk);font-weight:300;line-height:1.7;
+  max-width:520px;margin-bottom:40px;
+  animation:fadeUp .8s .2s ease both;position:relative;z-index:2;
+}
+.hero-sub strong{color:var(--text-on-dk);font-weight:500}
+.hero-scroll{
+  font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text3-dk);display:flex;align-items:center;gap:10px;
+  animation:fadeUp .8s .5s ease both;position:relative;z-index:2;
+}
+.hero-scroll::after{content:'';width:40px;height:1px;background:var(--text3-dk)}
+
+/* right column — stacked KPI blocks */
+.hero-right{
+  position:relative;display:flex;flex-direction:column;
+  border-left:1px solid var(--rule-dk);z-index:2;background:var(--carbon2);
+}
+.hero-kpi{
+  flex:1;display:flex;flex-direction:column;justify-content:center;
+  padding:0 50px;border-bottom:1px solid var(--rule-dk);position:relative;overflow:hidden;
+  animation:fadeUp .8s ease both;
+}
+.hero-kpi:last-child{border-bottom:none}
+.hero-kpi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--ub);transform:scaleY(0);transform-origin:top;transition:transform .4s ease}
+.hero-kpi:hover::before{transform:scaleY(1)}
+.hero-kpi-n{font-family:var(--serif);font-size:38px;font-weight:900;color:var(--ub);line-height:1}
+.hero-kpi-l{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--text3-dk);margin-top:6px}
+
+/* ══════════════════════════════
+   SECTION SYSTEM
+══════════════════════════════ */
+.s-dark{background:var(--carbon);color:var(--text-on-dk);position:relative;overflow:hidden;padding:80px 0}
+.s-light{background:var(--ice);color:var(--text-on-lt);position:relative;padding:80px 0}
+.s-grad{
+  background:linear-gradient(135deg,var(--carbon3) 0%,var(--carbon2) 60%,#0a140a 100%);
+  color:var(--text-on-dk);position:relative;overflow:hidden;padding:80px 0;
+}
+.s-blue{
+  background:linear-gradient(135deg,var(--ub-deep) 0%,var(--carbon3) 55%,var(--carbon2) 100%);
+  color:var(--text-on-dk);position:relative;overflow:hidden;padding:80px 0;
+  border-top:1px solid rgba(6,193,103,.2);border-bottom:1px solid rgba(6,193,103,.2);
+}
+.s-warm{
+  background:linear-gradient(135deg,#f7fff9 0%,var(--ice2) 100%);
+  color:var(--text-on-lt);padding:80px 0;position:relative;
+  border-top:3px solid var(--ub);border-bottom:3px solid var(--ub);
+}
+
+.inner{max-width:980px;margin:0 auto;padding:0 60px;position:relative;z-index:1}
+
+/* ── SPLIT LAYOUT (different from BMW/Tinder stacked style) ── */
+.split{display:grid;grid-template-columns:0.85fr 1.15fr;gap:48px;align-items:start}
+.split-label-col{position:sticky;top:100px}
+@media(max-width:860px){.split{grid-template-columns:1fr;gap:24px}.split-label-col{position:static}}
+
+.s-dark .glow,.s-grad .glow,.s-blue .glow{
+  position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;
+}
+
+.s-label{
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;
+  margin-bottom:8px;display:flex;align-items:center;gap:10px;
+}
+.s-dark .s-label,.s-grad .s-label,.s-blue .s-label{color:var(--ub)}
+.s-light .s-label,.s-warm .s-label{color:var(--ub-dark)}
+.s-label::before{content:'';width:24px;height:1px}
+.s-dark .s-label::before,.s-grad .s-label::before,.s-blue .s-label::before{background:var(--ub)}
+.s-light .s-label::before,.s-warm .s-label::before{background:var(--ub-dark)}
+
+.s-title{
+  font-family:var(--serif);font-size:clamp(26px,3.6vw,42px);font-weight:900;
+  line-height:1.08;letter-spacing:-.02em;margin-bottom:0;
+}
+.s-dark .s-title,.s-grad .s-title,.s-blue .s-title{color:var(--text-on-dk)}
+.s-light .s-title,.s-warm .s-title{color:var(--text-on-lt)}
+.s-title em{font-style:italic;font-weight:300}
+.s-dark .s-title em,.s-grad .s-title em,.s-blue .s-title em{color:var(--ub)}
+.s-light .s-title em,.s-warm .s-title em{color:var(--ub-dark)}
+
+p{font-size:15.5px;line-height:1.82;margin-bottom:16px;font-weight:300}
+p:last-child{margin-bottom:0}
+.s-dark p,.s-grad p,.s-blue p{color:var(--text2-dk)}
+.s-dark p strong,.s-grad p strong,.s-blue p strong{color:var(--text-on-dk);font-weight:500}
+.s-light p,.s-warm p{color:var(--text2-lt)}
+.s-light p strong,.s-warm p strong{color:var(--text-on-lt);font-weight:500}
+.concept{
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  padding:2px 8px;border-radius:4px;vertical-align:middle;display:inline-block;margin-left:4px;
+}
+.s-dark .concept,.s-grad .concept,.s-blue .concept{
+  background:rgba(6,193,103,.15);color:#6df0a6;border:1px solid rgba(6,193,103,.25)
+}
+.s-light .concept,.s-warm .concept{
+  background:rgba(6,193,103,.08);color:var(--ub-dark);border:1px solid rgba(6,193,103,.2)
+}
+
+.lead{
+  font-family:var(--serif);font-size:18px;font-style:italic;font-weight:300;
+  line-height:1.72;margin-bottom:28px;padding-bottom:24px;
+}
+.s-dark .lead,.s-grad .lead,.s-blue .lead{color:var(--text2-dk);border-bottom:1px solid var(--rule-dk)}
+.s-light .lead,.s-warm .lead{color:var(--text2-lt);border-bottom:1px solid var(--rule-lt)}
+
+.pq{margin:32px 0;padding:20px 28px;border-radius:0 8px 8px 0}
+.s-dark .pq,.s-grad .pq,.s-blue .pq{border-left:3px solid var(--ub);background:rgba(6,193,103,.07)}
+.s-light .pq,.s-warm .pq{border-left:3px solid var(--ub);background:rgba(6,193,103,.06)}
+.pq p{font-family:var(--serif);font-size:17px;font-style:italic;font-weight:300;line-height:1.6;margin:0}
+.s-dark .pq p,.s-grad .pq p,.s-blue .pq p{color:var(--text-on-dk)}
+.s-light .pq p,.s-warm .pq p{color:var(--text-on-lt)}
+
+ul.al{list-style:none;margin:16px 0}
+ul.al li{padding:10px 0 10px 24px;position:relative;font-size:15px;font-weight:300;line-height:1.7}
+.s-dark ul.al li,.s-grad ul.al li,.s-blue ul.al li{border-bottom:1px solid var(--rule-dk);color:var(--text2-dk)}
+.s-light ul.al li,.s-warm ul.al li{border-bottom:1px solid var(--rule-lt);color:var(--text2-lt)}
+ul.al li:last-child{border-bottom:none}
+.s-dark ul.al li::before,.s-grad ul.al li::before,.s-blue ul.al li::before{content:'→';position:absolute;left:0;color:var(--ub);font-weight:700}
+.s-light ul.al li::before,.s-warm ul.al li::before{content:'→';position:absolute;left:0;color:var(--ub-dark);font-weight:700}
+.s-dark ul.al li strong,.s-grad ul.al li strong,.s-blue ul.al li strong{color:var(--text-on-dk);font-weight:500}
+.s-light ul.al li strong,.s-warm ul.al li strong{color:var(--text-on-lt);font-weight:500}
+
+.callout{margin:24px 0;padding:18px 22px;border-radius:8px}
+.callout-insight{border-left:3px solid #06b6d4}
+.callout-lesson{border-left:3px solid var(--green)}
+.callout-warn{border-left:3px solid var(--amber)}
+.s-dark .callout-insight,.s-grad .callout-insight,.s-blue .callout-insight{background:rgba(6,182,212,.07)}
+.s-light .callout-insight,.s-warm .callout-insight{background:rgba(6,182,212,.06)}
+.s-dark .callout-lesson,.s-grad .callout-lesson,.s-blue .callout-lesson{background:rgba(6,193,103,.07)}
+.s-light .callout-lesson,.s-warm .callout-lesson{background:rgba(6,193,103,.06)}
+.s-dark .callout-warn,.s-grad .callout-warn,.s-blue .callout-warn{background:rgba(245,158,11,.07)}
+.s-light .callout-warn,.s-warm .callout-warn{background:rgba(245,158,11,.06)}
+.callout-lbl{font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;font-weight:500}
+.callout-insight .callout-lbl{color:#06b6d4}
+.callout-lesson .callout-lbl{color:var(--green)}
+.callout-warn .callout-lbl{color:var(--amber)}
+.callout p{font-size:14px;margin:0;line-height:1.65}
+
+.stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));border-radius:10px;overflow:hidden;margin:28px 0;gap:1px}
+.s-dark .stat-strip,.s-grad .stat-strip,.s-blue .stat-strip{background:var(--rule-dk)}
+.s-light .stat-strip,.s-warm .stat-strip{background:var(--rule-lt)}
+.stat-c{padding:18px 16px;text-align:center}
+.s-dark .stat-c,.s-grad .stat-c,.s-blue .stat-c{background:var(--carbon2)}
+.s-light .stat-c,.s-warm .stat-c{background:#fff}
+.stat-n{font-family:var(--serif);font-size:22px;font-weight:900;line-height:1;margin-bottom:4px}
+.s-dark .stat-n,.s-grad .stat-n,.s-blue .stat-n{color:var(--ub)}
+.s-light .stat-n,.s-warm .stat-n{color:var(--ub-dark)}
+.stat-l{font-family:var(--mono);font-size:8px;letter-spacing:.12em;text-transform:uppercase}
+.s-dark .stat-l,.s-grad .stat-l,.s-blue .stat-l{color:var(--text3-dk)}
+.s-light .stat-l,.s-warm .stat-l{color:var(--text3-lt)}
+
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:24px 0}
+.card{padding:22px 20px;border-radius:10px;transition:transform .2s}
+.card:hover{transform:translateY(-3px)}
+.s-dark .card,.s-grad .card{background:var(--carbon2);border:1px solid var(--rule-dk)}
+.s-dark .card:hover,.s-grad .card:hover{border-color:rgba(6,193,103,.35)}
+.s-light .card,.s-warm .card{background:#fff;border:1px solid var(--rule-lt);box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.card-icon{font-size:20px;margin-bottom:10px}
+.card-title{font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:6px}
+.s-dark .card-title,.s-grad .card-title{color:var(--text-on-dk)}
+.s-light .card-title,.s-warm .card-title{color:var(--text-on-lt)}
+.card p{font-size:13.5px;margin:0;line-height:1.6}
+
+.comp-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:13.5px;border-radius:8px;overflow:hidden}
+.s-dark .comp-table{border:1px solid var(--rule-dk)}
+.s-light .comp-table,.s-warm .comp-table{border:1px solid var(--rule-lt)}
+.comp-table th{font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;padding:11px 14px;text-align:left}
+.s-dark .comp-table th,.s-blue .comp-table th{background:var(--carbon3);color:var(--ub)}
+.s-light .comp-table th,.s-warm .comp-table th{background:var(--ice3);color:var(--ub-dark)}
+.comp-table td{padding:11px 14px;font-weight:300;line-height:1.5}
+.s-dark .comp-table td{border-bottom:1px solid var(--rule-dk);color:var(--text2-dk)}
+.s-light .comp-table td,.s-warm .comp-table td{border-bottom:1px solid var(--rule-lt);color:var(--text2-lt)}
+.comp-table tr:last-child td{border-bottom:none}
+.s-dark .comp-table tr:hover td{background:rgba(255,255,255,.02)}
+.s-light .comp-table tr:hover td,.s-warm .comp-table tr:hover td{background:#f4fff8}
+.tag{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.tag-green{background:rgba(6,193,103,.12);color:#06C167}
+.tag-amber{background:rgba(245,158,11,.12);color:var(--amber)}
+.tag-red{background:rgba(232,49,42,.12);color:var(--red)}
+.tag-blue{background:rgba(6,193,103,.12);color:#6df0a6}
+
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:1px;border-radius:10px;overflow:hidden;margin:24px 0}
+.swot-c{padding:20px;position:relative}
+.sw-str{background:rgba(6,193,103,.1);border:1px solid rgba(6,193,103,.2)}
+.sw-wk{background:rgba(232,49,42,.08);border:1px solid rgba(232,49,42,.18)}
+.sw-op{background:rgba(6,193,103,.07);border:1px solid rgba(6,193,103,.15)}
+.sw-th{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.18)}
+.swot-label{font-family:var(--mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px;font-weight:500}
+.sw-str .swot-label{color:#06C167}
+.sw-wk .swot-label{color:var(--red)}
+.sw-op .swot-label{color:#6df0a6}
+.sw-th .swot-label{color:var(--amber)}
+.swot-c ul{list-style:none}
+.swot-c ul li{font-size:13px;font-weight:300;padding:4px 0 4px 16px;position:relative;line-height:1.5}
+.s-dark .swot-c ul li,.s-grad .swot-c ul li,.s-blue .swot-c ul li{color:var(--text2-dk)}
+.s-light .swot-c ul li,.s-warm .swot-c ul li{color:var(--text2-lt)}
+.swot-c ul li::before{content:'·';position:absolute;left:0;font-weight:700}
+.sw-str li::before{color:#06C167}
+.sw-wk li::before{color:var(--red)}
+.sw-op li::before{color:#6df0a6}
+.sw-th li::before{color:var(--amber)}
+
+/* ── TIMELINE (new element for Uber layout) ── */
+.timeline{position:relative;margin:32px 0;padding-left:28px;border-left:2px solid var(--rule-lt)}
+.s-dark .timeline,.s-grad .timeline,.s-blue .timeline{border-left:2px solid var(--rule-dk)}
+.tl-item{position:relative;padding-bottom:28px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{content:'';position:absolute;left:-34px;top:2px;width:11px;height:11px;border-radius:50%;background:var(--ub);border:2px solid var(--carbon)}
+.s-light .tl-item::before,.s-warm .tl-item::before{border:2px solid var(--ice)}
+.tl-year{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ub);margin-bottom:4px}
+.s-light .tl-year,.s-warm .tl-year{color:var(--ub-dark)}
+.tl-title{font-family:var(--serif);font-size:17px;font-weight:700;margin-bottom:4px}
+.s-dark .tl-title,.s-grad .tl-title,.s-blue .tl-title{color:var(--text-on-dk)}
+.s-light .tl-title,.s-warm .tl-title{color:var(--text-on-lt)}
+.tl-item p{font-size:14px;margin:0}
+
+/* ── VERTICAL METRIC BARS (new element) ── */
+.vbar-grid{display:flex;gap:24px;margin:28px 0;align-items:flex-end;justify-content:space-around;height:180px;padding:0 10px}
+.vbar-col{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1}
+.vbar{width:100%;max-width:54px;border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,#6df0a6,var(--ub));animation:growBar 1s ease both}
+.vbar-val{font-family:var(--serif);font-weight:900;font-size:14px;color:var(--ub)}
+.s-light .vbar-val,.s-warm .vbar-val{color:var(--ub-dark)}
+.vbar-lbl{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;text-align:center}
+.s-dark .vbar-lbl,.s-grad .vbar-lbl,.s-blue .vbar-lbl{color:var(--text3-dk)}
+.s-light .vbar-lbl,.s-warm .vbar-lbl{color:var(--text3-lt)}
+@keyframes growBar{from{height:0}to{height:var(--h)}}
+
+/* ── VERDICT BOX ── */
+.verdict{
+  background:linear-gradient(135deg,var(--ub-deep) 0%,var(--ub-dark) 40%,#0a3a20 100%);
+  border-radius:12px;padding:40px 36px;margin:32px 0;position:relative;overflow:hidden;
+}
+.verdict::before{
+  content:'';position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;
+}
+.verdict::after{
+  content:'';position:absolute;right:-60px;top:-60px;width:260px;height:260px;
+  border-radius:50%;background:rgba(6,193,103,.18);filter:blur(40px);z-index:0;
+}
+.verdict>*{position:relative;z-index:1}
+.verdict-label{font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:14px}
+.verdict-title{font-family:var(--serif);font-size:clamp(22px,3vw,34px);font-weight:700;color:#fff;line-height:1.2;margin-bottom:20px}
+.verdict-title em{font-style:italic;font-weight:300;color:#a8ffce}
+.verdict p{font-size:15px;color:rgba(255,255,255,.75);line-height:1.78;margin-bottom:14px;font-weight:300}
+.verdict p strong{color:#fff;font-weight:500}
+.verdict-score{display:flex;gap:20px;margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);flex-wrap:wrap}
+.vs-item{text-align:center;flex:1;min-width:90px}
+.vs-n{font-family:var(--serif);font-size:28px;font-weight:900;color:#fff;line-height:1}
+.vs-l{font-family:var(--mono);font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:3px}
+.vs-bar{height:3px;border-radius:2px;background:rgba(255,255,255,.15);margin-top:8px;overflow:hidden}
+.vs-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#6df0a6,#06C167);animation:fillBar 1.2s ease both}
+@keyframes fillBar{from{width:0}to{width:var(--w)}}
+
+.div-to-light{height:3px;background:linear-gradient(90deg,var(--ub),#9aff8a,transparent)}
+.div-to-dark{height:3px;background:linear-gradient(90deg,transparent,#9aff8a,var(--ub))}
+
+.footer{
+  background:var(--carbon2);border-top:1px solid var(--rule-dk);
+  padding:40px 60px 28px;
+}
+.footer-inner{max-width:980px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
+.footer-brand{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--text-on-dk)}
+.footer-brand span{color:var(--ub)}
+.footer-sub{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--text3-dk);margin-top:4px}
+.footer-links{display:flex;gap:18px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+.footer-links a{color:var(--text3-dk);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--ub)}
+.footer-copy{max-width:980px;margin:24px auto 0;padding-top:18px;border-top:1px solid var(--rule-dk);font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;color:var(--text3-dk);text-align:center}
+.footer-copy span{color:var(--ub)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+.top{
+  max-width:1120px;margin:12px auto 0;padding:0 18px;
+  position:sticky;top:10px;z-index:500;
+}
+.topbar{
+  width:100%;
+  padding:10px 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  border:1px solid var(--rule-dk);
+  border-radius:999px;
+  background:rgba(0,0,0,0.56);
+  backdrop-filter:blur(18px) saturate(1.4);
+  box-shadow:0 12px 40px rgba(0,0,0,.22);
+}
+.back{
+  display:flex;align-items:center;gap:10px;text-decoration:none;
+  color:var(--text-on-dk);font-weight:650;font-size:13px;
+}
+.back .b{
+  width:26px;height:26px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--rule-dk);background:rgba(255,255,255,.06);
+  color:var(--ub);
+}
+.back:hover{color:#fff}
+
+@media(max-width:768px){
+  .nav{padding:0 20px}
+  .nav-pills{display:none}
+  .hero{grid-template-columns:1fr}
+  .hero-left{padding:120px 24px 60px}
+  .hero-right{flex-direction:row;flex-wrap:wrap;border-left:none;border-top:1px solid var(--rule-dk)}
+  .hero-kpi{flex:1 1 50%;padding:24px;min-height:120px;border-bottom:1px solid var(--rule-dk);border-right:1px solid var(--rule-dk)}
+  .inner{padding:0 24px}
+  .swot{grid-template-columns:1fr}
+  .footer{padding:32px 24px 20px}
+  .verdict{padding:28px 20px}
+  .vbar-grid{height:140px}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div class="banner">Company Deep-Dive · Mobility &amp; Logistics Platforms · FounderLens Intelligence</div>
+
+<div class="top">
+  <div class="topbar">
+    <a class="back" href="../company.html"><span class="b">&larr;</span> Companies</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand"><span class="nav-dot"></span>FounderLens</div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <span class="nav-tag">Company Analysis</span>
+  </div>
+  <div class="nav-pills">
+    <button class="nav-pill active" onclick="scrollTo({top:0,behavior:'smooth'})">Overview</button>
+    <button class="nav-pill" onclick="ss('model')">Business Model</button>
+    <button class="nav-pill" onclick="ss('strategy')">Strategy</button>
+    <button class="nav-pill" onclick="ss('verdict')">Verdict</button>
+  </div>
+</nav>
+
+<!-- ══ HERO — split layout ══ -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-label">Company Intelligence Report · Issue 03 · Mobility Platforms</div>
+    <h1 class="hero-h1">Uber<br><em>The Operating System for Cities</em></h1>
+    <p class="hero-sub">How a black-car app for San Francisco became a two-sided marketplace operating system for <strong>rides, food, freight, and labor — running on the same core engine.</strong></p>
+    <div class="hero-scroll">Scroll to explore</div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-kpi" style="animation-delay:.1s">
+      <div class="hero-kpi-n">$43.9B</div>
+      <div class="hero-kpi-l">Annual Revenue (FY2023)</div>
+    </div>
+    <div class="hero-kpi" style="animation-delay:.2s">
+      <div class="hero-kpi-n">$137.9B</div>
+      <div class="hero-kpi-l">Gross Bookings (FY2023)</div>
+    </div>
+    <div class="hero-kpi" style="animation-delay:.3s">
+      <div class="hero-kpi-n">150M</div>
+      <div class="hero-kpi-l">Monthly Active Platform Consumers</div>
+    </div>
+    <div class="hero-kpi" style="animation-delay:.4s">
+      <div class="hero-kpi-n">6.8M</div>
+      <div class="hero-kpi-l">Drivers & Couriers</div>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 01: OVERVIEW — LIGHT, split layout ══ -->
+<section class="s-light reveal" id="overview">
+  <div class="inner">
+    <div class="split">
+      <div class="split-label-col">
+        <div class="s-label">01 — Company Overview</div>
+        <h2 class="s-title">What Uber <em>Actually Is</em></h2>
+      </div>
+      <div>
+        <p class="lead">Uber is not a taxi company, a delivery company, or a trucking company. It is a real-time matching engine for supply and demand — and every product line is the same engine wearing a different uniform.</p>
+        <p>Founded in 2009 as "UberCab" — a black-car request app for San Francisco — Uber's core technical insight was deceptively narrow: <strong>if you know where supply is and where demand is, in real time, you can match them faster and more efficiently than any dispatcher, taxi medallion system, or phone call ever could.</strong> That insight, applied first to rides, has since been re-applied to restaurant delivery (Uber Eats), freight matching (Uber Freight), grocery, and even worker shift-matching (Uber for Business / Flex).</p>
+        <p>Operationally, Uber runs two enormous, structurally similar marketplaces — Mobility and Delivery — on shared infrastructure: mapping, payments, real-time location, dynamic pricing, trust & safety, and a single app shell. <span class="concept">Shared Marketplace Infrastructure</span></p>
+        <div class="stat-strip">
+          <div class="stat-c"><div class="stat-n">70+</div><div class="stat-l">Countries</div></div>
+          <div class="stat-c"><div class="stat-n">10,000+</div><div class="stat-l">Cities</div></div>
+          <div class="stat-c"><div class="stat-n">2009</div><div class="stat-l">Founded</div></div>
+          <div class="stat-c"><div class="stat-n">2</div><div class="stat-l">Core Marketplaces</div></div>
+          <div class="stat-c"><div class="stat-n">2023</div><div class="stat-l">First Full-Year GAAP Profit</div></div>
+        </div>
+        <div class="callout callout-insight">
+          <div class="callout-lbl">💡 Key Insight</div>
+          <p>Uber's product strategy isn't "ride-hailing" — it's <strong>marketplace replication</strong>. Every new vertical (Eats, Freight, Grocery) reuses the same three-sided structure: a requester, a fulfiller, and an algorithm that prices and routes between them in real time. The company is, structurally, a marketplace factory.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-dark"></div>
+
+<!-- ══ SEC 02: CORE PROBLEM — DARK, split layout ══ -->
+<section class="s-dark reveal" id="problem">
+  <div class="glow" style="width:400px;height:400px;background:rgba(6,193,103,.12);top:-100px;right:-100px"></div>
+  <div class="inner">
+    <div class="split">
+      <div class="split-label-col">
+        <div class="s-label">02 — The Core Problem</div>
+        <h2 class="s-title">The Problem Uber <em>Actually Solved</em></h2>
+      </div>
+      <div>
+        <p class="lead">Before Uber, getting a taxi in most cities was an exercise in waiting, guessing, and hoping — a broken market where supply (taxis) and demand (riders) couldn't see each other.</p>
+        <p>Taxi markets were regulated local monopolies, often capped by medallion systems that artificially restricted supply. A rider on a street corner had no idea if a cab was five minutes away or fifty. A driver cruising for fares had no idea where demand was concentrated. Both sides were operating blind, in a market that should have been trivially solvable with the smartphones both parties already carried.</p>
+        <p>Uber's founding insight wasn't "people need rides" — that was obvious. It was: <strong>GPS + smartphones + a two-sided app could create a visible, liquid, real-time market where one had never existed</strong>, bypassing the information asymmetry that regulation had baked into taxi markets for a century.</p>
+        <div class="pq"><p>"Uber didn't disrupt taxis by being cheaper or nicer. It disrupted them by being the first product to make both sides of the market visible to each other, in real time, on a device everyone already owned."</p></div>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icon">🎯</div>
+            <div class="card-title">The Target User</div>
+            <p>Urban professionals frustrated by unreliable taxi availability — initially a small, high-spend San Francisco tech crowd willing to pay a premium for certainty.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🕳️</div>
+            <div class="card-title">The Market Gap</div>
+            <p>A real-time, transparent, two-sided market for transportation — replacing a fragmented system of dispatchers, medallions, and street hailing.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">⚙️</div>
+            <div class="card-title">The Solution</div>
+            <p>A GPS-based matching and dynamic-pricing engine that could be re-applied, with minor changes, to any market where supply and demand need real-time pairing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 03: TIMELINE — WARM (new layout element) ══ -->
+<section class="s-warm reveal" id="timing">
+  <div class="inner">
+    <div class="split">
+      <div class="split-label-col">
+        <div class="s-label">03 — Strategic Timeline</div>
+        <h2 class="s-title">From <em>Black Car App to Logistics Platform</em></h2>
+      </div>
+      <div>
+        <p class="lead">Uber's expansion wasn't a straight line — it was a sequence of deliberate bets, each one testing whether the core matching engine could generalise to a new vertical.</p>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-year">2010 — Launch</div>
+            <div class="tl-title">UberCab in San Francisco</div>
+            <p>Black-car-only, premium positioning, app-based dispatch. Proves real-time GPS matching works at small scale.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2012 — UberX</div>
+            <div class="tl-title">Mass-Market Ride-Hailing</div>
+            <p>Opens the platform to non-professional drivers in personal cars — radically expanding supply and collapsing prices, turning Uber from a luxury product into a mass-transit alternative.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2014 — UberEats</div>
+            <div class="tl-title">First Vertical Expansion</div>
+            <p>Tests whether the matching engine generalises beyond people — to food. Becomes the company's second major marketplace.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2017 — Uber Freight</div>
+            <div class="tl-title">B2B Logistics Marketplace</div>
+            <p>Applies the same matching logic to trucking — shippers and carriers — entering a market with none of the consumer brand recognition Uber had built.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2019 — IPO</div>
+            <div class="tl-title">Public Markets, Profitability Pressure</div>
+            <p>Going public shifted the strategic mandate from "grow at any cost" to "prove the marketplace model can be profitable" — a multi-year transition.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2023 — First Annual GAAP Profit</div>
+            <div class="tl-title">The Model Matures</div>
+            <p>After 14 years, Uber posts its first full-year GAAP net income — driven by Mobility margin recovery and Delivery's path to profitability. <span class="concept">Marketplace Maturity</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-dark"></div>
+
+<!-- ══ SEC 04: BUSINESS MODEL — GRAD, split layout ══ -->
+<section class="s-grad reveal" id="model">
+  <div class="glow" style="width:350px;height:350px;background:rgba(6,193,103,.10);bottom:-80px;left:-80px"></div>
+  <div class="inner">
+    <div class="split">
+      <div class="split-label-col">
+        <div class="s-label">04 — Business Model</div>
+        <h2 class="s-title">How Uber <em>Makes Money</em></h2>
+      </div>
+      <div>
+        <p class="lead">Uber's revenue model is a take rate on a marketplace — it keeps a percentage of every transaction's "Gross Bookings" as revenue, after paying drivers, couriers, and partners.</p>
+        <p>The distinction between <strong>Gross Bookings</strong> (the total value of everything transacted on the platform — $137.9B in FY2023) and <strong>Revenue</strong> (Uber's actual take, roughly $43.9B) is the single most important number in understanding the business. Uber doesn't "make" $137.9B — it facilitates that much economic activity and keeps roughly a third of it as its fee. <span class="concept">Take-Rate Marketplace Model</span></p>
+
+        <div class="vbar-grid">
+          <div class="vbar-col">
+            <div class="vbar-val">$137.9B</div>
+            <div class="vbar" style="--h:170px"></div>
+            <div class="vbar-lbl">Gross Bookings</div>
+          </div>
+          <div class="vbar-col">
+            <div class="vbar-val">$43.9B</div>
+            <div class="vbar" style="--h:54px"></div>
+            <div class="vbar-lbl">Revenue (Take)</div>
+          </div>
+          <div class="vbar-col">
+            <div class="vbar-val">~$1.6B</div>
+            <div class="vbar" style="--h:2px"></div>
+            <div class="vbar-lbl">Net Income (FY23)</div>
+          </div>
+        </div>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icon">🚗</div>
+            <div class="card-title">Mobility Take Rate</div>
+            <p>Uber keeps roughly 20–28% of each ride's fare, with the rest going to the driver. Dynamic ("surge") pricing lets Uber raise prices in real time when demand exceeds supply — protecting margins during peak periods.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🍔</div>
+            <div class="card-title">Delivery Take Rate + Ads</div>
+            <p>Delivery take rates are similar but historically thinner margin — offset increasingly by a fast-growing advertising business where restaurants pay for placement, similar to Amazon's retail media model. <span class="concept">Marketplace Advertising</span></p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🚚</div>
+            <div class="card-title">Freight — Lower Margin, Strategic Scale</div>
+            <p>Freight operates on thinner margins but provides scale, data on logistics markets, and diversification away from consumer cyclicality.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">💳</div>
+            <div class="card-title">Uber One — Subscription Layer</div>
+            <p>A cross-product membership (discounts on rides + delivery) increases frequency and stickiness across both marketplaces simultaneously — a retention lever that works across the whole portfolio at once.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-insight">
+          <div class="callout-lbl">💡 The Model's Hidden Genius</div>
+          <p>Uber's dynamic pricing isn't just about extracting more from riders during peak demand — it's a <strong>real-time supply-recruitment signal</strong>. Surge pricing tells drivers, instantly and economically, "come here, demand is high" — solving a coordination problem that no fixed-price system could solve. The price IS the dispatch mechanism.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 05: PRODUCT STRATEGY — LIGHT, split layout ══ -->
+<section class="s-light reveal" id="product">
+  <div class="inner">
+    <div class="split">
+      <div class="split-label-col">
+        <div class="s-label">05 — Product & Platform Strategy</div>
+        <h2 class="s-title">The <em>"Super App"</em> Bet</h2>
+      </div>
+      <div>
+        <p class="lead">Uber's most important recent product strategy is consolidation: turning a portfolio of separate apps (Rides, Eats, Freight, Uber for Business) into a single super-app where every product cross-sells every other product.</p>
+        <p>The logic is straightforward marketplace economics: <strong>acquiring a user is expensive, but once acquired, serving them a second product line is nearly free.</strong> A rider who also orders food, a food customer who also books rides — each additional product line increases lifetime value without a proportional increase in acquisition cost.</p>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icon">📱</div>
+            <div class="card-title">One App, Multiple Verticals</div>
+            <p>Uber merged Eats back into the main app in many markets — riders see food ordering as a tab, not a separate download. Reduces app-switching friction and surfaces cross-sell moments naturally.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🎟️</div>
+            <div class="card-title">Uber One Membership</div>
+            <p>A single subscription (~$9.99/mo) gives discounts across rides, delivery, and grocery — explicitly designed to make "Uber" the default choice across categories rather than a single-use tool.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🤖</div>
+            <div class="card-title">Autonomous Vehicle Partnerships</div>
+            <p>Rather than building AVs in-house (a capital-intensive bet Uber largely exited), Uber positions its app as the demand-aggregation layer for AV operators like Waymo — a "marketplace, not manufacturer" strategy.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🏢</div>
+            <div class="card-title">Uber for Business</div>
+            <p>B2B travel and meal programs turn corporate expense accounts into a recurring, high-margin revenue stream layered on top of the same consumer infrastructure.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-lesson">
+          <div class="callout-lbl">📐 Strategic Lesson</div>
+          <p>Uber's "super app" strategy is fundamentally a <strong>cross-selling infrastructure play</strong> — it doesn't require any single product line to be the best in its category, only for the combined bundle (rides + food + membership) to be more convenient than maintaining separate relationships with multiple specialist apps.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-dark"></div>
+
+<!-- ══ SEC 06: PRICING & SUPPLY STRATEGY — BLUE, split layout ══ -->
+<section class="s-blue reveal" id="growth">
+  <div class="glow" style="width:380px;height:380px;background:rgba(6,193,103,.10);top:-60px;right:-60px"></div>
+  <div class="inner">
+    <div class="split">
+      <div class="split-label-col">
+        <div class="s-label">06 — Marketplace Mechanics</div>
+        <h2 class="s-title">Managing <em>Both Sides at Once</em></h2>
+      </div>
+      <div>
+        <p class="lead">Uber's hardest ongoing strategic problem is one shared by every two-sided marketplace: every action that benefits riders (lower prices) tends to hurt drivers (lower earnings), and vice versa. Uber's entire pricing and incentive infrastructure exists to manage this tension.</p>
+
+        <ul class="al">
+          <li><strong>Dynamic / surge pricing:</strong> Raises prices when demand outstrips supply — simultaneously rationing demand (some riders wait or cancel) and recruiting supply (drivers go online to capture higher fares).</li>
+          <li><strong>Driver incentive programs:</strong> Quest bonuses, guaranteed minimums, and surge notifications steer driver supply toward under-served areas and times without Uber needing to "own" any vehicles.</li>
+          <li><strong>Upfront pricing & destination filters:</strong> Showing drivers the fare and destination before accepting improves driver satisfaction and retention — directly addressing a major source of driver churn.</li>
+          <li><strong>Geographic price discrimination:</strong> Take rates and pricing vary significantly by market based on local competition (e.g., markets with strong local competitors like Didi, Grab, or Lyft see different economics than markets where Uber is dominant). <span class="concept">Local Market Calibration</span></li>
+        </ul>
+
+        <div class="callout callout-warn">
+          <div class="callout-lbl">⚠ Strategic Tension</div>
+          <p>Uber's profitability turnaround since its IPO has come partly from <strong>reducing driver and rider incentives</strong> that fueled early hyper-growth. This has improved margins but has also fueled persistent criticism around driver pay and rider price increases — a tension that regulators in multiple jurisdictions (UK, California, EU) have moved to address through worker-classification rules. <span class="concept">Regulatory Exposure</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 07: COMPETITIVE LANDSCAPE — WARM, split layout ══ -->
+<section class="s-warm reveal" id="competition">
+  <div class="inner">
+    <div class="split">
+      <div class="split-label-col">
+        <div class="s-label">07 — Competitive Strategy</div>
+        <h2 class="s-title">Winning Through <em>Local Density, Not Global Uniformity</em></h2>
+      </div>
+      <div>
+        <p class="lead">Unlike a software product that can be identical everywhere, ride-hailing and delivery are fundamentally local — Uber's competitive position varies enormously by city and country, and its strategy reflects that.</p>
+
+        <div class="comp-table">
+          <thead><tr><th>Market</th><th>Uber's Position</th><th>Key Competitor</th><th>Strategy</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>United States</strong></td>
+              <td>Market leader</td>
+              <td>Lyft</td>
+              <td>Scale advantage, broader product portfolio (Eats, Freight, One)</td>
+            </tr>
+            <tr>
+              <td><strong>Latin America</strong></td>
+              <td>Strong / leading</td>
+              <td>DiDi, local apps</td>
+              <td>Aggressive localization, cash payment support, scooter/moto options</td>
+            </tr>
+            <tr>
+              <td><strong>India</strong></td>
+              <td>Strong but contested</td>
+              <td>Ola, Rapido</td>
+              <td>Auto-rickshaw integration, hyper-local pricing tiers</td>
+            </tr>
+            <tr>
+              <td><strong>Southeast Asia</strong></td>
+              <td>Exited (sold to Grab, 2018)</td>
+              <td>Grab</td>
+              <td>Took equity stake instead of competing directly — a "merge with the local winner" strategy</td>
+            </tr>
+            <tr>
+              <td><strong>China</strong></td>
+              <td>Exited (sold to Didi, 2016)</td>
+              <td>Didi Chuxing</td>
+              <td>Same pattern — equity stake in lieu of unprofitable direct competition</td>
+            </tr>
+          </tbody>
+        </div>
+
+        <p>This pattern — competing hard in markets it can win, and trading operations for equity stakes in markets dominated by entrenched local players — reflects a pragmatic recognition that <strong>network effects in ride-hailing are local, not global</strong>. Being the biggest platform in the US provides almost no advantage in Jakarta or Shanghai.</p>
+
+        <div class="callout callout-insight">
+          <div class="callout-lbl">💡 Key Insight</div>
+          <p>Uber's "losses" in China and Southeast Asia weren't failures — they were a deliberate capital-allocation strategy. Rather than burn billions fighting for market share it was unlikely to win, Uber converted operating losses into equity stakes in the eventual local winners, effectively buying a piece of the outcome either way. <span class="concept">Strategic Retreat as Capital Allocation</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-dark"></div>
+
+<!-- ══ SEC 08: SWOT — DARK, split layout ══ -->
+<section class="s-dark reveal" id="swot">
+  <div class="glow" style="width:350px;height:350px;background:rgba(6,193,103,.08);bottom:-60px;right:-60px"></div>
+  <div class="inner">
+    <div class="split">
+      <div class="split-label-col">
+        <div class="s-label">08 — SWOT Analysis</div>
+        <h2 class="s-title">Uber's Position <em>Today</em></h2>
+      </div>
+      <div>
+        <div class="swot">
+          <div class="swot-c sw-str">
+            <div class="swot-label">Strengths</div>
+            <ul>
+              <li>Largest global ride-hailing & delivery footprint</li>
+              <li>Shared infrastructure across Mobility & Delivery</li>
+              <li>First full-year GAAP profitability achieved (2023)</li>
+              <li>Strong brand recognition as a verb ("get an Uber")</li>
+              <li>Diversified revenue: rides, food, freight, ads</li>
+            </ul>
+          </div>
+          <div class="swot-c sw-wk">
+            <div class="swot-label">Weaknesses</div>
+            <ul>
+              <li>Thin overall net margins relative to Gross Bookings</li>
+              <li>Heavy reliance on gig-worker classification model</li>
+              <li>Freight segment historically lower-margin</li>
+              <li>Driver dissatisfaction over pay/incentive cuts</li>
+              <li>Complex regulatory compliance across 70+ countries</li>
+            </ul>
+          </div>
+          <div class="swot-c sw-op">
+            <div class="swot-label">Opportunities</div>
+            <ul>
+              <li>Autonomous vehicle partnerships (Waymo, others)</li>
+              <li>Advertising business growth within Delivery</li>
+              <li>Uber One cross-sell expansion</li>
+              <li>Grocery & retail delivery expansion</li>
+              <li>Emerging market penetration (India, LatAm)</li>
+            </ul>
+          </div>
+          <div class="swot-c sw-th">
+            <div class="swot-label">Threats</div>
+            <ul>
+              <li>Worker-classification regulation (EU, California, UK)</li>
+              <li>Autonomous vehicles disintermediating driver supply</li>
+              <li>Local competitors with regulatory home-field advantage</li>
+              <li>Macro sensitivity — discretionary spend categories</li>
+              <li>Insurance & liability cost inflation</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-warn">
+          <div class="callout-lbl">⚠ Strategic Tension</div>
+          <p>Autonomous vehicles are simultaneously Uber's biggest long-term opportunity and its biggest existential threat. If AVs scale, Uber's app could become the dominant demand-aggregation layer for a fleet it doesn't own or operate — extremely high margin. But if AV operators (Waymo, Tesla, etc.) build their own consumer apps, Uber's core asset — the demand-side network — could be bypassed entirely. <span class="concept">Platform vs. Disintermediation Risk</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 09: INDUSTRY IMPACT — LIGHT, split layout ══ -->
+<section class="s-light reveal" id="impact">
+  <div class="inner">
+    <div class="split">
+      <div class="split-label-col">
+        <div class="s-label">09 — Industry Impact</div>
+        <h2 class="s-title">How Uber <em>Changed the Rules</em></h2>
+      </div>
+      <div>
+        <p class="lead">Uber didn't just build an app. It created the template for an entire category of company — the "gig economy" platform — and forced cities, regulators, and entire industries to redefine how labor and transport markets work.</p>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icon">📲</div>
+            <div class="card-title">Created the Gig-Economy Template</div>
+            <p>Uber's driver model — independent contractors, app-based dispatch, algorithmic management — became the blueprint for hundreds of companies across delivery, freelance work, and services.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">⚡</div>
+            <div class="card-title">Normalised Dynamic Pricing</div>
+            <p>Surge pricing introduced real-time, demand-responsive pricing to consumer expectations — a concept now used in airlines, hotels, event tickets, and even electricity pricing.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🏙️</div>
+            <div class="card-title">Reshaped Urban Transport Policy</div>
+            <p>Cities worldwide rewrote taxi regulations, congestion pricing, and licensing frameworks in direct response to ride-hailing's growth — Uber became a permanent fixture in transportation policy debates.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-dark"></div>
+
+<!-- ══ SEC 10: LESSONS — GRAD, split layout ══ -->
+<section class="s-grad reveal" id="lessons">
+  <div class="glow" style="width:400px;height:400px;background:rgba(6,193,103,.07);top:0;right:-100px"></div>
+  <div class="inner">
+    <div class="split">
+      <div class="split-label-col">
+        <div class="s-label">10 — Lessons for Builders</div>
+        <h2 class="s-title">What Every Operator Can <em>Steal From Uber</em></h2>
+      </div>
+      <div>
+        <ul class="al">
+          <li><strong>Build the engine, not the product.</strong> Uber's core asset was never "ride-hailing" — it was a real-time matching and pricing engine. That engine was re-applied to food, freight, and groceries with minimal re-invention. Ask whether your "product" is actually a reusable capability in disguise. <span class="concept">Platform Thinking</span></li>
+          <li><strong>Let price do the coordination.</strong> Surge pricing solved a two-sided coordination problem — where should supply go right now? — without anyone needing to manually dispatch anything. Price signals can replace operational complexity if designed correctly.</li>
+          <li><strong>Know when to trade operations for equity.</strong> Exiting China and Southeast Asia wasn't failure — it was recognising that local network effects made direct competition unprofitable, and converting sunk costs into equity stakes instead. Sometimes the best strategic move is a structured retreat.</li>
+          <li><strong>Cross-sell is cheaper than acquisition — always.</strong> Uber One and the super-app strategy exist because serving an existing user a second product is dramatically cheaper than acquiring a new one. If you have multiple products, the seams between them are where margin hides.</li>
+          <li><strong>Two-sided markets require managing both sides, deliberately.</strong> Every pricing or policy decision that helps one side of a marketplace tends to hurt the other. Uber's incentive systems exist specifically to manage that tension — ignoring one side of your marketplace eventually breaks the other.</li>
+          <li><strong>Profitability can be a multi-year strategic choice, not a binary.</strong> Uber operated at a loss for 14 years by design — prioritising network density and category creation over near-term margins, then methodically converting scale into profitability once category position was secured. <span class="concept">Patient Capital Strategy</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-to-light"></div>
+
+<!-- ══ SEC 11: VERDICT — WARM ══ -->
+<section class="s-warm reveal" id="verdict">
+  <div class="inner">
+    <div class="s-label">11 — FounderLens Verdict</div>
+    <h2 class="s-title">What Makes Uber <em>Truly Extraordinary</em></h2>
+    <div class="verdict">
+      <div class="verdict-label">Final Analysis · Uber Technologies · FounderLens 2025</div>
+      <div class="verdict-title">Uber is not a transportation company.<br><em>It is a real-time matching engine that happens to move people and things.</em></div>
+      <p>The most important insight about Uber's business is this: nearly everything that makes Uber valuable — the real-time location data, the dynamic pricing algorithms, the trust and payments infrastructure, the two-sided marketplace playbook — is <strong>portable across verticals</strong>. Rides, food, freight, and groceries are different markets running on the same underlying machine.</p>
+      <p>What took 14 years wasn't building that machine — Uber proved it worked within a few years of launch. What took 14 years was proving that the machine could be <strong>profitable at global scale</strong>, after the subsidies, incentives, and international expansion battles that defined its first decade. The 2023 GAAP profit wasn't a new strategy — it was the original strategy finally clearing the runway.</p>
+      <p>The risks ahead are structural and significant: worker-classification regulation threatens the cost basis of the entire model, and autonomous vehicles threaten to make the supply side of the marketplace — millions of human drivers — obsolete. But Uber's response to both has been consistent with its history: <strong>position as the demand-aggregation layer, regardless of who or what fulfills the demand.</strong> If AVs win, Uber wants to be the app that hails them.</p>
+      <p><strong>That is the architecture of a platform built to outlast its own original product. And Uber has spent over a decade proving it can.</strong></p>
+      <div class="verdict-score">
+        <div class="vs-item">
+          <div class="vs-n">9/10</div>
+          <div class="vs-l">Marketplace Moat</div>
+          <div class="vs-bar"><div class="vs-fill" style="--w:90%"></div></div>
+        </div>
+        <div class="vs-item">
+          <div class="vs-n">7/10</div>
+          <div class="vs-l">Business Model Maturity</div>
+          <div class="vs-bar"><div class="vs-fill" style="--w:70%"></div></div>
+        </div>
+        <div class="vs-item">
+          <div class="vs-n">6/10</div>
+          <div class="vs-l">Regulatory Resilience</div>
+          <div class="vs-bar"><div class="vs-fill" style="--w:60%"></div></div>
+        </div>
+        <div class="vs-item">
+          <div class="vs-n">7/10</div>
+          <div class="vs-l">AV Readiness</div>
+          <div class="vs-bar"><div class="vs-fill" style="--w:70%"></div></div>
+        </div>
+        <div class="vs-item">
+          <div class="vs-n">8/10</div>
+          <div class="vs-l">Strategic Clarity</div>
+          <div class="vs-bar"><div class="vs-fill" style="--w:80%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Founder<span>Lens</span></div>
+      <div class="footer-sub">Company Strategy Intelligence · Issue 03 · Uber Technologies · May 2026</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">All Analyses</a>
+      <a href="#">Founders</a>
+      <a href="#">Companies</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <span>FounderLens</span> · Uber Company Analysis · For educational purposes · Data from public filings, annual reports, and verified sources · 2026
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+  document.getElementById('progress').style.width=pct+'%';
+});
+
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+function ss(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'})}
+
+const secs={overview:'overview',model:'model',verdict:'verdict'};
+const pills=document.querySelectorAll('.nav-pill');
+window.addEventListener('scroll',()=>{
+  let current='';
+  Object.keys(secs).forEach(id=>{
+    const el=document.getElementById(secs[id]);
+    if(el&&el.getBoundingClientRect().top<200)current=id;
+  });
+  pills.forEach(p=>{
+    p.classList.toggle('active',
+      (current==='overview'&&p.textContent==='Overview')||
+      (current==='model'&&p.textContent==='Business Model')||
+      (current==='verdict'&&p.textContent==='Verdict')
+    );
+  });
+},{passive:true});
+
+const barObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.vs-fill,.vbar').forEach(f=>{
+        f.style.animation='none';
+        requestAnimationFrame(()=>{
+          f.style.animation='';
+          f.style.animationDelay='.2s';
+        });
+      });
+    }
+  });
+},{threshold:.3});
+document.querySelectorAll('.verdict,.vbar-grid').forEach(v=>barObs.observe(v));
+</script>
+</body>
+</html>

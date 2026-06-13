@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bumble — Product & Business Decisions</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --yellow: #FFD000;
+    --yellow-dark: #E6BB00;
+    --yellow-pale: #FFF8D6;
+    --black: #111111;
+    --off-black: #1E1E1E;
+    --gray-900: #222222;
+    --gray-700: #444444;
+    --gray-500: #777777;
+    --gray-300: #CCCCCC;
+    --gray-100: #F5F5F5;
+    --white: #FFFFFF;
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--gray-100);
+    color: var(--gray-900);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--black);
+    color: var(--white);
+    padding: 3.5rem 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    background: var(--yellow);
+    opacity: 0.12;
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+  .hero-title em {
+    color: var(--yellow);
+    font-style: italic;
+  }
+  .hero-sub {
+    font-size: 15px;
+    color: #AAAAAA;
+    max-width: 480px;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    padding-top: 1.5rem;
+    border-top: 0.5px solid #333;
+  }
+  .hero-stat .n {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--yellow);
+    line-height: 1;
+  }
+  .hero-stat .l {
+    font-size: 11px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 3px;
+  }
+
+  /* ── NAV ── */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--black);
+    border-bottom: 0.5px solid #2A2A2A;
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-btn {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: #888;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 0.9rem 1.25rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s;
+    letter-spacing: 0.01em;
+  }
+  .nav-btn:hover { color: var(--white); }
+  .nav-btn.active { color: var(--yellow); border-bottom-color: var(--yellow); }
+
+  /* ── MAIN ── */
+  main { max-width: 860px; margin: 0 auto; padding: 2.5rem 2rem 5rem; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .section-intro {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-500);
+    font-weight: 500;
+    margin-bottom: 1.75rem;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline { position: relative; padding-left: 1.75rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px; top: 10px; bottom: 10px;
+    width: 1px;
+    background: var(--gray-300);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 2rem;
+    padding-left: 0.5rem;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -1.45rem; top: 7px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--gray-100);
+    border: 2px solid var(--gray-300);
+    transition: border-color 0.2s;
+  }
+  .tl-item.key::before {
+    background: var(--yellow);
+    border-color: var(--yellow);
+    width: 12px; height: 12px;
+    left: -1.52rem; top: 5px;
+  }
+  .tl-year {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-500);
+    margin-bottom: 3px;
+  }
+  .tl-item.key .tl-year { color: var(--black); }
+  .tl-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 5px;
+  }
+  .tl-desc {
+    font-size: 14px;
+    color: var(--gray-700);
+    line-height: 1.65;
+  }
+  .tl-tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 9px;
+    border-radius: 999px;
+    background: var(--yellow-pale);
+    color: var(--gray-700);
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  /* ── MOVES GRID ── */
+  .moves-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  .move-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 0.5px solid #E0E0E0;
+    padding: 1.25rem 1.5rem;
+    transition: border-color 0.2s, transform 0.15s;
+    cursor: default;
+  }
+  .move-card:hover {
+    border-color: var(--yellow-dark);
+    transform: translateY(-2px);
+  }
+  .move-pill {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--yellow);
+    color: var(--black);
+    margin-bottom: 0.75rem;
+  }
+  .move-card h3 {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 6px;
+  }
+  .move-card p {
+    font-size: 13px;
+    color: var(--gray-700);
+    line-height: 1.6;
+  }
+
+  /* ── VERDICT QUOTE ── */
+  .verdict {
+    margin: 2rem 0 0;
+    padding: 1.25rem 1.5rem;
+    background: var(--black);
+    border-radius: var(--radius);
+    color: var(--white);
+  }
+  .verdict p {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--yellow);
+    line-height: 1.5;
+  }
+  .verdict span {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: #888;
+    margin-top: 6px;
+    font-style: normal;
+  }
+
+  /* ── MISTAKES ── */
+  .mistake-list { list-style: none; }
+  .mistake-item {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 1rem;
+    align-items: start;
+    padding: 1.25rem 0;
+    border-bottom: 0.5px solid #E5E5E5;
+  }
+  .mistake-item:last-child { border-bottom: none; }
+  .mistake-num {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--gray-100);
+    border: 1px solid #DDD;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-500);
+    flex-shrink: 0;
+  }
+  .mistake-body strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 4px;
+  }
+  .mistake-body p {
+    font-size: 13px;
+    color: var(--gray-700);
+    line-height: 1.65;
+  }
+  .mistake-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-top: 6px;
+  }
+  .badge-product { background: #FEE2E2; color: #991B1B; }
+  .badge-strategy { background: #FEF3C7; color: #92400E; }
+  .badge-brand { background: #DBEAFE; color: #1E40AF; }
+
+  /* ── MOAT ── */
+  .moat-intro {
+    font-size: 14px;
+    color: var(--gray-700);
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+    max-width: 620px;
+  }
+  .moat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
+  .moat-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 0.5px solid #E0E0E0;
+    padding: 1.25rem;
+  }
+  .moat-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: var(--yellow);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 0.75rem;
+    font-size: 18px;
+  }
+  .moat-card h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 5px;
+  }
+  .moat-card p {
+    font-size: 13px;
+    color: var(--gray-700);
+    line-height: 1.6;
+  }
+  .moat-risk {
+    background: var(--yellow-pale);
+    border: 0.5px solid var(--yellow-dark);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+  }
+  .moat-risk h4 {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--black);
+    margin-bottom: 6px;
+  }
+  .moat-risk p {
+    font-size: 13px;
+    color: var(--gray-700);
+    line-height: 1.6;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    color: #555;
+    text-align: center;
+    font-size: 12px;
+    padding: 1.25rem;
+    letter-spacing: 0.03em;
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 2.5rem 1.25rem 2rem; }
+    main { padding: 2rem 1.25rem 4rem; }
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Case Study — Dating Tech</p>
+    <h1 class="hero-title">Bumble's bet was<br><em>one rule.</em></h1>
+    <p class="hero-sub">How a single product constraint turned into a $13B company — and what it got right, wrong, and still doesn't know yet.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="n">50M+</div><div class="l">Users</div></div>
+      <div class="hero-stat"><div class="n">$13B</div><div class="l">Peak Valuation</div></div>
+      <div class="hero-stat"><div class="n">2014</div><div class="l">Founded</div></div>
+      <div class="hero-stat"><div class="n">150+</div><div class="l">Countries</div></div>
+    </div>
+  </div>
+</div>
+
+<nav class="sticky-nav" aria-label="Dashboard sections">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="showSection('timeline', this)">Timeline</button>
+    <button class="nav-btn" onclick="showSection('moves', this)">Key product moves</button>
+    <button class="nav-btn" onclick="showSection('mistakes', this)">Mistakes & misses</button>
+    <button class="nav-btn" onclick="showSection('moat', this)">What's the moat</button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- TIMELINE -->
+  <section id="timeline" class="section active" aria-label="Timeline">
+    <p class="section-intro">How it unfolded</p>
+    <div class="timeline">
+
+      <div class="tl-item key">
+        <div class="tl-year">2014</div>
+        <div class="tl-title">The one rule that started everything</div>
+        <div class="tl-desc">Whitney Wolfe Herd launches Bumble after leaving Tinder. The product is defined by a single constraint — in heterosexual matches, only women can message first. It's not a feature toggle. The constraint IS the product.</div>
+        <span class="tl-tag">Founding insight</span>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-year">2015</div>
+        <div class="tl-title">Campus-first growth strategy</div>
+        <div class="tl-desc">Bumble seeds supply by going to college campuses, recruiting women as ambassadors first, then letting men follow. Classic marketplace playbook — if the supply side is happy, demand takes care of itself.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-year">2016</div>
+        <div class="tl-title">BFF & Bizz — the big expansion bet</div>
+        <div class="tl-desc">Bumble adds two new modes: BFF (platonic friendships) and Bizz (professional networking). The bet: reframe as a social connection app, not just dating. Keeps users on the platform post-relationship.</div>
+        <span class="tl-tag">Product expansion</span>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-year">2018</div>
+        <div class="tl-title">Private Detector — AI safety layer</div>
+        <div class="tl-desc">Launches AI-powered tool to detect and blur unsolicited explicit images before they reach users. Not just a feature — a signal of what the brand stands for. Safety-as-product-strategy.</div>
+      </div>
+
+      <div class="tl-item key">
+        <div class="tl-year">2021</div>
+        <div class="tl-title">IPO at $13B</div>
+        <div class="tl-desc">Bumble goes public on Nasdaq. Stock opens at $76 — nearly 2x the offer price. Whitney becomes one of the youngest female CEOs to take a company public. The media narrative writes itself.</div>
+        <span class="tl-tag">Milestone</span>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-year">2022–23</div>
+        <div class="tl-title">Post-IPO pressure</div>
+        <div class="tl-desc">User growth slows. Stock drops sharply from highs. Hinge, owned by Match Group, accelerates in the 25–35 demo with a stronger product narrative. Competitive pressure intensifies.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-year">Late 2023</div>
+        <div class="tl-title">Whitney steps down as CEO</div>
+        <div class="tl-desc">Wolfe Herd transitions out. Lidiane Jones, former Salesforce executive, takes over as CEO. A real test: can the company's identity survive beyond its founder?</div>
+      </div>
+
+      <div class="tl-item key">
+        <div class="tl-year">2024</div>
+        <div class="tl-title">Opening Moves — loosening the constraint</div>
+        <div class="tl-desc">New product feature lets users set a prompt that their match can respond to, regardless of gender. Softens the strict women-first rule. A live experiment: does loosening the founding constraint hurt the brand — or help conversion?</div>
+        <span class="tl-tag">Product pivot</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MOVES -->
+  <section id="moves" class="section" aria-label="Key product moves">
+    <p class="section-intro">Decisions that actually moved the needle</p>
+    <div class="moves-grid">
+
+      <div class="move-card">
+        <span class="move-pill">Founding bet</span>
+        <h3>Women message first</h3>
+        <p>Not a filter. Not optional. Baked into the core loop. Reduced low-quality matches and harassment by design, making the product safe enough for women to actually try dating apps.</p>
+      </div>
+
+      <div class="move-card">
+        <span class="move-pill">Safety</span>
+        <h3>Private Detector</h3>
+        <p>AI auto-detects and blurs explicit images before they reach the user. Turns a protection layer into brand identity. Other apps can build the same tech — they can't replicate 10 years of that trust.</p>
+      </div>
+
+      <div class="move-card">
+        <span class="move-pill">Growth</span>
+        <h3>Campus ambassador program</h3>
+        <p>Seeded supply (women) to attract demand (men). Same playbook as Tinder, but with a clearer value prop — women had a real reason to try this app, not just an invite.</p>
+      </div>
+
+      <div class="move-card">
+        <span class="move-pill">Expansion</span>
+        <h3>BFF mode</h3>
+        <p>Opens Bumble to platonic intent. Risky — could dilute the brand. But extends retention beyond dating and gave the app a path to DAU from users who already found a partner.</p>
+      </div>
+
+      <div class="move-card">
+        <span class="move-pill">Monetisation</span>
+        <h3>Spotlight & SuperSwipe</h3>
+        <p>Classic freemium mechanics — pay to boost visibility or signal extra interest. Positioned not as desperation but as taking control. Works when the brand has already primed that framing.</p>
+      </div>
+
+      <div class="move-card">
+        <span class="move-pill">2024 pivot</span>
+        <h3>Opening Moves</h3>
+        <p>Either person sets a conversation prompt; the match responds. Loosens the original rule without removing it. A live hypothesis: the constraint's value was safety, not the rule itself.</p>
+      </div>
+
+    </div>
+
+    <div class="verdict">
+      <p>"The product rule was the marketing. Bumble didn't need a campaign to explain itself — women go first did all the work."</p>
+      <span>Observation on brand-as-product strategy</span>
+    </div>
+  </section>
+
+  <!-- MISTAKES -->
+  <section id="mistakes" class="section" aria-label="Mistakes and misses">
+    <p class="section-intro">Where they fumbled</p>
+    <ul class="mistake-list">
+
+      <li class="mistake-item">
+        <div class="mistake-num">01</div>
+        <div class="mistake-body">
+          <strong>Bizz never took off</strong>
+          <p>Professional networking on a dating app brand is a hard sell. LinkedIn already owns that intent category and that audience's trust. Bizz felt bolted on — the classic mistake of assuming your audience gives you permission for every use case.</p>
+          <span class="mistake-badge badge-strategy">Strategy</span>
+        </div>
+      </li>
+
+      <li class="mistake-item">
+        <div class="mistake-num">02</div>
+        <div class="mistake-body">
+          <strong>Lost the 25–35 narrative to Hinge</strong>
+          <p>Hinge went all in on "designed to be deleted" — a clear, emotionally resonant product positioning. Bumble's multi-mode expansion made it harder to own one distinct message. Hinge took serious market share in the exact demo Bumble wanted.</p>
+          <span class="mistake-badge badge-brand">Brand</span>
+        </div>
+      </li>
+
+      <li class="mistake-item">
+        <div class="mistake-num">03</div>
+        <div class="mistake-body">
+          <strong>Post-IPO product stagnation</strong>
+          <p>After going public, revenue pressure may have slowed actual product innovation. The core experience didn't meaningfully change for years while user expectations — and Hinge's product — kept evolving.</p>
+          <span class="mistake-badge badge-product">Product</span>
+        </div>
+      </li>
+
+      <li class="mistake-item">
+        <div class="mistake-num">04</div>
+        <div class="mistake-body">
+          <strong>The founding rule is also a retention problem</strong>
+          <p>If a woman doesn't message within 24 hours, the match expires. The rule that made Bumble safe creates friction in the core loop. Significant drop-off at this step — a tradeoff the product team has always had to manage quietly.</p>
+          <span class="mistake-badge badge-product">Product</span>
+        </div>
+      </li>
+
+      <li class="mistake-item">
+        <div class="mistake-num">05</div>
+        <div class="mistake-body">
+          <strong>Monetisation feels generic</strong>
+          <p>Spotlight and Boost are nearly identical to Tinder's mechanics. The brand promises empowerment, but the upsell design is borrowed, not original. A real opportunity to build monetisation that felt distinctly Bumble was left on the table.</p>
+          <span class="mistake-badge badge-brand">Brand</span>
+        </div>
+      </li>
+
+    </ul>
+  </section>
+
+  <!-- MOAT -->
+  <section id="moat" class="section" aria-label="Bumble's moat">
+    <p class="section-intro">What actually protects Bumble</p>
+    <p class="moat-intro">Bumble's moat isn't the algorithm or the tech. It's the supply side — women choosing to use the app — and everything the product does to protect that choice. The question now is whether that moat holds through leadership change, product loosening, and a more competitive landscape.</p>
+    <div class="moat-grid">
+
+      <div class="moat-card">
+        <div class="moat-icon">🤝</div>
+        <h3>Brand identity</h3>
+        <p>Safety-first, women-first is built into the product logic, not just the marketing. Ten years of consistent delivery creates brand trust competitors can't copy overnight.</p>
+      </div>
+
+      <div class="moat-card">
+        <div class="moat-icon">🛡️</div>
+        <h3>Safety features</h3>
+        <p>Private Detector, photo verification, and block-before-match lower the cost of trying Bumble for women who've had bad experiences elsewhere. Safety as acquisition.</p>
+      </div>
+
+      <div class="moat-card">
+        <div class="moat-icon">⚖️</div>
+        <h3>Supply-side loyalty</h3>
+        <p>Women choosing Bumble is the product. If the supply side is comfortable, demand follows. The entire design is structured around keeping that supply active.</p>
+      </div>
+
+      <div class="moat-card">
+        <div class="moat-icon">✨</div>
+        <h3>Cultural cachet</h3>
+        <p>Bumble is the app you mention without embarrassment. That perception — built through consistent brand work — is genuinely rare and hard to manufacture from scratch.</p>
+      </div>
+
+    </div>
+
+    <div class="moat-risk">
+      <h4>Open question</h4>
+      <p>Can Bumble hold its brand identity through leadership change, a loosening of its founding constraint, and sustained competitive pressure from Hinge? Or does the constraint eventually become a liability rather than a moat? That's the real product strategy question right now.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Bumble — Product & Business Case Study
+</footer>
+
+<script>
+  function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: document.querySelector('main').offsetTop - 50, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>

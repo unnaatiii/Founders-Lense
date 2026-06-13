@@ -468,6 +468,188 @@
       width: 100%;
     }
   }
+
+  @media (max-width: 768px) {
+    html,
+    body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+    .home-premium-nav {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 0.55rem;
+    }
+    .home-premium-brand,
+    .home-premium-links,
+    .home-premium-links a {
+      white-space: nowrap;
+    }
+    .home-premium-links {
+      min-width: 0;
+      flex-wrap: nowrap;
+    }
+    #page-home {
+      padding-top: 8.5rem;
+    }
+    #page-home .hero {
+      width: min(100% - 24px, 1180px);
+      min-height: auto;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 3.5rem;
+      padding: 3.25rem 0 3rem;
+    }
+    #page-home .hero-left,
+    #page-home .hero-right {
+      min-width: 0;
+      width: 100%;
+    }
+    #page-home .hero-left::before,
+    #page-home .hero-right::before {
+      inset: -1.5rem -0.5rem;
+      border-radius: 22px;
+    }
+    #page-home .hero-tag {
+      margin-bottom: 0.85rem;
+      font-size: 0.66rem;
+      line-height: 1.5;
+    }
+    #page-home .hero-title {
+      max-width: 100%;
+      font-size: clamp(2.8rem, 12.5vw, 5.5rem);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      overflow-wrap: anywhere;
+    }
+    #page-home .hero-sub {
+      max-width: 100%;
+      margin: 1.25rem 0 1.75rem;
+      font-size: 0.96rem;
+      line-height: 1.65;
+    }
+    #page-home .hero-cta-row {
+      width: 100%;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      gap: 0.7rem;
+    }
+    #page-home .home-cta {
+      width: 100%;
+    }
+    #page-home .hero-right {
+      display: flex;
+      justify-self: stretch;
+      gap: 0.75rem;
+    }
+    #page-home .featured-card {
+      width: 100%;
+      min-width: 0;
+      min-height: 0;
+      padding: 1.1rem;
+    }
+    #page-home .fc-name {
+      font-size: clamp(1.2rem, 6vw, 1.5rem);
+    }
+    #page-home .fc-preview {
+      font-size: 0.8rem;
+      line-height: 1.55;
+      overflow-wrap: anywhere;
+    }
+    #page-home .stats-row {
+      width: min(100% - 24px, 1180px);
+      grid-template-columns: minmax(0, 1fr);
+      margin-bottom: 2.5rem;
+    }
+    #page-home .stat-item,
+    #page-home .stat-item:last-child {
+      min-height: 0;
+      padding: 1.75rem 1rem;
+      border-right: 0;
+      border-bottom: 1px solid rgba(37,99,235,0.12);
+    }
+    #page-home .stat-item:last-child {
+      border-bottom: 0;
+    }
+    #page-home .stat-num {
+      font-size: clamp(2.7rem, 13vw, 3.8rem);
+      margin-bottom: 0.55rem;
+    }
+    #page-home .stat-label {
+      max-width: none;
+      font-size: 0.92rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .home-premium-nav {
+      top: 8px;
+      width: calc(100vw - 16px);
+      gap: 0.45rem;
+      padding: 0.65rem;
+      border-radius: 20px;
+    }
+    .home-premium-brand {
+      padding-left: 0.2rem;
+      font-size: 0.94rem;
+    }
+    .home-premium-links {
+      gap: 0.1rem;
+    }
+    .home-premium-links a {
+      padding: 0.42rem 0.48rem;
+      font-size: 0.72rem;
+    }
+    .home-premium-search {
+      min-height: 44px;
+      padding: 0.58rem 0.75rem;
+      font-size: 0.82rem;
+    }
+    #page-home {
+      padding-top: 8rem;
+    }
+    #page-home .hero {
+      width: calc(100% - 20px);
+      gap: 3rem;
+      padding: 2.5rem 0 2.4rem;
+    }
+    #page-home .hero-left::before,
+    #page-home .hero-right::before {
+      inset: -1.1rem -0.25rem;
+      border-radius: 18px;
+    }
+    #page-home .hero-title {
+      font-size: clamp(2.35rem, 13vw, 3.75rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+    #page-home .hero-sub {
+      margin: 1.1rem 0 1.5rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    #page-home .home-cta {
+      min-height: 46px;
+      padding: 0.72rem 1rem;
+      font-size: 0.84rem;
+    }
+    #page-home .featured-card {
+      padding: 0.95rem;
+    }
+    #page-home .fc-tag {
+      font-size: 0.6rem;
+      line-height: 1.45;
+    }
+    #page-home .fc-company,
+    #page-home .fc-preview {
+      font-size: 0.76rem;
+    }
+    #page-home .stats-row {
+      width: calc(100% - 20px);
+    }
+    #page-home .stat-item,
+    #page-home .stat-item:last-child {
+      padding: 1.5rem 0.8rem;
+    }
+  }
 </style>
 </head>
 <body>

@@ -973,6 +973,61 @@ body::after { opacity: 0.075; }
   }
 }
 
+@media (max-width: 768px) {
+  .nav-links a:nth-child(4) {
+    display: block;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-nav {
+    top: 8px;
+    width: calc(100vw - 16px);
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.45rem;
+    padding: 0.65rem;
+    border-radius: 20px;
+  }
+  .brand {
+    justify-self: center;
+    padding-left: 0;
+    font-size: 0.96rem;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .nav-links {
+    order: 2;
+    justify-self: stretch;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    gap: 0.18rem;
+  }
+  .nav-links a,
+  .nav-links a:nth-child(2),
+  .nav-links a:nth-child(4) {
+    display: block;
+    min-width: 0;
+    padding: 0.42rem 0.15rem;
+    font-size: clamp(0.58rem, 2.7vw, 0.7rem);
+    line-height: 1.15;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .search-trigger {
+    order: 3;
+    min-height: 42px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.8rem;
+  }
+  .hero {
+    padding-top: 12rem;
+  }
+}
+
 /* Editorial flip card styling */
 .company-card {
   position: relative;
@@ -1198,6 +1253,15 @@ const COMPANIES = [
     file: "companies/deloitte.html",
     color: "linear-gradient(135deg, #0a0f0d, #163026 45%, #1db954 100%)"
   },
+ {
+  name: "Tinder",
+  category: "Consumer",
+  description: "Swipe-driven matchmaking powered by network effects, behavioral design, and large-scale user acquisition.",
+  logo: "assets/tinder.png",
+  tags: ["dating", "consumer", "network effects", "mobile"],
+  file: "companies/tinder.html",
+  color: "linear-gradient(135deg, #FD267A 0%, #FF6036 55%, #FF7A59 100%)"
+},
   {
     name: "DMart",
     category: "Retail",
@@ -1225,7 +1289,15 @@ const COMPANIES = [
     file: "companies/visa.html",
    color: "linear-gradient(145deg, #1e3a8a 0%, #2563eb 45%, #3b82f6 72%, #93c5fd 100%)"
   }, 
- 
+ {
+  name: "Bumble",
+  category: "Consumer",
+  description: "Relationship platforms built on trust, female-first engagement, and community-oriented brand positioning.",
+  logo: "assets/bumble.jpg",
+  tags: ["dating", "consumer", "community", "brand"],
+  file: "companies/bumble.html",
+  color: "linear-gradient(135deg, #f5c518, #fbbf24, #f59e0b)"
+},
   {
     name: "Stripe",
     category: "Finance",
