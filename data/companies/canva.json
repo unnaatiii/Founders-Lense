@@ -1,0 +1,49 @@
+{
+  "type": "company",
+  "template": "company-strategy",
+  "published": false,
+  "slug": "canva",
+  "name": "Canva",
+  "eyebrow": "Company Strategy Analysis",
+  "tagline": "Design as a universal utility",
+  "summary": "Canva turned professional design workflows into an approachable, collaborative product with a powerful freemium distribution engine.",
+  "metaDescription": "FounderLens strategic company analysis of Canva.",
+  "logo": "https://cdn.simpleicons.org/canva/7c3aed",
+  "category": "Tech",
+  "tags": ["design", "platform", "freemium", "collaboration"],
+  "theme": {
+    "primary": "#7c3aed",
+    "accent": "#14b8a6"
+  },
+  "card": {
+    "color": "linear-gradient(135deg, #4c1d95, #7c3aed, #14b8a6)"
+  },
+  "kpis": [
+    { "value": "Freemium", "label": "Growth engine" },
+    { "value": "Templates", "label": "Activation shortcut" },
+    { "value": "Teams", "label": "Expansion loop" }
+  ],
+  "sections": [
+    {
+      "title": "Problem and Positioning",
+      "body": "Traditional design software was built for specialists. Canva positioned itself around speed, accessibility, and confidence, allowing non-designers to create useful work without mastering a complex professional toolset."
+    },
+    {
+      "title": "Product Strategy",
+      "body": "Templates reduce the blank-page problem and move users quickly toward a polished result. Drag-and-drop editing lowers learning costs, while an expanding content library increases the number of jobs the product can complete."
+    },
+    {
+      "title": "Distribution",
+      "body": "The free tier attracts individuals, search-friendly templates capture intent, and collaboration introduces teammates. Canva's product therefore acts as both the service and an acquisition channel.",
+      "quote": "The shortest path to value is often the strongest marketing system."
+    },
+    {
+      "title": "Business Model",
+      "body": "Free usage creates reach. Premium subscriptions monetize advanced assets, brand controls, storage, and productivity features. Team plans expand revenue as Canva becomes embedded in recurring organizational workflows."
+    },
+    {
+      "title": "Strategic Advantage",
+      "body": "Canva's advantage comes from combining ease of use, a broad template ecosystem, collaborative workflows, and brand familiarity. The product grows more useful as it covers more formats and more parts of a team's visual communication process."
+    }
+  ]
+}

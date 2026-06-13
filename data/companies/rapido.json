@@ -1,0 +1,204 @@
+{
+  "type": "company",
+  "template": "company-strategy",
+  "published": false,
+  "slug": "rapido",
+  "name": "Rapido",
+  "year": "2025",
+  "date": "June 2026",
+  "eyebrow": "Company Analysis",
+  "tagline": "Rapido strategic analysis",
+  "summary": "Two or three sentences explaining what this company does and why it matters. Reference one or two key facts — a metric, a market, a bold claim — to hook the reader.",
+  "metaDescription": "FounderLens strategic company analysis of Rapido.",
+  "pageTitle": "FounderLens · Company Name — Strategic Company Analysis",
+  "theme": {
+    "primary": "#e8820c",
+    "primary2": "#f59c2d",
+    "primaryDeep": "#b85e00",
+    "primaryPale": "rgba(232,130,12,0.10)",
+    "accent": "#0a9e8a",
+    "accent2": "#0cc9ad",
+    "accentDeep": "#076b5c",
+    "accentPale": "rgba(10,158,138,0.09)"
+  },
+  "card": {
+    "color": "linear-gradient(135deg, #0e1014, #1a1205)"
+  },
+  "cover": {
+    "kickerPill": "FounderLens · Sector Name",
+    "kickerTxt": "Strategy · Operations · Competitive Moat",
+    "stats": [
+      {
+        "value": "₹10Cr",
+        "label": "FY24 Revenue"
+      },
+      {
+        "value": "100%",
+        "label": "Key Metric"
+      },
+      {
+        "value": "10,000+",
+        "label": "Clients"
+      },
+      {
+        "value": "200+",
+        "label": "Team Size"
+      }
+    ],
+    "chips": [
+      {
+        "label": "Category",
+        "style": "a"
+      },
+      {
+        "label": "Sub-Category",
+        "style": "a"
+      },
+      {
+        "label": "City · Year",
+        "style": "p"
+      },
+      {
+        "label": "Bootstrapped",
+        "style": "p"
+      },
+      {
+        "label": "Tag",
+        "style": ""
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "s01",
+      "band": "bw",
+      "num": "01 — Company Overview",
+      "title": "What <Company> <em>Actually Does</em>",
+      "lead": "One or two compelling italic sentences that set the stage for this section. Write it as if explaining to a smart friend.",
+      "body": "The main body text for this section. Can include <strong>bold</strong>, <mark>highlighted terms</mark>, and inline <span class=\"ft\">Feature Tags</span>.\n\nAdd a second paragraph here if needed.",
+      "callout": {
+        "style": "a",
+        "label": "Why It Matters",
+        "body": "A compact, high-impact insight in 2–3 sentences. <strong>End with a punchy takeaway.</strong>"
+      },
+      "strip": [
+        {
+          "value": "2021",
+          "label": "Founded",
+          "highlight": false
+        },
+        {
+          "value": "₹10Cr",
+          "label": "Revenue",
+          "highlight": true
+        },
+        {
+          "value": "10,000+",
+          "label": "Clients",
+          "highlight": true
+        },
+        {
+          "value": "200+",
+          "label": "Team",
+          "highlight": false
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "band": "bs",
+      "num": "02 — The Core Problem",
+      "title": "A Problem Hidden in <em>Plain Sight</em>",
+      "lead": "Why this problem is bigger and older than people realise.",
+      "body": "Describe the problem the company solves, the market gap, the pain points.",
+      "list": [
+        {
+          "label": "Option A",
+          "desc": "What most people tried and why it failed."
+        },
+        {
+          "label": "Option B",
+          "desc": "The expensive / inaccessible alternative."
+        },
+        {
+          "label": "Option C",
+          "desc": "What happened when people gave up."
+        }
+      ],
+      "callout": {
+        "style": "p",
+        "label": "The Hidden Opportunity",
+        "body": "The insight the founders saw that others missed. <span class=\"ft t\">Market Gap</span>"
+      }
+    },
+    {
+      "id": "s03",
+      "band": "bd",
+      "num": "03 — Market Timing",
+      "title": "Why Now Was <em>Exactly Right</em>",
+      "lead": "The macro forces that made this moment inevitable.",
+      "body": "Explain the timing: policy tailwinds, demographic shifts, technology changes, or post-pandemic behaviour.",
+      "callout": {
+        "style": "a",
+        "label": "The Key Shift",
+        "body": "The one structural change that made this business model newly viable. <strong>Bold the key claim.</strong> <span class=\"ft\">Proactive Strategy</span>"
+      }
+    },
+    {
+      "id": "s04",
+      "band": "bg-p",
+      "num": "04 — Business Model",
+      "title": "How <Company> <em>Makes Money</em>",
+      "lead": "The model explained plainly — no jargon, no consultant-speak.",
+      "body": "Explain the revenue mechanics in prose before listing them.",
+      "list": [
+        {
+          "label": "Revenue Stream 1",
+          "desc": "What it is and who pays for it."
+        },
+        {
+          "label": "Revenue Stream 2",
+          "desc": "The recurring layer that drives LTV."
+        },
+        {
+          "label": "Revenue Stream 3",
+          "desc": "The highest-margin, highest-trust offering."
+        }
+      ],
+      "callout": {
+        "style": "p",
+        "label": "Why the Model Works",
+        "body": "The economic insight that makes this model durable. <span class=\"ft\">Unit Economics</span>"
+      }
+    },
+    {
+      "id": "s05",
+      "band": "bg-a",
+      "num": "05 — Strategic Advantage",
+      "title": "What Makes Them <em>Hard to Beat</em>",
+      "lead": "Not every advantage is a moat. Here's what actually is.",
+      "body": "Describe the compound advantages — the things that reinforce each other and get stronger over time.",
+      "quote": {
+        "text": "An optional direct quote from the founder or a customer that crystallises the company's philosophy.",
+        "source": "Name · Role · Year"
+      },
+      "callout": {
+        "style": "a",
+        "label": "The Compounding Moat",
+        "body": "Why the lead gets harder to close over time. <strong>This is what investors miss.</strong> <span class=\"ft\">Network Effects</span>"
+      }
+    }
+  ],
+  "verdict": {
+    "label": "06 — FounderLens Verdict",
+    "line1": "Not Just Another Startup.",
+    "line2": "A Category Definer",
+    "line3": "Built for the Long Game",
+    "body": [
+      "The opening paragraph of the verdict. Explain <strong>what makes this company worth studying</strong> — not just the metrics, but the decision-making behind them.",
+      "The second paragraph explores what competitors struggle to replicate, and why the combination of factors is greater than the sum of its parts.",
+      "The third paragraph zooms out to the market — why it's permanent, growing, or structurally advantaged. Connect the company's present to its long-term potential.",
+      "Close with the final judgement. <em>Make it memorable.</em> One sentence that sticks. <strong>That's the verdict.</strong>"
+    ]
+  }
+}

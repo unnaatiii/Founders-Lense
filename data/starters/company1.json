@@ -1,0 +1,26 @@
+{
+  "type": "company",
+  "template": "company-strategy",
+  "published": false,
+  "slug": "company-slug",
+  "name": "Company Name",
+  "eyebrow": "Company Strategy Analysis",
+  "tagline": "Short company descriptor",
+  "summary": "Two or three sentences explaining the company's strategic importance.",
+  "metaDescription": "FounderLens strategic company analysis.",
+  "logo": "assets/company-logo.jpg",
+  "category": "Tech",
+  "tags": ["platform", "subscription"],
+  "theme": { "primary": "#7c3aed", "accent": "#14b8a6" },
+  "card": { "color": "linear-gradient(135deg, #312e81, #7c3aed)" },
+  "kpis": [
+    { "value": "Value", "label": "KPI label" },
+    { "value": "Value", "label": "KPI label" },
+    { "value": "Value", "label": "KPI label" }
+  ],
+  "sections": [
+    { "title": "Problem and Positioning", "body": "Section content." },
+    { "title": "Business Model", "body": "Section content." },
+    { "title": "Strategic Advantage", "body": "Section content.", "quote": "Optional quote." }
+  ]
+}

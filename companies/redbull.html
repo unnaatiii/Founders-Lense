@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Red Bull — FounderLens Company Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400;1,700&family=Barlow:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red:       #E8001C;
+  --red-dk:    #B5001A;
+  --red-lt:    #FF3344;
+  --red-glow:  rgba(232,0,28,0.18);
+  --yellow:    #FFD000;
+  --yellow-lt: #FFE44D;
+  --ink:       #0A0A0A;
+  --ink-mid:   #111111;
+  --ink-lt:    #1C1C1C;
+  --silver:    #CCCCCC;
+  --muted:     #888888;
+  --mid:       #555555;
+  --off-white: #F0F0F0;
+  --rule:      rgba(255,255,255,0.08);
+  --rule-lt:   rgba(255,255,255,0.14);
+
+  --display: 'Barlow Condensed', 'Impact', sans-serif;
+  --body:    'Barlow', system-ui, sans-serif;
+  --mono:    'JetBrains Mono', monospace;
+  --r: 6px;
+  --r-lg: 12px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--body); background: var(--ink); color: var(--off-white); -webkit-font-smoothing: antialiased; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+
+/* ── PROGRESS BAR ── */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--red), var(--yellow));
+  width: 0%; z-index: 999; transition: width .1s linear;
+}
+
+/* ── TICKER ── */
+.ticker {
+  background: var(--red);
+  color: #fff;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: .16em; text-transform: uppercase;
+  padding: 9px 0; overflow: hidden; white-space: nowrap;
+  position: sticky; top: 0; z-index: 200;
+}
+.ticker-track {
+  display: inline-block;
+  animation: scroll-left 30s linear infinite;
+  padding-left: 100%;
+}
+.ticker-track span { margin: 0 48px; }
+.ticker-track .bull { opacity: 0.6; }
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 33px; z-index: 190;
+  background: rgba(10,10,10,0.96);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--rule-lt);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 56px; height: 56px;
+}
+.nav-brand { display: flex; align-items: center; gap: 14px; }
+.nav-logo {
+  width: 38px; height: 38px;
+  background: var(--red); border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--display); font-size: 18px; font-weight: 800;
+  color: #fff; letter-spacing: -.02em;
+}
+.nav-title { font-family: var(--display); font-size: 20px; font-weight: 700; color: #fff; letter-spacing: .04em; text-transform: uppercase; }
+.nav-sub { font-family: var(--mono); font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
+.nav-pills { display: flex; gap: 4px; }
+.nav-pill {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 13px; border-radius: 3px; border: 1px solid var(--rule-lt);
+  background: none; color: var(--muted); cursor: pointer; transition: all .15s;
+}
+.nav-pill:hover, .nav-pill.active { background: var(--red); color: #fff; border-color: var(--red); }
+.nav-badge {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 4px;
+  background: rgba(232,0,28,0.15); color: var(--red-lt); border: 1px solid rgba(232,0,28,0.3);
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 96vh;
+  background: var(--ink);
+  display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 70% at 80% 50%, rgba(232,0,28,0.1) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(255,208,0,0.04) 0%, transparent 55%);
+}
+.hero-stripes {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 60px,
+    rgba(255,255,255,0.012) 60px,
+    rgba(255,255,255,0.012) 61px
+  );
+}
+.hero-left {
+  padding: 80px 56px; display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 1;
+}
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+  animation: fade-up .7s ease both;
+}
+.hero-eyebrow-bar { width: 28px; height: 3px; background: var(--red); }
+.hero-eyebrow-text {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--red-lt);
+}
+.hero-h1 {
+  font-family: var(--display); font-size: clamp(56px, 8vw, 110px);
+  font-weight: 800; line-height: .88; color: #fff;
+  letter-spacing: -.01em; text-transform: uppercase; margin-bottom: 6px;
+  animation: fade-up .7s .07s ease both;
+}
+.hero-h1 em { font-style: italic; color: var(--red); }
+.hero-sub {
+  font-family: var(--display); font-size: clamp(18px, 2.5vw, 28px); font-weight: 400;
+  font-style: italic; color: rgba(255,255,255,0.45);
+  margin-bottom: 32px; line-height: 1.25; text-transform: uppercase;
+  animation: fade-up .7s .14s ease both;
+}
+.hero-desc {
+  font-size: 15px; line-height: 1.85; color: rgba(255,255,255,0.55);
+  max-width: 460px; font-weight: 300; margin-bottom: 36px;
+  animation: fade-up .7s .2s ease both;
+}
+.hero-desc strong { color: rgba(255,255,255,0.9); font-weight: 500; }
+
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
+  background: var(--rule); border-radius: var(--r); overflow: hidden;
+  margin-bottom: 28px; animation: fade-up .7s .26s ease both;
+}
+.kpi-cell {
+  background: var(--ink-mid); padding: 16px 14px; text-align: center;
+  transition: background .2s;
+}
+.kpi-cell:hover { background: rgba(232,0,28,0.12); }
+.kpi-val {
+  font-family: var(--display); font-size: 26px; font-weight: 700;
+  color: var(--yellow); line-height: 1; margin-bottom: 5px; letter-spacing: -.01em;
+}
+.kpi-lbl {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .15em;
+  text-transform: uppercase; color: rgba(255,255,255,0.32);
+}
+
+.hero-tags { display: flex; gap: 7px; flex-wrap: wrap; animation: fade-up .7s .32s ease both; }
+.hero-tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 11px; border-radius: 3px;
+  background: rgba(255,255,255,0.06); border: 1px solid var(--rule-lt);
+  color: rgba(255,255,255,0.45); transition: all .15s; cursor: default;
+}
+.hero-tag:hover { background: rgba(232,0,28,0.2); color: var(--red-lt); border-color: rgba(232,0,28,0.4); }
+.hero-tag.red { background: rgba(232,0,28,0.15); border-color: rgba(232,0,28,0.35); color: var(--red-lt); }
+
+/* Hero right — can visual */
+.hero-right {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  gap: 24px; padding: 60px 40px;
+}
+.can-wrap {
+  position: relative; display: flex; align-items: center; justify-content: center;
+}
+.can-glow {
+  position: absolute; width: 220px; height: 220px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,0,28,0.22) 0%, transparent 70%);
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.6; }
+}
+.can-svg {
+  width: 120px; position: relative; z-index: 1;
+  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 20px 40px rgba(232,0,28,0.3));
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+.orbit-ring {
+  position: absolute; border-radius: 50%; border: 1px solid;
+  animation: spin 20s linear infinite;
+}
+.orbit-1 { width: 200px; height: 200px; border-color: rgba(232,0,28,0.2); }
+.orbit-2 { width: 280px; height: 280px; border-color: rgba(255,208,0,0.1); animation-duration: 35s; animation-direction: reverse; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.orbit-dot {
+  position: absolute; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--red); top: -3px; left: 50%; margin-left: -3px;
+}
+.orbit-dot-2 {
+  background: var(--yellow); top: auto; bottom: -3px; left: 30%; margin-left: -3px;
+}
+
+.hero-quote-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--rule-lt);
+  border-left: 3px solid var(--red);
+  border-radius: var(--r); padding: 18px 22px; max-width: 280px;
+}
+.hero-quote-text {
+  font-family: var(--display); font-size: 15px; font-style: italic; font-weight: 400;
+  color: rgba(255,255,255,0.75); line-height: 1.5; margin-bottom: 10px; text-transform: uppercase;
+}
+.hero-quote-attr {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--red-lt);
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── LAYOUT ── */
+.article-wrap { display: grid; grid-template-columns: 220px 1fr; }
+
+/* Sidebar */
+.sidebar {
+  position: sticky; top: 89px; height: calc(100vh - 89px);
+  overflow-y: auto; scrollbar-width: none;
+  background: var(--ink-mid); border-right: 1px solid var(--rule);
+  padding: 32px 0;
+}
+.sidebar::-webkit-scrollbar { display: none; }
+.toc-label {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--red-lt); padding: 0 20px; margin-bottom: 8px; margin-top: 18px; display: block;
+}
+.toc-btn {
+  display: block; width: 100%; text-align: left;
+  font-family: var(--body); font-size: 12px; font-weight: 400;
+  color: var(--muted); padding: 8px 20px 8px 18px;
+  border-left: 3px solid transparent; border: none; background: none; cursor: pointer;
+  transition: all .15s; line-height: 1.4; border-left: 3px solid transparent;
+}
+.toc-btn:hover { color: #fff; background: rgba(232,0,28,0.1); }
+.toc-btn.active {
+  color: #fff; border-left-color: var(--red);
+  background: rgba(232,0,28,0.12); font-weight: 600;
+}
+
+/* ── SECTION BLOCKS ── */
+.sec {
+  padding: 72px 64px;
+  scroll-margin-top: 92px;
+  border-bottom: 1px solid var(--rule);
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.sec.vis { opacity: 1; transform: none; }
+
+.sec.dark     { background: var(--ink); }
+.sec.dark-alt { background: var(--ink-mid); }
+.sec.dark-lt  { background: var(--ink-lt); }
+.sec.gradient-red {
+  background: linear-gradient(135deg, var(--ink) 0%, rgba(232,0,28,0.07) 50%, var(--ink-mid) 100%);
+}
+.sec.gradient-yellow {
+  background: linear-gradient(135deg, var(--ink-mid) 0%, rgba(255,208,0,0.06) 60%, var(--ink) 100%);
+}
+.sec.gradient-dark {
+  background: linear-gradient(135deg, #0e0e0e 0%, #141414 60%, #0a0a0a 100%);
+}
+
+/* Section typography */
+.sec-num {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .24em;
+  text-transform: uppercase; margin-bottom: 10px; color: var(--red);
+}
+.sec-title {
+  font-family: var(--display); font-size: clamp(28px, 4vw, 46px);
+  font-weight: 800; text-transform: uppercase; line-height: .95;
+  letter-spacing: -.01em; margin-bottom: 20px; color: #fff;
+}
+.sec-title em { font-style: italic; color: var(--red); font-weight: 700; }
+.lead {
+  font-size: 17px; line-height: 1.75; font-weight: 300; margin-bottom: 28px; max-width: 680px;
+  color: rgba(255,255,255,0.6);
+}
+.lead strong { color: #fff; font-weight: 500; }
+.bp {
+  font-size: 15px; line-height: 1.8; font-weight: 300; margin-bottom: 16px; max-width: 680px;
+  color: rgba(255,255,255,0.55);
+}
+.bp strong { color: rgba(255,255,255,0.9); font-weight: 500; }
+.ctag {
+  display: inline-block; font-family: var(--mono); font-size: 9px; letter-spacing: .1em;
+  text-transform: uppercase; padding: 3px 9px; border-radius: 3px;
+  background: rgba(232,0,28,0.15); color: var(--red-lt); border: 1px solid rgba(232,0,28,0.25);
+  margin-left: 4px; vertical-align: middle;
+}
+
+/* ── PULLQUOTE ── */
+.pq {
+  margin: 28px 0; padding: 20px 24px; border-radius: var(--r);
+  border-left: 3px solid var(--red); background: rgba(232,0,28,0.07); max-width: 680px;
+}
+.pq blockquote {
+  font-family: var(--display); font-size: 22px; font-style: italic; font-weight: 600;
+  text-transform: uppercase; line-height: 1.2; margin-bottom: 10px; color: #fff;
+}
+.pq cite { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; font-style: normal; color: var(--red-lt); }
+
+/* ── INSIGHT CARDS ── */
+.insight-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: 12px; margin: 28px 0; }
+.insight-card {
+  background: var(--ink-mid); border: 1px solid var(--rule);
+  border-radius: var(--r); padding: 20px 18px;
+  transition: transform .15s, border-color .15s;
+}
+.insight-card:hover { transform: translateY(-3px); border-color: rgba(232,0,28,0.4); }
+.ic-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+.ic-title { font-family: var(--display); font-size: 17px; font-weight: 700; text-transform: uppercase; margin-bottom: 6px; color: #fff; }
+.ic-desc { font-size: 12.5px; line-height: 1.6; font-weight: 300; color: var(--muted); }
+
+/* ── STAT CARDS ── */
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 8px; margin: 28px 0; }
+.stat-card {
+  background: var(--ink-lt); border: 1px solid var(--rule); border-radius: var(--r);
+  padding: 18px 14px; text-align: center; transition: transform .15s;
+}
+.stat-card:hover { transform: translateY(-2px); border-color: rgba(232,0,28,0.3); }
+.stat-val { font-family: var(--display); font-size: 28px; font-weight: 700; color: var(--yellow); line-height: 1; margin-bottom: 5px; }
+.stat-lbl { font-family: var(--mono); font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+
+/* ── INFO ROWS ── */
+.info-rows { margin: 20px 0; max-width: 680px; }
+.info-row { display: flex; gap: 20px; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 14.5px; align-items: flex-start; }
+.info-row:last-child { border-bottom: none; }
+.info-key { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; flex-shrink: 0; width: 140px; padding-top: 3px; font-weight: 500; color: var(--red-lt); }
+.info-val { line-height: 1.6; font-weight: 300; color: rgba(255,255,255,0.6); }
+.info-val strong { font-weight: 600; color: #fff; }
+
+/* ── SWOT ── */
+.swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 28px 0; border-radius: var(--r); overflow: hidden; max-width: 680px; background: var(--rule); }
+.swot-cell { padding: 22px 20px; }
+.swot-s { background: #0e1f0e; } .swot-w { background: #1e0e0a; }
+.swot-o { background: #0a0e1e; } .swot-t { background: #1e0e14; }
+.swot-head { font-family: var(--mono); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; font-weight: 500; margin-bottom: 10px; }
+.swot-s .swot-head { color: #5fb85f; } .swot-w .swot-head { color: #e07040; }
+.swot-o .swot-head { color: #5085d4; } .swot-t .swot-head { color: #d45060; }
+.swot-list { list-style: none; }
+.swot-list li { font-size: 13px; line-height: 1.6; color: var(--muted); padding: 3px 0; font-weight: 300; }
+.swot-list li::before { content: '— '; opacity: 0.5; }
+
+/* ── MOAT BARS ── */
+.moat-bars { margin: 28px 0; max-width: 600px; }
+.moat-bar { margin-bottom: 16px; }
+.moat-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.moat-name { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.8); }
+.moat-score { font-family: var(--mono); font-size: 11px; color: var(--red-lt); }
+.moat-track { height: 5px; border-radius: 3px; overflow: hidden; background: rgba(255,255,255,0.08); }
+.moat-fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--red), var(--yellow));
+  width: 0%; transition: width 1.2s cubic-bezier(.16,1,.3,1);
+}
+
+/* ── RISK CARDS ── */
+.risk-list { margin: 24px 0; max-width: 680px; }
+.risk-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--rule); }
+.risk-item:last-child { border-bottom: none; }
+.risk-badge { flex-shrink: 0; width: 44px; height: 22px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 8px; letter-spacing: .1em; font-weight: 500; margin-top: 2px; }
+.risk-high { background: rgba(183,28,28,0.3); color: #ef5350; }
+.risk-med  { background: rgba(230,81,0,0.25); color: #ff8a50; }
+.risk-low  { background: rgba(27,94,32,0.3); color: #66bb6a; }
+.risk-content-title { font-size: 14px; font-weight: 500; margin-bottom: 4px; color: #fff; }
+.risk-content-desc { font-size: 13px; line-height: 1.65; font-weight: 300; color: var(--muted); }
+
+/* ── TIMELINE ── */
+.timeline { margin: 28px 0; max-width: 680px; position: relative; padding-left: 28px; }
+.timeline::before { content: ''; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(to bottom, var(--red), var(--yellow)); }
+.tl-item { position: relative; margin-bottom: 24px; }
+.tl-dot { position: absolute; left: -24px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--red); border: 2px solid var(--ink); }
+.tl-year { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; color: var(--red-lt); margin-bottom: 4px; }
+.tl-event { font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.65); font-weight: 300; }
+.tl-event strong { color: #fff; font-weight: 500; }
+
+/* ── LESSONS GRID ── */
+.lessons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0; }
+.lesson-card {
+  background: var(--ink-mid); border: 1px solid var(--rule);
+  border-radius: var(--r); padding: 22px 20px;
+  transition: transform .15s, border-color .15s;
+}
+.lesson-card:hover { transform: translateY(-2px); border-color: rgba(232,0,28,0.4); }
+.lesson-num { font-family: var(--display); font-size: 48px; font-weight: 800; text-transform: uppercase; color: rgba(232,0,28,0.12); line-height: 1; margin-bottom: -4px; }
+.lesson-title { font-family: var(--display); font-size: 17px; font-weight: 700; text-transform: uppercase; color: var(--yellow); margin-bottom: 8px; }
+.lesson-desc { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,0.55); font-weight: 300; }
+
+/* ── VERDICT ── */
+.verdict-box {
+  border-radius: var(--r-lg); padding: 40px 44px; margin: 32px 0; max-width: 720px;
+  border-left: 5px solid var(--red);
+  background: rgba(255,255,255,0.03); border-top: 1px solid var(--rule); border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+}
+.verdict-box h3 { font-family: var(--display); font-size: 26px; font-style: italic; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; line-height: 1.2; color: var(--red-lt); }
+.verdict-box p { font-size: 15px; line-height: 1.85; margin-bottom: 14px; font-weight: 300; color: rgba(255,255,255,0.62); }
+.verdict-box p strong { font-weight: 500; color: #fff; }
+.verdict-box .verdict-note { border-top: 1px solid var(--rule); padding-top: 18px; margin-top: 20px; font-style: italic; font-size: 13.5px; color: rgba(255,255,255,0.38); }
+
+/* ── SPORT CATEGORIES ── */
+.sport-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap: 10px; margin: 24px 0; }
+.sport-card {
+  background: var(--ink-lt); border: 1px solid var(--rule); border-radius: var(--r);
+  padding: 16px 14px; text-align: center; transition: transform .15s, border-color .15s;
+}
+.sport-card:hover { transform: translateY(-3px); border-color: rgba(232,0,28,0.5); }
+.sport-emoji { font-size: 28px; margin-bottom: 8px; display: block; }
+.sport-name { font-family: var(--display); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: #fff; margin-bottom: 4px; }
+.sport-detail { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: .08em; }
+
+/* ── MARKETING PILLARS ── */
+.pillar-list { margin: 24px 0; max-width: 680px; }
+.pillar { display: flex; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--rule); align-items: flex-start; }
+.pillar:last-child { border-bottom: none; }
+.pillar-num { font-family: var(--display); font-size: 32px; font-weight: 800; color: var(--red); line-height: 1; flex-shrink: 0; width: 36px; }
+.pillar-body { flex: 1; }
+.pillar-title { font-family: var(--display); font-size: 16px; font-weight: 700; text-transform: uppercase; color: #fff; margin-bottom: 5px; }
+.pillar-desc { font-size: 13.5px; line-height: 1.65; color: var(--muted); font-weight: 300; }
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--ink); border-top: 1px solid var(--rule);
+  padding: 48px 56px 40px;
+}
+.footer-inner { max-width: 720px; }
+.footer-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--display); font-size: 18px; font-weight: 800; text-transform: uppercase;
+  color: #fff; margin-bottom: 12px;
+}
+.footer-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); }
+.footer-desc { font-size: 13px; line-height: 1.7; color: var(--muted); margin-bottom: 24px; max-width: 480px; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; padding-top: 20px; border-top: 1px solid var(--rule); }
+.footer-copy { font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.25); letter-spacing: .06em; }
+.footer-copy span { color: var(--red-lt); }
+.footer-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.footer-tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 3px;
+  background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.3);
+  border: 1px solid var(--rule);
+}
+
+.scroll-top {
+  position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px;
+  background: var(--red); border: none; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .15s; z-index: 100;
+}
+.scroll-top:hover { background: var(--red-dk); }
+.scroll-top svg { width: 18px; height: 18px; fill: #fff; }
+
+/* rc = reveal container */
+.rc { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+.rc.vis { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>Red Bull GmbH</span><span class="bull">◆</span>
+    <span>Founded 1987 · Fuschl am See, Austria</span><span class="bull">◆</span>
+    <span>12.1B cans sold in 2023</span><span class="bull">◆</span>
+    <span>Dietrich Mateschitz (1944–2022)</span><span class="bull">◆</span>
+    <span>2 F1 World Constructor Championships</span><span class="bull">◆</span>
+    <span>Est. Revenue: €9.8B</span><span class="bull">◆</span>
+    <span>Operates in 175+ countries</span><span class="bull">◆</span>
+    <span>Marketing spend: 25–30% of revenue</span><span class="bull">◆</span>
+    <span>Red Bull GmbH</span><span class="bull">◆</span>
+    <span>Founded 1987 · Fuschl am See, Austria</span><span class="bull">◆</span>
+    <span>12.1B cans sold in 2023</span><span class="bull">◆</span>
+    <span>Dietrich Mateschitz (1944–2022)</span><span class="bull">◆</span>
+    <span>2 F1 World Constructor Championships</span><span class="bull">◆</span>
+    <span>Est. Revenue: €9.8B</span><span class="bull">◆</span>
+    <span>Operates in 175+ countries</span><span class="bull">◆</span>
+    <span>Marketing spend: 25–30% of revenue</span><span class="bull">◆</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-logo">RB</div>
+    <div>
+      <div class="nav-title">Red Bull</div>
+      <div class="nav-sub">FounderLens · Company Analysis</div>
+    </div>
+  </div>
+  <div class="nav-pills">
+    <button class="nav-pill active" onclick="gotoSec('origin')">Origin</button>
+    <button class="nav-pill" onclick="gotoSec('model')">Model</button>
+    <button class="nav-pill" onclick="gotoSec('marketing')">Marketing</button>
+    <button class="nav-pill" onclick="gotoSec('moat')">Moat</button>
+    <button class="nav-pill" onclick="gotoSec('lessons')">Lessons</button>
+  </div>
+  <div class="nav-badge">Issue #08</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-stripes"></div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-bar"></div>
+      <div class="hero-eyebrow-text">FounderLens · Energy & Culture</div>
+    </div>
+    <h1 class="hero-h1">Red<br><em>Bull</em></h1>
+    <p class="hero-sub">The Media Company That Sells a Drink</p>
+    <p class="hero-desc">Red Bull is proof that <strong>the product can be the least interesting thing about a business.</strong> It sells a modest energy drink at a premium price — and built one of the most powerful marketing machines in history around it. Understanding Red Bull means understanding how to build a brand that people belong to, not just buy from.</p>
+
+    <div class="kpi-grid">
+      <div class="kpi-cell"><div class="kpi-val">12.1B</div><div class="kpi-lbl">Cans sold 2023</div></div>
+      <div class="kpi-cell"><div class="kpi-val">€9.8B</div><div class="kpi-lbl">Est. revenue</div></div>
+      <div class="kpi-cell"><div class="kpi-val">175+</div><div class="kpi-lbl">Countries</div></div>
+      <div class="kpi-cell"><div class="kpi-val">~30%</div><div class="kpi-lbl">Marketing of rev.</div></div>
+      <div class="kpi-cell"><div class="kpi-val">#1</div><div class="kpi-lbl">Global energy drink</div></div>
+      <div class="kpi-cell"><div class="kpi-val">700+</div><div class="kpi-lbl">Athletes sponsored</div></div>
+    </div>
+
+    <div class="hero-tags">
+      <span class="hero-tag red">Brand Moat</span>
+      <span class="hero-tag red">Content Marketing</span>
+      <span class="hero-tag">Lifestyle Brand</span>
+      <span class="hero-tag">Sports Sponsorship</span>
+      <span class="hero-tag">Premium Pricing</span>
+      <span class="hero-tag">Media Company</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="can-wrap">
+      <div class="can-glow"></div>
+      <!-- Orbit rings -->
+      <div class="orbit-ring orbit-1"><div class="orbit-dot"></div></div>
+      <div class="orbit-ring orbit-2"><div class="orbit-dot orbit-dot-2"></div></div>
+      <!-- Red Bull Can SVG -->
+      <svg class="can-svg" viewBox="0 0 80 180" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="canGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#1a1a1a"/>
+            <stop offset="30%" style="stop-color:#2a2a2a"/>
+            <stop offset="55%" style="stop-color:#E8001C"/>
+            <stop offset="75%" style="stop-color:#c0001a"/>
+            <stop offset="100%" style="stop-color:#1a1a1a"/>
+          </linearGradient>
+          <linearGradient id="topGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#999"/>
+            <stop offset="100%" style="stop-color:#555"/>
+          </linearGradient>
+          <linearGradient id="bottomGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#666"/>
+            <stop offset="100%" style="stop-color:#333"/>
+          </linearGradient>
+        </defs>
+        <!-- Body -->
+        <rect x="8" y="18" width="64" height="144" rx="4" fill="url(#canGrad)"/>
+        <!-- Top cap -->
+        <ellipse cx="40" cy="18" rx="32" ry="8" fill="url(#topGrad)"/>
+        <!-- Bottom cap -->
+        <ellipse cx="40" cy="162" rx="32" ry="8" fill="url(#bottomGrad)"/>
+        <!-- Highlight stripe -->
+        <rect x="10" y="18" width="8" height="144" rx="2" fill="rgba(255,255,255,0.06)"/>
+        <!-- Yellow stripe -->
+        <rect x="8" y="100" width="64" height="18" fill="#FFD000" rx="0"/>
+        <!-- Red stripe above yellow -->
+        <rect x="8" y="82" width="64" height="18" fill="#E8001C" rx="0"/>
+        <!-- Bull text area (white box suggestion) -->
+        <rect x="16" y="50" width="48" height="28" rx="3" fill="rgba(255,255,255,0.08)"/>
+        <!-- ENERGY text -->
+        <text x="40" y="68" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="7" font-family="'Barlow Condensed',sans-serif" font-weight="700" letter-spacing="3">ENERGY</text>
+        <!-- RB monogram -->
+        <text x="40" y="40" text-anchor="middle" fill="#FFD000" font-size="14" font-family="'Barlow Condensed',sans-serif" font-weight="800">RB</text>
+        <!-- Tab on top -->
+        <rect x="32" y="10" width="16" height="8" rx="2" fill="#888"/>
+        <rect x="36" y="6" width="8" height="6" rx="1" fill="#aaa"/>
+      </svg>
+    </div>
+
+    <div class="hero-quote-card">
+      <div class="hero-quote-text">"Red Bull doesn't bring products to people — it brings people to a culture."</div>
+      <div class="hero-quote-attr">— Dietrich Mateschitz, Co-Founder</div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLE BODY -->
+<div class="article-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <span class="toc-label">Contents</span>
+    <button class="toc-btn active" onclick="gotoSec('origin')">01 Origin Story</button>
+    <button class="toc-btn" onclick="gotoSec('model')">02 Business Model</button>
+    <button class="toc-btn" onclick="gotoSec('marketing')">03 Marketing Engine</button>
+    <button class="toc-btn" onclick="gotoSec('sports')">04 Sports & Media</button>
+    <button class="toc-btn" onclick="gotoSec('product')">05 The Product Paradox</button>
+    <button class="toc-btn" onclick="gotoSec('moat')">06 Competitive Moat</button>
+    <button class="toc-btn" onclick="gotoSec('swot')">07 SWOT Analysis</button>
+    <button class="toc-btn" onclick="gotoSec('timeline')">08 Key Milestones</button>
+    <button class="toc-btn" onclick="gotoSec('risks')">09 Risks</button>
+    <button class="toc-btn" onclick="gotoSec('impact')">10 Industry Impact</button>
+    <button class="toc-btn" onclick="gotoSec('lessons')">11 Lessons for Builders</button>
+    <button class="toc-btn" onclick="gotoSec('verdict')">12 Final Verdict</button>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- 01 ORIGIN -->
+    <div class="sec dark" id="sec-origin">
+      <div class="sec-num">01 — Origin Story</div>
+      <h2 class="sec-title">The Drink That <em>Nobody Wanted</em></h2>
+      <p class="lead">Red Bull began as an act of stubbornness — or vision, depending on how you read it. In 1982, Austrian marketing executive Dietrich Mateschitz visited Thailand and discovered <strong>Krating Daeng</strong>, a local tonic consumed by taxi drivers and factory workers to stay alert. He thought it could work in the West. Everyone disagreed.</p>
+      <p class="bp">Mateschitz partnered with Thai businessman Chaleo Yoovidhya, each contributing $500,000 to establish Red Bull GmbH in 1984. They spent three years reformulating the drink to suit Western palates — reducing sweetness, adding carbonation, and creating the now-iconic slim 250ml can. When they brought the product to market in Austria in 1987, consumer research rated it among the worst beverages ever tasted. Focus groups predicted failure. The taste was strange, the price was high, and the name felt clinical.</p>
+      <p class="bp">Mateschitz ignored all of it. His insight was that the product wasn't being sold to be liked — it was being sold to be believed in. <strong>He didn't launch a drink; he launched a world.</strong> Before the product hit shelves in Austria, he seeded it at ski slopes, universities, and clubs — giving it away for free to the exact people who would make it look cool. <span class="ctag">Grassroots Launch</span> <span class="ctag">Seeding Strategy</span></p>
+
+      <div class="pq">
+        <blockquote>"We knew nobody would believe in Red Bull until they saw someone they respected using it."</blockquote>
+        <cite>— Dietrich Mateschitz</cite>
+      </div>
+
+      <p class="bp">The market entry strategy was the opposite of conventional: instead of mass advertising, Mateschitz hired student brand managers at universities — cool, well-connected young people whose job was simply to throw parties and make sure Red Bull was there. He put empty cans in trash cans near clubs to create the illusion of ubiquity before supply existed. He placed the product only in exclusive bars and nightclubs, not supermarkets — refusing mainstream distribution until the brand felt premium. By the time Red Bull was available everywhere, people already wanted it.</p>
+
+      <div class="info-rows">
+        <div class="info-row"><span class="info-key">Founded</span><span class="info-val">1987 (Austrian launch); concept adapted from Thai Krating Daeng, 1982</span></div>
+        <div class="info-row"><span class="info-key">Co-Founders</span><span class="info-val"><strong>Dietrich Mateschitz</strong> (Austrian) & <strong>Chaleo Yoovidhya</strong> (Thai)</span></div>
+        <div class="info-row"><span class="info-key">Initial Capital</span><span class="info-val">$500,000 each; 49% / 49% split (2% held by Yoovidhya's son)</span></div>
+        <div class="info-row"><span class="info-key">HQ</span><span class="info-val">Fuschl am See, Austria</span></div>
+        <div class="info-row"><span class="info-key">First market</span><span class="info-val">Austria, 1987. US market entry in 1997 — 10 years later</span></div>
+        <div class="info-row"><span class="info-key">Status</span><span class="info-val">Privately held. No IPO. Revenue figures are estimates based on can sales and pricing data.</span></div>
+      </div>
+    </div>
+
+    <!-- 02 BUSINESS MODEL -->
+    <div class="sec dark-alt" id="sec-model">
+      <div class="sec-num">02 — Business Model</div>
+      <h2 class="sec-title">They Make <em>One Thing.</em><br>And Sell It Everywhere.</h2>
+      <p class="lead">Red Bull's business model is deceptively simple: manufacture a single product, price it at a significant premium, and invest an extraordinary proportion of revenue back into brand-building. It is a model of radical focus.</p>
+
+      <div class="stat-row">
+        <div class="stat-card"><div class="stat-val">€3.50</div><div class="stat-lbl">Avg. retail price per can</div></div>
+        <div class="stat-card"><div class="stat-val">~25¢</div><div class="stat-lbl">Est. production cost</div></div>
+        <div class="stat-card"><div class="stat-val">~30%</div><div class="stat-lbl">Revenue to marketing</div></div>
+        <div class="stat-card"><div class="stat-val">SKU 1</div><div class="stat-lbl">Core product (250ml)</div></div>
+        <div class="stat-card"><div class="stat-val">~40%</div><div class="stat-lbl">Est. gross margin</div></div>
+      </div>
+
+      <p class="bp">The core economics are striking. Red Bull's estimated production cost per can is well under a dollar; it sells for multiples of that. The premium isn't justified by the ingredients — caffeine, taurine, B vitamins, and sugar are cheap commodities. The premium is justified entirely by the brand. <strong>Red Bull is a belief system sold in a can.</strong></p>
+      <p class="bp">Unlike most FMCG companies, Red Bull does not own its manufacturing. It outsources production to can manufacturers and co-packers, keeping the capital-intensive part of the business off its balance sheet. What it owns is the brand, the global distribution relationships, and the marketing machine — the parts of the value chain that actually create margin. <span class="ctag">Asset-Light Model</span></p>
+      <p class="bp">Red Bull also keeps its SKU count intentionally minimal. While it has introduced sugar-free variants and a few flavours, it has resisted the product extension trap that diluted brands like Monster and Rockstar. Every new product still looks, feels, and is positioned as Red Bull first. The can design has barely changed in 37 years — a deliberate signal that the brand is the constant.</p>
+
+      <div class="insight-grid rc">
+        <div class="insight-card"><span class="ic-icon">🏭</span><div class="ic-title">Outsourced Production</div><div class="ic-desc">Manufacturing is contracted out globally. Red Bull owns no factories — freeing capital for brand investment.</div></div>
+        <div class="insight-card"><span class="ic-icon">🚚</span><div class="ic-title">Owned Distribution Network</div><div class="ic-desc">In key markets, Red Bull manages its own distribution fleet — giving it direct relationships with venues and retailers.</div></div>
+        <div class="insight-card"><span class="ic-icon">📺</span><div class="ic-title">Owned Media</div><div class="ic-desc">Red Bull Media House produces TV shows, YouTube channels, magazines, and podcasts — generating content and licensing revenue.</div></div>
+        <div class="insight-card"><span class="ic-icon">🎟️</span><div class="ic-title">Event Revenue</div><div class="ic-desc">Red Bull events (Crashed Ice, Air Race, Flugtag) generate ticket and sponsorship revenue beyond beverage sales.</div></div>
+        <div class="insight-card"><span class="ic-icon">🏆</span><div class="ic-title">Sports Franchises</div><div class="ic-desc">Red Bull owns or co-owns football clubs (RB Leipzig, New York Red Bulls, Salzburg) and two Formula 1 teams.</div></div>
+        <div class="insight-card"><span class="ic-icon">🧃</span><div class="ic-title">Premium Pricing Lock</div><div class="ic-desc">Red Bull has never discounted. It occasionally goes out of stock rather than lower its price — treating scarcity as brand integrity.</div></div>
+      </div>
+    </div>
+
+    <!-- 03 MARKETING ENGINE -->
+    <div class="sec dark" id="sec-marketing">
+      <div class="sec-num">03 — Marketing Engine</div>
+      <h2 class="sec-title">The Company That <em>Invented</em><br>Content Marketing</h2>
+      <p class="lead">Red Bull does not advertise in the traditional sense. It creates moments, stories, and worlds — and the drink appears inside them. This is content marketing before content marketing had a name, executed at a scale most media companies can't match.</p>
+
+      <div class="pillar-list rc">
+        <div class="pillar">
+          <div class="pillar-num">1</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Athlete Storytelling, Not Product Ads</div>
+            <div class="pillar-desc">Red Bull sponsors over 700 athletes across extreme sports, motorsport, gaming, and music. The marketing investment doesn't go into 30-second spots — it goes into telling athlete stories. Their struggles, training, and triumphs become Red Bull's content. The drink is incidental. The brand becomes associated with human performance at its limit.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">2</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Red Bull Media House</div>
+            <div class="pillar-desc">Founded in 2007, Red Bull Media House is a fully operational production company that creates films, TV series, online series, a print magazine (The Red Bulletin), and music. It licenses content to broadcasters and streaming platforms — meaning Red Bull's marketing actually generates revenue. It is the only consumer brand with a fully functioning media arm that pays for itself.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">3</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Events as Spectacle</div>
+            <div class="pillar-desc">Red Bull created events that didn't exist before: Crashed Ice (ice cross downhill racing), the Air Race, Flugtag (homemade flying machines), the Cliff Diving World Series. These are not sponsored events — Red Bull invented and owns them. The brand doesn't pay to appear at an event; it creates the event itself, controls the entire experience, and generates media coverage globally.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">4</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Stratos: The $30M Brand Moment</div>
+            <div class="pillar-desc">In 2012, Red Bull spent an estimated $30 million to send Felix Baumgartner to the edge of space and have him freefall back to Earth, breaking the sound barrier. The YouTube livestream was watched by 8 million people simultaneously — a record at the time. It generated over 50 billion media impressions. No traditional advertising campaign could have achieved this. It remains the single most effective brand moment in marketing history.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">5</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Campus Brand Managers</div>
+            <div class="pillar-desc">Red Bull's student brand manager programme plants young, credible, well-connected people on university campuses in every major market. Their job is to organically seed the brand — throwing parties, appearing at sporting events, giving away cans at libraries at exam time. This grassroots activation has run uninterrupted since 1987 and continues to be central to market entry in new geographies.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">6</div>
+          <div class="pillar-body">
+            <div class="pillar-title">The Animated Ads — Simple & Scalable</div>
+            <div class="pillar-desc">Red Bull's famous animated TV spots ("Red Bull gives you wings") are deliberately low-budget and cartoonish. This was intentional: by making them feel almost amateurish, they stand out against high-production advertising. They are also infinitely adaptable to local cultures and humour without losing the brand identity. The campaign has run for over 30 years across 160+ countries with local variations.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 SPORTS & MEDIA -->
+    <div class="sec dark-alt" id="sec-sports">
+      <div class="sec-num">04 — Sports & Media Empire</div>
+      <h2 class="sec-title">They Don't Sponsor Sport.<br><em>They Own It.</em></h2>
+      <p class="lead">Most brands sponsor sports events or teams to access their audiences. Red Bull went further: it acquired, created, and built its own sports properties — turning fandom into brand loyalty at an institutional level.</p>
+
+      <div class="sport-grid rc">
+        <div class="sport-card"><span class="sport-emoji">🏎️</span><div class="sport-name">Formula 1</div><div class="sport-detail">Red Bull Racing + RB (2 teams)</div></div>
+        <div class="sport-card"><span class="sport-emoji">⚽</span><div class="sport-name">Football</div><div class="sport-detail">RB Leipzig · NY Red Bulls · RB Salzburg · Bragantino</div></div>
+        <div class="sport-card"><span class="sport-emoji">🏒</span><div class="sport-name">Ice Hockey</div><div class="sport-detail">EC Red Bull Salzburg</div></div>
+        <div class="sport-card"><span class="sport-emoji">🏄</span><div class="sport-name">Extreme Sports</div><div class="sport-emoji" style="font-size:13px">Surfing · Snowboarding · Skateboarding · BMX</div></div>
+        <div class="sport-card"><span class="sport-emoji">🪂</span><div class="sport-name">Air Sports</div><div class="sport-detail">Air Race · Base Jumping · Wingsuit</div></div>
+        <div class="sport-card"><span class="sport-emoji">🎮</span><div class="sport-name">Esports</div><div class="sport-detail">Red Bull Gaming · Athlete partnerships</div></div>
+        <div class="sport-card"><span class="sport-emoji">🏔️</span><div class="sport-name">Mountain Sports</div><div class="sport-detail">Skiing · Climbing · Mountaineering</div></div>
+        <div class="sport-card"><span class="sport-emoji">🎵</span><div class="sport-name">Music</div><div class="sport-detail">Red Bull Records · Red Bull Music Academy</div></div>
+      </div>
+
+      <p class="bp">The ownership model is critical. When Red Bull owns RB Leipzig, it doesn't just get brand exposure during matches — it controls the stadium naming, the jersey branding, the youth academy culture, the fan experience, and the long-term association between the club's success and the brand. Every trophy Leipzig wins is a Red Bull headline. <strong>The sports properties are perpetual marketing assets.</strong></p>
+      <p class="bp">In Formula 1, Red Bull Racing has become one of the sport's dominant teams (multiple Constructors' and Drivers' Championships). This means millions of global F1 fans spend race weekends immersed in Red Bull branding, watching Red Bull mechanics, hearing Red Bull team radio. The ROI on owning an F1 team cannot be replicated by any sponsorship deal. <span class="ctag">Ownership vs. Sponsorship</span></p>
+
+      <div class="pq">
+        <blockquote>"Sponsors pay to be seen. Red Bull pays to own the stage."</blockquote>
+        <cite>— Marketing industry observation</cite>
+      </div>
+    </div>
+
+    <!-- 05 PRODUCT PARADOX -->
+    <div class="sec gradient-red" id="sec-product">
+      <div class="sec-num">05 — The Product Paradox</div>
+      <h2 class="sec-title">The Drink Is <em>Not the Point</em></h2>
+      <p class="lead">This is Red Bull's most counterintuitive truth: the actual beverage is arguably the least important element of the business. The drink is the delivery mechanism for an identity — not the identity itself.</p>
+      <p class="bp">In blind taste tests, most consumers prefer the taste of competitors like Monster or Rockstar. Red Bull's flavour profile is, by many accounts, an acquired taste. When Dietrich Mateschitz was asked about this, he reportedly said he wasn't in the business of making a great-tasting drink — he was in the business of making people feel something when they held the can.</p>
+      <p class="bp">This is a profound insight: <strong>the purchase of a Red Bull is not primarily about energy or taste — it is about self-expression.</strong> Holding a Red Bull signals something about who you are: active, aspirational, performance-oriented. The beverage is a badge. And badges don't need to taste great; they need to signal correctly.</p>
+      <p class="bp">This explains why Red Bull has never significantly diversified its product range. Other energy drink brands went wide — 20+ flavours, sizes, variants. Red Bull stayed narrow. The slim 250ml can is its most important design decision: it is instantly recognizable at arm's length, it sits differently in a hand than other cans, it doesn't look like a beer or a soda. It looks like a Red Bull. <span class="ctag">Identity Signal · Brand Badge</span></p>
+      <p class="bp">The premium pricing ($3–4 per can vs $1.50 for competitors) reinforces this. If Red Bull cost the same as a generic energy drink, it would feel like a generic energy drink. The price is part of the product experience — it says "this is special" before a drop is consumed.</p>
+
+      <div class="stat-row rc">
+        <div class="stat-card"><div class="stat-val">3×</div><div class="stat-lbl">Monster's price per ml</div></div>
+        <div class="stat-card"><div class="stat-val">#1</div><div class="stat-lbl">Market share globally despite higher price</div></div>
+        <div class="stat-card"><div class="stat-val">37yr</div><div class="stat-lbl">Can design virtually unchanged</div></div>
+        <div class="stat-card"><div class="stat-val">~4</div><div class="stat-lbl">Core SKUs globally (vs Monster's 50+)</div></div>
+      </div>
+    </div>
+
+    <!-- 06 MOAT -->
+    <div class="sec dark" id="sec-moat">
+      <div class="sec-num">06 — Competitive Moat</div>
+      <h2 class="sec-title">Why Nobody Can <em>Out-Red Bull</em> Red Bull</h2>
+      <p class="lead">Red Bull's competitive advantages are layered and mutually reinforcing. Each one alone is replicable; together, they form a moat that is nearly impossible to close.</p>
+
+      <div class="moat-bars rc">
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Brand Identity & Cultural Association</span><span class="moat-score">97/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="97"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Content & Media Assets</span><span class="moat-score">92/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="92"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Sports Property Ownership</span><span class="moat-score">90/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="90"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Global Distribution Network</span><span class="moat-score">85/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="85"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Grassroots Activation Machine</span><span class="moat-score">82/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="82"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Premium Pricing Power</span><span class="moat-score">80/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="80"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Athlete Loyalty Network</span><span class="moat-score">78/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="78"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Product Simplicity (Low SKU Risk)</span><span class="moat-score">72/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="72"></div></div>
+        </div>
+      </div>
+
+      <p class="bp">The deepest moat is cultural: Red Bull has spent 37 years associating itself with peak human performance — not through claims, but through consistent presence at the moments when humans push their limits. This association now runs so deep that when people think "extreme achievement," Red Bull appears unbidden. <strong>You cannot buy that. You can only build it, year by year.</strong></p>
+      <p class="bp">The second layer is the media and sports infrastructure. Red Bull owns events, teams, and production capabilities that would cost billions to replicate and years to build credibility in. A new entrant could outspend Red Bull in a single market for a year, but they cannot compress time. They cannot own 37 years of footage, 700 athletes' stories, and the cultural permission that comes from being the first to do something.</p>
+    </div>
+
+    <!-- 07 SWOT -->
+    <div class="sec dark-alt" id="sec-swot">
+      <div class="sec-num">07 — SWOT Analysis</div>
+      <h2 class="sec-title">Strengths, Weaknesses,<br><em>Opportunities, Threats</em></h2>
+      <p class="lead">A clear-eyed view of where Red Bull is invincible — and where it is genuinely vulnerable.</p>
+
+      <div class="swot-grid rc">
+        <div class="swot-cell swot-s">
+          <div class="swot-head">✦ Strengths</div>
+          <ul class="swot-list">
+            <li>Globally recognized brand in 175+ countries</li>
+            <li>Vertically integrated media & content machine</li>
+            <li>Decades of athlete & event relationships</li>
+            <li>Premium pricing sustained without discounting</li>
+            <li>Low SKU count = operational simplicity</li>
+            <li>Privately held = long-term orientation</li>
+            <li>Iconic, instantly recognizable can design</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-w">
+          <div class="swot-head">◆ Weaknesses</div>
+          <ul class="swot-list">
+            <li>Single-product dependency creates concentration risk</li>
+            <li>Health concerns around high caffeine intake persist</li>
+            <li>Distribution more limited than Coca-Cola scale brands</li>
+            <li>Taste preference loses to competitors in blind tests</li>
+            <li>No founder leadership continuity post-Mateschitz (d. 2022)</li>
+            <li>Sports asset ownership is capital-intensive</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-o">
+          <div class="swot-head">▲ Opportunities</div>
+          <ul class="swot-list">
+            <li>Emerging market growth (India, Africa, SEA)</li>
+            <li>Esports and gaming audience is rapidly maturing</li>
+            <li>Functional beverage trends (nootropics, adaptogens)</li>
+            <li>Red Bull Media House licensing to streaming platforms</li>
+            <li>Women's sports investment as differentiated territory</li>
+            <li>Premium wellness positioning as health trends rise</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-t">
+          <div class="swot-head">▼ Threats</div>
+          <ul class="swot-list">
+            <li>Health regulations on energy drinks tightening globally</li>
+            <li>Monster Beverage (backed by Coca-Cola) scaling fast</li>
+            <li>Craft energy drinks and wellness shots fragmenting market</li>
+            <li>Gen Z fatigue with "extreme sports bro" positioning</li>
+            <li>Private label energy drinks undercutting on price</li>
+            <li>Post-founder leadership challenge (cultural continuity)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 TIMELINE -->
+    <div class="sec dark gradient-yellow" id="sec-timeline">
+      <div class="sec-num">08 — Key Milestones</div>
+      <h2 class="sec-title">How Red Bull <em>Conquered the World</em></h2>
+
+      <div class="timeline rc">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1982</div><div class="tl-event">Dietrich Mateschitz discovers <strong>Krating Daeng</strong> in Thailand; notices it cures his jet lag in 15 minutes.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1984</div><div class="tl-event">Red Bull GmbH founded with Chaleo Yoovidhya. Three years of product development and market research begin. <strong>Focus groups hate the drink.</strong></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1987</div><div class="tl-event">Red Bull launches in Austria. <strong>Year-one sales: 1 million cans.</strong> Mateschitz seeds clubs and ski slopes rather than supermarkets.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1992</div><div class="tl-event">Expansion into Hungary and Slovenia — first international markets. The student brand manager programme formally established.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1995</div><div class="tl-event">UK launch. Red Bull is initially <strong>banned in several EU countries</strong> over health concerns, generating massive press coverage and desirability.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1997</div><div class="tl-event">US launch. Red Bull enters California first, seeding Santa Monica beach volleyball and surfing culture before going national.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2000</div><div class="tl-event">Red Bull sponsors its first Formula 1 car (Sauber). The motorsport relationship that defines the brand begins.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2004</div><div class="tl-event"><strong>Red Bull Racing founded.</strong> Buys the Jaguar F1 team for $1. Within a decade it wins 4 consecutive Constructors' Championships.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2005</div><div class="tl-event">New York Red Bulls football club acquired. Red Bull begins building its portfolio of owned sports franchises.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2007</div><div class="tl-event"><strong>Red Bull Media House founded.</strong> The brand formally becomes a media company.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2012</div><div class="tl-event"><strong>Project Stratos.</strong> Felix Baumgartner jumps from 39km altitude. 8M concurrent YouTube viewers. 50B+ media impressions. The greatest brand moment in history.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2014</div><div class="tl-event">RB Leipzig founded (or rather: Red Bull acquires SSV Markranstädt and rebrands). Controversially rises from fifth division to Bundesliga by 2016.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2022</div><div class="tl-event">Dietrich Mateschitz passes away aged 78. Red Bull sells 11.58 billion cans in 2022 — record year.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2023</div><div class="tl-event">Max Verstappen wins Red Bull Racing's third consecutive F1 Drivers' Championship. Annual can sales exceed <strong>12.1 billion</strong>.</div></div>
+      </div>
+    </div>
+
+    <!-- 09 RISKS -->
+    <div class="sec dark" id="sec-risks">
+      <div class="sec-num">09 — Risks & Vulnerabilities</div>
+      <h2 class="sec-title">Where the <em>Wings Could Fail</em></h2>
+      <p class="lead">Red Bull is not invincible. Several structural and cultural risks could meaningfully damage the brand or business over the next decade.</p>
+
+      <div class="risk-list rc">
+        <div class="risk-item">
+          <div class="risk-badge risk-high">HIGH</div>
+          <div>
+            <div class="risk-content-title">Post-Founder Leadership Gap</div>
+            <div class="risk-content-desc">Dietrich Mateschitz was not just Red Bull's founder — he was its creative director, chief strategist, and cultural compass for 35 years. His passing in 2022 leaves a leadership vacuum that no hired executive can fully fill. The cultural instincts that made every non-obvious marketing decision correct lived in one person. Sustaining that judgment institutionally is the company's most critical challenge.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-high">HIGH</div>
+          <div>
+            <div class="risk-content-title">Health Regulation Risk</div>
+            <div class="risk-content-desc">Energy drinks face growing regulatory scrutiny in major markets. The UK banned under-16s from purchasing energy drinks. Several EU countries have periodic labelling debates. If major markets impose age restrictions or volume caps, Red Bull's mass-market accessibility shrinks — and the premium positioning cannot survive if the product becomes associated with restriction rather than freedom.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-med">MED</div>
+          <div>
+            <div class="risk-content-title">Gen Z Cultural Drift</div>
+            <div class="risk-content-desc">Red Bull's core identity is built around extreme sports, risk, and masculine performance culture — an aesthetic that resonates strongly with Millennials but has a more complicated relationship with Gen Z. The generation most focused on mental health, sustainability, and inclusivity may find Red Bull's ethos increasingly dated. The brand has begun investing in esports and music to diversify its cultural footprint, but the shift is incomplete.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-med">MED</div>
+          <div>
+            <div class="risk-content-title">Monster / Coca-Cola Coalition</div>
+            <div class="risk-content-desc">Coca-Cola owns a significant stake in Monster Beverage and provides its global distribution network. This gives Monster access to every Coke shelf, cooler, and distribution relationship in the world — infrastructure that took decades to build and that Red Bull cannot replicate. Monster's market share has been growing consistently, and the Coke distribution advantage is structural, not campaign-based.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-low">LOW</div>
+          <div>
+            <div class="risk-content-title">Sports Asset Risk</div>
+            <div class="risk-content-desc">Owning F1 teams and football clubs is capital-intensive and performance-dependent. Red Bull Racing's brand visibility is tied to its on-track success — years of underperformance would meaningfully reduce its marketing value. Football clubs bring reputational exposure (fan controversies, relegation risk). These are manageable but real costs that don't exist for brands that choose sponsorship over ownership.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 IMPACT -->
+    <div class="sec dark-alt gradient-red" id="sec-impact">
+      <div class="sec-num">10 — Industry Impact</div>
+      <h2 class="sec-title">Red Bull Rewrote <em>What Marketing Is</em></h2>
+      <p class="lead">Before Red Bull, marketing meant buying media. After Red Bull, the most sophisticated brands understood that owning media, owning events, and owning culture was a fundamentally more powerful strategy. Red Bull didn't just build a brand — it showed every brand a better way to build one.</p>
+      <p class="bp">The concept of a <strong>brand as a media company</strong> — now a mainstream idea in digital marketing circles — is Red Bull's invention, executed at scale a decade before the terminology existed. When brands today launch YouTube channels, podcasts, or live events as primary marketing vehicles, they are consciously or unconsciously following the Red Bull model.</p>
+      <p class="bp">Red Bull also demonstrated the power of <strong>niche seeding over mass reach</strong>. Its early strategy of targeting ski slopes, university clubs, and beach volleyball before mainstream retail showed that you can build a mass brand through exclusive audiences — and that the cool credibility of niche adoption is worth more than broad awareness. This insight now underlies influencer marketing, community-led growth, and brand ambassador programmes at virtually every consumer brand.</p>
+      <p class="bp">Project Stratos in 2012 directly inspired a wave of "brand moments" — high-cost, high-spectacle events designed to generate earned media rather than rely on paid placement. GoPro, Nike, and others followed with their own versions. Red Bull demonstrated the math: one extraordinary moment can outperform years of conventional advertising spend. <span class="ctag">Industry Standard-Setting</span> <span class="ctag">First-Mover</span></p>
+      <p class="bp">Finally, Red Bull proved that a consumer brand can build genuine intellectual property through sports ownership — and that IP compounds over time. RB Leipzig's success in German football, Red Bull Racing's dominance in F1 — these are assets that grow in value independently of the beverage business. No marketing agency would have advised this in 2000. Red Bull just did it.</p>
+    </div>
+
+    <!-- 11 LESSONS -->
+    <div class="sec dark" id="sec-lessons">
+      <div class="sec-num">11 — Lessons For Builders</div>
+      <h2 class="sec-title">What Founders Can <em>Steal From This</em></h2>
+      <p class="lead">Red Bull's strategies translate far beyond beverages. These are principles any builder can apply to any category.</p>
+      <div class="lessons-grid rc">
+        <div class="lesson-card">
+          <div class="lesson-num">01</div>
+          <div class="lesson-title">Sell the Identity, Not the Product</div>
+          <div class="lesson-desc">People don't buy Red Bull for caffeine — they buy it for who it says they are. If your product can become a signal of identity or belonging, you've built something far more durable than a utility product. Ask: what does owning this say about me?</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">02</div>
+          <div class="lesson-title">Create the Stage, Don't Rent Space on It</div>
+          <div class="lesson-desc">Red Bull didn't sponsor the X Games — it created Crashed Ice. When you own the event, you control the narrative, the attendees, the content, and the long-term asset. Wherever possible, build your own platform rather than paying for access to someone else's.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">03</div>
+          <div class="lesson-title">Seed Cool Before You Scale</div>
+          <div class="lesson-desc">Red Bull waited years before entering supermarkets. It built authentic cool in exclusive, credible environments first. Scale came as a consequence of desirability, not the cause of it. Don't rush distribution — it's much harder to restore exclusivity than to build it from the start.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">04</div>
+          <div class="lesson-title">Price Is Part of the Product</div>
+          <div class="lesson-desc">Red Bull's premium price isn't a constraint — it's a feature. The price signals quality, exclusivity, and seriousness before the product is experienced. If you're building something premium, resist discount pressure. The first discount often signals the beginning of the end of a premium brand.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">05</div>
+          <div class="lesson-title">Marketing Can Pay for Itself</div>
+          <div class="lesson-desc">Red Bull Media House licenses content to broadcasters, generating revenue from what other brands treat as a pure cost centre. Look at your marketing as an asset class: can the content you create, the events you run, or the community you build generate returns beyond brand awareness?</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">06</div>
+          <div class="lesson-title">Do One Thing Better than Anyone</div>
+          <div class="lesson-desc">Red Bull has roughly 4 SKUs. In 37 years, it has resisted the urge to become a portfolio brand. Focus compounds: every action reinforces the core. Every time you add a product line, you dilute the brand and multiply operational complexity. The hardest discipline in business is saying no to adjacencies that look attractive.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 VERDICT -->
+    <div class="sec gradient-dark" id="sec-verdict">
+      <div class="sec-num">12 — Final FounderLens Verdict</div>
+      <h2 class="sec-title">The Most Audacious <em>Marketing Company</em><br>on Earth</h2>
+      <p class="lead">Red Bull is not an energy drink company that's good at marketing. It is a marketing company that happens to produce a drink — and the distinction matters enormously.</p>
+
+      <div class="verdict-box">
+        <h3>"What makes Red Bull genuinely powerful — and can anything it built be replicated?"</h3>
+        <p>Red Bull's greatest achievement is the complete inversion of the conventional product marketing model. Every other beverage company started with a product and then tried to market it. Red Bull started with a world — a culture of aspiration, performance, and human limits — and then built a drink to fund it. The drink came second. The brand was always first.</p>
+        <p>This matters because <strong>the brand is now so deeply embedded in its culture that removing it would collapse the culture itself.</strong> Red Bull doesn't just sell to extreme sports athletes — it is the patron saint of extreme sports. It doesn't just stream content — it defines what "peak performance content" means. When you are definitional to a culture, you are not a vendor. You are infrastructure.</p>
+        <p>The model that Red Bull built — own the media, own the events, own the athletes, own the teams, charge a premium for the drink — is theoretically imitable but practically irreplicable. You cannot start today and catch 37 years of cultural accumulation. You cannot manufacture the organic credibility of seeding Red Bull at a 1980s Austrian ski resort. You cannot buy the genuine athletic relationships that were built over decades. <strong>Time is Red Bull's deepest competitive advantage, and it is non-transferable.</strong></p>
+        <p>For builders: the lesson is not "build a media company." The lesson is that the highest-leverage marketing decision you can make is choosing what world your brand lives in — and then actually living there, consistently, for a very long time. Red Bull didn't buy its way into extreme sports culture. It showed up, stayed, and became indispensable. That's available to any founder willing to think in decades rather than quarters.</p>
+        <p class="verdict-note">Red Bull's story is ultimately about a refusal to take the easy path — no early supermarket listing, no IPO, no flavour line extensions, no celebrity endorsements instead of genuine athlete relationships. Every discipline compounded. Every year of consistency made the brand harder to displace. The wings were built one decision at a time.</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><span class="footer-dot"></span>FounderLens</div>
+    <p class="footer-desc">Business intelligence explained simply through world-class companies. Strategy, execution, and competitive advantage — decoded for builders and operators.</p>
+    <div class="footer-bottom">
+      <div class="footer-copy"><span>FounderLens</span> · Red Bull Company Analysis · Issue #08 · Research compiled June 2026 · Educational purposes only</div>
+      <div class="footer-tags">
+        <span class="footer-tag">Brand Strategy</span>
+        <span class="footer-tag">Content Marketing</span>
+        <span class="footer-tag">Red Bull GmbH</span>
+        <span class="footer-tag">1987</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+</button>
+
+<script>
+function gotoSec(id) {
+  const el = document.getElementById('sec-' + id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+/* Progress bar */
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+});
+
+/* Scroll reveal */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      e.target.querySelectorAll('.moat-fill').forEach(bar => {
+        setTimeout(() => { bar.style.width = bar.dataset.w + '%'; }, 200);
+      });
+    }
+  });
+}, { threshold: 0.05 });
+document.querySelectorAll('.sec, .rc').forEach(el => ro.observe(el));
+
+/* TOC active state */
+const secs = document.querySelectorAll('.sec[id]');
+const tocObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.toc-btn').forEach(b => b.classList.remove('active'));
+      const id = e.target.id.replace('sec-', '');
+      const t = document.querySelector(`.toc-btn[onclick*="'${id}'"]`);
+      if (t) t.classList.add('active');
+    }
+  });
+}, { rootMargin: '-12% 0px -78% 0px' });
+secs.forEach(s => tocObs.observe(s));
+
+/* Nav pill click */
+document.querySelectorAll('.nav-pill').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('.nav-pill').forEach(x => x.classList.remove('active'));
+    p.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

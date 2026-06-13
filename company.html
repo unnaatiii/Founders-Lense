@@ -1204,10 +1204,12 @@ body::after { opacity: 0.075; }
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="data/generated-catalog.js"></script>
 <script>
 const CATEGORIES = ["All","Tech","Finance","Retail","AI","Quick Commerce","SaaS","FMCG","Healthcare","Media","E-commerce","Manufacturing","Luxury","Consumer","D2C"];
 
 const COMPANIES = [
+  ...(window.GENERATED_COMPANIES || []),
   {
     name: "Apple",
     category: "Tech",
@@ -1261,6 +1263,24 @@ const COMPANIES = [
   tags: ["dating", "consumer", "network effects", "mobile"],
   file: "companies/tinder.html",
   color: "linear-gradient(135deg, #FD267A 0%, #FF6036 55%, #FF7A59 100%)"
+},
+{
+  name: "Airbnb",
+  category: "Consumer",
+  description: "Asset-light hospitality built through trust, community, and two-sided network effects.",
+  logo: "assets/airbnb.png",
+  tags: ["marketplace", "travel", "network effects", "trust"],
+  file: "companies/airbnb.html",
+  color: "linear-gradient(135deg, #FF5A5F 0%, #FF7A7F 45%, #FFC3B8 100%)"
+},
+{
+  name: "Red Bull",
+  category: "Consumer",
+  description: "Media-fueled branding transforming caffeine into cultural identity.",
+  logo: "assets/redbull.png",
+  tags: ["branding", "media", "consumer", "culture"],
+  file: "companies/redbull.html",
+  color: "linear-gradient(135deg, #001E62 0%, #0039A6 45%, #D52B1E 75%, #FBBF24 100%)"
 },
   {
     name: "DMart",

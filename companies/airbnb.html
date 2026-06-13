@@ -1,0 +1,676 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FounderLens · Airbnb — Strategic Company Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rausch:       #FF5A5F;
+  --rausch2:      #FF8589;
+  --rausch-pale:  rgba(255,90,95,0.10);
+  --babu:         #00A699;
+  --babu-pale:    rgba(0,166,153,0.10);
+  --arches:       #FC642D;
+  --midnight:     #0a0a0f;
+  --midnight2:    #0f0f18;
+  --warm-white:   #fafaf8;
+  --off-white:    #f7f4f1;
+  --ink:          #0f0f18;
+  --ink2:         rgba(15,15,24,0.72);
+  --ink3:         rgba(15,15,24,0.46);
+  --light-rule:   rgba(15,15,24,0.08);
+  --dark-cream:   #f5f0ec;
+  --dark-cream2:  rgba(245,240,236,0.72);
+  --dark-cream3:  rgba(245,240,236,0.40);
+  --dark-rule:    rgba(245,240,236,0.08);
+
+  --serif:  'Cormorant Garamond', Georgia, serif;
+  --sans:   'Outfit', sans-serif;
+  --mono:   'JetBrains Mono', monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;background:var(--warm-white);overflow-x:hidden}
+
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--midnight)}
+::-webkit-scrollbar-thumb{background:var(--rausch);border-radius:2px}
+
+/* ═══ PROGRESS BAR ═══ */
+#progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--rausch),var(--arches));z-index:200;width:0%;transition:width .1s linear}
+
+/* ═══ NAV ═══ */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,10,15,0.94);backdrop-filter:blur(24px) saturate(1.6);
+  border-bottom:1px solid rgba(245,240,236,0.06);
+  height:56px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 44px;
+}
+.nav-logo{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--dark-cream);letter-spacing:-.01em}
+.nav-logo em{font-style:italic;color:var(--rausch2)}
+.nav-right{display:flex;align-items:center;gap:20px}
+.nav-tag{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dark-cream3);padding:4px 10px;border:1px solid rgba(245,240,236,.10);border-radius:20px}
+.nav-tag.live{border-color:rgba(255,90,95,.35);color:var(--rausch2)}
+
+/* ═══ COVER ═══ */
+.cover{
+  min-height:100vh;background:var(--midnight);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  position:relative;overflow:hidden;
+}
+.cover-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 85% 15%, rgba(255,90,95,0.13) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 15% 85%, rgba(252,100,45,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(0,166,153,0.04) 0%, transparent 50%);
+}
+.cover-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(245,240,236,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(245,240,236,.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%);
+}
+.cover-inner{
+  position:relative;z-index:2;
+  max-width:960px;margin:0 auto;width:100%;
+  padding:120px 44px 100px;
+}
+.cover-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:28px;animation:fadeUp .8s ease both;}
+.cover-eyebrow-pill{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:5px 12px;border-radius:20px;background:rgba(255,90,95,.15);border:1px solid rgba(255,90,95,.3);color:var(--rausch)}
+.cover-eyebrow-line{width:28px;height:1px;background:rgba(245,240,236,.2)}
+.cover-eyebrow-text{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dark-cream3)}
+
+.cover-title{
+  font-family:var(--serif);
+  font-size:clamp(64px,9vw,130px);
+  font-weight:300;line-height:.95;letter-spacing:-.04em;
+  color:var(--dark-cream);margin-bottom:14px;
+  animation:fadeUp .8s .1s ease both;
+}
+.cover-title strong{font-weight:700;display:block}
+.cover-title em{font-style:italic;color:var(--rausch2);font-weight:300}
+
+.cover-sub{font-size:18px;color:var(--dark-cream2);max-width:600px;line-height:1.65;font-weight:300;margin-bottom:52px;animation:fadeUp .8s .2s ease both;}
+
+.cover-kpis{display:flex;gap:0;flex-wrap:wrap;border-top:1px solid var(--dark-rule);border-bottom:1px solid var(--dark-rule);margin-bottom:48px;animation:fadeUp .8s .3s ease both;}
+.ckpi{padding:20px 32px 20px 0;margin-right:32px;border-right:1px solid var(--dark-rule)}
+.ckpi:last-child{border-right:none}
+.ckpi-val{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--dark-cream);line-height:1}
+.ckpi-val em{color:var(--rausch2);font-style:normal}
+.ckpi-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--dark-cream3);margin-top:4px}
+
+.cover-tags{display:flex;gap:8px;flex-wrap:wrap;animation:fadeUp .8s .35s ease both}
+.cover-chip{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:20px;border:1px solid var(--dark-rule);color:var(--dark-cream3)}
+.cover-chip.coral{border-color:rgba(255,90,95,.4);color:var(--rausch2);background:var(--rausch-pale)}
+.cover-chip.teal{border-color:rgba(0,166,153,.4);color:#5dcec7;background:var(--babu-pale)}
+
+/* ═══ BAND BASE ═══ */
+.band{width:100%;position:relative;overflow:hidden}
+.band-inner{max-width:900px;margin:0 auto;padding:80px 44px}
+
+/* ── LAYOUT VARIANTS ── */
+
+/* Full-width (default — same as Apple file) */
+.band-warm{background:var(--warm-white)}
+.band-stone{background:var(--off-white)}
+.band-dark{background:var(--midnight)}
+
+/* NEW: Split layout band — left label col + right content col */
+.band-split .band-inner{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:60px;
+  align-items:start;
+}
+.split-label{
+  position:sticky;top:80px;
+}
+.split-label .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:12px}
+.split-label h2{font-family:var(--serif);font-size:clamp(22px,2.5vw,30px);font-weight:600;line-height:1.1;letter-spacing:-.02em;margin-bottom:12px}
+.split-label h2 em{font-style:italic;font-weight:300}
+.split-label .split-rule{width:32px;height:2px;margin-top:14px}
+.split-content{}
+
+/* NEW: Ticker/number band */
+.band-numbers{background:#0d0007}
+.band-numbers .band-inner{padding-top:60px;padding-bottom:60px}
+.numbers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:rgba(255,90,95,.12);border:1px solid rgba(255,90,95,.12);border-radius:12px;overflow:hidden;margin-top:36px}
+.number-cell{background:#0d0007;padding:28px 24px}
+.number-cell .n{font-family:var(--serif);font-size:42px;font-weight:700;color:var(--rausch2);line-height:1}
+.number-cell .u{font-family:var(--serif);font-size:22px;color:var(--rausch);font-weight:300}
+.number-cell .l{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,240,236,.35);margin-top:6px}
+
+/* ═══ WARM BAND STYLES ═══ */
+.band-warm .sec-num,.band-split.band-warm .split-label .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--rausch);margin-bottom:10px}
+.band-warm .sec-title{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:600;color:var(--ink);margin-bottom:28px;line-height:1.05;letter-spacing:-.025em}
+.band-warm .sec-title em{font-style:italic;color:var(--rausch);font-weight:300}
+.band-warm .lead{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--ink2);line-height:1.65;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--light-rule)}
+.band-warm p{font-size:15.5px;color:var(--ink2);line-height:1.85;margin-bottom:18px}
+.band-warm p strong{color:var(--ink);font-weight:600}
+.band-warm mark{background:rgba(255,90,95,.10);color:#b83a3d;padding:1px 5px;border-radius:3px;font-weight:500}
+.band-warm mark.teal{background:rgba(0,166,153,.10);color:#006b65}
+.band-warm .callout{background:#fff0f0;border-left:3px solid var(--rausch);border-radius:0 8px 8px 0;padding:18px 22px;margin:24px 0}
+.band-warm .callout.teal{background:#e8faf9;border-left-color:var(--babu)}
+.band-warm .callout-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--rausch);margin-bottom:6px;font-weight:700}
+.band-warm .callout.teal .callout-lbl{color:var(--babu)}
+.band-warm .callout p{font-size:14px;color:var(--ink2);margin-bottom:0}
+.band-warm .callout p strong{color:var(--ink);font-weight:600}
+.band-warm .alist{list-style:none;margin:16px 0}
+.band-warm .alist li{padding:10px 0 10px 24px;position:relative;border-bottom:1px solid var(--light-rule);font-size:15px;color:var(--ink2)}
+.band-warm .alist li:last-child{border-bottom:none}
+.band-warm .alist li::before{content:'—';position:absolute;left:0;color:var(--rausch);font-weight:700}
+.band-warm .alist li strong{color:var(--ink);font-weight:600}
+.band-warm .pq{margin:36px 0;padding:28px 32px;border-left:3px solid var(--rausch);background:linear-gradient(to right,rgba(255,90,95,.05),transparent);border-radius:0 8px 8px 0}
+.band-warm .pq blockquote{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--ink);line-height:1.5;margin-bottom:10px}
+.band-warm .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--rausch);font-style:normal}
+.band-warm .framework-tag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(255,90,95,.09);color:#b83a3d;margin-left:4px;vertical-align:middle;font-weight:700}
+.band-warm .framework-tag.teal{background:rgba(0,166,153,.09);color:#005f5a}
+
+/* split warm label styles */
+.band-split.band-warm .split-label .sec-num{color:var(--rausch)}
+.band-split.band-warm .split-label h2{color:var(--ink)}
+.band-split.band-warm .split-label h2 em{color:var(--rausch)}
+.band-split.band-warm .split-label .split-rule{background:var(--rausch)}
+
+/* ═══ STONE BAND STYLES ═══ */
+.band-stone .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#b83a3d;margin-bottom:10px}
+.band-stone .sec-title{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:600;color:var(--ink);margin-bottom:28px;line-height:1.05;letter-spacing:-.025em}
+.band-stone .sec-title em{font-style:italic;color:#b83a3d;font-weight:300}
+.band-stone .lead{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--ink2);line-height:1.65;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--light-rule)}
+.band-stone p{font-size:15.5px;color:var(--ink2);line-height:1.85;margin-bottom:18px}
+.band-stone p strong{color:var(--ink);font-weight:600}
+.band-stone mark{background:rgba(255,90,95,.12);color:#8b2b2e;padding:1px 5px;border-radius:3px;font-weight:500}
+.band-stone .callout{background:#fce8e8;border-left:3px solid #b83a3d;border-radius:0 8px 8px 0;padding:18px 22px;margin:24px 0}
+.band-stone .callout.teal{background:#e4f7f6;border-left-color:var(--babu)}
+.band-stone .callout-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#8b2b2e;margin-bottom:6px;font-weight:700}
+.band-stone .callout.teal .callout-lbl{color:var(--babu)}
+.band-stone .callout p{font-size:14px;color:var(--ink2);margin-bottom:0}
+.band-stone .callout p strong{color:var(--ink);font-weight:600}
+.band-stone .alist{list-style:none;margin:16px 0}
+.band-stone .alist li{padding:10px 0 10px 24px;position:relative;border-bottom:1px solid var(--light-rule);font-size:15px;color:var(--ink2)}
+.band-stone .alist li:last-child{border-bottom:none}
+.band-stone .alist li::before{content:'—';position:absolute;left:0;color:#b83a3d;font-weight:700}
+.band-stone .alist li strong{color:var(--ink);font-weight:600}
+.band-stone .pq{margin:36px 0;padding:28px 32px;border-left:3px solid #b83a3d;background:linear-gradient(to right,rgba(255,90,95,.06),transparent);border-radius:0 8px 8px 0}
+.band-stone .pq blockquote{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--ink);line-height:1.5;margin-bottom:10px}
+.band-stone .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#8b2b2e;font-style:normal}
+.band-stone .framework-tag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(255,90,95,.10);color:#8b2b2e;margin-left:4px;vertical-align:middle;font-weight:700}
+.band-stone .framework-tag.teal{background:rgba(0,166,153,.09);color:#005f5a}
+
+/* split stone label */
+.band-split.band-stone .split-label .sec-num{color:#b83a3d}
+.band-split.band-stone .split-label h2{color:var(--ink)}
+.band-split.band-stone .split-label h2 em{color:#b83a3d}
+.band-split.band-stone .split-label .split-rule{background:#b83a3d}
+
+/* ═══ DARK BAND STYLES ═══ */
+.band-dark .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--rausch2);margin-bottom:10px}
+.band-dark .sec-title{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:600;color:var(--dark-cream);margin-bottom:28px;line-height:1.05;letter-spacing:-.025em}
+.band-dark .sec-title em{font-style:italic;color:var(--rausch2);font-weight:300}
+.band-dark .lead{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--dark-cream2);line-height:1.65;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--dark-rule)}
+.band-dark p{font-size:15.5px;color:var(--dark-cream2);line-height:1.85;margin-bottom:18px}
+.band-dark p strong{color:var(--dark-cream);font-weight:600}
+.band-dark mark{background:rgba(255,90,95,.15);color:var(--rausch2);padding:1px 5px;border-radius:3px;font-weight:500}
+.band-dark mark.teal{background:rgba(0,166,153,.15);color:#5dcec7}
+.band-dark .callout{background:rgba(255,90,95,.07);border-left:3px solid var(--rausch);border-radius:0 8px 8px 0;padding:18px 22px;margin:24px 0}
+.band-dark .callout.teal{background:rgba(0,166,153,.07);border-left-color:var(--babu)}
+.band-dark .callout-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--rausch2);margin-bottom:6px;font-weight:700}
+.band-dark .callout.teal .callout-lbl{color:#5dcec7}
+.band-dark .callout p{font-size:14px;color:var(--dark-cream2);margin-bottom:0}
+.band-dark .callout p strong{color:var(--dark-cream)}
+.band-dark .alist{list-style:none;margin:16px 0}
+.band-dark .alist li{padding:10px 0 10px 24px;position:relative;border-bottom:1px solid var(--dark-rule);font-size:15px;color:var(--dark-cream2)}
+.band-dark .alist li:last-child{border-bottom:none}
+.band-dark .alist li::before{content:'—';position:absolute;left:0;color:var(--rausch2);font-weight:700}
+.band-dark .alist li strong{color:var(--dark-cream)}
+.band-dark .pq{margin:36px 0;padding:28px 32px;border-left:3px solid var(--rausch);background:linear-gradient(to right,rgba(255,90,95,.07),transparent);border-radius:0 8px 8px 0}
+.band-dark .pq blockquote{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--dark-cream);line-height:1.5;margin-bottom:10px}
+.band-dark .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--rausch2);font-style:normal}
+.band-dark .framework-tag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(255,90,95,.13);color:var(--rausch2);margin-left:4px;vertical-align:middle;font-weight:700}
+.band-dark .framework-tag.teal{background:rgba(0,166,153,.12);color:#5dcec7}
+
+/* split dark label */
+.band-split.band-dark .split-label .sec-num{color:var(--rausch2)}
+.band-split.band-dark .split-label h2{color:var(--dark-cream)}
+.band-split.band-dark .split-label h2 em{color:var(--rausch2)}
+.band-split.band-dark .split-label .split-rule{background:var(--rausch)}
+
+/* ═══ STATS STRIP ═══ */
+.stats-strip{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0}
+.stat-card{flex:1;min-width:130px;border-radius:10px;padding:16px 20px;border:1px solid var(--light-rule);background:rgba(255,90,95,.03)}
+.stat-card.hi{background:rgba(255,90,95,.08);border-color:rgba(255,90,95,.18)}
+.stat-card .stat-val{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink);line-height:1}
+.stat-card.hi .stat-val{color:#8b2b2e}
+.stat-card .stat-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-top:5px}
+.band-dark .stats-strip .stat-card{border-color:var(--dark-rule);background:rgba(255,90,95,.04)}
+.band-dark .stats-strip .stat-card.hi{background:rgba(255,90,95,.10);border-color:rgba(255,90,95,.2)}
+.band-dark .stats-strip .stat-card .stat-val{color:var(--dark-cream)}
+.band-dark .stats-strip .stat-card.hi .stat-val{color:var(--rausch2)}
+.band-dark .stats-strip .stat-card .stat-lbl{color:var(--dark-cream3)}
+
+/* ═══ SWOT ═══ */
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:28px 0;border:1px solid var(--light-rule);border-radius:10px;overflow:hidden}
+.swot-cell{padding:20px 24px}
+.swot-cell h4{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.swot-cell ul{list-style:none}
+.swot-cell ul li{font-size:13px;color:var(--ink2);padding:4px 0;border-bottom:1px solid var(--light-rule)}
+.swot-cell ul li:last-child{border-bottom:none}
+.swot-s{background:#f0faf5;border-right:1px solid var(--light-rule);border-bottom:1px solid var(--light-rule)}
+.swot-s h4{color:#1b6e52}
+.swot-w{background:#fff5f5;border-bottom:1px solid var(--light-rule)}
+.swot-w h4{color:#8b2b2e}
+.swot-o{background:#eaf8f7;border-right:1px solid var(--light-rule)}
+.swot-o h4{color:#005f5a}
+.swot-t{background:#fdf5f0}
+.swot-t h4{color:var(--arches)}
+
+/* ═══ TIMELINE — NEW layout element ═══ */
+.tl-strip{display:flex;gap:0;margin:32px 0;overflow-x:auto;padding-bottom:8px}
+.tl-node{flex:0 0 auto;width:200px;padding:0 20px 0 0;position:relative}
+.tl-node::after{content:'';position:absolute;top:11px;left:0;right:0;height:1px;background:rgba(255,90,95,.25)}
+.tl-node:last-child::after{right:20px}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--rausch);border:2px solid var(--warm-white);position:relative;z-index:1;margin-bottom:10px}
+.band-dark .tl-dot{border-color:var(--midnight)}
+.tl-year{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--rausch2);font-weight:700;margin-bottom:4px}
+.tl-label{font-size:13px;color:var(--ink2);line-height:1.4}
+.band-dark .tl-label{color:var(--dark-cream2)}
+
+/* ═══ VERDICT ═══ */
+.band-verdict{background:var(--midnight);border-top:1px solid rgba(255,90,95,.10);position:relative;overflow:hidden}
+.band-verdict::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 70% 40%,rgba(255,90,95,.07) 0%,transparent 60%)}
+.verdict-inner{max-width:860px;margin:0 auto;padding:80px 44px;position:relative;z-index:1}
+.verdict-label{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--rausch2);margin-bottom:18px}
+.verdict-title{font-family:var(--serif);font-size:clamp(36px,5vw,64px);font-weight:300;color:var(--dark-cream);line-height:1.05;letter-spacing:-.03em;margin-bottom:28px}
+.verdict-title em{font-style:italic;color:var(--rausch2)}
+.verdict-title strong{font-weight:700}
+.verdict-divider{width:48px;height:2px;background:var(--rausch);margin-bottom:32px}
+.verdict-body p{font-size:16px;color:var(--dark-cream2);line-height:1.9;margin-bottom:20px;font-weight:300}
+.verdict-body p strong{color:var(--dark-cream);font-weight:600}
+.verdict-body p em{font-style:italic;color:var(--rausch2)}
+.verdict-signature{display:flex;align-items:center;gap:16px;margin-top:48px;padding-top:28px;border-top:1px solid var(--dark-rule)}
+.verdict-sig-mark{width:36px;height:36px;border-radius:8px;background:rgba(255,90,95,.12);border:1px solid rgba(255,90,95,.3);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--rausch2)}
+.verdict-sig-text{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dark-cream3);line-height:1.8}
+
+/* ═══ FOOTER ═══ */
+.footer{background:#070709;padding:40px 44px 24px;border-top:1px solid rgba(255,90,95,.06)}
+.footer-inner{max-width:860px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px;margin-bottom:28px}
+.footer-brand{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--dark-cream);margin-bottom:4px}
+.footer-brand em{font-style:italic;color:var(--rausch2)}
+.footer-sub{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--dark-cream3)}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap}
+.footer-links a{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dark-cream3);text-decoration:none}
+.footer-links a:hover{color:var(--rausch2)}
+.footer-copy{max-width:860px;margin:0 auto;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,240,236,.18);padding-top:16px;border-top:1px solid rgba(245,240,236,.05)}
+.footer-copy span{color:var(--rausch2)}
+
+/* ═══ FAB ═══ */
+.fab{position:fixed;bottom:28px;right:28px;width:40px;height:40px;border-radius:50%;background:var(--rausch);color:#fff;border:none;font-size:16px;font-weight:700;cursor:pointer;z-index:300;box-shadow:0 4px 20px rgba(255,90,95,.35);display:flex;align-items:center;justify-content:center;transition:transform .15s}
+.fab:hover{transform:scale(1.08)}
+
+/* ═══ REVEAL ═══ */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+@media(max-width:700px){
+  .nav{padding:0 20px}
+  .cover-inner,.band-inner,.verdict-inner{padding-left:20px;padding-right:20px}
+  .footer{padding:32px 20px 20px}
+  .swot{grid-template-columns:1fr}
+  .swot-s,.swot-w,.swot-o{border-right:none}
+  .band-split .band-inner{grid-template-columns:1fr;gap:0}
+  .split-label{position:static;margin-bottom:24px}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">Founder<em>Lens</em></div>
+  <div class="nav-right">
+    <span class="nav-tag">Travel Tech</span>
+    <span class="nav-tag live">● Airbnb</span>
+  </div>
+</nav>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="cover-bg"></div>
+  <div class="cover-grid"></div>
+  <div class="cover-inner">
+    <div class="cover-eyebrow">
+      <span class="cover-eyebrow-pill">Strategic Analysis</span>
+      <span class="cover-eyebrow-line"></span>
+      <span class="cover-eyebrow-text">FounderLens · Case Study</span>
+    </div>
+    <h1 class="cover-title">
+      Airbnb<br>
+      <em>Belong</em>
+      <strong>Anywhere.</strong>
+    </h1>
+    <p class="cover-sub">How three broke designers sold air mattresses and cereal boxes to build a $75B company — and why their real product was never about rooms.</p>
+    <div class="cover-kpis">
+      <div class="ckpi"><div class="ckpi-val"><em>7M</em>+</div><div class="ckpi-lbl">Listings Worldwide</div></div>
+      <div class="ckpi"><div class="ckpi-val">$<em>75B</em></div><div class="ckpi-lbl">Market Cap</div></div>
+      <div class="ckpi"><div class="ckpi-val"><em>220</em>+</div><div class="ckpi-lbl">Countries</div></div>
+      <div class="ckpi"><div class="ckpi-val"><em>2008</em></div><div class="ckpi-lbl">Founded</div></div>
+    </div>
+    <div class="cover-tags">
+      <span class="cover-chip coral">San Francisco, CA</span>
+      <span class="cover-chip coral">Brian Chesky · Joe Gebbia · Nate Blecharczyk</span>
+      <span class="cover-chip teal">Two-Sided Marketplace</span>
+      <span class="cover-chip">IPO: Dec 2020</span>
+    </div>
+  </div>
+</section>
+
+<!-- 01 — COMPANY OVERVIEW — warm, full-width -->
+<div class="band band-warm" id="s01">
+  <div class="band-inner">
+    <div class="reveal">
+      <div class="sec-num">01 — Company Overview</div>
+      <h2 class="sec-title">What Airbnb <em>Actually Sells</em></h2>
+      <p class="lead">Most people think Airbnb rents rooms. That's like saying Uber drives cars. Airbnb's real product is trust between strangers — and the emotional experience of feeling at home somewhere you've never been.</p>
+      <p>Airbnb operates a two-sided marketplace connecting <strong>hosts</strong> (people with space to rent) and <strong>guests</strong> (people looking for a place to stay). It takes a service fee from both sides — typically 3% from hosts and 14–20% from guests. The platform itself owns no real estate. It owns the relationship.</p>
+      <p>Beyond short-term rentals, Airbnb runs <strong>Experiences</strong> (local activities hosted by residents) and has expanded into long-term stays and monthly rentals — a category accelerated massively by remote work. The company went public in December 2020 at a $47B valuation, on the same day that pandemic travel was near zero. The stock doubled on day one.</p>
+      <div class="callout teal">
+        <div class="callout-lbl">The Real Business</div>
+        <p>Airbnb takes no inventory risk. It owns no properties. Its assets are a brand, a platform, and the trust infrastructure that makes strangers willing to sleep in each other's homes. <strong>The product is the relationship layer between hosts and guests.</strong> Everything else is technology in service of that relationship.</p>
+      </div>
+      <div class="stats-strip">
+        <div class="stat-card hi"><div class="stat-val">$9.9B</div><div class="stat-lbl">FY2023 Revenue</div></div>
+        <div class="stat-card"><div class="stat-val">448M</div><div class="stat-lbl">Nights & Experiences Booked</div></div>
+        <div class="stat-card hi"><div class="stat-val">$2.0B</div><div class="stat-lbl">Net Income FY2023</div></div>
+        <div class="stat-card"><div class="stat-val">7M+</div><div class="stat-lbl">Active Listings</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 02 — THE ORIGIN — dark, split layout -->
+<div class="band band-dark band-split" id="s02">
+  <div class="band-inner">
+    <div class="reveal split-label">
+      <div class="sec-num">02 — Origin Story</div>
+      <h2>The Problem <em>Nobody Believed</em></h2>
+      <div class="split-rule"></div>
+    </div>
+    <div class="reveal split-content">
+      <p class="lead">In 2007, Brian Chesky and Joe Gebbia couldn't afford their San Francisco rent. A design conference was coming to town and hotels were sold out. They bought three air mattresses, put up a website called "Air Bed & Breakfast" and rented out their living room floor. Three guests paid $80 each.</p>
+      <p>That experiment had no business model, no VC backing, no regulatory clarity, and no reason to scale. <strong>It also had something more valuable: proof that a stranger would sleep in another stranger's home.</strong> The entire Airbnb thesis lived in that first weekend.</p>
+      <p>Getting to the first round of investment was famously difficult. Investors kept saying no. To survive, the founders sold novelty cereal boxes — <mark>"Obama O's" and "Cap'n McCain's"</mark> — during the 2008 election to raise $30K. Y Combinator's Paul Graham funded them partly because anyone willing to sell cereal to survive had the tenacity to build something real.</p>
+      <div class="pq">
+        <blockquote>"If you can convince people to sleep in a stranger's home, you can convince them to do almost anything."</blockquote>
+        <cite>— Brian Chesky, on what the early days proved</cite>
+      </div>
+      <div class="tl-strip">
+        <div class="tl-node">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2007</div>
+          <div class="tl-label">Air mattresses in SF living room. First 3 guests.</div>
+        </div>
+        <div class="tl-node">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2009</div>
+          <div class="tl-label">YC batch, $20K seed. Professional photos strategy.</div>
+        </div>
+        <div class="tl-node">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2011</div>
+          <div class="tl-label">$1B valuation. International expansion begins.</div>
+        </div>
+        <div class="tl-node">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2014</div>
+          <div class="tl-year">2014</div>
+          <div class="tl-label">Experiences launch. Brand refresh. "Belong Anywhere."</div>
+        </div>
+        <div class="tl-node">
+          <div class="tl-dot"></div>
+          <div class="tl-year">2020</div>
+          <div class="tl-label">IPO at $47B — same week pandemic travel hits bottom.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 03 — NUMBERS BAND — new layout -->
+<div class="band band-numbers" id="s03">
+  <div class="band-inner">
+    <div class="reveal">
+      <div class="sec-num" style="font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--rausch2);margin-bottom:8px">03 — Scale in Numbers</div>
+      <p style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(245,240,236,.5);max-width:500px;line-height:1.6">What "marketplace" looks like when it reaches escape velocity.</p>
+      <div class="numbers-grid">
+        <div class="number-cell"><div class="n">7<span class="u">M</span></div><div class="l">Active listings globally</div></div>
+        <div class="number-cell"><div class="n">220<span class="u">+</span></div><div class="l">Countries & regions</div></div>
+        <div class="number-cell"><div class="n">$75<span class="u">B</span></div><div class="l">Current market cap</div></div>
+        <div class="number-cell"><div class="n">448<span class="u">M</span></div><div class="l">Nights booked FY2023</div></div>
+        <div class="number-cell"><div class="n">4<span class="u">M</span></div><div class="l">Active hosts</div></div>
+        <div class="number-cell"><div class="n">$9.9<span class="u">B</span></div><div class="l">Revenue FY2023</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 04 — BUSINESS MODEL — warm, split -->
+<div class="band band-warm band-split" id="s04">
+  <div class="band-inner">
+    <div class="reveal split-label">
+      <div class="sec-num">04 — Business Model</div>
+      <h2>The Take-Rate <em>Machine</em></h2>
+      <div class="split-rule"></div>
+    </div>
+    <div class="reveal split-content">
+      <p class="lead">Airbnb's model is deceptively simple: charge both sides of every transaction a percentage. Own no assets. Scale infinitely. The complexity is in keeping both sides of the marketplace happy enough to keep transacting.</p>
+      <ul class="alist">
+        <li><strong>Host Service Fee (~3%):</strong> Hosts pay a small fee on every booking. Low enough to feel negligible — high enough to generate billions at scale. Hosts are the supply side; Airbnb keeps them cheap to retain.</li>
+        <li><strong>Guest Service Fee (14–20%):</strong> Guests pay a higher percentage, which appears at checkout. This fee caused significant controversy and platform-switching when users realised the total cost. Airbnb has worked to increase price transparency to address this. <span class="framework-tag">Two-Sided Pricing</span></li>
+        <li><strong>Experiences:</strong> Local hosts offer activities (cooking classes, tours, surfing lessons). Airbnb takes ~20%. Lower volume than stays, but higher margin, higher differentiation, and deeper emotional engagement.</li>
+        <li><strong>Long-Term Stays:</strong> Remote work normalised month-long bookings. Airbnb now has a specific product for 28+ night stays. Longer stays = less frequent booking friction, higher lifetime value per guest. <span class="framework-tag teal">Product-Led Expansion</span></li>
+      </ul>
+      <div class="callout">
+        <div class="callout-lbl">Why This Model Is Extraordinary</div>
+        <p>Airbnb has near-zero marginal cost to add a listing or serve a booking. <strong>Every new host makes the product better for every guest.</strong> The platform grows richer — not more expensive to run — with scale. That's what makes two-sided marketplace economics genuinely compounding. <span class="framework-tag">Network Effects</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 — PRODUCT & TRUST — stone, full-width -->
+<div class="band band-stone" id="s05">
+  <div class="band-inner">
+    <div class="reveal">
+      <div class="sec-num">05 — Product & Trust Infrastructure</div>
+      <h2 class="sec-title">Trust Is <em>The Product</em></h2>
+      <p class="lead">The fundamental challenge of Airbnb isn't logistics — it's psychology. Getting a stranger to hand you their keys, or sleep in your home, requires an infrastructure of trust that didn't exist before Airbnb built it.</p>
+      <p>Airbnb's trust stack works in layers. <strong>Reviews</strong> create accountability — both hosts and guests are rated, and both scores are visible. <strong>Verified IDs</strong> reduce anonymity. <strong>AirCover</strong> provides $3M in host damage protection and $1M in liability coverage. <strong>Superhost status</strong> creates aspiration and signals quality. Together, these turn an inherently risky transaction into something that feels normal.</p>
+      <p>The early product breakthrough — <mark>professional photography</mark> — was not about making listings look good. It was about making the platform feel credible. When Chesky and Gebbia personally flew to New York in 2009 and photographed 20 listings themselves, bookings in New York doubled. The lesson: <strong>perception of quality drives conversion more than actual quality at the early stage.</strong></p>
+      <div class="callout">
+        <div class="callout-lbl">The Airbnb Paradox</div>
+        <p>The safest possible stay at Airbnb is arguably less safe than a regulated hotel. And yet millions of people choose it every day. <strong>Airbnb didn't solve safety — it solved the perception of safety.</strong> Reviews, SuperHost badges, and AirCover together make guests feel safe enough to book. That's a psychology product, not a security product. <span class="framework-tag">Trust Design</span></p>
+      </div>
+      <div class="pq">
+        <blockquote>Airbnb's product isn't square footage. It's the moment a guest realises they're somewhere — not just somewhere to sleep.</blockquote>
+        <cite>— FounderLens Analysis</cite>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 06 — GROWTH — dark, split -->
+<div class="band band-dark band-split" id="s06">
+  <div class="band-inner">
+    <div class="reveal split-label">
+      <div class="sec-num">06 — Growth Strategy</div>
+      <h2>Grown by <em>Hosts, Not Ads</em></h2>
+      <div class="split-rule"></div>
+    </div>
+    <div class="reveal split-content">
+      <p class="lead">Airbnb's most important growth decision was to treat hosts as the primary customer — not guests. Happy hosts list more, price better, respond faster, and create guests who come back. Every host acquisition decision compounds.</p>
+      <p><strong>The Craigslist Hack:</strong> In the early days, Airbnb built an unofficial integration that allowed hosts to cross-post their listings to Craigslist — driving guest discovery. This was a grey-area move that Craigslist eventually shut down. But it seeded Airbnb's marketplace with listings that converted well, because Craigslist users already had intent. <span class="framework-tag">Growth Hacking</span></p>
+      <p><strong>Word-of-Mouth at Scale:</strong> Once Airbnb reached critical mass, the product became its own growth engine. A guest who has a great stay tells people. A host who earns significant income tells people. <mark>Both sides of the marketplace have strong financial and social incentive to recruit new participants.</mark></p>
+      <div class="callout teal">
+        <div class="callout-lbl">The COVID Stress Test</div>
+        <p>In March 2020, Airbnb lost 80% of its bookings in 8 weeks. Chesky called it "the most challenging time" in the company's history. The response — laying off 25% of staff, cutting costs aggressively, refocusing on core home rentals — was painful and precise. <strong>The company became profitable within 18 months of the crash and IPO'd at the end of 2020.</strong> That's one of the most remarkable recoveries in recent business history. <span class="framework-tag teal">Crisis Strategy</span></p>
+      </div>
+      <p>Post-COVID, Airbnb also benefited from the permanent shift to remote work. <strong>"Live anywhere" became a real category</strong> — not just a weekend trip, but a month in Lisbon or three months in Chiang Mai. Airbnb's long-stay product was perfectly positioned for this shift because it required no product rebuild — just better marketing of an existing capability.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 07 — COMPETITIVE ADVANTAGE — warm, full-width -->
+<div class="band band-warm" id="s07">
+  <div class="band-inner">
+    <div class="reveal">
+      <div class="sec-num">07 — Competitive Advantage</div>
+      <h2 class="sec-title">Why Hotels <em>Couldn't Copy This</em></h2>
+      <p class="lead">Airbnb's moat isn't technology — any company can build a booking platform. It's the combination of brand, supply, and trust infrastructure that took fifteen years to assemble and cannot be replicated in a competitive sprint.</p>
+      <ul class="alist">
+        <li><strong>Supply Density:</strong> 7 million listings in 220 countries is a supply moat. Vrbo and Booking.com compete on listings, but Airbnb's breadth — from a villa in Tuscany to a treehouse in Costa Rica to an apartment in Seoul — is unmatched. Supply attracts guests. Guests attract hosts. <span class="framework-tag">Network Effects</span></li>
+        <li><strong>Brand as Default:</strong> "Let's Airbnb it" is a verb. That level of brand recognition — where your company becomes the shorthand for an entire behaviour — is extraordinarily rare. It means Airbnb's customer acquisition cost for repeat users is effectively zero.</li>
+        <li><strong>Trust Infrastructure:</strong> Fifteen years of reviews, SuperHost data, AirCover claims, and verified IDs is a trust database that no new entrant can fast-track. Starting a competitor means starting the trust stack from zero. <span class="framework-tag">Data Moat</span></li>
+        <li><strong>Host Loyalty:</strong> Many hosts earn significant income from Airbnb — some have built entire businesses around it. These hosts won't switch platforms even for slightly better economics, because the risk of losing their review history and Superhost status is too high. <span class="framework-tag">Switching Costs</span></li>
+        <li><strong>Experiences as Differentiation:</strong> No hotel chain offers a dinner cooked by a local chef in their home. Experiences give Airbnb a category that traditional hospitality literally cannot enter — they don't have the host supply, the brand trust, or the platform to make it work. <span class="framework-tag">Category Ownership</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 08 — STRATEGIC ANALYSIS — stone, full-width -->
+<div class="band band-stone" id="s08">
+  <div class="band-inner">
+    <div class="reveal">
+      <div class="sec-num">08 — Strategic Analysis</div>
+      <h2 class="sec-title">The Strategy <em>In Full</em></h2>
+      <p class="lead">Airbnb is a case study in supply-side strategy — the belief that if you build for the host, the guest will follow. That logic has held for fifteen years. The test now is whether it holds as the platform matures and competition intensifies.</p>
+      <div class="swot">
+        <div class="swot-cell swot-s"><h4>Strengths</h4><ul><li>Brand recognition as verb</li><li>7M+ listings at unmatched variety</li><li>Trust infrastructure (15yr of reviews)</li><li>Asset-light model, zero inventory</li><li>Profitable at scale</li></ul></div>
+        <div class="swot-cell swot-w"><h4>Weaknesses</h4><ul><li>Hidden fees erode trust at checkout</li><li>Inconsistent quality vs. hotels</li><li>Host behaviour hard to control</li><li>Regulatory exposure in key cities</li><li>Customer service at scale</li></ul></div>
+        <div class="swot-cell swot-o"><h4>Opportunities</h4><ul><li>Long-term / remote work stays</li><li>Experiences as differentiated product</li><li>Emerging markets: India, SE Asia</li><li>Corporate travel integration</li><li>AI-powered personalisation</li></ul></div>
+        <div class="swot-cell swot-t"><h4>Threats</h4><ul><li>Urban rental bans (NYC, Barcelona)</li><li>Vrbo and Booking.com scale</li><li>Hotel brands upgrading UX</li><li>Rising host costs → pricing out guests</li><li>Platform disintermediation</li></ul></div>
+      </div>
+      <p>The strategic risk most overlooked: <mark>Airbnb can't control its product.</mark> The experience a guest has depends almost entirely on the host — someone Airbnb doesn't employ, can't train, and can only incentivise. That's both the model's beauty and its biggest vulnerability. <span class="framework-tag">Principal-Agent Risk</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- 09 — RISKS — dark, split -->
+<div class="band band-dark band-split" id="s09">
+  <div class="band-inner">
+    <div class="reveal split-label">
+      <div class="sec-num">09 — Key Risks</div>
+      <h2>What Could <em>Actually Hurt</em> This</h2>
+      <div class="split-rule"></div>
+    </div>
+    <div class="reveal split-content">
+      <p class="lead">Airbnb's risks are real, structural, and in some cases getting worse. The company that disrupted the hotel industry now faces disruption from regulation, fee backlash, and the very cities that made it famous.</p>
+      <ul class="alist">
+        <li><strong>The Fee Transparency Problem:</strong> Airbnb listings show a base price, then add cleaning fees, service fees, and taxes at checkout. A $100/night listing often totals $180+. This "checkout shock" has driven users to Booking.com and hotels. Airbnb has added a "total price" toggle — but trust damage takes years to repair.</li>
+        <li><strong>Urban Regulation:</strong> New York City now requires hosts to register in person, be present during stays, and host a maximum of two guests. The result: Airbnb listings in NYC dropped by 80%. Barcelona, Amsterdam, and Paris have imposed similar restrictions. These aren't fringe cities — they're Airbnb's highest-value markets.</li>
+        <li><strong>Housing Market Backlash:</strong> The narrative that Airbnb removes affordable housing from local markets has become politically mainstream. Regulation is not slowing — it's accelerating. The company that was once celebrated for democratising travel is now sometimes cast as a villain in the housing debate.</li>
+        <li><strong>Quality Inconsistency:</strong> A hotel room in the Marriott brand delivers roughly the same experience worldwide. An Airbnb in the same city can range from exceptional to genuinely awful. At scale, inconsistency becomes a brand problem — especially as hotel brands improve their digital experience.</li>
+      </ul>
+      <div class="callout">
+        <div class="callout-lbl">The Existential Question</div>
+        <p>Can Airbnb maintain growth in its core urban markets as regulation tightens — or must it pivot its supply strategy toward non-urban, non-regulated inventory? <strong>The answer determines whether Airbnb remains a city product or becomes a rural/unique-stays niche.</strong> Both are viable businesses. They are not the same business.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 10 — LESSONS — warm, full-width -->
+<div class="band band-warm" id="s10">
+  <div class="band-inner">
+    <div class="reveal">
+      <div class="sec-num">10 — Lessons For Builders</div>
+      <h2 class="sec-title">What You Can <em>Actually Use</em></h2>
+      <p class="lead">Airbnb's story is about trust, supply, and the willingness to do things that don't scale — until they do. These are the patterns that transfer regardless of industry.</p>
+      <ul class="alist">
+        <li><strong>Do things that don't scale, on purpose.</strong> Flying to New York to photograph 20 apartments doesn't scale. It also doubled bookings. The instinct to automate before you understand what works is almost always wrong. Do it manually first. Scale what you learn.</li>
+        <li><strong>In a two-sided marketplace, pick a side and optimise for it.</strong> Airbnb picked hosts. Low fees, great tooling, Superhost status, AirCover. If hosts are happy, supply is abundant; if supply is abundant, guests have more choices; if guests have more choices, they come back. Pick the supply side in most marketplaces. Build for them obsessively.</li>
+        <li><strong>Trust is a product, not a policy.</strong> You can't write terms of service that make strangers trust each other. You have to build mechanisms — reviews, verification, guarantees — that systematically lower the psychological cost of taking a risk. Trust design is a real discipline.</li>
+        <li><strong>Brand is the last moat standing.</strong> When Airbnb's checkout fees got too high, people compared it to Booking.com. But many came back — because Airbnb's brand and variety held them. Build brand early. It's what survives when the product has problems.</li>
+        <li><strong>Regulation risk is a product risk.</strong> Airbnb treated regulation as a PR problem for years. It's a product problem. Design supply strategies that work inside the regulatory reality of your key markets, not around it.</li>
+      </ul>
+      <div class="callout teal">
+        <div class="callout-lbl">The One Insight</div>
+        <p>Airbnb proved that <strong>the size of a market is determined by trust, not by demand.</strong> Billions of people wanted to travel differently — but they didn't until Airbnb built the trust infrastructure that made it feel safe. Whenever you find a market that seems too small, ask whether it's actually demand that's missing — or trust.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VERDICT -->
+<section class="band-verdict" id="verdict">
+  <div class="verdict-inner">
+    <div class="reveal">
+      <div class="verdict-label">11 — FounderLens Verdict</div>
+      <h2 class="verdict-title">
+        Not a Hotel Disruptor.<br>
+        <em>A Trust</em> <strong>Infrastructure.</strong>
+      </h2>
+      <div class="verdict-divider"></div>
+      <div class="verdict-body">
+        <p>Airbnb's genius wasn't the idea — people have been renting rooms to strangers forever. The genius was understanding that <strong>the barrier to that market wasn't supply or demand. It was trust.</strong> And then systematically building every mechanism — reviews, verification, photography, guarantees, status systems — that lowers the psychological cost of trusting a stranger enough to sleep in their home.</p>
+        <p>What makes Airbnb genuinely singular is that it created an asset class. <em>Before Airbnb, a spare bedroom was just a room.</em> After Airbnb, it's a revenue-generating asset with a market price, a rating, a host identity, and a global audience. The company didn't just build a marketplace — it created the commodity being traded.</p>
+        <p>The challenge ahead is holding brand, trust, and supply density as regulation tightens in the most valuable urban markets. The company that started by selling air mattresses and cereal boxes now has to convince cities that its presence is good for them — not just for hosts and guests. <strong>That's a different kind of trust problem, and it may be harder than the first one.</strong></p>
+        <p>The lesson isn't "build a marketplace." The lesson is: <strong>find the market that exists but can't transact — because trust is missing — and then become the trust layer.</strong> Every transaction that flows through that trust layer is yours. Build the trust deep enough that switching feels like starting over.</p>
+        <p><em>The company that made strangers feel like neighbours also taught us that the most valuable things you can build are invisible: the infrastructure of human trust.</em></p>
+      </div>
+      <div class="verdict-signature">
+        <div class="verdict-sig-mark">FL</div>
+        <div class="verdict-sig-text">FounderLens · Airbnb Strategic Analysis · June 2026<br>Business intelligence explained simply through world-class companies</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Founder<em>Lens</em></div>
+      <div class="footer-sub">Business intelligence explained simply through world-class companies</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">All Analyses</a>
+      <a href="#">Founder Stories</a>
+      <a href="#">Strategy Library</a>
+      <a href="#">Subscribe</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <span>FounderLens</span> · Airbnb Strategic Analysis · June 2026 · For educational purposes · All data sourced from public filings
+  </div>
+</footer>
+
+<button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+const prog = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  prog.style.width = pct + '%';
+});
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(r => io.observe(r));
+</script>
+</body>
+</html>

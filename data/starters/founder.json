@@ -1,0 +1,29 @@
+{
+  "type": "founder",
+  "template": "founder-editorial",
+  "published": false,
+  "slug": "founder-slug",
+  "name": "Founder Name",
+  "company": "Company Name",
+  "eyebrow": "Founder Operating System",
+  "tagline": "Short founder descriptor",
+  "summary": "Two or three sentences explaining why this founder matters.",
+  "metaDescription": "FounderLens analysis of Founder Name.",
+  "image": "assets/founder-image.jpg",
+  "industry": "tech",
+  "tags": ["platform", "bootstrapped"],
+  "initials": "FN",
+  "added": "2026-06-13",
+  "card": { "color": "#174ea6", "textColor": "#ffffff" },
+  "theme": { "primary": "#174ea6", "accent": "#22c1c3" },
+  "kpis": [
+    { "value": "Value", "label": "KPI label" },
+    { "value": "Value", "label": "KPI label" },
+    { "value": "Value", "label": "KPI label" }
+  ],
+  "sections": [
+    { "title": "The Opportunity", "body": "Section content.", "quote": "Optional quote." },
+    { "title": "Business Model", "body": "Section content." },
+    { "title": "Founder Lessons", "body": "Section content." }
+  ]
+}

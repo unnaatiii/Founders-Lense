@@ -1,4 +1,10 @@
 {
+  "scripts": {
+    "new": "node scripts/new-content.mjs",
+    "generate": "node scripts/generate-pages.mjs",
+    "generate:check": "node scripts/generate-pages.mjs --check",
+    "generate:watch": "node scripts/generate-pages.mjs --watch"
+  },
   "dependencies": {
     "@vercel/analytics": "^2.0.1"
   }

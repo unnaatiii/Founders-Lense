@@ -729,6 +729,7 @@ body > nav {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="data/generated-catalog.js"></script>
 <script>
 const founderNav = document.getElementById('founderNav');
 window.addEventListener('scroll', () => {
@@ -757,6 +758,7 @@ document.addEventListener('keydown', event => {
      added     : Date added YYYY-MM-DD (for "Recently Added" sort)
 */
 const FOUNDERS = [
+  ...(window.GENERATED_FOUNDERS || []),
   {
     name: "Elon Musk",
     company: "Tesla, SpaceX, X",
