@@ -58,6 +58,35 @@ body{font-family:var(--sans);font-size:16px;line-height:1.75;-webkit-font-smooth
 .nav-tag{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dark-cream3);padding:4px 10px;border:1px solid rgba(240,240,236,.10);border-radius:20px}
 .nav-tag.live{border-color:rgba(255,208,0,.35);color:var(--bumble-yellow2)}
 
+
+/* ── Back to companies ── */
+
+.top{
+  max-width:1120px;margin:12px auto 0;padding:0 18px;
+  position:sticky;top:10px;z-index:500;
+}
+.topbar{
+  width:100%;
+  padding:10px 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  border:1px solid var(--rule-dk);
+  border-radius:999px;
+  background:rgba(248, 246, 246, 0.56);
+  backdrop-filter:blur(18px) saturate(1.4);
+  box-shadow:0 12px 40px rgba(0,0,0,.22);
+}
+.back{
+  display:flex;align-items:center;gap:10px;text-decoration:none;
+  color:var(--text-on-dk);font-weight:650;font-size:13px;
+}
+.back .b{
+  width:26px;height:26px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--rule-dk);background:rgba(255,255,255,.06);
+  color:var(--ub);
+}
+.back:hover{color:#fff}
+
 /* ═══ COVER ═══ */
 .cover{
   min-height:100vh;background:var(--midnight);
@@ -330,7 +359,12 @@ body{font-family:var(--sans);font-size:16px;line-height:1.75;-webkit-font-smooth
     <span class="nav-tag live">● Bumble</span>
   </div>
 </nav>
-
+<!-- BACK TO COMPANIES -->
+<div class="top">
+  <div class="topbar">
+    <a class="back" href="../company.html"><span class="b">&larr;</span> Companies</a>
+  </div>
+</div>
 <!-- COVER -->
 <section class="cover">
   <div class="cover-bg"></div>

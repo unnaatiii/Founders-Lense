@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FounderLens · Amul — Strategic Company Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --amul-red:      #E8282B;
+  --amul-red2:     #F05A5C;
+  --amul-red-pale: rgba(232,40,43,0.10);
+  --amul-gold:     #F5A623;
+  --amul-gold2:    #FAC35E;
+  --amul-gold-pale:rgba(245,166,35,0.12);
+  --amul-teal:     #1A8A75;
+  --amul-teal-pale:rgba(26,138,117,0.10);
+  --warm-white:    #fdfaf6;
+  --off-white:     #f8f3ed;
+  --ink:           #1a1208;
+  --ink2:          rgba(26,18,8,0.70);
+  --ink3:          rgba(26,18,8,0.42);
+  --light-rule:    rgba(26,18,8,0.08);
+  --midnight:      #0e0804;
+  --dark-cream:    #f5ede0;
+  --dark-cream2:   rgba(245,237,224,0.75);
+  --dark-cream3:   rgba(245,237,224,0.42);
+  --dark-rule:     rgba(245,237,224,0.09);
+
+  --serif:  'Lora', Georgia, serif;
+  --sans:   'Plus Jakarta Sans', sans-serif;
+  --mono:   'Space Mono', monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;background:var(--warm-white);overflow-x:hidden}
+
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--midnight)}
+::-webkit-scrollbar-thumb{background:var(--amul-red);border-radius:2px}
+
+#progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--amul-red),var(--amul-gold));z-index:200;width:0%;transition:width .1s linear}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(14,8,4,0.95);backdrop-filter:blur(24px) saturate(1.6);border-bottom:1px solid rgba(245,237,224,0.06);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 44px}
+.nav-logo{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--dark-cream);letter-spacing:-.01em}
+.nav-logo em{font-style:italic;color:var(--amul-gold2)}
+.nav-right{display:flex;align-items:center;gap:20px}
+.nav-tag{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dark-cream3);padding:4px 10px;border:1px solid rgba(245,237,224,.10);border-radius:20px}
+.nav-tag.live{border-color:rgba(232,40,43,.35);color:var(--amul-red2)}
+
+/* COVER */
+.cover{min-height:100vh;background:var(--midnight);display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+.cover-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 85% 15%, rgba(232,40,43,0.15) 0%, transparent 60%),radial-gradient(ellipse 50% 50% at 15% 85%, rgba(245,166,35,0.10) 0%, transparent 55%),radial-gradient(ellipse 40% 40% at 50% 50%, rgba(26,138,117,0.04) 0%, transparent 50%)}
+.cover-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(245,237,224,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(245,237,224,.03) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%)}
+.cover-inner{position:relative;z-index:2;max-width:960px;margin:0 auto;width:100%;padding:120px 44px 100px}
+.cover-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:28px;animation:fadeUp .8s ease both}
+.cover-eyebrow-pill{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:5px 12px;border-radius:20px;background:rgba(232,40,43,.15);border:1px solid rgba(232,40,43,.3);color:var(--amul-red)}
+.cover-eyebrow-line{width:28px;height:1px;background:rgba(245,237,224,.2)}
+.cover-eyebrow-text{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dark-cream3)}
+.cover-title{font-family:var(--serif);font-size:clamp(64px,9vw,130px);font-weight:400;line-height:.95;letter-spacing:-.03em;color:var(--dark-cream);margin-bottom:14px;animation:fadeUp .8s .1s ease both}
+.cover-title strong{font-weight:700;display:block}
+.cover-title em{font-style:italic;color:var(--amul-gold2);font-weight:400}
+.cover-sub{font-size:18px;color:var(--dark-cream2);max-width:600px;line-height:1.65;font-weight:300;margin-bottom:52px;animation:fadeUp .8s .2s ease both}
+.cover-kpis{display:flex;gap:0;flex-wrap:wrap;border-top:1px solid var(--dark-rule);border-bottom:1px solid var(--dark-rule);margin-bottom:48px;animation:fadeUp .8s .3s ease both}
+.ckpi{padding:20px 32px 20px 0;margin-right:32px;border-right:1px solid var(--dark-rule)}
+.ckpi:last-child{border-right:none}
+.ckpi-val{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--dark-cream);line-height:1}
+.ckpi-val em{color:var(--amul-gold2);font-style:normal}
+.ckpi-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--dark-cream3);margin-top:4px}
+.cover-tags{display:flex;gap:8px;flex-wrap:wrap;animation:fadeUp .8s .35s ease both}
+.cover-chip{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:20px;border:1px solid var(--dark-rule);color:var(--dark-cream3)}
+.cover-chip.coral{border-color:rgba(232,40,43,.4);color:var(--amul-red2);background:var(--amul-red-pale)}
+.cover-chip.teal{border-color:rgba(26,138,117,.4);color:#5dbfaf;background:var(--amul-teal-pale)}
+
+/* BANDS */
+.band{width:100%;position:relative;overflow:hidden}
+.band-inner{max-width:900px;margin:0 auto;padding:80px 44px}
+.band-warm{background:var(--warm-white)}
+.band-stone{background:var(--off-white)}
+.band-dark{background:var(--midnight)}
+.band-split .band-inner{display:grid;grid-template-columns:220px 1fr;gap:60px;align-items:start}
+.split-label{position:sticky;top:80px}
+.split-label .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:12px}
+.split-label h2{font-family:var(--serif);font-size:clamp(22px,2.5vw,30px);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin-bottom:12px}
+.split-label h2 em{font-style:italic;font-weight:400}
+.split-label .split-rule{width:32px;height:2px;margin-top:14px}
+
+/* NUMBERS BAND */
+.band-numbers{background:#0c0500}
+.band-numbers .band-inner{padding-top:60px;padding-bottom:60px}
+.numbers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:rgba(232,40,43,.12);border:1px solid rgba(232,40,43,.12);border-radius:12px;overflow:hidden;margin-top:36px}
+.number-cell{background:#0c0500;padding:28px 24px}
+.number-cell .n{font-family:var(--serif);font-size:42px;font-weight:700;color:var(--amul-gold2);line-height:1}
+.number-cell .u{font-family:var(--serif);font-size:22px;color:var(--amul-gold);font-weight:400}
+.number-cell .l{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,237,224,.35);margin-top:6px}
+
+/* WARM BAND */
+.band-warm .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--amul-red);margin-bottom:10px}
+.band-warm .sec-title{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:700;color:var(--ink);margin-bottom:28px;line-height:1.05;letter-spacing:-.02em}
+.band-warm .sec-title em{font-style:italic;color:var(--amul-red);font-weight:400}
+.band-warm .lead{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--ink2);line-height:1.65;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--light-rule)}
+.band-warm p{font-size:15.5px;color:var(--ink2);line-height:1.85;margin-bottom:18px}
+.band-warm p strong{color:var(--ink);font-weight:600}
+.band-warm mark{background:rgba(232,40,43,.10);color:#8b1e20;padding:1px 5px;border-radius:3px;font-weight:500}
+.band-warm .callout{background:#fff5f0;border-left:3px solid var(--amul-red);border-radius:0 8px 8px 0;padding:18px 22px;margin:24px 0}
+.band-warm .callout.teal{background:#eaf7f5;border-left-color:var(--amul-teal)}
+.band-warm .callout.gold{background:#fff8eb;border-left-color:var(--amul-gold)}
+.band-warm .callout-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--amul-red);margin-bottom:6px;font-weight:700}
+.band-warm .callout.teal .callout-lbl{color:var(--amul-teal)}
+.band-warm .callout.gold .callout-lbl{color:#c8841a}
+.band-warm .callout p{font-size:14px;color:var(--ink2);margin-bottom:0}
+.band-warm .callout p strong{color:var(--ink)}
+.band-warm .alist{list-style:none;margin:16px 0}
+.band-warm .alist li{padding:10px 0 10px 24px;position:relative;border-bottom:1px solid var(--light-rule);font-size:15px;color:var(--ink2)}
+.band-warm .alist li:last-child{border-bottom:none}
+.band-warm .alist li::before{content:'—';position:absolute;left:0;color:var(--amul-red);font-weight:700}
+.band-warm .alist li strong{color:var(--ink);font-weight:600}
+.band-warm .pq{margin:36px 0;padding:28px 32px;border-left:3px solid var(--amul-gold);background:linear-gradient(to right,rgba(245,166,35,.06),transparent);border-radius:0 8px 8px 0}
+.band-warm .pq blockquote{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--ink);line-height:1.5;margin-bottom:10px}
+.band-warm .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#c8841a;font-style:normal}
+.band-warm .framework-tag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(232,40,43,.09);color:#8b1e20;margin-left:4px;vertical-align:middle;font-weight:700}
+.band-warm .framework-tag.teal{background:rgba(26,138,117,.09);color:#0e5f51}
+.band-warm .framework-tag.gold{background:rgba(245,166,35,.12);color:#8a5a00}
+.band-split.band-warm .split-label .sec-num{color:var(--amul-red)}
+.band-split.band-warm .split-label h2{color:var(--ink)}
+.band-split.band-warm .split-label h2 em{color:var(--amul-red)}
+.band-split.band-warm .split-label .split-rule{background:var(--amul-red)}
+
+/* STONE BAND */
+.band-stone .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#8b1e20;margin-bottom:10px}
+.band-stone .sec-title{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:700;color:var(--ink);margin-bottom:28px;line-height:1.05;letter-spacing:-.02em}
+.band-stone .sec-title em{font-style:italic;color:#8b1e20;font-weight:400}
+.band-stone .lead{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--ink2);line-height:1.65;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--light-rule)}
+.band-stone p{font-size:15.5px;color:var(--ink2);line-height:1.85;margin-bottom:18px}
+.band-stone p strong{color:var(--ink);font-weight:600}
+.band-stone mark{background:rgba(232,40,43,.12);color:#8b1e20;padding:1px 5px;border-radius:3px;font-weight:500}
+.band-stone .callout{background:#fce8e8;border-left:3px solid #8b1e20;border-radius:0 8px 8px 0;padding:18px 22px;margin:24px 0}
+.band-stone .callout.gold{background:#fff8eb;border-left-color:var(--amul-gold)}
+.band-stone .callout-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#8b1e20;margin-bottom:6px;font-weight:700}
+.band-stone .callout.gold .callout-lbl{color:#c8841a}
+.band-stone .callout p{font-size:14px;color:var(--ink2);margin-bottom:0}
+.band-stone .callout p strong{color:var(--ink)}
+.band-stone .alist{list-style:none;margin:16px 0}
+.band-stone .alist li{padding:10px 0 10px 24px;position:relative;border-bottom:1px solid var(--light-rule);font-size:15px;color:var(--ink2)}
+.band-stone .alist li:last-child{border-bottom:none}
+.band-stone .alist li::before{content:'—';position:absolute;left:0;color:#8b1e20;font-weight:700}
+.band-stone .alist li strong{color:var(--ink);font-weight:600}
+.band-stone .pq{margin:36px 0;padding:28px 32px;border-left:3px solid var(--amul-gold);background:linear-gradient(to right,rgba(245,166,35,.06),transparent);border-radius:0 8px 8px 0}
+.band-stone .pq blockquote{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--ink);line-height:1.5;margin-bottom:10px}
+.band-stone .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#c8841a;font-style:normal}
+.band-stone .framework-tag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(232,40,43,.10);color:#8b1e20;margin-left:4px;vertical-align:middle;font-weight:700}
+.band-stone .framework-tag.gold{background:rgba(245,166,35,.12);color:#8a5a00}
+.band-split.band-stone .split-label .sec-num{color:#8b1e20}
+.band-split.band-stone .split-label h2{color:var(--ink)}
+.band-split.band-stone .split-label h2 em{color:#8b1e20}
+.band-split.band-stone .split-label .split-rule{background:#8b1e20}
+
+/* DARK BAND */
+.band-dark .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--amul-gold2);margin-bottom:10px}
+.band-dark .sec-title{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:700;color:var(--dark-cream);margin-bottom:28px;line-height:1.05;letter-spacing:-.02em}
+.band-dark .sec-title em{font-style:italic;color:var(--amul-gold2);font-weight:400}
+.band-dark .lead{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--dark-cream2);line-height:1.65;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--dark-rule)}
+.band-dark p{font-size:15.5px;color:var(--dark-cream2);line-height:1.85;margin-bottom:18px}
+.band-dark p strong{color:var(--dark-cream);font-weight:600}
+.band-dark mark{background:rgba(245,166,35,.15);color:var(--amul-gold2);padding:1px 5px;border-radius:3px;font-weight:500}
+.band-dark .callout{background:rgba(232,40,43,.07);border-left:3px solid var(--amul-red);border-radius:0 8px 8px 0;padding:18px 22px;margin:24px 0}
+.band-dark .callout.gold{background:rgba(245,166,35,.07);border-left-color:var(--amul-gold)}
+.band-dark .callout-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--amul-red2);margin-bottom:6px;font-weight:700}
+.band-dark .callout.gold .callout-lbl{color:var(--amul-gold2)}
+.band-dark .callout p{font-size:14px;color:var(--dark-cream2);margin-bottom:0}
+.band-dark .callout p strong{color:var(--dark-cream)}
+.band-dark .alist{list-style:none;margin:16px 0}
+.band-dark .alist li{padding:10px 0 10px 24px;position:relative;border-bottom:1px solid var(--dark-rule);font-size:15px;color:var(--dark-cream2)}
+.band-dark .alist li:last-child{border-bottom:none}
+.band-dark .alist li::before{content:'—';position:absolute;left:0;color:var(--amul-gold2);font-weight:700}
+.band-dark .alist li strong{color:var(--dark-cream)}
+.band-dark .pq{margin:36px 0;padding:28px 32px;border-left:3px solid var(--amul-gold);background:linear-gradient(to right,rgba(245,166,35,.07),transparent);border-radius:0 8px 8px 0}
+.band-dark .pq blockquote{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--dark-cream);line-height:1.5;margin-bottom:10px}
+.band-dark .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--amul-gold2);font-style:normal}
+.band-dark .framework-tag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(245,166,35,.13);color:var(--amul-gold2);margin-left:4px;vertical-align:middle;font-weight:700}
+.band-dark .framework-tag.teal{background:rgba(26,138,117,.12);color:#5dbfaf}
+.band-split.band-dark .split-label .sec-num{color:var(--amul-gold2)}
+.band-split.band-dark .split-label h2{color:var(--dark-cream)}
+.band-split.band-dark .split-label h2 em{color:var(--amul-gold2)}
+.band-split.band-dark .split-label .split-rule{background:var(--amul-gold)}
+
+/* STATS STRIP */
+.stats-strip{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0}
+.stat-card{flex:1;min-width:130px;border-radius:10px;padding:16px 20px;border:1px solid var(--light-rule);background:rgba(232,40,43,.03)}
+.stat-card.hi{background:rgba(232,40,43,.08);border-color:rgba(232,40,43,.18)}
+.stat-card.gold{background:rgba(245,166,35,.08);border-color:rgba(245,166,35,.22)}
+.stat-card .stat-val{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink);line-height:1}
+.stat-card.hi .stat-val{color:#8b1e20}
+.stat-card.gold .stat-val{color:#8a5a00}
+.stat-card .stat-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-top:5px}
+
+/* SWOT */
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:28px 0;border:1px solid var(--light-rule);border-radius:10px;overflow:hidden}
+.swot-cell{padding:20px 24px}
+.swot-cell h4{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.swot-cell ul{list-style:none}
+.swot-cell ul li{font-size:13px;color:var(--ink2);padding:4px 0;border-bottom:1px solid var(--light-rule)}
+.swot-cell ul li:last-child{border-bottom:none}
+.swot-s{background:#f0faf5;border-right:1px solid var(--light-rule);border-bottom:1px solid var(--light-rule)}
+.swot-s h4{color:#1b6e52}
+.swot-w{background:#fff5f5;border-bottom:1px solid var(--light-rule)}
+.swot-w h4{color:#8b1e20}
+.swot-o{background:#fffbee;border-right:1px solid var(--light-rule)}
+.swot-o h4{color:#8a5a00}
+.swot-t{background:#fdf5f0}
+.swot-t h4{color:#b24a1a}
+
+/* TIMELINE */
+.tl-strip{display:flex;gap:0;margin:32px 0;overflow-x:auto;padding-bottom:8px}
+.tl-node{flex:0 0 auto;width:200px;padding:0 20px 0 0;position:relative}
+.tl-node::after{content:'';position:absolute;top:11px;left:0;right:0;height:1px;background:rgba(232,40,43,.25)}
+.tl-node:last-child::after{right:20px}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--amul-red);border:2px solid var(--warm-white);position:relative;z-index:1;margin-bottom:10px}
+.band-dark .tl-dot{border-color:var(--midnight)}
+.tl-year{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--amul-gold2);font-weight:700;margin-bottom:4px}
+.tl-label{font-size:13px;color:var(--ink2);line-height:1.4}
+.band-dark .tl-label{color:var(--dark-cream2)}
+
+/* VERDICT */
+.band-verdict{background:var(--midnight);border-top:1px solid rgba(232,40,43,.10);position:relative;overflow:hidden}
+.band-verdict::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 70% 40%,rgba(245,166,35,.06) 0%,transparent 60%)}
+.verdict-inner{max-width:860px;margin:0 auto;padding:80px 44px;position:relative;z-index:1}
+.verdict-label{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--amul-gold2);margin-bottom:18px}
+.verdict-title{font-family:var(--serif);font-size:clamp(36px,5vw,64px);font-weight:400;color:var(--dark-cream);line-height:1.05;letter-spacing:-.02em;margin-bottom:28px}
+.verdict-title em{font-style:italic;color:var(--amul-gold2)}
+.verdict-title strong{font-weight:700}
+.verdict-divider{width:48px;height:2px;background:var(--amul-red);margin-bottom:32px}
+.verdict-body p{font-size:16px;color:var(--dark-cream2);line-height:1.9;margin-bottom:20px;font-weight:300}
+.verdict-body p strong{color:var(--dark-cream);font-weight:600}
+.verdict-body p em{font-style:italic;color:var(--amul-gold2)}
+.verdict-signature{display:flex;align-items:center;gap:16px;margin-top:48px;padding-top:28px;border-top:1px solid var(--dark-rule)}
+.verdict-sig-mark{width:36px;height:36px;border-radius:8px;background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.3);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--amul-gold2)}
+.verdict-sig-text{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dark-cream3);line-height:1.8}
+
+/* FOOTER */
+.footer{background:#070402;padding:40px 44px 24px;border-top:1px solid rgba(232,40,43,.06)}
+.footer-inner{max-width:860px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px;margin-bottom:28px}
+.footer-brand{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--dark-cream);margin-bottom:4px}
+.footer-brand em{font-style:italic;color:var(--amul-gold2)}
+.footer-sub{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--dark-cream3)}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap}
+.footer-links a{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dark-cream3);text-decoration:none}
+.footer-links a:hover{color:var(--amul-gold2)}
+.footer-copy{max-width:860px;margin:0 auto;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,224,.18);padding-top:16px;border-top:1px solid rgba(245,237,224,.05)}
+.footer-copy span{color:var(--amul-gold2)}
+
+/* FAB */
+.fab{position:fixed;bottom:28px;right:28px;width:40px;height:40px;border-radius:50%;background:var(--amul-red);color:#fff;border:none;font-size:16px;font-weight:700;cursor:pointer;z-index:300;box-shadow:0 4px 20px rgba(232,40,43,.35);display:flex;align-items:center;justify-content:center;transition:transform .15s}
+.fab:hover{transform:scale(1.08)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+@media(max-width:700px){
+  .nav{padding:0 20px}
+  .cover-inner,.band-inner,.verdict-inner{padding-left:20px;padding-right:20px}
+  .footer{padding:32px 20px 20px}
+  .swot{grid-template-columns:1fr}
+  .swot-s,.swot-w,.swot-o{border-right:none}
+  .band-split .band-inner{grid-template-columns:1fr;gap:0}
+  .split-label{position:static;margin-bottom:24px}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">Founder<em>Lens</em></div>
+  <div class="nav-right">
+    <span class="nav-tag">FMCG · Dairy</span>
+    <span class="nav-tag live">● Amul</span>
+  </div>
+</nav>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="cover-bg"></div>
+  <div class="cover-grid"></div>
+  <div class="cover-inner">
+    <div class="cover-eyebrow">
+      <span class="cover-eyebrow-pill">Strategic Analysis</span>
+      <span class="cover-eyebrow-line"></span>
+      <span class="cover-eyebrow-text">FounderLens · Case Study</span>
+    </div>
+    <h1 class="cover-title">
+      Amul<br>
+      <em>The Taste</em>
+      <strong>of India.</strong>
+    </h1>
+    <p class="cover-sub">How a village cooperative of 250 farmers in Anand, Gujarat defeated colonial dairy cartels — and became India's largest food brand, owned by 3.6 million farmers who have never met a venture capitalist.</p>
+    <div class="cover-kpis">
+      <div class="ckpi"><div class="ckpi-val">₹<em>80K</em>Cr</div><div class="ckpi-lbl">Annual Turnover FY24</div></div>
+      <div class="ckpi"><div class="ckpi-val"><em>3.6M</em></div><div class="ckpi-lbl">Farmer Members</div></div>
+      <div class="ckpi"><div class="ckpi-val"><em>18,700</em></div><div class="ckpi-lbl">Village Societies</div></div>
+      <div class="ckpi"><div class="ckpi-val"><em>1946</em></div><div class="ckpi-lbl">Founded</div></div>
+    </div>
+    <div class="cover-tags">
+      <span class="cover-chip coral">Anand, Gujarat</span>
+      <span class="cover-chip coral">Verghese Kurien · Tribhuvandas Patel</span>
+      <span class="cover-chip teal">Producer-Owned Cooperative</span>
+      <span class="cover-chip">Operation Flood · 1970</span>
+    </div>
+  </div>
+</section>
+
+<!-- 01 — OVERVIEW — warm, full-width -->
+<div class="band band-warm" id="s01">
+  <div class="band-inner">
+    <div class="reveal">
+      <div class="sec-num">01 — Company Overview</div>
+      <h2 class="sec-title">What Amul <em>Actually Is</em></h2>
+      <p class="lead">Most people think Amul is a dairy brand. It's not. Amul is a supply-chain revolution disguised as butter. It is the world's largest producer-owned dairy cooperative — a structure that turns 3.6 million smallholder farmers into co-owners of a ₹80,000 crore enterprise.</p>
+      <p>Amul stands for Anand Milk Union Limited and operates under the umbrella of GCMMF (Gujarat Co-operative Milk Marketing Federation). Farmers pour milk into village-level societies twice daily. The cooperative processes, brands, and sells it. <strong>Every rupee of profit flows back to the farmer</strong> — not to investors, private equity, or a promoter family.</p>
+      <p>The product range spans milk, butter, cheese, ghee, ice cream, chocolates, paneer, beverages, and baby food. The Amul Moppet — India's most iconic advertising character — has appeared on topical hoardings for over six decades, commenting on everything from cricket to elections. <strong>The brand is older than most Indian institutions, and arguably more trusted.</strong></p>
+      <div class="callout teal">
+        <div class="callout-lbl">The Real Business</div>
+        <p>Amul doesn't sell dairy. It sells economic dignity to Indian farmers. The product is a mechanism that transfers value from the urban consumer's wallet to the rural producer's bank account — with extraordinary efficiency and a butter-yellow brand along the way. <strong>The cooperative structure is the moat. The brand is the monument to it.</strong></p>
+      </div>
+      <div class="stats-strip">
+        <div class="stat-card hi"><div class="stat-val">₹80K Cr</div><div class="stat-lbl">FY2024 Turnover</div></div>
+        <div class="stat-card gold"><div class="stat-val">36M L/day</div><div class="stat-lbl">Milk Procurement</div></div>
+        <div class="stat-card hi"><div class="stat-val">3.6M</div><div class="stat-lbl">Farmer Members</div></div>
+        <div class="stat-card"><div class="stat-val">500+</div><div class="stat-lbl">Product SKUs</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 02 — ORIGIN — dark, split -->
+<div class="band band-dark band-split" id="s02">
+  <div class="band-inner">
+    <div class="reveal split-label">
+      <div class="sec-num">02 — Origin Story</div>
+      <h2>The Revolution <em>Nobody Funded</em></h2>
+      <div class="split-rule"></div>
+    </div>
+    <div class="reveal split-content">
+      <p class="lead">In 1945, farmers in Kaira district, Gujarat were being exploited by Polson Dairy — a British-run monopoly that set milk prices arbitrarily and rejected farmers' milk at will. Sardar Vallabhbhai Patel told a young farmer leader, Tribhuvandas Patel, to form their own cooperative. They did.</p>
+      <p>The Kaira District Cooperative Milk Producers' Union was born in 1946. Within a year, they needed a trained dairy technician to compete with Polson. Enter <strong>Verghese Kurien</strong> — a young engineer who arrived in Anand on a government scholarship bond he intended to escape. He never left.</p>
+      <p>Kurien's genius was not technical alone. He convinced the Government of India to give the cooperative a contract to supply milk to Bombay — the city Polson had supplied for years. <mark>In 14 days, Kurien's team built a pasteurisation plant.</mark> Within months, they had outcompeted the colonial monopoly. <span class="framework-tag gold">Founder Grit</span></p>
+      <div class="pq">
+        <blockquote>"I was never interested in building a dairy. I was interested in building an institution that served farmers."</blockquote>
+        <cite>— Verghese Kurien, Founder &amp; "Milkman of India"</cite>
+      </div>
+      <div class="tl-strip">
+        <div class="tl-node"><div class="tl-dot"></div><div class="tl-year">1946</div><div class="tl-label">Kaira District Cooperative founded. Polson boycott begins.</div></div>
+        <div class="tl-node"><div class="tl-dot"></div><div class="tl-year">1949</div><div class="tl-label">Kurien joins. First pasteurisation plant built in 14 days.</div></div>
+        <div class="tl-node"><div class="tl-dot"></div><div class="tl-year">1955</div><div class="tl-label">Amul brand launched. First product: butter.</div></div>
+        <div class="tl-node"><div class="tl-dot"></div><div class="tl-year">1970</div><div class="tl-label">Operation Flood begins. Anand model replicated nationally.</div></div>
+        <div class="tl-node"><div class="tl-dot"></div><div class="tl-year">1996</div><div class="tl-label">GCMMF formed. Amul becomes national federation brand.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 03 — NUMBERS — dark ticker -->
+<div class="band band-numbers" id="s03">
+  <div class="band-inner">
+    <div class="reveal">
+      <div class="sec-num" style="font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--amul-gold2);margin-bottom:8px">03 — Scale in Numbers</div>
+      <p style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(245,237,224,.5);max-width:500px;line-height:1.6">What "cooperative" looks like when it reaches a billion people.</p>
+      <div class="numbers-grid">
+        <div class="number-cell"><div class="n">3.6<span class="u">M</span></div><div class="l">Farmer members</div></div>
+        <div class="number-cell"><div class="n">18.7<span class="u">K</span></div><div class="l">Village societies</div></div>
+        <div class="number-cell"><div class="n">₹80<span class="u">K Cr</span></div><div class="l">Annual turnover FY24</div></div>
+        <div class="number-cell"><div class="n">36<span class="u">M L</span></div><div class="l">Milk procured daily</div></div>
+        <div class="number-cell"><div class="n">500<span class="u">+</span></div><div class="l">Products across categories</div></div>
+        <div class="number-cell"><div class="n">50<span class="u">+</span></div><div class="l">Countries exported to</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 04 — BUSINESS MODEL — warm, split -->
+<div class="band band-warm band-split" id="s04">
+  <div class="band-inner">
+    <div class="reveal split-label">
+      <div class="sec-num">04 — Business Model</div>
+      <h2>The Three-Tier <em>Machine</em></h2>
+      <div class="split-rule"></div>
+    </div>
+    <div class="reveal split-content">
+      <p class="lead">Amul runs on the "Anand Pattern" — a three-tier cooperative structure that has been the template for India's entire white revolution. It solves a fundamental economic problem: how do you aggregate the output of millions of subsistence farmers into a globally competitive supply chain?</p>
+      <ul class="alist">
+        <li><strong>Village Level — Dairy Cooperative Society (DCS):</strong> Farmers bring milk to their village society twice a day. The DCS tests fat content, weighs the milk, and pays the farmer on the spot — often within 10 minutes. No middlemen. No price negotiation. The machine decides. <span class="framework-tag">Price Transparency</span></li>
+        <li><strong>District Level — Union:</strong> The village societies pool milk into a district-level union (e.g., Amul, the Kaira union). The union owns the processing plants, chilling centres, and quality labs. It converts raw milk into butter, cheese, powder, and all branded products.</li>
+        <li><strong>State Level — GCMMF:</strong> The Gujarat Cooperative Milk Marketing Federation handles all branding, marketing, national distribution, and export. GCMMF is what most people see as "Amul" — but it is owned by the district unions, which are owned by the village societies, which are owned by the farmers. <span class="framework-tag gold">Inverted Ownership</span></li>
+      </ul>
+      <div class="callout gold">
+        <div class="callout-lbl">Why This Model Is Extraordinary</div>
+        <p>Amul has near-zero promoter cost. The farmers are simultaneously the raw material suppliers, the investors, the governance board, and the profit recipients. <strong>Every efficiency gain in the supply chain benefits the person at the bottom of the economic pyramid.</strong> This is capitalism structured backwards — and it works. <span class="framework-tag gold">Cooperative Economics</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 — BRAND — stone, full-width -->
+<div class="band band-stone" id="s05">
+  <div class="band-inner">
+    <div class="reveal">
+      <div class="sec-num">05 — Brand & Marketing</div>
+      <h2 class="sec-title">The Moppet Is <em>The Media</em></h2>
+      <p class="lead">Amul's advertising is among the most studied in Indian marketing history — not because it spent the most, but because it spent the least and said the most. The Amul Moppet (the Utterly Butterly girl) has been commenting on Indian life since 1966. She is the longest-running advertising campaign in the world.</p>
+      <p>The campaign, run by daCunha Communications, produces topical hoarding updates within 24–48 hours of major news events. <strong>India's biggest cricket victories, political scandals, budget announcements, and cultural moments</strong> — all have been processed through the Moppet's gentle wit. The result is a brand that feels alive, current, and somehow familiar regardless of the news cycle.</p>
+      <p>Amul spends roughly <mark>1% of turnover on advertising</mark> — a fraction of what FMCG competitors spend. It compensates through earned media: the topical hoardings get shared, covered, and discussed nationally for free. Every hoarding is a press release that people actually want to read. <span class="framework-tag gold">Earned Media Strategy</span></p>
+      <div class="callout">
+        <div class="callout-lbl">The Brand Paradox</div>
+        <p>Amul is a cooperative — a democratic institution owned by farmers — that has built one of India's most emotionally resonant consumer brands. Most cooperatives struggle with brand building because profit motive is diffuse. <strong>Amul solved this by centralising marketing under GCMMF while keeping ownership distributed.</strong> The brand is national. The ownership is local. <span class="framework-tag">Brand Architecture</span></p>
+      </div>
+      <div class="pq">
+        <blockquote>The Amul Moppet does not sell butter. She sells the feeling that someone is watching India with affection and wit — and that's more powerful than any product claim.</blockquote>
+        <cite>— FounderLens Analysis</cite>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 06 — OPERATION FLOOD — dark, split -->
+<div class="band band-dark band-split" id="s06">
+  <div class="band-inner">
+    <div class="reveal split-label">
+      <div class="sec-num">06 — Operation Flood</div>
+      <h2>How India Became <em>Milk Sufficient</em></h2>
+      <div class="split-rule"></div>
+    </div>
+    <div class="reveal split-content">
+      <p class="lead">In 1970, Kurien launched Operation Flood — the world's largest agricultural development programme. In three phases spanning 26 years, it replicated the Anand model across India, transforming a milk-deficit nation into the world's largest milk producer. This is Amul's most consequential act — it was never about Amul, it was about India.</p>
+      <p><strong>Phase I (1970–1981):</strong> Used European dairy surplus (provided as aid) to fund the creation of cooperatives in 18 states. Created the "Milk Grid" — a network of cold chains, processing plants, and village societies modelled on Anand.</p>
+      <p><strong>Phase II (1981–1985):</strong> Expanded to 136 milk sheds across India. <mark>Farmer membership grew to 4.25 million.</mark> Milk production doubled nationally. <span class="framework-tag gold">Policy + Business</span></p>
+      <p><strong>Phase III (1985–1996):</strong> Further deepened infrastructure. By the end of Operation Flood, India was producing more milk than any country on earth — and it was owned by the farmers who produced it.</p>
+      <div class="callout gold">
+        <div class="callout-lbl">The Kurien Doctrine</div>
+        <p>Kurien's operating principle: <strong>use professional management in service of farmer ownership, not in replacement of it.</strong> He hired IIM graduates to run cooperatives — not to extract profit, but to ensure farmers received every rupee they were owed. Management talent as a tool of equity, not extraction. <span class="framework-tag">Institutional Design</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 07 — COMPETITIVE ADVANTAGE — warm, full-width -->
+<div class="band band-warm" id="s07">
+  <div class="band-inner">
+    <div class="reveal">
+      <div class="sec-num">07 — Competitive Advantage</div>
+      <h2 class="sec-title">Why Private Dairy <em>Cannot Catch This</em></h2>
+      <p class="lead">Amul's moat is not a brand, a patent, or a technology. It is a legal and structural arrangement — a cooperative — that gives 3.6 million farmers ownership over an enterprise that would otherwise extract value from them. No private company can replicate this, because the structure itself is the differentiation.</p>
+      <ul class="alist">
+        <li><strong>Supply Lock-In:</strong> Amul's farmers are also its owners. They don't switch to competitors because they have no incentive to — they receive both the market price for milk AND the cooperative's surplus. Private dairies offering a few paisa more per litre can't compete with ownership. <span class="framework-tag">Switching Costs</span></li>
+        <li><strong>Procurement Network Depth:</strong> 18,700 village societies, 36 million litres daily. No private dairy in India is within a decade of building this. It took Amul 70 years and government policy to construct. <span class="framework-tag">Infrastructure Moat</span></li>
+        <li><strong>Brand Trust at Price:</strong> The Amul brand is trusted precisely because it is farmer-owned. Urban consumers buy Amul butter believing the cooperative structure prevents adulteration and ensures farmer welfare. That moral signal is part of the product. <span class="framework-tag">Mission Brand</span></li>
+        <li><strong>Zero Promoter Overhead:</strong> No promoter family takes dividends. No VC wants a 10x return. Amul's cost structure benefits from the absence of profit extraction at the top. <span class="framework-tag gold">Structural Efficiency</span></li>
+        <li><strong>Political and Social Immunity:</strong> Governments of every ideology have supported Amul because it represents 3.6 million farmer households — that's a constituency no politician wants to antagonise. Amul's political immunity is structural, not lobbied. <span class="framework-tag">Political Moat</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 08 — SWOT — stone, full-width -->
+<div class="band band-stone" id="s08">
+  <div class="band-inner">
+    <div class="reveal">
+      <div class="sec-num">08 — Strategic Analysis</div>
+      <h2 class="sec-title">The Strategy <em>In Full</em></h2>
+      <p class="lead">Amul is both a business and an institution. Its strategic analysis must account for both dimensions — the commercial pressures it faces, and the social mandate that shapes every decision it makes.</p>
+      <div class="swot">
+        <div class="swot-cell swot-s"><h4>Strengths</h4><ul><li>World's largest dairy cooperative</li><li>Iconic, trusted brand — 6+ decades</li><li>Vertically integrated supply chain</li><li>Zero promoter profit extraction</li><li>Government policy alignment</li></ul></div>
+        <div class="swot-cell swot-w"><h4>Weaknesses</h4><ul><li>Democratic governance can be slow</li><li>Quality consistency across 18K societies</li><li>Cold chain in remote rural areas</li><li>Limited premium positioning leverage</li><li>International scale still nascent</li></ul></div>
+        <div class="swot-cell swot-o"><h4>Opportunities</h4><ul><li>India's protein consumption growing fast</li><li>Export to Indian diaspora globally</li><li>Whey protein, nutraceuticals category</li><li>Digital farmer payments & traceability</li><li>Plant-based dairy adjacencies</li></ul></div>
+        <div class="swot-cell swot-t"><h4>Threats</h4><ul><li>Nandini, Mother Dairy regional rivalry</li><li>Private brands (Nestlé, Britannia) on margins</li><li>Climate change → cattle feed prices</li><li>Foot-and-mouth disease risk at scale</li><li>Urban consumer premiumisation shift</li></ul></div>
+      </div>
+      <p>The strategic risk most overlooked: <mark>Amul can't always move fast.</mark> A cooperative of 3.6 million farmers with democratic governance structures cannot pivot overnight. Speed is the cost of inclusion. That's a trade-off Amul has consciously chosen — and it's the right one for its mission. <span class="framework-tag">Governance Risk</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- 09 — RISKS — dark, split -->
+<div class="band band-dark band-split" id="s09">
+  <div class="band-inner">
+    <div class="reveal split-label">
+      <div class="sec-num">09 — Key Risks</div>
+      <h2>What Could <em>Actually Hurt</em> This</h2>
+      <div class="split-rule"></div>
+    </div>
+    <div class="reveal split-content">
+      <p class="lead">Amul's risks are less about competition and more about systemic pressures — climate, quality, and the structural difficulty of governing a 3.6-million-member democracy at commercial speed.</p>
+      <ul class="alist">
+        <li><strong>Cold Chain Gaps:</strong> Despite 70 years of infrastructure building, rural cold chain in India remains patchy. Milk spoilage at village society level is a persistent quality and economic loss that technology alone has not solved.</li>
+        <li><strong>Climate Vulnerability:</strong> Amul's supply base is smallholder farmers. Erratic monsoons, cattle disease outbreaks, and rising input costs (feed, fodder) directly hurt farmer income and milk procurement volumes. This isn't abstract — it's the single biggest operational risk.</li>
+        <li><strong>Private Dairy Competition in Premium:</strong> Nestlé, Britannia, and well-funded D2C brands are capturing urban premium segments — Greek yoghurt, oat milk, specialty cheese — that Amul has been slow to enter. Cooperatives don't pivot easily to premium.</li>
+        <li><strong>Political Interference:</strong> While political immunity is a moat, political interference is a risk. State governments occasionally pressure cooperative boards for populist pricing decisions that hurt farmer margins or processing economics.</li>
+      </ul>
+      <div class="callout gold">
+        <div class="callout-lbl">The Existential Question</div>
+        <p>Can Amul remain the dominant dairy brand as India urbanises rapidly and consumer preferences fragment? <strong>The cooperative model was built for a rural-supply, urban-demand India. The India of 2035 — with Gen Z consumers, premium D2C dairy brands, and plant-based alternatives — is a different market.</strong> Amul's greatest test may not come from a competitor. It may come from the consumers it helped to prosper. </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 10 — LESSONS — warm, full-width -->
+<div class="band band-warm" id="s10">
+  <div class="band-inner">
+    <div class="reveal">
+      <div class="sec-num">10 — Lessons For Builders</div>
+      <h2 class="sec-title">What You Can <em>Actually Use</em></h2>
+      <p class="lead">Amul's story is about structure, mission, and the willingness to design an institution for the long term even when short-term extraction would have been easier. These are the patterns that transfer — regardless of whether you're building a cooperative, a startup, or a career.</p>
+      <ul class="alist">
+        <li><strong>Structure determines who benefits.</strong> Before you design a product or a go-to-market, design who captures value. Amul chose farmer-ownership and built every other decision around it. The structure is the strategy — not the other way around.</li>
+        <li><strong>Management in service of mission, not instead of it.</strong> Kurien hired IIM graduates and built world-class processing plants — but always in service of farmer ownership, not to replace it. Professional management is a means, not an end. This distinction matters enormously at scale.</li>
+        <li><strong>A brand can carry a mission without explaining it.</strong> The Amul Moppet never says "cooperative." She never says "farmer welfare." She's just funny and Indian. But the brand's cooperative identity is part of why consumers trust it. <em>You can embed values in identity without preaching them.</em></li>
+        <li><strong>Earn your political immunity by genuinely serving your constituency.</strong> Amul doesn't have lobbyists. It has 3.6 million farmer families. Genuine economic value creation is more durable political protection than any relationship-building effort.</li>
+        <li><strong>Replication is the highest form of impact.</strong> Operation Flood didn't just build Amul — it replicated the Anand model nationally. The real leverage wasn't the product. It was the template. Build something worth copying, then help people copy it.</li>
+      </ul>
+      <div class="callout teal">
+        <div class="callout-lbl">The One Insight</div>
+        <p>Amul proved that <strong>the most durable businesses are built around a constituency, not a product.</strong> The butter, the cheese, the ice cream — these are outputs. The cooperative structure that serves 3.6 million farmers is the company. Whenever you find a group that is being systematically underserved or exploited by existing market structures, ask whether you can build the institution that corrects it. The market opportunity is always secondary to the mission clarity.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VERDICT -->
+<section class="band-verdict" id="verdict">
+  <div class="verdict-inner">
+    <div class="reveal">
+      <div class="verdict-label">11 — FounderLens Verdict</div>
+      <h2 class="verdict-title">
+        Not a Dairy Brand.<br>
+        <em>A Farmer's</em> <strong>Republic.</strong>
+      </h2>
+      <div class="verdict-divider"></div>
+      <div class="verdict-body">
+        <p>Amul's genius was never the butter. It was the realisation that <strong>the problem wasn't dairy — it was power.</strong> Farmers in Kaira had milk. They had land. They had labour. What they didn't have was market power, processing infrastructure, or brand identity. Kurien and Tribhuvandas gave them all three — and structured it so the farmers owned what they'd built.</p>
+        <p>What makes Amul genuinely singular is that it created an institution that has outlasted its founders, outlasted multiple governments, and outlasted every private dairy competitor that tried to out-price it. <em>The cooperative structure is self-reinforcing:</em> farmers who own the business protect it from competition that would extract from them. Every member is a defender.</p>
+        <p>The challenge ahead is holding relevance as India changes. The rural-to-urban migration that gave Amul its supply base is creating an urban consumer class that wants premium, personalised, and D2C dairy. <strong>Amul must find a way to be premium without abandoning affordability, and fast without abandoning democracy.</strong> That's a harder problem than defeating Polson.</p>
+        <p>The lesson isn't "build a cooperative." The lesson is: <strong>identify who has been systematically excluded from value in your industry, design the institution that includes them, and then make it impossible to exclude them again by giving them ownership.</strong> Amul didn't create demand for milk. It created a structure that made dairy work for the people who produce it.</p>
+        <p><em>The company that gave farmers butter also gave them dignity — and proved that the most revolutionary business model is one that refuses to extract from the people who make everything possible.</em></p>
+      </div>
+      <div class="verdict-signature">
+        <div class="verdict-sig-mark">FL</div>
+        <div class="verdict-sig-text">FounderLens · Amul Strategic Analysis · June 2026<br>Business intelligence explained simply through world-class companies</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Founder<em>Lens</em></div>
+      <div class="footer-sub">Business intelligence explained simply through world-class companies</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">All Analyses</a>
+      <a href="#">Founder Stories</a>
+      <a href="#">Strategy Library</a>
+      <a href="#">Subscribe</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <span>FounderLens</span> · Amul Strategic Analysis · June 2026 · For educational purposes · All data sourced from public filings
+  </div>
+</footer>
+
+<button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+const prog = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  prog.style.width = pct + '%';
+});
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(r => io.observe(r));
+</script>
+</body>
+</html>

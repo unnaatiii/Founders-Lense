@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Starbucks — FounderLens Company Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,600;1,9..144,700&family=Source+Sans+3:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green:      #00704A;
+  --green-dk:   #00432D;
+  --green-lt:   #2BAE76;
+  --green-glow: rgba(0,112,74,0.22);
+  --gold:       #C8A968;
+  --gold-lt:    #E6CC93;
+  --ink:        #0A1410;
+  --ink-mid:    #0E1B15;
+  --ink-lt:     #15281F;
+  --cream:      #F3EBDD;
+  --muted:      #8CA095;
+  --mid:        #5A6A60;
+  --off-white:  #EFE8DC;
+  --rule:       rgba(255,255,255,0.08);
+  --rule-lt:    rgba(255,255,255,0.15);
+
+  --display: 'Fraunces', Georgia, serif;
+  --body:    'Source Sans 3', system-ui, sans-serif;
+  --mono:    'IBM Plex Mono', monospace;
+  --r: 6px;
+  --r-lg: 12px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--body); background: var(--ink); color: var(--off-white); -webkit-font-smoothing: antialiased; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--green-lt); border-radius: 2px; }
+
+/* ── PROGRESS BAR ── */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--green-lt), var(--gold));
+  width: 0%; z-index: 999; transition: width .1s linear;
+}
+
+/* ── TICKER ── */
+.ticker {
+  background: var(--green-dk);
+  color: var(--cream);
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: .16em; text-transform: uppercase;
+  padding: 9px 0; overflow: hidden; white-space: nowrap;
+  position: sticky; top: 0; z-index: 200;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.ticker-track {
+  display: inline-block;
+  animation: scroll-left 32s linear infinite;
+  padding-left: 100%;
+}
+.ticker-track span { margin: 0 48px; }
+.ticker-track .bean { opacity: 0.55; color: var(--gold-lt); }
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Back to companies ── */
+.top{
+  max-width:1120px;margin:12px auto 0;padding:0 18px;
+  position:sticky;top:10px;z-index:500;
+}
+.topbar{
+  width:100%;
+  padding:10px 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  border:1px solid var(--rule-lt);
+  border-radius:999px;
+  background:rgba(7,15,11,0.62);
+  backdrop-filter:blur(18px) saturate(1.4);
+  box-shadow:0 12px 40px rgba(0,0,0,.28);
+}
+.back{
+  display:flex;align-items:center;gap:10px;text-decoration:none;
+  color:var(--off-white);font-weight:600;font-size:13px;font-family:var(--body);
+}
+.back .b{
+  width:26px;height:26px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--rule-lt);background:rgba(255,255,255,.06);
+  color:var(--gold-lt);
+}
+.back:hover{color:#fff}
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 33px; z-index: 190;
+  background: rgba(10,20,16,0.96);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--rule-lt);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 56px; height: 56px;
+}
+.nav-brand { display: flex; align-items: center; gap: 14px; }
+.nav-logo {
+  width: 38px; height: 38px;
+  background: var(--green); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--display); font-size: 16px; font-weight: 700;
+  color: var(--cream); letter-spacing: -.01em;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.nav-title { font-family: var(--display); font-size: 21px; font-weight: 600; color: #fff; letter-spacing: .01em; }
+.nav-sub { font-family: var(--mono); font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
+.nav-pills { display: flex; gap: 4px; }
+.nav-pill {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 13px; border-radius: 3px; border: 1px solid var(--rule-lt);
+  background: none; color: var(--muted); cursor: pointer; transition: all .15s;
+}
+.nav-pill:hover, .nav-pill.active { background: var(--green); color: #fff; border-color: var(--green); }
+.nav-badge {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 4px;
+  background: rgba(200,169,104,0.14); color: var(--gold-lt); border: 1px solid rgba(200,169,104,0.32);
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 96vh;
+  background: var(--ink);
+  display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 70% at 80% 50%, rgba(0,112,74,0.16) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(200,169,104,0.07) 0%, transparent 55%);
+}
+.hero-stripes {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 60px,
+    rgba(255,255,255,0.012) 60px,
+    rgba(255,255,255,0.012) 61px
+  );
+}
+.hero-left {
+  padding: 80px 56px; display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 1;
+}
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+  animation: fade-up .7s ease both;
+}
+.hero-eyebrow-bar { width: 28px; height: 3px; background: var(--green-lt); }
+.hero-eyebrow-text {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--gold-lt);
+}
+.hero-h1 {
+  font-family: var(--display); font-size: clamp(56px, 8vw, 104px);
+  font-weight: 600; line-height: .94; color: #fff;
+  letter-spacing: -.01em; margin-bottom: 8px;
+  animation: fade-up .7s .07s ease both;
+}
+.hero-h1 em { font-style: italic; color: var(--green-lt); font-weight: 600; }
+.hero-sub {
+  font-family: var(--display); font-size: clamp(18px, 2.4vw, 26px); font-weight: 400;
+  font-style: italic; color: rgba(255,255,255,0.5);
+  margin-bottom: 32px; line-height: 1.3;
+  animation: fade-up .7s .14s ease both;
+}
+.hero-desc {
+  font-size: 15px; line-height: 1.85; color: rgba(255,255,255,0.58);
+  max-width: 460px; font-weight: 300; margin-bottom: 36px;
+  animation: fade-up .7s .2s ease both;
+}
+.hero-desc strong { color: rgba(255,255,255,0.92); font-weight: 600; }
+
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
+  background: var(--rule); border-radius: var(--r); overflow: hidden;
+  margin-bottom: 28px; animation: fade-up .7s .26s ease both;
+}
+.kpi-cell {
+  background: var(--ink-mid); padding: 16px 14px; text-align: center;
+  transition: background .2s;
+}
+.kpi-cell:hover { background: rgba(0,112,74,0.16); }
+.kpi-val {
+  font-family: var(--display); font-size: 25px; font-weight: 700;
+  color: var(--gold-lt); line-height: 1; margin-bottom: 5px; letter-spacing: -.01em;
+}
+.kpi-lbl {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .14em;
+  text-transform: uppercase; color: rgba(255,255,255,0.32);
+}
+
+.hero-tags { display: flex; gap: 7px; flex-wrap: wrap; animation: fade-up .7s .32s ease both; }
+.hero-tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 11px; border-radius: 3px;
+  background: rgba(255,255,255,0.06); border: 1px solid var(--rule-lt);
+  color: rgba(255,255,255,0.45); transition: all .15s; cursor: default;
+}
+.hero-tag:hover { background: rgba(0,112,74,0.25); color: var(--green-lt); border-color: rgba(0,112,74,0.45); }
+.hero-tag.acc { background: rgba(0,112,74,0.18); border-color: rgba(0,112,74,0.4); color: var(--green-lt); }
+
+/* Hero right — cup visual */
+.hero-right {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  gap: 24px; padding: 60px 40px;
+}
+.cup-wrap {
+  position: relative; display: flex; align-items: center; justify-content: center;
+}
+.cup-glow {
+  position: absolute; width: 220px; height: 220px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,112,74,0.25) 0%, transparent 70%);
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.6; }
+}
+.cup-svg {
+  width: 120px; position: relative; z-index: 1;
+  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 20px 40px rgba(0,112,74,0.32));
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+.steam { animation: rise 3.2s ease-in-out infinite; transform-origin: center; }
+.steam.s2 { animation-delay: .6s; }
+.steam.s3 { animation-delay: 1.2s; }
+@keyframes rise {
+  0%   { transform: translateY(4px); opacity: 0; }
+  25%  { opacity: .55; }
+  75%  { opacity: .15; }
+  100% { transform: translateY(-14px); opacity: 0; }
+}
+.orbit-ring {
+  position: absolute; border-radius: 50%; border: 1px solid;
+  animation: spin 22s linear infinite;
+}
+.orbit-1 { width: 200px; height: 200px; border-color: rgba(0,112,74,0.22); }
+.orbit-2 { width: 280px; height: 280px; border-color: rgba(200,169,104,0.14); animation-duration: 38s; animation-direction: reverse; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.orbit-star {
+  position: absolute; top: -7px; left: 50%; margin-left: -6px;
+  font-size: 11px; line-height: 1; color: var(--gold);
+}
+.orbit-star.alt { color: var(--green-lt); top: auto; bottom: -7px; left: 32%; margin-left: -6px; }
+
+.hero-quote-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--rule-lt);
+  border-left: 3px solid var(--green-lt);
+  border-radius: var(--r); padding: 18px 22px; max-width: 300px;
+}
+.hero-quote-text {
+  font-family: var(--display); font-size: 15px; font-style: italic; font-weight: 400;
+  color: rgba(255,255,255,0.78); line-height: 1.5; margin-bottom: 10px;
+}
+.hero-quote-attr {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gold-lt);
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── LAYOUT ── */
+.article-wrap { display: grid; grid-template-columns: 220px 1fr; }
+
+/* Sidebar */
+.sidebar {
+  position: sticky; top: 89px; height: calc(100vh - 89px);
+  overflow-y: auto; scrollbar-width: none;
+  background: var(--ink-mid); border-right: 1px solid var(--rule);
+  padding: 32px 0;
+}
+.sidebar::-webkit-scrollbar { display: none; }
+.toc-label {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold-lt); padding: 0 20px; margin-bottom: 8px; margin-top: 18px; display: block;
+}
+.toc-btn {
+  display: block; width: 100%; text-align: left;
+  font-family: var(--body); font-size: 12px; font-weight: 400;
+  color: var(--muted); padding: 8px 20px 8px 18px;
+  border-left: 3px solid transparent; border: none; background: none; cursor: pointer;
+  transition: all .15s; line-height: 1.4;
+}
+.toc-btn:hover { color: #fff; background: rgba(0,112,74,0.12); }
+.toc-btn.active {
+  color: #fff; border-left-color: var(--green-lt);
+  background: rgba(0,112,74,0.16); font-weight: 600;
+}
+
+/* ── SECTION BLOCKS ── */
+.sec {
+  padding: 72px 64px;
+  scroll-margin-top: 92px;
+  border-bottom: 1px solid var(--rule);
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.sec.vis { opacity: 1; transform: none; }
+
+.sec.dark     { background: var(--ink); }
+.sec.dark-alt { background: var(--ink-mid); }
+.sec.dark-lt  { background: var(--ink-lt); }
+.sec.gradient-green {
+  background: linear-gradient(135deg, var(--ink) 0%, rgba(0,112,74,0.1) 50%, var(--ink-mid) 100%);
+}
+.sec.gradient-gold {
+  background: linear-gradient(135deg, var(--ink-mid) 0%, rgba(200,169,104,0.07) 60%, var(--ink) 100%);
+}
+.sec.gradient-dark {
+  background: linear-gradient(135deg, #0c1612 0%, #112019 60%, #0a1410 100%);
+}
+
+/* Section typography */
+.sec-num {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .24em;
+  text-transform: uppercase; margin-bottom: 10px; color: var(--green-lt);
+}
+.sec-title {
+  font-family: var(--display); font-size: clamp(28px, 4vw, 44px);
+  font-weight: 600; line-height: 1.02;
+  letter-spacing: -.005em; margin-bottom: 20px; color: #fff;
+}
+.sec-title em { font-style: italic; color: var(--green-lt); font-weight: 600; }
+.lead {
+  font-size: 17px; line-height: 1.75; font-weight: 300; margin-bottom: 28px; max-width: 680px;
+  color: rgba(255,255,255,0.62);
+}
+.lead strong { color: #fff; font-weight: 600; }
+.bp {
+  font-size: 15px; line-height: 1.8; font-weight: 300; margin-bottom: 16px; max-width: 680px;
+  color: rgba(255,255,255,0.56);
+}
+.bp strong { color: rgba(255,255,255,0.92); font-weight: 600; }
+.ctag {
+  display: inline-block; font-family: var(--mono); font-size: 9px; letter-spacing: .1em;
+  text-transform: uppercase; padding: 3px 9px; border-radius: 3px;
+  background: rgba(0,112,74,0.18); color: var(--green-lt); border: 1px solid rgba(0,112,74,0.3);
+  margin-left: 4px; vertical-align: middle;
+}
+
+/* ── PULLQUOTE ── */
+.pq {
+  margin: 28px 0; padding: 20px 24px; border-radius: var(--r);
+  border-left: 3px solid var(--green-lt); background: rgba(0,112,74,0.08); max-width: 680px;
+}
+.pq blockquote {
+  font-family: var(--display); font-size: 21px; font-style: italic; font-weight: 500;
+  line-height: 1.3; margin-bottom: 10px; color: #fff;
+}
+.pq cite { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; font-style: normal; color: var(--gold-lt); }
+
+/* ── INSIGHT CARDS ── */
+.insight-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: 12px; margin: 28px 0; }
+.insight-card {
+  background: var(--ink-mid); border: 1px solid var(--rule);
+  border-radius: var(--r); padding: 20px 18px;
+  transition: transform .15s, border-color .15s;
+}
+.insight-card:hover { transform: translateY(-3px); border-color: rgba(0,112,74,0.45); }
+.ic-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+.ic-title { font-family: var(--display); font-size: 17px; font-weight: 600; margin-bottom: 6px; color: #fff; }
+.ic-desc { font-size: 12.5px; line-height: 1.6; font-weight: 300; color: var(--muted); }
+
+/* ── STAT CARDS ── */
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 8px; margin: 28px 0; }
+.stat-card {
+  background: var(--ink-lt); border: 1px solid var(--rule); border-radius: var(--r);
+  padding: 18px 14px; text-align: center; transition: transform .15s;
+}
+.stat-card:hover { transform: translateY(-2px); border-color: rgba(0,112,74,0.35); }
+.stat-val { font-family: var(--display); font-size: 27px; font-weight: 700; color: var(--gold-lt); line-height: 1; margin-bottom: 5px; }
+.stat-lbl { font-family: var(--mono); font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+
+/* ── INFO ROWS ── */
+.info-rows { margin: 20px 0; max-width: 680px; }
+.info-row { display: flex; gap: 20px; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 14.5px; align-items: flex-start; }
+.info-row:last-child { border-bottom: none; }
+.info-key { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; flex-shrink: 0; width: 140px; padding-top: 3px; font-weight: 500; color: var(--green-lt); }
+.info-val { line-height: 1.6; font-weight: 300; color: rgba(255,255,255,0.62); }
+.info-val strong { font-weight: 600; color: #fff; }
+
+/* ── SWOT ── */
+.swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 28px 0; border-radius: var(--r); overflow: hidden; max-width: 680px; background: var(--rule); }
+.swot-cell { padding: 22px 20px; }
+.swot-s { background: #0c1f12; } .swot-w { background: #1f160a; }
+.swot-o { background: #0a1a1e; } .swot-t { background: #1e0e12; }
+.swot-head { font-family: var(--mono); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; font-weight: 500; margin-bottom: 10px; }
+.swot-s .swot-head { color: #5fb87f; } .swot-w .swot-head { color: #d4a050; }
+.swot-o .swot-head { color: #50a8d4; } .swot-t .swot-head { color: #d4555f; }
+.swot-list { list-style: none; }
+.swot-list li { font-size: 13px; line-height: 1.6; color: var(--muted); padding: 3px 0; font-weight: 300; }
+.swot-list li::before { content: '— '; opacity: 0.5; }
+
+/* ── MOAT BARS ── */
+.moat-bars { margin: 28px 0; max-width: 600px; }
+.moat-bar { margin-bottom: 16px; }
+.moat-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.moat-name { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.82); }
+.moat-score { font-family: var(--mono); font-size: 11px; color: var(--gold-lt); }
+.moat-track { height: 5px; border-radius: 3px; overflow: hidden; background: rgba(255,255,255,0.08); }
+.moat-fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--green), var(--gold));
+  width: 0%; transition: width 1.2s cubic-bezier(.16,1,.3,1);
+}
+
+/* ── RISK CARDS ── */
+.risk-list { margin: 24px 0; max-width: 680px; }
+.risk-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--rule); }
+.risk-item:last-child { border-bottom: none; }
+.risk-badge { flex-shrink: 0; width: 44px; height: 22px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 8px; letter-spacing: .1em; font-weight: 500; margin-top: 2px; }
+.risk-high { background: rgba(183,28,28,0.28); color: #ef6e66; }
+.risk-med  { background: rgba(180,120,0,0.25); color: #e0a850; }
+.risk-low  { background: rgba(27,94,32,0.32); color: #6fbb72; }
+.risk-content-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: #fff; font-family: var(--display); }
+.risk-content-desc { font-size: 13px; line-height: 1.65; font-weight: 300; color: var(--muted); }
+
+/* ── TIMELINE ── */
+.timeline { margin: 28px 0; max-width: 680px; position: relative; padding-left: 28px; }
+.timeline::before { content: ''; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(to bottom, var(--green-lt), var(--gold)); }
+.tl-item { position: relative; margin-bottom: 24px; }
+.tl-dot { position: absolute; left: -24px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--green-lt); border: 2px solid var(--ink); }
+.tl-year { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; color: var(--gold-lt); margin-bottom: 4px; }
+.tl-event { font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.66); font-weight: 300; }
+.tl-event strong { color: #fff; font-weight: 600; }
+
+/* ── LESSONS GRID ── */
+.lessons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0; }
+.lesson-card {
+  background: var(--ink-mid); border: 1px solid var(--rule);
+  border-radius: var(--r); padding: 22px 20px;
+  transition: transform .15s, border-color .15s;
+}
+.lesson-card:hover { transform: translateY(-2px); border-color: rgba(0,112,74,0.45); }
+.lesson-num { font-family: var(--display); font-size: 46px; font-weight: 700; color: rgba(0,112,74,0.16); line-height: 1; margin-bottom: -4px; }
+.lesson-title { font-family: var(--display); font-size: 17px; font-weight: 600; color: var(--gold-lt); margin-bottom: 8px; }
+.lesson-desc { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,0.56); font-weight: 300; }
+
+/* ── VERDICT ── */
+.verdict-box {
+  border-radius: var(--r-lg); padding: 40px 44px; margin: 32px 0; max-width: 720px;
+  border-left: 5px solid var(--green-lt);
+  background: rgba(255,255,255,0.03); border-top: 1px solid var(--rule); border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+}
+.verdict-box h3 { font-family: var(--display); font-size: 25px; font-style: italic; font-weight: 600; margin-bottom: 20px; line-height: 1.25; color: var(--green-lt); }
+.verdict-box p { font-size: 15px; line-height: 1.85; margin-bottom: 14px; font-weight: 300; color: rgba(255,255,255,0.64); }
+.verdict-box p strong { font-weight: 600; color: #fff; }
+.verdict-box .verdict-note { border-top: 1px solid var(--rule); padding-top: 18px; margin-top: 20px; font-style: italic; font-size: 13.5px; color: rgba(255,255,255,0.4); }
+
+/* ── STORE / OCCASION CATEGORIES ── */
+.sport-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap: 10px; margin: 24px 0; }
+.sport-card {
+  background: var(--ink-lt); border: 1px solid var(--rule); border-radius: var(--r);
+  padding: 16px 14px; text-align: center; transition: transform .15s, border-color .15s;
+}
+.sport-card:hover { transform: translateY(-3px); border-color: rgba(0,112,74,0.5); }
+.sport-emoji { font-size: 28px; margin-bottom: 8px; display: block; }
+.sport-name { font-family: var(--display); font-size: 13.5px; font-weight: 600; letter-spacing: .01em; color: #fff; margin-bottom: 4px; }
+.sport-detail { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: .07em; }
+
+/* ── PILLARS ── */
+.pillar-list { margin: 24px 0; max-width: 680px; }
+.pillar { display: flex; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--rule); align-items: flex-start; }
+.pillar:last-child { border-bottom: none; }
+.pillar-num { font-family: var(--display); font-size: 30px; font-weight: 700; color: var(--green-lt); line-height: 1; flex-shrink: 0; width: 36px; }
+.pillar-body { flex: 1; }
+.pillar-title { font-family: var(--display); font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 5px; }
+.pillar-desc { font-size: 13.5px; line-height: 1.65; color: var(--muted); font-weight: 300; }
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--ink); border-top: 1px solid var(--rule);
+  padding: 48px 56px 40px;
+}
+.footer-inner { max-width: 720px; }
+.footer-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--display); font-size: 19px; font-weight: 700;
+  color: #fff; margin-bottom: 12px;
+}
+.footer-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green-lt); }
+.footer-desc { font-size: 13px; line-height: 1.7; color: var(--muted); margin-bottom: 24px; max-width: 480px; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; padding-top: 20px; border-top: 1px solid var(--rule); }
+.footer-copy { font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.25); letter-spacing: .06em; }
+.footer-copy span { color: var(--gold-lt); }
+.footer-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.footer-tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 3px;
+  background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.3);
+  border: 1px solid var(--rule);
+}
+
+.scroll-top {
+  position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px;
+  background: var(--green); border: none; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .15s; z-index: 100;
+}
+.scroll-top:hover { background: var(--green-dk); }
+.scroll-top svg { width: 18px; height: 18px; fill: #fff; }
+
+/* rc = reveal container */
+.rc { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+.rc.vis { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>Starbucks Corporation</span><span class="bean">●</span>
+    <span>Founded 1971 · Pike Place Market, Seattle</span><span class="bean">●</span>
+    <span>40,990+ stores across 87 countries (2025)</span><span class="bean">●</span>
+    <span>Brian Niccol, Chairman &amp; CEO</span><span class="bean">●</span>
+    <span>FY2025 Revenue: $37.18B</span><span class="bean">●</span>
+    <span>~381,000 partners worldwide</span><span class="bean">●</span>
+    <span>34.6M active U.S. Rewards members</span><span class="bean">●</span>
+    <span>NASDAQ: SBUX</span><span class="bean">●</span>
+    <span>Starbucks Corporation</span><span class="bean">●</span>
+    <span>Founded 1971 · Pike Place Market, Seattle</span><span class="bean">●</span>
+    <span>40,990+ stores across 87 countries (2025)</span><span class="bean">●</span>
+    <span>Brian Niccol, Chairman &amp; CEO</span><span class="bean">●</span>
+    <span>FY2025 Revenue: $37.18B</span><span class="bean">●</span>
+    <span>~381,000 partners worldwide</span><span class="bean">●</span>
+    <span>34.6M active U.S. Rewards members</span><span class="bean">●</span>
+    <span>NASDAQ: SBUX</span><span class="bean">●</span>
+  </div>
+</div>
+<!-- BACK TO COMPANIES -->
+<div class="top">
+  <div class="topbar">
+    <a class="back" href="../company.html"><span class="b">&larr;</span> Companies</a>
+  </div>
+</div>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-logo">SB</div>
+    <div>
+      <div class="nav-title">Starbucks</div>
+      <div class="nav-sub">FounderLens · Company Analysis</div>
+    </div>
+  </div>
+  <div class="nav-pills">
+    <button class="nav-pill active" onclick="gotoSec('origin')">Origin</button>
+    <button class="nav-pill" onclick="gotoSec('model')">Model</button>
+    <button class="nav-pill" onclick="gotoSec('thirdplace')">Third Place</button>
+    <button class="nav-pill" onclick="gotoSec('moat')">Moat</button>
+    <button class="nav-pill" onclick="gotoSec('lessons')">Lessons</button>
+  </div>
+  <div class="nav-badge">Issue #09</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-stripes"></div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-bar"></div>
+      <div class="hero-eyebrow-text">FounderLens · Retail &amp; Ritual</div>
+    </div>
+    <h1 class="hero-h1">Star<br><em>bucks</em></h1>
+    <p class="hero-sub">The Third Place That Became a Daily Habit</p>
+    <p class="hero-desc">Starbucks is proof that <strong>a commodity can be sold as an identity if you design the right ritual around it.</strong> A ten-cent bean became a five-dollar moment of belonging, repeated twice a week by hundreds of millions of people. Understanding Starbucks means understanding how to turn a transaction into a habit — and how fragile that habit becomes once the ritual slips.</p>
+
+    <div class="kpi-grid">
+      <div class="kpi-cell"><div class="kpi-val">40,990+</div><div class="kpi-lbl">Stores worldwide</div></div>
+      <div class="kpi-cell"><div class="kpi-val">$37.18B</div><div class="kpi-lbl">FY2025 revenue</div></div>
+      <div class="kpi-cell"><div class="kpi-val">87</div><div class="kpi-lbl">Countries served</div></div>
+      <div class="kpi-cell"><div class="kpi-val">381K</div><div class="kpi-lbl">Partners worldwide</div></div>
+      <div class="kpi-cell"><div class="kpi-val">34.6M</div><div class="kpi-lbl">U.S. Rewards members</div></div>
+      <div class="kpi-cell"><div class="kpi-val">1971</div><div class="kpi-lbl">Year founded</div></div>
+    </div>
+
+    <div class="hero-tags">
+      <span class="hero-tag acc">Third Place</span>
+      <span class="hero-tag acc">Loyalty Flywheel</span>
+      <span class="hero-tag">Premium Ritual</span>
+      <span class="hero-tag">Global Licensing</span>
+      <span class="hero-tag">Direct Trade Sourcing</span>
+      <span class="hero-tag">Digital-First Retail</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="cup-wrap">
+      <div class="cup-glow"></div>
+      <!-- Orbit rings, dotted with reward "stars" -->
+      <div class="orbit-ring orbit-1"><div class="orbit-star">★</div></div>
+      <div class="orbit-ring orbit-2"><div class="orbit-star alt">★</div></div>
+      <!-- Coffee cup SVG -->
+      <svg class="cup-svg" viewBox="0 0 80 180" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="cupGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#cfc6b6"/>
+            <stop offset="18%" style="stop-color:#F3EBDD"/>
+            <stop offset="55%" style="stop-color:#fffaf0"/>
+            <stop offset="82%" style="stop-color:#F3EBDD"/>
+            <stop offset="100%" style="stop-color:#cfc6b6"/>
+          </linearGradient>
+          <linearGradient id="lidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#fbfbf8"/>
+            <stop offset="100%" style="stop-color:#d8d4c8"/>
+          </linearGradient>
+          <linearGradient id="bandGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#008a5c"/>
+            <stop offset="50%" style="stop-color:#00704A"/>
+            <stop offset="100%" style="stop-color:#00432D"/>
+          </linearGradient>
+        </defs>
+        <!-- Cup body -->
+        <path d="M14,34 L66,34 L58,168 Q40,177 22,168 Z" fill="url(#cupGrad)"/>
+        <!-- Green wrap band -->
+        <path d="M16.6,92 L63.4,92 L59.4,131 Q40,138 20.6,131 Z" fill="url(#bandGrad)"/>
+        <!-- Band trim lines -->
+        <path d="M16.6,92 L63.4,92" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+        <path d="M20.6,131 Q40,138 59.4,131" stroke="rgba(0,0,0,0.25)" stroke-width="1" fill="none"/>
+        <!-- Lid -->
+        <ellipse cx="40" cy="34" rx="27" ry="7" fill="url(#cupGrad)"/>
+        <ellipse cx="40" cy="22" rx="22.5" ry="9" fill="url(#lidGrad)"/>
+        <ellipse cx="40" cy="20" rx="4" ry="2" fill="rgba(0,0,0,0.18)"/>
+        <!-- Monogram medallion on band -->
+        <circle cx="40" cy="111" r="13" fill="rgba(255,255,255,0.08)" stroke="#C8A968" stroke-width="1"/>
+        <text x="40" y="116" text-anchor="middle" fill="#E6CC93" font-size="13" font-family="'Fraunces',serif" font-weight="700">S</text>
+        <!-- COFFEE wordmark -->
+        <text x="40" y="151" text-anchor="middle" fill="rgba(0,0,0,0.32)" font-size="6" font-family="'IBM Plex Mono',monospace" letter-spacing="3">COFFEE</text>
+        <!-- Sleeve seam highlight -->
+        <rect x="16" y="34" width="6" height="134" rx="2" fill="rgba(255,255,255,0.18)"/>
+        <!-- Steam -->
+        <g class="steam s1"><path d="M30,16 C26,10 34,6 30,0" stroke="rgba(255,255,255,0.55)" stroke-width="2" fill="none" stroke-linecap="round"/></g>
+        <g class="steam s2"><path d="M40,14 C36,8 44,4 40,-2" stroke="rgba(255,255,255,0.45)" stroke-width="2" fill="none" stroke-linecap="round"/></g>
+        <g class="steam s3"><path d="M50,16 C46,10 54,6 50,0" stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none" stroke-linecap="round"/></g>
+      </svg>
+    </div>
+
+    <div class="hero-quote-card">
+      <div class="hero-quote-text">Howard Schultz's founding bet: people aren't paying for the coffee — they're paying for the ten minutes that come with it.</div>
+      <div class="hero-quote-attr">— Paraphrased from Howard Schultz, Founder</div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLE BODY -->
+<div class="article-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <span class="toc-label">Contents</span>
+    <button class="toc-btn active" onclick="gotoSec('origin')">01 Origin Story</button>
+    <button class="toc-btn" onclick="gotoSec('model')">02 Business Model</button>
+    <button class="toc-btn" onclick="gotoSec('thirdplace')">03 The Third Place</button>
+    <button class="toc-btn" onclick="gotoSec('loyalty')">04 Loyalty &amp; Digital Flywheel</button>
+    <button class="toc-btn" onclick="gotoSec('product')">05 The Cup Paradox</button>
+    <button class="toc-btn" onclick="gotoSec('moat')">06 Competitive Moat</button>
+    <button class="toc-btn" onclick="gotoSec('swot')">07 SWOT Analysis</button>
+    <button class="toc-btn" onclick="gotoSec('timeline')">08 Key Milestones</button>
+    <button class="toc-btn" onclick="gotoSec('risks')">09 Risks</button>
+    <button class="toc-btn" onclick="gotoSec('impact')">10 Industry Impact</button>
+    <button class="toc-btn" onclick="gotoSec('lessons')">11 Lessons for Builders</button>
+    <button class="toc-btn" onclick="gotoSec('verdict')">12 Final Verdict</button>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- 01 ORIGIN -->
+    <div class="sec dark" id="sec-origin">
+      <div class="sec-num">01 — Origin Story</div>
+      <h2 class="sec-title">The Bean Shop That <em>Wasn't a Café</em></h2>
+      <p class="lead">Starbucks did not begin as a coffeehouse. It began as a single shop at Pike Place Market in Seattle in 1971, selling whole roasted beans, not brewed cups — founded by three friends who simply wanted better coffee than what was on supermarket shelves.</p>
+      <p class="bp">The founders — English teacher <strong>Jerry Baldwin</strong>, history teacher <strong>Zev Siegl</strong>, and writer <strong>Gordon Bowker</strong> — were inspired by Alfred Peet, a Dutch immigrant whose Berkeley roastery, Peet's Coffee, was importing dark-roasted arabica beans years before anyone else in America took coffee seriously. They borrowed his roasting philosophy and named their shop after a character from Moby-Dick, leaning into a maritime, Pacific Northwest identity from day one.</p>
+      <p class="bp">For over a decade, Starbucks remained a small, beloved Seattle retailer of beans and equipment — not a place to sit and drink. The transformation came from someone who wasn't a founder at all. In 1982, <strong>Howard Schultz</strong> joined as director of marketing. A year later, on a buying trip to Milan, he watched Italian espresso bars function as informal community gathering spots — and became obsessed with an idea the founders weren't interested in pursuing. <span class="ctag">Acquired Vision</span> <span class="ctag">Founder Mismatch</span></p>
+
+      <div class="pq">
+        <blockquote>Schultz's pitch, in spirit: we're not selling beans — we're selling the eight minutes a stranger's espresso bar gives you back.</blockquote>
+        <cite>— Paraphrased account of Schultz's 1983 Milan epiphany</cite>
+      </div>
+
+      <p class="bp">When the original founders declined to pivot the company toward sit-down cafés, Schultz left in 1985 to start his own chain, Il Giornale, modeled directly on the Milanese espresso bar. Two years later, when Baldwin and Siegl decided to sell the original Starbucks (by then six stores) to focus on Peet's, which they had separately acquired, Schultz bought it — for roughly <strong>$3.8 million</strong> — and merged it with his own venture under the Starbucks name. The acquirer became the founder the brand is remembered by.</p>
+
+      <div class="info-rows">
+        <div class="info-row"><span class="info-key">Founded</span><span class="info-val">1971, Pike Place Market, Seattle, as a whole-bean retailer (not a café)</span></div>
+        <div class="info-row"><span class="info-key">Original Founders</span><span class="info-val"><strong>Jerry Baldwin</strong>, <strong>Zev Siegl</strong>, <strong>Gordon Bowker</strong></span></div>
+        <div class="info-row"><span class="info-key">Schultz Joins</span><span class="info-val">1982 as marketing director; leaves in 1985 to found Il Giornale</span></div>
+        <div class="info-row"><span class="info-key">Acquisition</span><span class="info-val">Schultz buys Starbucks (~6 stores) for ~$3.8M in 1987; merges it with Il Giornale</span></div>
+        <div class="info-row"><span class="info-key">HQ</span><span class="info-val">Starbucks Center, Seattle, Washington</span></div>
+        <div class="info-row"><span class="info-key">Status</span><span class="info-val">Public company (NASDAQ: SBUX) since 1992 IPO</span></div>
+      </div>
+    </div>
+
+    <!-- 02 BUSINESS MODEL -->
+    <div class="sec dark-alt" id="sec-model">
+      <div class="sec-num">02 — Business Model</div>
+      <h2 class="sec-title">Own the Experience.<br><em>License the Reach.</em></h2>
+      <p class="lead">Starbucks runs two parallel store models simultaneously: company-operated cafés it fully controls, and licensed locations run by partners in airports, grocers, and international markets. The blend lets it scale faster than it could alone while protecting the experience where it matters most.</p>
+
+      <div class="stat-row">
+        <div class="stat-card"><div class="stat-val">$37.18B</div><div class="stat-lbl">FY2025 net revenue</div></div>
+        <div class="stat-card"><div class="stat-val">~8%</div><div class="stat-lbl">FY2025 GAAP operating margin</div></div>
+        <div class="stat-card"><div class="stat-val">87</div><div class="stat-lbl">Countries served</div></div>
+        <div class="stat-card"><div class="stat-val">$3.5B</div><div class="stat-lbl">Quarterly U.S. card loads</div></div>
+        <div class="stat-card"><div class="stat-val">381K</div><div class="stat-lbl">Partners (employees)</div></div>
+      </div>
+
+      <p class="bp">The core economics still trace back to a simple inversion: the bean itself costs cents, but the ritual around it — the cup, the name written in marker, the seating, the music, the fifteen minutes of being somewhere that isn't home or work — is what customers are actually paying $5–7 for. <strong>Starbucks sells atmosphere with a caffeine delivery mechanism attached.</strong></p>
+      <p class="bp">Unlike a typical restaurant chain, Starbucks has spent decades building backward into its supply chain rather than just forward into stores. It operates its own farmer support centers, direct sourcing relationships, and roasting plants, certifying the majority of its coffee through its own ethical sourcing program (C.A.F.E. Practices) rather than relying entirely on outside certifiers. <span class="ctag">Vertical Sourcing</span></p>
+      <p class="bp">In 2024–2025, under CEO Brian Niccol, the model came under open self-correction. The company's "Back to Starbucks" plan explicitly reinvested in store labor hours, simplified menu workflows, and removed a non-dairy milk upcharge — trading short-term margin for the service quality the brand had quietly let slip. The bet is that the experience, not the discount, is what rebuilds frequency.</p>
+
+      <div class="insight-grid rc">
+        <div class="insight-card"><span class="ic-icon">☕</span><div class="ic-title">Company-Operated Stores</div><div class="ic-desc">Flagship cafés Starbucks fully owns and staffs — the primary venue for protecting the in-store ritual.</div></div>
+        <div class="insight-card"><span class="ic-icon">🤝</span><div class="ic-title">Licensed Stores</div><div class="ic-desc">Locations in airports, grocers, and many international markets run by local partners under license — speed of reach without full capital exposure.</div></div>
+        <div class="insight-card"><span class="ic-icon">🌱</span><div class="ic-title">Direct Sourcing Network</div><div class="ic-desc">Farmer support centers and ethical sourcing programs that secure supply and let Starbucks tell a provenance story competitors can't easily match.</div></div>
+        <div class="insight-card"><span class="ic-icon">📱</span><div class="ic-title">Mobile Order &amp; Pay</div><div class="ic-desc">A meaningful share of U.S. transactions now happen through the app — shifting Starbucks from a counter business to a pre-paid, pre-ordered habit.</div></div>
+        <div class="insight-card"><span class="ic-icon">🏬</span><div class="ic-title">Reserve Roasteries</div><div class="ic-desc">A small number of immersive flagship locations that function as brand theater and premium upsell, well above the price of a standard café visit.</div></div>
+        <div class="insight-card"><span class="ic-icon">🌍</span><div class="ic-title">Joint Ventures Abroad</div><div class="ic-desc">In China and India, Starbucks shares ownership with local partners (Boyu Capital; Tata) who bring regulatory and cultural fluency Starbucks alone lacks.</div></div>
+      </div>
+    </div>
+
+    <!-- 03 THE THIRD PLACE -->
+    <div class="sec dark" id="sec-thirdplace">
+      <div class="sec-num">03 — The Third Place</div>
+      <h2 class="sec-title">The Company That <em>Sold Belonging</em></h2>
+      <p class="lead">Starbucks did not invent espresso, and it did not invent the café. What it built — deliberately, as company doctrine — was the idea of a "third place": somewhere that is neither home nor work, where a stranger can sit for an hour and feel like they belong there.</p>
+
+      <div class="pillar-list rc">
+        <div class="pillar">
+          <div class="pillar-num">1</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Design as Permission to Stay</div>
+            <div class="pillar-desc">Comfortable seating, ambient music, and consistent lighting were never incidental — they were a deliberate signal that lingering is welcome, not tolerated. Most fast-food chains design for table turnover; Starbucks designed for the opposite.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">2</div>
+          <div class="pillar-body">
+            <div class="pillar-title">The Name on the Cup</div>
+            <div class="pillar-desc">Asking for a customer's name and writing it by hand turns an anonymous transaction into something that feels personal, however briefly. It is one of the cheapest customization gestures in retail, and one of the most imitated.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">3</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Seasonal Ritual Engineering</div>
+            <div class="pillar-desc">The Pumpkin Spice Latte, launched in 2003, turned a flavor into a calendar event. Limited-time menu drops create urgency and a reason to return that has nothing to do with the coffee itself — a tactic now standard across food and beverage retail.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">4</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Customization as Self-Expression</div>
+            <div class="pillar-desc">An order built from syrups, milk types, temperature, and foam isn't really about taste preference — it's a small act of self-authorship, repeated by the same person, in the same way, most mornings.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">5</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Reserve Roasteries as Brand Theater</div>
+            <div class="pillar-desc">A handful of large-format Reserve Roastery locations function as immersive flagship experiences — part café, part theater, part museum — that exist to deepen the brand story rather than to maximize throughput.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">6</div>
+          <div class="pillar-body">
+            <div class="pillar-title">A Returnable Mission Statement</div>
+            <div class="pillar-desc">Every leadership transition at Starbucks — including the current "Back to Starbucks" plan — has eventually circled back to reaffirming the third-place mission, treating it less as a slogan and more as a constitution the company keeps re-ratifying.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 LOYALTY & DIGITAL FLYWHEEL -->
+    <div class="sec dark-alt" id="sec-loyalty">
+      <div class="sec-num">04 — Loyalty &amp; Digital Flywheel</div>
+      <h2 class="sec-title">They Didn't Just Build an App.<br><em>They Built a Habit Engine.</em></h2>
+      <p class="lead">Long before "loyalty flywheel" was a retail buzzword, Starbucks had quietly built one of the most effective customer data systems in consumer retail — disguised as a simple rewards card.</p>
+
+      <div class="sport-grid rc">
+        <div class="sport-card"><span class="sport-emoji">⭐</span><div class="sport-name">Starbucks Rewards</div><div class="sport-detail">34.6M active U.S. members</div></div>
+        <div class="sport-card"><span class="sport-emoji">📲</span><div class="sport-name">Mobile Order &amp; Pay</div><div class="sport-detail">Skips the line, pre-commits the order</div></div>
+        <div class="sport-card"><span class="sport-emoji">💳</span><div class="sport-name">Stored-Value Cards</div><div class="sport-detail">$3.5B+ loaded per quarter, U.S.</div></div>
+        <div class="sport-card"><span class="sport-emoji">🎯</span><div class="sport-name">Personalized Offers</div><div class="sport-detail">Behavior-based suggestions, not blanket discounts</div></div>
+        <div class="sport-card"><span class="sport-emoji">🔁</span><div class="sport-name">Subscription Pilots</div><div class="sport-detail">Recurring-order experiments to lock in frequency</div></div>
+        <div class="sport-card"><span class="sport-emoji">🗣️</span><div class="sport-name">In-App Storytelling</div><div class="sport-detail">New product drops surfaced first to members</div></div>
+      </div>
+
+      <p class="bp">The mechanism is simple but powerful: a customer preloads money onto a Starbucks card or app, effectively giving the company an interest-free loan, then earns "Stars" toward free items every time they spend it. Every transaction also generates data — what they order, when, and how often — which Starbucks uses to personalize offers rather than blast generic coupons. <span class="ctag">Behavioral Data Loop</span></p>
+      <p class="bp">Mobile order-ahead changed the unit economics of a café visit by removing the line entirely: a customer can order three minutes before walking in and have their drink waiting. That convenience created a new problem — order complexity overwhelming the people making the drinks — which is precisely the operational strain the 2025 "Back to Starbucks" plan was designed to fix through added staffing hours and simplified processes.</p>
+
+      <div class="pq">
+        <blockquote>The card isn't a discount mechanism. It's a subscription to a ritual that happens to be priced per cup.</blockquote>
+        <cite>— Industry observation on the Starbucks Rewards model</cite>
+      </div>
+    </div>
+
+    <!-- 05 THE CUP PARADOX -->
+    <div class="sec gradient-green" id="sec-product">
+      <div class="sec-num">05 — The Cup Paradox</div>
+      <h2 class="sec-title">The Coffee Is <em>Not the Point</em></h2>
+      <p class="lead">Ask a longtime Starbucks customer why they go, and "the coffee tastes best" is rarely the first answer. The most counterintuitive truth about Starbucks is that the beverage itself is replaceable — what isn't replaceable is the sequence of small, familiar gestures around it.</p>
+      <p class="bp">Coffee snobs and independent roasters have argued for decades that Starbucks' dark-roast house blend is not the best-tasting cup of coffee available, and craft coffee shops routinely outscore it in blind comparisons. That criticism mostly misses the point: Starbucks was never optimizing purely for the beverage. It was optimizing for a repeatable fifteen-minute experience available, identically, in nearly any city on earth.</p>
+      <p class="bp">This explains the menu's apparent contradiction: extreme customization (more order combinations than most people realize) layered on top of an extremely consistent core experience (the same green sleeve, the same cup shapes, the same handwriting on the side). <strong>Customers don't want infinite novelty — they want infinite personalization within total predictability.</strong> <span class="ctag">Predictable Ritual · Personal Variation</span></p>
+      <p class="bp">Premium pricing reinforces the signal. A Starbucks drink typically costs more than a comparable cup from a convenience store or fast-food chain, and the company has historically resisted broad discounting, treating price stability as part of what makes the brand feel premium rather than as a lever to pull during slow quarters.</p>
+
+      <div class="stat-row rc">
+        <div class="stat-card"><div class="stat-val">~30+</div><div class="stat-lbl">Customization variables per drink</div></div>
+        <div class="stat-card"><div class="stat-val">#1</div><div class="stat-lbl">Global coffeehouse chain by store count</div></div>
+        <div class="stat-card"><div class="stat-val">2003</div><div class="stat-lbl">Year of the Pumpkin Spice Latte debut</div></div>
+        <div class="stat-card"><div class="stat-val">54yr</div><div class="stat-lbl">Years since the original Pike Place store</div></div>
+      </div>
+    </div>
+
+    <!-- 06 MOAT -->
+    <div class="sec dark" id="sec-moat">
+      <div class="sec-num">06 — Competitive Moat</div>
+      <h2 class="sec-title">Why Local Coffee Shops <em>Can't Out-Scale Starbucks</em></h2>
+      <p class="lead">Starbucks' advantages compound across real estate, data, and supply chain — but unlike a pure brand moat, this one currently has a visible weak point in workforce relations, which is precisely why a turnaround plan exists.</p>
+
+      <div class="moat-bars rc">
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Brand Recognition &amp; Ritual Familiarity</span><span class="moat-score">95/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="95"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Loyalty Data &amp; Digital Flywheel</span><span class="moat-score">90/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="90"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Global Store Footprint &amp; Real Estate</span><span class="moat-score">88/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="88"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Direct Trade Supply Chain</span><span class="moat-score">81/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="81"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Licensing &amp; Local Partnership Network</span><span class="moat-score">78/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="78"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Menu Customization Engine</span><span class="moat-score">74/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="74"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Premium Pricing Power</span><span class="moat-score">68/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="68"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Workforce &amp; Labor Relations Stability</span><span class="moat-score">52/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="52"></div></div>
+        </div>
+      </div>
+
+      <p class="bp">No independent café chain can match Starbucks' store density, supply chain, or loyalty data at global scale — that part of the moat is close to unassailable. But moats built on consistency are only as strong as the experience being delivered consistently, and several years of declining U.S. comparable sales suggest that the ritual itself had started to erode before "Back to Starbucks" began rebuilding it.</p>
+      <p class="bp">The lowest score on this board is intentional. Unlike Red Bull's culturally accumulated, almost unassailable advantages, Starbucks' moat includes a genuine internal vulnerability: labor relations and service consistency are, for the first time in the brand's history, openly contested terrain rather than quiet strengths.</p>
+    </div>
+
+    <!-- 07 SWOT -->
+    <div class="sec dark-alt" id="sec-swot">
+      <div class="sec-num">07 — SWOT Analysis</div>
+      <h2 class="sec-title">Strengths, Weaknesses,<br><em>Opportunities, Threats</em></h2>
+      <p class="lead">A clear-eyed view of where Starbucks remains structurally dominant — and where the current turnaround is genuinely necessary, not just cosmetic.</p>
+
+      <div class="swot-grid rc">
+        <div class="swot-cell swot-s">
+          <div class="swot-head">✦ Strengths</div>
+          <ul class="swot-list">
+            <li>Largest coffeehouse chain globally by store count</li>
+            <li>34.6M active U.S. Rewards members and growing</li>
+            <li>Deep direct-sourcing relationships with coffee growers</li>
+            <li>Recognized brand across 87 countries</li>
+            <li>Strong cash generation and gift-card prepayment base</li>
+            <li>Decades of "third place" cultural association</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-w">
+          <div class="swot-head">◆ Weaknesses</div>
+          <ul class="swot-list">
+            <li>Several consecutive quarters of declining U.S. comparable sales before FY25 Q4</li>
+            <li>High menu complexity slows service and frustrates staff</li>
+            <li>Four CEOs in roughly five years has strained execution consistency</li>
+            <li>Premium pricing increasingly tested by value-seeking consumers</li>
+            <li>Labor relations friction with a growing unionized footprint</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-o">
+          <div class="swot-head">▲ Opportunities</div>
+          <ul class="swot-list">
+            <li>China joint venture with Boyu Capital targeting growth toward 20,000 stores</li>
+            <li>Continued growth in India via the Tata Starbucks partnership</li>
+            <li>"Back to Starbucks" service-quality investments already showing early comp recovery</li>
+            <li>Subscription and recurring-order pilots to lock in frequency</li>
+            <li>Further simplification of operations to improve speed without losing ritual</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-t">
+          <div class="swot-head">▼ Threats</div>
+          <ul class="swot-list">
+            <li>Luckin Coffee and other local rivals scaling past Starbucks in China store count</li>
+            <li>Expanding unionization (Starbucks Workers United) and related labor cost pressure</li>
+            <li>Cost-conscious consumers trading down to McCafé, Dunkin', or convenience-store coffee</li>
+            <li>Inflation and tariffs pressuring input costs and consumer spending power</li>
+            <li>Continued leadership turnover risk undermining a multi-year turnaround</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 TIMELINE -->
+    <div class="sec dark gradient-gold" id="sec-timeline">
+      <div class="sec-num">08 — Key Milestones</div>
+      <h2 class="sec-title">How a Seattle Bean Shop <em>Went Global</em></h2>
+
+      <div class="timeline rc">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1971</div><div class="tl-event">Jerry Baldwin, Zev Siegl, and Gordon Bowker open the original <strong>Starbucks</strong> at Pike Place Market, Seattle, selling whole roasted beans — not brewed coffee.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1982</div><div class="tl-event">Howard Schultz joins as director of retail operations and marketing.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1983</div><div class="tl-event">A buying trip to Milan exposes Schultz to Italian espresso-bar culture; he becomes convinced Starbucks should sell the café experience, not just beans.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1985</div><div class="tl-event">Founders decline to pivot toward cafés. Schultz leaves to found <strong>Il Giornale</strong>, an espresso-bar concept of his own.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1987</div><div class="tl-event">Schultz <strong>acquires Starbucks for roughly $3.8 million</strong> and merges it with Il Giornale, keeping the Starbucks name.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1992</div><div class="tl-event">Starbucks goes public on NASDAQ (ticker: SBUX), with 140 stores and roughly $73.5M in revenue at the time of the IPO.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1995</div><div class="tl-event">Acquisition of The Coffee Connection brings the rights to the <strong>Frappuccino</strong>, launched under the Starbucks name.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1996</div><div class="tl-event">First store outside North America opens in Tokyo, beginning rapid international expansion.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1999</div><div class="tl-event">Starbucks enters mainland China — a market that will later become both a growth engine and a competitive battleground.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2000</div><div class="tl-event">Schultz steps down as CEO (he will return twice more, in 2008 and 2022).</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2003</div><div class="tl-event">The <strong>Pumpkin Spice Latte</strong> debuts, eventually becoming a recurring cultural event rather than just a menu item.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2008</div><div class="tl-event">Amid the financial crisis, Schultz returns as CEO and closes roughly 600 underperforming U.S. stores to refocus the brand.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2018</div><div class="tl-event">Starbucks signs a global licensing deal with Nestlé, moving its packaged and grocery coffee products under Nestlé's distribution.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2021–22</div><div class="tl-event">A unionization wave begins in Buffalo, NY, and spreads to hundreds of U.S. stores under <strong>Starbucks Workers United</strong>.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2024</div><div class="tl-event"><strong>Brian Niccol</strong> becomes chairman and CEO in September, arriving from Chipotle, and launches the <strong>"Back to Starbucks"</strong> turnaround plan.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2025</div><div class="tl-event">Starbucks forms a joint venture with <strong>Boyu Capital</strong> for its China business (November) and reports a return to <strong>global comparable sales growth</strong> in fiscal Q4 — its first such quarter in seven.</div></div>
+      </div>
+    </div>
+
+    <!-- 09 RISKS -->
+    <div class="sec dark" id="sec-risks">
+      <div class="sec-num">09 — Risks &amp; Vulnerabilities</div>
+      <h2 class="sec-title">Where the <em>Ritual Could Break</em></h2>
+      <p class="lead">Starbucks is not a fragile business, but it is in the middle of a genuine multi-year turnaround. Several risks could meaningfully slow or derail it.</p>
+
+      <div class="risk-list rc">
+        <div class="risk-item">
+          <div class="risk-badge risk-high">HIGH</div>
+          <div>
+            <div class="risk-content-title">Leadership Churn &amp; Strategy Whiplash</div>
+            <div class="risk-content-desc">Starbucks has had roughly four chief executives in about five years — Schultz returning twice, then Laxman Narasimhan, then Brian Niccol — each arriving with a somewhat different turnaround thesis. Frequent strategic resets are costly: partners and franchisees need consistency to execute well, and each transition has restarted parts of the playbook.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-high">HIGH</div>
+          <div>
+            <div class="risk-content-title">Unionization &amp; Labor Cost Pressure</div>
+            <div class="risk-content-desc">Starbucks Workers United has organized hundreds of U.S. stores since 2021, and contract negotiations remain unresolved in many locations. "Back to Starbucks" leans on added labor hours and partner investment to fix service — a strategy that raises costs at the same time as labor relations remain contentious.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-med">MED</div>
+          <div>
+            <div class="risk-content-title">China Market Share Erosion</div>
+            <div class="risk-content-desc">Local rival Luckin Coffee has scaled past Starbucks in store count within China, undercutting on price and moving faster on app-based ordering. Starbucks' response — selling a majority operating stake in its China business to Boyu Capital in late 2025 — is a bet that local ownership and capital can defend share that a wholly foreign-run model was losing.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-med">MED</div>
+          <div>
+            <div class="risk-content-title">Value-Conscious Consumer Pullback</div>
+            <div class="risk-content-desc">Comparable sales in North America declined for several consecutive quarters as inflation-pressured consumers traded down toward McCafé, Dunkin', or convenience-store coffee. Premium pricing only holds if the experience justifies it; any further erosion in perceived value puts continued pressure on traffic.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-low">LOW</div>
+          <div>
+            <div class="risk-content-title">Menu Complexity &amp; Service Speed</div>
+            <div class="risk-content-desc">Decades of customization options that built customer loyalty also slow down baristas, especially during mobile-order rushes. "Back to Starbucks" initiatives — a four-minute wait-time goal, simplified processes, the return of the condiment bar — directly target this without removing the personalization that made the brand sticky in the first place.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 IMPACT -->
+    <div class="sec dark-alt gradient-green" id="sec-impact">
+      <div class="sec-num">10 — Industry Impact</div>
+      <h2 class="sec-title">Starbucks Rewrote <em>What a Retail Habit Could Be</em></h2>
+      <p class="lead">Before Starbucks, "café" meant a small, idiosyncratic local business or a fast-food coffee counter. After Starbucks, the most sophisticated retail and restaurant brands understood that a transaction could be redesigned as a ritual — and that owning the ritual was worth far more than owning the recipe.</p>
+      <p class="bp">The concept of the <strong>"third place"</strong> — now a standard term in commercial real estate and retail design — is Starbucks' popularization of an idea borrowed from sociology, executed at a scale no café chain had attempted. Every co-working space, hotel lobby lounge, and lifestyle retailer that designs for lingering rather than turnover is, knowingly or not, following the Starbucks template.</p>
+      <p class="bp">Starbucks also pioneered the modern loyalty-and-mobile-order combination that nearly every quick-service restaurant chain now runs some version of. Prepaid stored value, points that convert to free items, and app-based personalization were assembled by Starbucks into a single system years before "loyalty flywheel" became a retail strategy buzzword. <span class="ctag">Industry Standard-Setting</span> <span class="ctag">First-Mover</span></p>
+      <p class="bp">Finally, Starbucks demonstrated that a Western retail brand could expand globally through local joint-venture partnerships rather than pure ownership — a model now being reused, in real time, as the company hands majority control of its China operations to a local capital partner while keeping the brand and standards centrally defined.</p>
+    </div>
+
+    <!-- 11 LESSONS -->
+    <div class="sec dark" id="sec-lessons">
+      <div class="sec-num">11 — Lessons For Builders</div>
+      <h2 class="sec-title">What Founders Can <em>Steal From This</em></h2>
+      <p class="lead">Starbucks' playbook translates far beyond coffee. These are principles any builder can apply to any category where habit, not novelty, drives revenue.</p>
+      <div class="lessons-grid rc">
+        <div class="lesson-card">
+          <div class="lesson-num">01</div>
+          <div class="lesson-title">Sell the Ritual, Not the Commodity</div>
+          <div class="lesson-desc">The bean is cheap; the fifteen minutes around it is not. If your product is fundamentally a commodity, the question isn't how to make it better — it's what repeatable experience you can wrap around it that people will pay a premium to keep doing.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">02</div>
+          <div class="lesson-title">Design for Lingering, Not Just Throughput</div>
+          <div class="lesson-desc">Starbucks built seating, lighting, and pacing for people who wanted to stay — the opposite instinct of most retail design. If belonging is part of your value proposition, your physical or digital space needs to visibly invite people to remain.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">03</div>
+          <div class="lesson-title">Let Loyalty Data Become the Business</div>
+          <div class="lesson-desc">Stored value plus personalized offers turned a simple punch card into one of retail's most effective data systems. Treat your loyalty program as a product in its own right, not a marketing afterthought bolted onto checkout.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">04</div>
+          <div class="lesson-title">Customize at the Edge, Standardize at the Core</div>
+          <div class="lesson-desc">Infinite drink combinations sit on top of a tightly standardized core process. Give customers visible personalization without sacrificing the operational consistency that makes your brand recognizable in any location.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">05</div>
+          <div class="lesson-title">Localize Through Partnership, Not Just Translation</div>
+          <div class="lesson-desc">Tata in India and Boyu Capital in China show that global scale sometimes requires giving up majority control in exchange for local fluency. Don't treat international expansion as a copy-paste of your home-market playbook.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">06</div>
+          <div class="lesson-title">Know When to Go Back to Fundamentals</div>
+          <div class="lesson-desc">Schultz returned twice to refocus the company on its founding mission; Niccol's plan is explicitly named "Back to Starbucks." When growth metrics drift from the core experience, the fix is rarely a new gimmick — it's usually a disciplined return to what worked before complexity crept in.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 VERDICT -->
+    <div class="sec gradient-dark" id="sec-verdict">
+      <div class="sec-num">12 — Final FounderLens Verdict</div>
+      <h2 class="sec-title">The Coffeehouse That Became <em>Infrastructure</em><br>— And Is Now Rebuilding It</h2>
+      <p class="lead">Starbucks is not a coffee company that happens to run cafés well. It is a habit-design company that happens to sell coffee — and right now, it is in the rare, uncomfortable position of having to publicly relearn its own original lesson.</p>
+
+      <div class="verdict-box">
+        <h3>"What makes Starbucks genuinely powerful — and why does even a powerful brand need a turnaround?"</h3>
+        <p>Starbucks' founding achievement was recognizing that a transaction could be redesigned as a ritual — and that the ritual, not the bean, was the product worth scaling. For three decades, that insight compounded: more stores, more rituals reinforced daily, more data on exactly how people wanted their version of the ritual delivered.</p>
+        <p>The current moment matters because it shows what happens when the operational discipline behind a ritual slips even slightly. Menu complexity that once felt like generous personalization started to feel like friction. Mobile convenience that once felt magical started to overwhelm baristas. <strong>None of Starbucks' core advantages disappeared — they just stopped being executed with the precision that made them advantages in the first place.</strong></p>
+        <p>The "Back to Starbucks" plan is notable less for its specific tactics than for what it represents: a powerful brand publicly admitting it needs to relearn its own fundamentals, in public, under investor scrutiny, while simultaneously restructuring its largest international market through a new ownership model in China. <strong>That combination — humility about execution, paired with structural change abroad — is a harder balancing act than the original founding story required.</strong></p>
+        <p class="verdict-note">Starbucks' story is ultimately a reminder that even the most successful rituals are not self-sustaining. They require constant, almost boring operational maintenance — staffing the counter properly, keeping the line moving, writing the name on the cup — and the moment that maintenance is taken for granted, the moat built over fifty years starts to feel a little thinner than it looks on paper.</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><span class="footer-dot"></span>FounderLens</div>
+    <p class="footer-desc">Business intelligence explained simply through world-class companies. Strategy, execution, and competitive advantage — decoded for builders and operators.</p>
+    <div class="footer-bottom">
+      <div class="footer-copy"><span>FounderLens</span> · Starbucks Company Analysis · Issue #09 · Research compiled June 2026 · Educational purposes only</div>
+      <div class="footer-tags">
+        <span class="footer-tag">Third Place Strategy</span>
+        <span class="footer-tag">Loyalty Flywheel</span>
+        <span class="footer-tag">Starbucks Corporation</span>
+        <span class="footer-tag">1971</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+</button>
+
+<script>
+function gotoSec(id) {
+  const el = document.getElementById('sec-' + id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+/* Progress bar */
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+});
+
+/* Scroll reveal */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      e.target.querySelectorAll('.moat-fill').forEach(bar => {
+        setTimeout(() => { bar.style.width = bar.dataset.w + '%'; }, 200);
+      });
+    }
+  });
+}, { threshold: 0.05 });
+document.querySelectorAll('.sec, .rc').forEach(el => ro.observe(el));
+
+/* TOC active state */
+const secs = document.querySelectorAll('.sec[id]');
+const tocObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.toc-btn').forEach(b => b.classList.remove('active'));
+      const id = e.target.id.replace('sec-', '');
+      const t = document.querySelector(`.toc-btn[onclick*="'${id}'"]`);
+      if (t) t.classList.add('active');
+    }
+  });
+}, { rootMargin: '-12% 0px -78% 0px' });
+secs.forEach(s => tocObs.observe(s));
+
+/* Nav pill click */
+document.querySelectorAll('.nav-pill').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('.nav-pill').forEach(x => x.classList.remove('active'));
+    p.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

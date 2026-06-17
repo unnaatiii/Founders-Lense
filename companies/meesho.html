@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meesho — FounderLens Company Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink:       #E1306C;
+  --pink-dk:    #b52458;
+  --pink-lt:    #f0558a;
+  --pink-glow:  rgba(225,48,108,0.14);
+  --violet:     #7C3AED;
+  --violet-lt:  #a78bfa;
+  --cream:      #FFFBF7;
+  --cream-mid:  #FFF5EE;
+  --cream-lt:   #FFF0E8;
+  --ink:        #1A0A0F;
+  --ink-mid:    #2E1320;
+  --silver:     #6B4C5A;
+  --muted:      #8A6070;
+  --rule:       rgba(225,48,108,0.12);
+  --rule-lt:    rgba(225,48,108,0.2);
+  --text:       #2E1320;
+  --text-soft:  #5C3A4A;
+
+  --display: 'Playfair Display', Georgia, serif;
+  --body:    'DM Sans', system-ui, sans-serif;
+  --mono:    'DM Mono', monospace;
+  --r: 8px;
+  --r-lg: 16px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--body); background: var(--cream); color: var(--text); -webkit-font-smoothing: antialiased; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 2px; }
+
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--pink), var(--violet));
+  width: 0%; z-index: 999; transition: width .1s linear;
+}
+
+.ticker {
+  background: var(--pink);
+  color: #fff;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: .16em; text-transform: uppercase;
+  padding: 9px 0; overflow: hidden; white-space: nowrap;
+  position: sticky; top: 0; z-index: 200;
+}
+.ticker-track { display: inline-block; animation: scroll-left 30s linear infinite; padding-left: 100%; }
+.ticker-track span { margin: 0 48px; }
+.ticker-track .bull { opacity: 0.6; }
+@keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+.top { max-width: 1120px; margin: 12px auto 0; padding: 0 18px; position: sticky; top: 10px; z-index: 500; }
+.topbar {
+  width: 100%; padding: 10px 14px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  border: 1px solid var(--rule-lt); border-radius: 999px;
+  background: rgba(255,251,247,0.85); backdrop-filter: blur(18px) saturate(1.4);
+  box-shadow: 0 8px 32px rgba(225,48,108,0.1);
+}
+.back { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 600; font-size: 13px; }
+.back .b {
+  width: 26px; height: 26px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--rule-lt); background: rgba(225,48,108,0.08); color: var(--pink);
+}
+.back:hover { color: var(--pink); }
+
+.nav {
+  position: sticky; top: 33px; z-index: 190;
+  background: rgba(255,251,247,0.97); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--rule-lt);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 56px; height: 56px;
+  box-shadow: 0 2px 16px rgba(225,48,108,0.07);
+}
+.nav-brand { display: flex; align-items: center; gap: 14px; }
+.nav-logo {
+  width: 38px; height: 38px; background: var(--pink); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--display); font-size: 16px; font-weight: 900;
+  color: #fff; letter-spacing: -.02em;
+}
+.nav-title { font-family: var(--display); font-size: 20px; font-weight: 700; color: var(--text); letter-spacing: .01em; }
+.nav-sub { font-family: var(--mono); font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
+.nav-pills { display: flex; gap: 4px; }
+.nav-pill {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 13px; border-radius: 4px; border: 1px solid var(--rule-lt);
+  background: none; color: var(--muted); cursor: pointer; transition: all .15s;
+}
+.nav-pill:hover, .nav-pill.active { background: var(--pink); color: #fff; border-color: var(--pink); }
+.nav-badge {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 4px;
+  background: rgba(225,48,108,0.1); color: var(--pink); border: 1px solid rgba(225,48,108,0.25);
+}
+
+/* HERO */
+.hero {
+  min-height: 92vh; background: var(--cream);
+  display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 60% at 80% 50%, rgba(225,48,108,0.08) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 55% at 10% 80%, rgba(124,58,237,0.05) 0%, transparent 55%);
+}
+.hero-stripes {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: repeating-linear-gradient(
+    -55deg, transparent, transparent 60px,
+    rgba(225,48,108,0.025) 60px, rgba(225,48,108,0.025) 61px
+  );
+}
+.hero-left {
+  padding: 80px 56px; display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 1;
+}
+.hero-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; animation: fade-up .7s ease both; }
+.hero-eyebrow-bar { width: 28px; height: 3px; background: var(--pink); }
+.hero-eyebrow-text { font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--pink); }
+.hero-h1 {
+  font-family: var(--display); font-size: clamp(56px, 8vw, 110px);
+  font-weight: 900; line-height: .9; color: var(--text);
+  margin-bottom: 8px; animation: fade-up .7s .07s ease both;
+}
+.hero-h1 em { font-style: italic; color: var(--pink); }
+.hero-sub {
+  font-family: var(--display); font-size: clamp(16px, 2.2vw, 24px); font-weight: 400;
+  font-style: italic; color: var(--muted);
+  margin-bottom: 32px; line-height: 1.3;
+  animation: fade-up .7s .14s ease both;
+}
+.hero-desc {
+  font-size: 15px; line-height: 1.85; color: var(--text-soft);
+  max-width: 460px; font-weight: 300; margin-bottom: 36px;
+  animation: fade-up .7s .2s ease both;
+}
+.hero-desc strong { color: var(--text); font-weight: 600; }
+
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
+  background: var(--rule); border-radius: var(--r); overflow: hidden;
+  margin-bottom: 28px; animation: fade-up .7s .26s ease both;
+}
+.kpi-cell {
+  background: var(--cream-mid); padding: 16px 14px; text-align: center;
+  transition: background .2s;
+}
+.kpi-cell:hover { background: rgba(225,48,108,0.08); }
+.kpi-val { font-family: var(--display); font-size: 26px; font-weight: 700; color: var(--pink); line-height: 1; margin-bottom: 5px; }
+.kpi-lbl { font-family: var(--mono); font-size: 8px; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
+
+.hero-tags { display: flex; gap: 7px; flex-wrap: wrap; animation: fade-up .7s .32s ease both; }
+.hero-tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 11px; border-radius: 4px;
+  background: rgba(225,48,108,0.07); border: 1px solid var(--rule-lt);
+  color: var(--muted); transition: all .15s; cursor: default;
+}
+.hero-tag:hover { background: rgba(225,48,108,0.15); color: var(--pink); border-color: var(--pink-lt); }
+.hero-tag.pink { background: rgba(225,48,108,0.12); border-color: rgba(225,48,108,0.3); color: var(--pink); }
+
+.hero-right {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  gap: 24px; padding: 60px 40px;
+}
+.product-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+.product-glow {
+  position: absolute; width: 240px; height: 240px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(225,48,108,0.15) 0%, transparent 70%);
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+@keyframes pulse-glow { 0%,100% { transform: scale(1); opacity:1; } 50% { transform: scale(1.15); opacity:0.5; } }
+.product-svg {
+  width: 130px; position: relative; z-index: 1;
+  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 16px 36px rgba(225,48,108,0.2));
+}
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+.orbit-ring { position: absolute; border-radius: 50%; border: 1px solid; animation: spin 20s linear infinite; }
+.orbit-1 { width: 210px; height: 210px; border-color: rgba(225,48,108,0.18); }
+.orbit-2 { width: 290px; height: 290px; border-color: rgba(124,58,237,0.1); animation-duration: 35s; animation-direction: reverse; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.orbit-dot { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: var(--pink); top: -3px; left: 50%; margin-left: -3px; }
+.orbit-dot-2 { background: var(--violet); top: auto; bottom: -3px; left: 30%; margin-left: -3px; }
+
+.hero-quote-card {
+  background: rgba(225,48,108,0.05); border: 1px solid var(--rule-lt);
+  border-left: 3px solid var(--pink); border-radius: var(--r); padding: 18px 22px; max-width: 290px;
+}
+.hero-quote-text { font-family: var(--display); font-size: 15px; font-style: italic; font-weight: 400; color: var(--text-soft); line-height: 1.5; margin-bottom: 10px; }
+.hero-quote-attr { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--pink); }
+
+@keyframes fade-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+/* LAYOUT */
+.article-wrap { display: grid; grid-template-columns: 220px 1fr; }
+
+.sidebar {
+  position: sticky; top: 89px; height: calc(100vh - 89px);
+  overflow-y: auto; scrollbar-width: none;
+  background: var(--cream-mid); border-right: 1px solid var(--rule);
+  padding: 32px 0;
+}
+.sidebar::-webkit-scrollbar { display: none; }
+.toc-label {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--pink); padding: 0 20px; margin-bottom: 8px; margin-top: 18px; display: block;
+}
+.toc-btn {
+  display: block; width: 100%; text-align: left;
+  font-family: var(--body); font-size: 12px; font-weight: 400;
+  color: var(--muted); padding: 8px 20px 8px 18px;
+  border-left: 3px solid transparent; border: none; background: none; cursor: pointer;
+  transition: all .15s; line-height: 1.4; border-left: 3px solid transparent;
+}
+.toc-btn:hover { color: var(--pink); background: rgba(225,48,108,0.07); }
+.toc-btn.active { color: var(--pink); border-left-color: var(--pink); background: rgba(225,48,108,0.1); font-weight: 600; }
+
+/* SECTIONS */
+.sec {
+  padding: 72px 64px; scroll-margin-top: 92px;
+  border-bottom: 1px solid var(--rule);
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.sec.vis { opacity: 1; transform: none; }
+.sec.light     { background: var(--cream); }
+.sec.light-alt { background: var(--cream-mid); }
+.sec.light-lt  { background: var(--cream-lt); }
+.sec.gradient-pink { background: linear-gradient(135deg, var(--cream) 0%, rgba(225,48,108,0.05) 50%, var(--cream-mid) 100%); }
+.sec.gradient-violet { background: linear-gradient(135deg, var(--cream-mid) 0%, rgba(124,58,237,0.04) 60%, var(--cream) 100%); }
+.sec.gradient-warm { background: linear-gradient(135deg, #fff9f5 0%, #fff3ee 60%, #fffbf7 100%); }
+
+.sec-num { font-family: var(--mono); font-size: 9px; letter-spacing: .24em; text-transform: uppercase; margin-bottom: 10px; color: var(--pink); }
+.sec-title {
+  font-family: var(--display); font-size: clamp(28px, 4vw, 46px);
+  font-weight: 900; line-height: .95; letter-spacing: -.01em;
+  margin-bottom: 20px; color: var(--text);
+}
+.sec-title em { font-style: italic; color: var(--pink); font-weight: 700; }
+.lead { font-size: 17px; line-height: 1.75; font-weight: 300; margin-bottom: 28px; max-width: 680px; color: var(--text-soft); }
+.lead strong { color: var(--text); font-weight: 600; }
+.bp { font-size: 15px; line-height: 1.8; font-weight: 300; margin-bottom: 16px; max-width: 680px; color: var(--text-soft); }
+.bp strong { color: var(--text); font-weight: 600; }
+.ctag {
+  display: inline-block; font-family: var(--mono); font-size: 9px; letter-spacing: .1em;
+  text-transform: uppercase; padding: 3px 9px; border-radius: 4px;
+  background: rgba(225,48,108,0.1); color: var(--pink); border: 1px solid rgba(225,48,108,0.2);
+  margin-left: 4px; vertical-align: middle;
+}
+
+.pq {
+  margin: 28px 0; padding: 20px 24px; border-radius: var(--r);
+  border-left: 3px solid var(--pink); background: rgba(225,48,108,0.06); max-width: 680px;
+}
+.pq blockquote { font-family: var(--display); font-size: 22px; font-style: italic; font-weight: 700; line-height: 1.2; margin-bottom: 10px; color: var(--text); }
+.pq cite { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; font-style: normal; color: var(--pink); }
+
+.insight-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: 12px; margin: 28px 0; }
+.insight-card {
+  background: #fff; border: 1px solid var(--rule);
+  border-radius: var(--r); padding: 20px 18px;
+  transition: transform .15s, border-color .15s, box-shadow .15s;
+}
+.insight-card:hover { transform: translateY(-3px); border-color: var(--pink-lt); box-shadow: 0 8px 24px rgba(225,48,108,0.1); }
+.ic-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+.ic-title { font-family: var(--display); font-size: 17px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+.ic-desc { font-size: 12.5px; line-height: 1.6; font-weight: 300; color: var(--muted); }
+
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 8px; margin: 28px 0; }
+.stat-card {
+  background: #fff; border: 1px solid var(--rule); border-radius: var(--r);
+  padding: 18px 14px; text-align: center; transition: transform .15s;
+}
+.stat-card:hover { transform: translateY(-2px); border-color: rgba(225,48,108,0.3); }
+.stat-val { font-family: var(--display); font-size: 28px; font-weight: 700; color: var(--pink); line-height: 1; margin-bottom: 5px; }
+.stat-lbl { font-family: var(--mono); font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+.info-rows { margin: 20px 0; max-width: 680px; }
+.info-row { display: flex; gap: 20px; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 14.5px; align-items: flex-start; }
+.info-row:last-child { border-bottom: none; }
+.info-key { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; flex-shrink: 0; width: 140px; padding-top: 3px; font-weight: 500; color: var(--pink); }
+.info-val { line-height: 1.6; font-weight: 300; color: var(--text-soft); }
+.info-val strong { font-weight: 600; color: var(--text); }
+
+.swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 28px 0; border-radius: var(--r); overflow: hidden; max-width: 680px; background: var(--rule); }
+.swot-cell { padding: 22px 20px; }
+.swot-s { background: #f0faf0; } .swot-w { background: #fff5f0; }
+.swot-o { background: #f0f4ff; } .swot-t { background: #fff0f5; }
+.swot-head { font-family: var(--mono); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; font-weight: 500; margin-bottom: 10px; }
+.swot-s .swot-head { color: #2e7d32; } .swot-w .swot-head { color: #c0522a; }
+.swot-o .swot-head { color: #3050b8; } .swot-t .swot-head { color: #b82050; }
+.swot-list { list-style: none; }
+.swot-list li { font-size: 13px; line-height: 1.6; color: var(--text-soft); padding: 3px 0; font-weight: 300; }
+.swot-list li::before { content: '— '; opacity: 0.4; }
+
+.moat-bars { margin: 28px 0; max-width: 600px; }
+.moat-bar { margin-bottom: 16px; }
+.moat-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.moat-name { font-size: 13px; font-weight: 400; color: var(--text-soft); }
+.moat-score { font-family: var(--mono); font-size: 11px; color: var(--pink); }
+.moat-track { height: 5px; border-radius: 3px; overflow: hidden; background: rgba(225,48,108,0.1); }
+.moat-fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--pink), var(--violet));
+  width: 0%; transition: width 1.2s cubic-bezier(.16,1,.3,1);
+}
+
+.risk-list { margin: 24px 0; max-width: 680px; }
+.risk-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--rule); }
+.risk-item:last-child { border-bottom: none; }
+.risk-badge { flex-shrink: 0; width: 44px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 8px; letter-spacing: .1em; font-weight: 500; margin-top: 2px; }
+.risk-high { background: rgba(225,48,108,0.12); color: var(--pink-dk); }
+.risk-med  { background: rgba(230,120,0,0.12); color: #c06820; }
+.risk-low  { background: rgba(30,120,50,0.1); color: #2e7d32; }
+.risk-content-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--text); }
+.risk-content-desc { font-size: 13px; line-height: 1.65; font-weight: 300; color: var(--muted); }
+
+.timeline { margin: 28px 0; max-width: 680px; position: relative; padding-left: 28px; }
+.timeline::before { content: ''; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(to bottom, var(--pink), var(--violet)); }
+.tl-item { position: relative; margin-bottom: 24px; }
+.tl-dot { position: absolute; left: -24px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--pink); border: 2px solid var(--cream); }
+.tl-year { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; color: var(--pink); margin-bottom: 4px; }
+.tl-event { font-size: 13.5px; line-height: 1.6; color: var(--text-soft); font-weight: 300; }
+.tl-event strong { color: var(--text); font-weight: 600; }
+
+.lessons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0; }
+.lesson-card {
+  background: #fff; border: 1px solid var(--rule);
+  border-radius: var(--r); padding: 22px 20px;
+  transition: transform .15s, border-color .15s, box-shadow .15s;
+}
+.lesson-card:hover { transform: translateY(-2px); border-color: rgba(225,48,108,0.35); box-shadow: 0 6px 20px rgba(225,48,108,0.08); }
+.lesson-num { font-family: var(--display); font-size: 48px; font-weight: 900; color: rgba(225,48,108,0.1); line-height: 1; margin-bottom: -4px; }
+.lesson-title { font-family: var(--display); font-size: 17px; font-weight: 700; color: var(--pink); margin-bottom: 8px; }
+.lesson-desc { font-size: 13px; line-height: 1.65; color: var(--text-soft); font-weight: 300; }
+
+.verdict-box {
+  border-radius: var(--r-lg); padding: 40px 44px; margin: 32px 0; max-width: 720px;
+  border-left: 5px solid var(--pink);
+  background: rgba(225,48,108,0.04); border-top: 1px solid var(--rule); border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+}
+.verdict-box h3 { font-family: var(--display); font-size: 26px; font-style: italic; font-weight: 700; margin-bottom: 20px; line-height: 1.2; color: var(--pink); }
+.verdict-box p { font-size: 15px; line-height: 1.85; margin-bottom: 14px; font-weight: 300; color: var(--text-soft); }
+.verdict-box p strong { font-weight: 600; color: var(--text); }
+.verdict-box .verdict-note { border-top: 1px solid var(--rule); padding-top: 18px; margin-top: 20px; font-style: italic; font-size: 13.5px; color: var(--muted); }
+
+.pillar-list { margin: 24px 0; max-width: 680px; }
+.pillar { display: flex; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--rule); align-items: flex-start; }
+.pillar:last-child { border-bottom: none; }
+.pillar-num { font-family: var(--display); font-size: 32px; font-weight: 900; color: var(--pink); line-height: 1; flex-shrink: 0; width: 36px; }
+.pillar-body { flex: 1; }
+.pillar-title { font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+.pillar-desc { font-size: 13.5px; line-height: 1.65; color: var(--muted); font-weight: 300; }
+
+.footer {
+  background: var(--cream-mid); border-top: 1px solid var(--rule);
+  padding: 48px 56px 40px;
+}
+.footer-inner { max-width: 720px; }
+.footer-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--display); font-size: 18px; font-weight: 900;
+  color: var(--text); margin-bottom: 12px;
+}
+.footer-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--pink); }
+.footer-desc { font-size: 13px; line-height: 1.7; color: var(--muted); margin-bottom: 24px; max-width: 480px; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; padding-top: 20px; border-top: 1px solid var(--rule); }
+.footer-copy { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: .06em; }
+.footer-copy span { color: var(--pink); }
+.footer-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.footer-tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 4px;
+  background: rgba(225,48,108,0.07); color: var(--muted);
+  border: 1px solid var(--rule);
+}
+
+.scroll-top {
+  position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px;
+  background: var(--pink); border: none; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .15s; z-index: 100;
+  box-shadow: 0 4px 16px rgba(225,48,108,0.3);
+}
+.scroll-top:hover { background: var(--pink-dk); }
+.scroll-top svg { width: 18px; height: 18px; fill: #fff; }
+
+.rc { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+.rc.vis { opacity: 1; transform: none; }
+
+.category-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 10px; margin: 24px 0; }
+.category-card {
+  background: #fff; border: 1px solid var(--rule); border-radius: var(--r);
+  padding: 16px 14px; text-align: center; transition: transform .15s, border-color .15s;
+}
+.category-card:hover { transform: translateY(-3px); border-color: rgba(225,48,108,0.4); }
+.cat-emoji { font-size: 28px; margin-bottom: 8px; display: block; }
+.cat-name { font-family: var(--display); font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.cat-detail { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: .08em; }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span>Meesho Inc.</span><span class="bull">◆</span>
+    <span>Founded 2015 · Bengaluru, India</span><span class="bull">◆</span>
+    <span>130M+ transacting users</span><span class="bull">◆</span>
+    <span>Vidit Aatrey & Sanjeev Barnwal</span><span class="bull">◆</span>
+    <span>Valuation: $4.9B (2021)</span><span class="bull">◆</span>
+    <span>1.2M+ suppliers on platform</span><span class="bull">◆</span>
+    <span>Tier 2 & 3 India focus</span><span class="bull">◆</span>
+    <span>Social commerce pioneer</span><span class="bull">◆</span>
+    <span>Meesho Inc.</span><span class="bull">◆</span>
+    <span>Founded 2015 · Bengaluru, India</span><span class="bull">◆</span>
+    <span>130M+ transacting users</span><span class="bull">◆</span>
+    <span>Vidit Aatrey & Sanjeev Barnwal</span><span class="bull">◆</span>
+    <span>Valuation: $4.9B (2021)</span><span class="bull">◆</span>
+    <span>1.2M+ suppliers on platform</span><span class="bull">◆</span>
+    <span>Tier 2 & 3 India focus</span><span class="bull">◆</span>
+    <span>Social commerce pioneer</span><span class="bull">◆</span>
+  </div>
+</div>
+
+<div class="top">
+  <div class="topbar">
+    <a class="back" href="../company.html"><span class="b">&larr;</span> Companies</a>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-logo">M</div>
+    <div>
+      <div class="nav-title">Meesho</div>
+      <div class="nav-sub">FounderLens · Company Analysis</div>
+    </div>
+  </div>
+  <div class="nav-pills">
+    <button class="nav-pill active" onclick="gotoSec('origin')">Origin</button>
+    <button class="nav-pill" onclick="gotoSec('model')">Model</button>
+    <button class="nav-pill" onclick="gotoSec('growth')">Growth</button>
+    <button class="nav-pill" onclick="gotoSec('moat')">Moat</button>
+    <button class="nav-pill" onclick="gotoSec('lessons')">Lessons</button>
+  </div>
+  <div class="nav-badge">Issue #14</div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-stripes"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-bar"></div>
+      <div class="hero-eyebrow-text">FounderLens · Social Commerce</div>
+    </div>
+    <h1 class="hero-h1">Mee<br><em>sho</em></h1>
+    <p class="hero-sub">The App That Unlocked Bharat's Shopping Power</p>
+    <p class="hero-desc">Meesho bet on a market everyone else ignored — <strong>price-sensitive shoppers in Tier 2, 3, and 4 India cities</strong> — and built the country's fastest-growing e-commerce platform by solving for trust, affordability, and the social fabric of Indian commerce.</p>
+    <div class="kpi-grid">
+      <div class="kpi-cell"><div class="kpi-val">130M+</div><div class="kpi-lbl">Transacting users</div></div>
+      <div class="kpi-cell"><div class="kpi-val">$4.9B</div><div class="kpi-lbl">Peak valuation</div></div>
+      <div class="kpi-cell"><div class="kpi-val">1.2M+</div><div class="kpi-lbl">Suppliers</div></div>
+      <div class="kpi-cell"><div class="kpi-val">₹0</div><div class="kpi-lbl">Commission (suppliers)</div></div>
+      <div class="kpi-cell"><div class="kpi-val">#1</div><div class="kpi-lbl">Downloads, India 2022</div></div>
+      <div class="kpi-cell"><div class="kpi-val">19+</div><div class="kpi-lbl">Categories</div></div>
+    </div>
+    <div class="hero-tags">
+      <span class="hero-tag pink">Social Commerce</span>
+      <span class="hero-tag pink">Bharat Play</span>
+      <span class="hero-tag">Zero Commission</span>
+      <span class="hero-tag">Reseller Network</span>
+      <span class="hero-tag">Tier 2 India</span>
+      <span class="hero-tag">Fashion & Lifestyle</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="product-wrap">
+      <div class="product-glow"></div>
+      <div class="orbit-ring orbit-1"><div class="orbit-dot"></div></div>
+      <div class="orbit-ring orbit-2"><div class="orbit-dot orbit-dot-2"></div></div>
+      <svg class="product-svg" viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="phoneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#fff8f5"/>
+            <stop offset="100%" style="stop-color:#ffe8ee"/>
+          </linearGradient>
+          <linearGradient id="screenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#E1306C"/>
+            <stop offset="100%" style="stop-color:#7C3AED"/>
+          </linearGradient>
+        </defs>
+        <rect x="4" y="4" width="112" height="192" rx="16" fill="url(#phoneGrad)" stroke="#e8c0cc" stroke-width="1.5"/>
+        <rect x="12" y="20" width="96" height="152" rx="8" fill="url(#screenGrad)"/>
+        <text x="60" y="78" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-size="28" font-family="'Playfair Display',serif" font-weight="900">M</text>
+        <text x="60" y="100" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="10" font-family="'DM Sans',sans-serif" font-weight="600" letter-spacing="2">MEESHO</text>
+        <rect x="20" y="112" width="80" height="10" rx="3" fill="rgba(255,255,255,0.3)"/>
+        <rect x="20" y="128" width="60" height="8" rx="3" fill="rgba(255,255,255,0.2)"/>
+        <rect x="20" y="142" width="72" height="8" rx="3" fill="rgba(255,255,255,0.2)"/>
+        <circle cx="44" cy="165" r="10" fill="rgba(255,255,255,0.25)"/>
+        <text x="44" y="169" text-anchor="middle" fill="#fff" font-size="10">🛍</text>
+        <rect x="30" y="178" width="60" height="6" rx="3" fill="rgba(255,255,255,0.15)"/>
+        <rect x="48" y="10" width="24" height="4" rx="2" fill="#d4a0b0"/>
+        <circle cx="60" cy="192" r="5" fill="#e0b0c0"/>
+      </svg>
+    </div>
+    <div class="hero-quote-card">
+      <div class="hero-quote-text">"We want to democratise internet commerce for every Indian."</div>
+      <div class="hero-quote-attr">— Vidit Aatrey, Co-Founder & CEO</div>
+    </div>
+  </div>
+</section>
+
+<div class="article-wrap">
+  <aside class="sidebar">
+    <span class="toc-label">Contents</span>
+    <button class="toc-btn active" onclick="gotoSec('origin')">01 Origin Story</button>
+    <button class="toc-btn" onclick="gotoSec('model')">02 Business Model</button>
+    <button class="toc-btn" onclick="gotoSec('growth')">03 Growth Engine</button>
+    <button class="toc-btn" onclick="gotoSec('reseller')">04 Reseller Network</button>
+    <button class="toc-btn" onclick="gotoSec('product')">05 Product Strategy</button>
+    <button class="toc-btn" onclick="gotoSec('moat')">06 Competitive Moat</button>
+    <button class="toc-btn" onclick="gotoSec('swot')">07 SWOT Analysis</button>
+    <button class="toc-btn" onclick="gotoSec('timeline')">08 Key Milestones</button>
+    <button class="toc-btn" onclick="gotoSec('risks')">09 Risks</button>
+    <button class="toc-btn" onclick="gotoSec('impact')">10 Industry Impact</button>
+    <button class="toc-btn" onclick="gotoSec('lessons')">11 Lessons for Builders</button>
+    <button class="toc-btn" onclick="gotoSec('verdict')">12 Final Verdict</button>
+  </aside>
+
+  <main>
+    <!-- 01 ORIGIN -->
+    <div class="sec light" id="sec-origin">
+      <div class="sec-num">01 — Origin Story</div>
+      <h2 class="sec-title">The WhatsApp <em>Epiphany</em></h2>
+      <p class="lead">In 2015, two IIT Delhi graduates noticed something hiding in plain sight: millions of Indian women were already running small businesses from home — selling sarees, kurtis, and handicrafts to their WhatsApp contacts. <strong>Commerce was happening; infrastructure was missing.</strong></p>
+      <p class="bp">Vidit Aatrey and Sanjeev Barnwal founded Meesho — short for "Meri Shop" (My Shop) — to formalise what housewives and micro-entrepreneurs were doing informally. The founding insight was simple: India's social fabric ran on trust, and trust ran on personal relationships. If you could digitise that network, you could build e-commerce in markets Amazon and Flipkart couldn't reach. <span class="ctag">Social Trust</span> <span class="ctag">Community Commerce</span></p>
+      <p class="bp">The early model was a reseller platform — suppliers listed products, and individual resellers (mostly women) shared them on WhatsApp, Facebook, and Instagram, adding their own markup. Meesho handled logistics, payments, and returns. The reseller earned a commission without investing a single rupee of inventory capital. It was e-commerce built for people who couldn't afford to fail.</p>
+      <div class="pq">
+        <blockquote>"These women were already doing commerce. We just needed to give them a platform."</blockquote>
+        <cite>— Vidit Aatrey, Co-Founder & CEO</cite>
+      </div>
+      <p class="bp">Early traction came from surat's textile markets — one of the world's largest fabric and garment manufacturing hubs. Meesho onboarded suppliers from Surat who could offer fashion at prices Delhi and Mumbai boutiques couldn't touch. The model spread organically: one reseller told another, who told another. WhatsApp groups became Meesho distribution networks.</p>
+      <div class="info-rows">
+        <div class="info-row"><span class="info-key">Founded</span><span class="info-val"><strong>2015</strong> · Bengaluru, Karnataka, India</span></div>
+        <div class="info-row"><span class="info-key">Founders</span><span class="info-val"><strong>Vidit Aatrey</strong> (CEO) and <strong>Sanjeev Barnwal</strong> (CTO) — both IIT Delhi alumni, ex-ITC and Voonik</span></div>
+        <div class="info-row"><span class="info-key">Initial focus</span><span class="info-val">WhatsApp-based reseller network for women's fashion from Surat suppliers</span></div>
+        <div class="info-row"><span class="info-key">YC batch</span><span class="info-val"><strong>Y Combinator W18</strong> — one of YC's first major Indian social commerce bets</span></div>
+        <div class="info-row"><span class="info-key">Target user</span><span class="info-val">Homemakers, micro-entrepreneurs in Tier 2/3 India with smartphone access but no startup capital</span></div>
+      </div>
+    </div>
+
+    <!-- 02 MODEL -->
+    <div class="sec light-alt" id="sec-model">
+      <div class="sec-num">02 — Business Model</div>
+      <h2 class="sec-title">Zero Commission, <em>Maximum Scale</em></h2>
+      <p class="lead">Meesho made one of the most counterintuitive business model decisions in Indian tech: in 2021, it eliminated supplier commissions entirely. Every other major e-commerce platform charged 15–40%. Meesho charged zero. The bet was that volume would justify the model. It was right.</p>
+      <p class="bp">Without commission pressure, suppliers on Meesho could list products at prices Amazon and Flipkart sellers structurally couldn't match. This enabled Meesho to compete aggressively in the sub-₹500 price range — a segment that represents the majority of purchase occasions for India's 800 million internet users who came online post-2018. <span class="ctag">Price Leadership</span> <span class="ctag">Volume Economics</span></p>
+      <div class="insight-grid rc">
+        <div class="insight-card">
+          <span class="ic-icon">💸</span>
+          <div class="ic-title">Advertising Revenue</div>
+          <div class="ic-desc">Suppliers pay to promote products — Meesho's primary monetisation lever once scale was established. Ads are priced on performance, not position.</div>
+        </div>
+        <div class="insight-card">
+          <span class="ic-icon">🚚</span>
+          <div class="ic-title">Logistics Margin</div>
+          <div class="ic-desc">Meesho aggregates shipping volumes across millions of orders and earns margin on logistics, passing some savings to suppliers.</div>
+        </div>
+        <div class="insight-card">
+          <span class="ic-icon">💳</span>
+          <div class="ic-title">Financial Services</div>
+          <div class="ic-desc">Working capital and payment products for suppliers represent an emerging revenue stream. Meesho sits on rich transaction data for credit underwriting.</div>
+        </div>
+        <div class="insight-card">
+          <span class="ic-icon">📊</span>
+          <div class="ic-title">Data & Insights</div>
+          <div class="ic-desc">Supplier analytics and market intelligence tools are a nascent but logical product — Meesho knows what Bharat buys before anyone else does.</div>
+        </div>
+      </div>
+      <p class="bp">The model's genius is its flywheel: zero commission attracts more suppliers → lower prices attract more buyers → higher order volume enables cheaper logistics → lower logistics costs allow even lower prices → more suppliers join. It is a self-reinforcing loop that becomes more powerful at scale and is structurally difficult for incumbent platforms to replicate without cannibalising their own margins.</p>
+    </div>
+
+    <!-- 03 GROWTH -->
+    <div class="sec light gradient-pink" id="sec-growth">
+      <div class="sec-num">03 — Growth Engine</div>
+      <h2 class="sec-title">How Meesho <em>Cracked Bharat</em></h2>
+      <p class="lead">Meesho's growth story is about understanding that "India" and "Bharat" are two different markets — and that most tech companies had only built for the first. The second is three times larger and has never been properly served.</p>
+      <div class="stat-row rc">
+        <div class="stat-card"><div class="stat-val">500+</div><div class="stat-lbl">Cities served</div></div>
+        <div class="stat-card"><div class="stat-val">80%</div><div class="stat-lbl">Orders from Tier 2/3</div></div>
+        <div class="stat-card"><div class="stat-val">35%</div><div class="stat-lbl">Women resellers</div></div>
+        <div class="stat-card"><div class="stat-val">₹149</div><div class="stat-lbl">Avg. order value</div></div>
+        <div class="stat-card"><div class="stat-val">11</div><div class="stat-lbl">Languages supported</div></div>
+      </div>
+      <p class="bp">Three structural advantages drove Meesho's growth in markets Flipkart and Amazon ceded: <strong>vernacular-first design</strong> (the app works fluently in 11 Indian languages), <strong>cash-on-delivery dominance</strong> (70%+ of orders are COD, matching how Bharat actually pays), and <strong>featherweight UX</strong> (optimised for low-end Android devices and 2G/3G connections). These weren't features bolted on — they were architecture decisions made from day one. <span class="ctag">Vernacular-First</span> <span class="ctag">COD Optimised</span></p>
+      <p class="bp">Word-of-mouth amplified by WhatsApp groups drove Meesho's user acquisition cost to a fraction of Amazon India's. When a reseller succeeds, she tells her sister-in-law, who tells her neighbours. The referral loop is organic, trusted, and scales without a marketing budget. This is why Meesho could simultaneously lower prices and grow faster — its cost to acquire a customer was structurally lower than any platform that relied on performance marketing alone.</p>
+    </div>
+
+    <!-- 04 RESELLER -->
+    <div class="sec light-alt" id="sec-reseller">
+      <div class="sec-num">04 — Reseller Network</div>
+      <h2 class="sec-title">15 Million <em>Entrepreneurs</em></h2>
+      <p class="lead">At its peak, Meesho had built a distributed salesforce of over 15 million resellers — predominantly women — each running a micro-business from their smartphones. This wasn't just distribution. It was economic empowerment at an unprecedented scale.</p>
+      <div class="pillar-list rc">
+        <div class="pillar">
+          <div class="pillar-num">1</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Zero-Capital Entry</div>
+            <div class="pillar-desc">Resellers needed no inventory, no shop, no startup capital. They browsed Meesho's catalogue, shared products on WhatsApp or Facebook, and earned a margin on every sale. The economic risk was entirely absorbed by Meesho and the supplier — the reseller only needed time and a smartphone.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">2</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Trust Transfer</div>
+            <div class="pillar-desc">When a reseller recommends a product to her WhatsApp contacts, she's lending her personal reputation. Buyers who wouldn't trust a faceless app trusted their neighbour. Meesho converted India's social trust infrastructure into a distribution advantage that no tech company could replicate from outside.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">3</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Last-Mile Intelligence</div>
+            <div class="pillar-desc">Resellers knew what their communities wanted to buy before any algorithm did. Their product selections, conversations, and order patterns gave Meesho real-time demand intelligence for hyperlocal markets — a data asset that was practically impossible to synthesise from transaction logs alone.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">4</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Evolution Toward Direct</div>
+            <div class="pillar-desc">By 2022, Meesho had begun transitioning toward a direct-to-consumer model, letting buyers purchase without a reseller intermediary. The shift was strategic — it reduced margin complexity and improved unit economics — but it required Meesho to rebuild trust directly at scale, something the reseller network had been doing for free.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 PRODUCT -->
+    <div class="sec light gradient-violet" id="sec-product">
+      <div class="sec-num">05 — Product Strategy</div>
+      <h2 class="sec-title">Designed for <em>New India</em></h2>
+      <p class="lead">Meesho's product philosophy was radical simplicity optimised for the next billion — not the last billion. Every product decision was made for a user holding a ₹8,000 Android phone on a 2G connection who had never shopped online before.</p>
+      <div class="category-grid rc">
+        <div class="category-card"><span class="cat-emoji">👗</span><div class="cat-name">Women's Fashion</div><div class="cat-detail">Core category</div></div>
+        <div class="category-card"><span class="cat-emoji">🏠</span><div class="cat-name">Home & Kitchen</div><div class="cat-detail">Top growth</div></div>
+        <div class="category-card"><span class="cat-emoji">👶</span><div class="cat-name">Kids & Baby</div><div class="cat-detail">High repeat rate</div></div>
+        <div class="category-card"><span class="cat-emoji">💄</span><div class="cat-name">Beauty</div><div class="cat-detail">Fast expanding</div></div>
+        <div class="category-card"><span class="cat-emoji">🧴</span><div class="cat-name">Health</div><div class="cat-detail">Post-COVID surge</div></div>
+        <div class="category-card"><span class="cat-emoji">🔧</span><div class="cat-name">Tools & Hardware</div><div class="cat-detail">Emerging</div></div>
+      </div>
+      <p class="bp">Meesho's design philosophy enforced constraints that larger platforms found unimaginable: images had to load on 2G, checkout had to work with OTP-only authentication (no remembered passwords), and returns had to be processable by someone who had never returned an online purchase before. These constraints produced an app that felt local, not like a watered-down version of a Western shopping experience. <span class="ctag">2G-First Design</span> <span class="ctag">Vernacular UX</span></p>
+      <p class="bp">The catalogue strategy also differed from Flipkart and Amazon: Meesho prioritised unbranded goods — the kurtas, bedsheets, and plastic containers that the vast majority of India's shopping occasions actually consist of. By dominating the unbranded segment, Meesho captured categories where there was no brand loyalty for competitors to exploit.</p>
+    </div>
+
+    <!-- 06 MOAT -->
+    <div class="sec light-alt" id="sec-moat">
+      <div class="sec-num">06 — Competitive Moat</div>
+      <h2 class="sec-title">Why It's <em>Hard to Follow</em></h2>
+      <p class="lead">Meesho's advantages compound in ways that are easy to identify but extremely difficult to replicate. The moat is built from structural decisions, not features.</p>
+      <div class="moat-bars rc">
+        <div class="moat-bar"><div class="moat-label"><span class="moat-name">Supplier Cost Advantage (zero-commission architecture)</span><span class="moat-score">91/100</span></div><div class="moat-track"><div class="moat-fill" data-w="91"></div></div></div>
+        <div class="moat-bar"><div class="moat-label"><span class="moat-name">Bharat User Acquisition Flywheel</span><span class="moat-score">87/100</span></div><div class="moat-track"><div class="moat-fill" data-w="87"></div></div></div>
+        <div class="moat-bar"><div class="moat-label"><span class="moat-name">Vernacular & Low-End Device Optimisation</span><span class="moat-score">82/100</span></div><div class="moat-track"><div class="moat-fill" data-w="82"></div></div></div>
+        <div class="moat-bar"><div class="moat-label"><span class="moat-name">Supplier Network Depth (unbranded goods)</span><span class="moat-score">78/100</span></div><div class="moat-track"><div class="moat-fill" data-w="78"></div></div></div>
+        <div class="moat-bar"><div class="moat-label"><span class="moat-name">Social Trust Distribution Network</span><span class="moat-score">74/100</span></div><div class="moat-track"><div class="moat-fill" data-w="74"></div></div></div>
+        <div class="moat-bar"><div class="moat-label"><span class="moat-name">COD & Returns Infrastructure</span><span class="moat-score">70/100</span></div><div class="moat-track"><div class="moat-fill" data-w="70"></div></div></div>
+      </div>
+      <p class="bp">The deepest part of Meesho's moat is its supplier ecosystem. With over 1.2 million suppliers, many of whom are small manufacturers in Surat, Jaipur, and Tirupur who have built their businesses around Meesho's demand signals, the platform has created mutual dependency. These suppliers couldn't replicate Meesho's distribution independently — and Meesho's price leadership depends on their scale. Neither can easily walk away.</p>
+    </div>
+
+    <!-- 07 SWOT -->
+    <div class="sec light" id="sec-swot">
+      <div class="sec-num">07 — SWOT Analysis</div>
+      <h2 class="sec-title">Strengths, Risks, <em>and Everything Between</em></h2>
+      <div class="swot-grid rc">
+        <div class="swot-cell swot-s">
+          <div class="swot-head">▲ Strengths</div>
+          <ul class="swot-list">
+            <li>Zero-commission model creates structural price advantage</li>
+            <li>Deep penetration in Tier 2/3 India — 80%+ of orders</li>
+            <li>1.2M+ supplier ecosystem built on mutual dependency</li>
+            <li>Organic, low-cost user acquisition via social networks</li>
+            <li>Vernacular-first and COD-native from day one</li>
+            <li>Strong brand recognition in aspirational Bharat segment</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-w">
+          <div class="swot-head">▼ Weaknesses</div>
+          <ul class="swot-list">
+            <li>Unit economics challenged by high COD return rates</li>
+            <li>Quality control complex across 1.2M unbranded suppliers</li>
+            <li>Brand-building capacity limited in premium segments</li>
+            <li>Logistics cost still high relative to order values</li>
+            <li>Transition from reseller to D2C model creates friction</li>
+            <li>Path to profitability under investor scrutiny</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-o">
+          <div class="swot-head">▲ Opportunities</div>
+          <ul class="swot-list">
+            <li>India's internet user base still growing — 500M+ to come</li>
+            <li>Financial services for suppliers (working capital, insurance)</li>
+            <li>Grocery and daily essentials — massive TAM, low penetration</li>
+            <li>ONDC participation could expand reach significantly</li>
+            <li>International expansion to Southeast Asian markets</li>
+            <li>Private label brands leveraging purchase data</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-t">
+          <div class="swot-head">▼ Threats</div>
+          <ul class="swot-list">
+            <li>Reliance Jio Commerce scaling rapidly with Kirana network</li>
+            <li>Amazon and Flipkart investing specifically in Bharat market</li>
+            <li>Temu and similar ultra-low-cost platforms entering India</li>
+            <li>Regulatory changes to e-commerce FDI and marketplace rules</li>
+            <li>High return rates in COD segment straining logistics margins</li>
+            <li>Funding environment shift reducing runway for loss-making growth</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 TIMELINE -->
+    <div class="sec light-alt gradient-violet" id="sec-timeline">
+      <div class="sec-num">08 — Key Milestones</div>
+      <h2 class="sec-title">Meesho's <em>Rise Through India</em></h2>
+      <div class="timeline rc">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2015</div><div class="tl-event">Vidit Aatrey and Sanjeev Barnwal found Meesho after observing <strong>housewives selling on WhatsApp</strong>. Initial product: a catalogue-sharing tool for resellers.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2016</div><div class="tl-event">Pivots to a marketplace model connecting resellers with Surat textile suppliers. <strong>First 1,000 resellers</strong> onboarded through direct outreach.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2018</div><div class="tl-event">Accepted into <strong>Y Combinator (W18)</strong>. Raises seed funding. Platform reaches 1 million resellers. Sequoia India leads Series B.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2019</div><div class="tl-event">Raises $125M Series C led by Naspers. Expands from reseller-only to direct buyer purchases. <strong>10M active resellers</strong>.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2021</div><div class="tl-event"><strong>Zero-commission policy announced.</strong> Meesho eliminates supplier commissions entirely. Raises $570M at $4.9B valuation. Breaks into top 5 Indian e-commerce apps.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2022</div><div class="tl-event">Becomes the <strong>most downloaded shopping app in India</strong> — overtaking Amazon and Flipkart. Reaches 130M transacting users. Raises additional capital from Fidelity.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2023</div><div class="tl-event">Focuses on <strong>path to profitability</strong>. Launches grocery vertical. Reduces cash burn by 90%. Reports positive unit economics for the first time. ESOP buyback for early employees.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2024</div><div class="tl-event">Confidentially files for <strong>IPO</strong>. Continues expanding categories. Logistics subsidiary scales independently. Meesho emerges as India's most credible e-commerce challenger story.</div></div>
+      </div>
+    </div>
+
+    <!-- 09 RISKS -->
+    <div class="sec light" id="sec-risks">
+      <div class="sec-num">09 — Risks & Vulnerabilities</div>
+      <h2 class="sec-title">Where the Model <em>Gets Tested</em></h2>
+      <p class="lead">Meesho's growth story is compelling, but the business faces structural headwinds that will define whether it becomes India's third great e-commerce platform or remains a powerful but niche challenger.</p>
+      <div class="risk-list rc">
+        <div class="risk-item">
+          <div class="risk-badge risk-high">HIGH</div>
+          <div>
+            <div class="risk-content-title">Return Rate Economics</div>
+            <div class="risk-content-desc">COD orders have return rates of 25–40% in fashion — dramatically higher than prepaid. Each return costs Meesho ₹80–120 in logistics. At scale, this creates a unit economics challenge that the zero-commission model doesn't solve. Reducing COD dependency means asking Bharat users to change a deeply ingrained payment habit.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-high">HIGH</div>
+          <div>
+            <div class="risk-content-title">Jio Commerce / Reliance Competition</div>
+            <div class="risk-content-desc">Reliance's JioMart has an asset-base Meesho cannot match: 18 million kirana stores as last-mile delivery points, an existing FMCG supply chain, and Mukesh Ambani's capital. If Reliance successfully executes its commerce strategy in Tier 2/3 India — particularly in groceries — it can leverage infrastructure Meesho took years to build overnight.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-med">MED</div>
+          <div>
+            <div class="risk-content-title">Quality Trust Gap</div>
+            <div class="risk-content-desc">Meesho's unbranded, ultra-affordable model creates a persistent quality perception problem. A buyer who receives a product that looks nothing like the photo loses trust — not in the supplier, but in Meesho. As the platform scales, managing quality across 1.2 million unbranded suppliers with a thin margin model is an increasingly complex operational challenge.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-med">MED</div>
+          <div>
+            <div class="risk-content-title">Monetisation Speed vs. Growth Rate</div>
+            <div class="risk-content-desc">Advertising revenue from suppliers is growing, but the math requires enormous GMV to justify the zero-commission trade-off. If advertising yield stagnates while logistics costs rise, Meesho's path to profitability becomes structurally dependent on scale it hasn't fully achieved. The IPO ambition puts this tension on a public timeline.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-low">LOW</div>
+          <div>
+            <div class="risk-content-title">Reseller Network Attrition</div>
+            <div class="risk-content-desc">As Meesho shifted toward direct consumer purchases, the reseller community's economic incentive diminished. Some power resellers migrated to competing platforms. The social trust distribution advantage, which was Meesho's original acquisition moat, becomes less relevant in a direct D2C model — requiring Meesho to rebuild retention through product and price alone.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 IMPACT -->
+    <div class="sec light-alt gradient-pink" id="sec-impact">
+      <div class="sec-num">10 — Industry Impact</div>
+      <h2 class="sec-title">Meesho Forced India's <em>E-Commerce to Look South</em></h2>
+      <p class="lead">Before Meesho, India's e-commerce narrative was written by and for urban consumers. After Meesho, every major platform rewrote its roadmap for Tier 2 and beyond. The impact is structural and permanent.</p>
+      <p class="bp">Amazon India and Flipkart both launched dedicated Bharat initiatives — simplified apps, vernacular support, and expanded COD coverage — in direct response to Meesho's growth. Meesho didn't just build a business; it wrote the product specification that the incumbents were forced to copy. <span class="ctag">Competitive Response</span> <span class="ctag">Market Creation</span></p>
+      <p class="bp">The zero-commission model put sustained pressure on marketplace fees across Indian e-commerce. Suppliers gained negotiating leverage they had never had. The question "why should I pay 25% commission when Meesho charges zero?" became a standard seller conversation in Mumbai and Surat — reshaping how every platform thought about supplier economics. <span class="ctag">Pricing Disruption</span></p>
+      <p class="bp">Meesho also validated the women's economic empowerment thesis at scale. Governments, development organisations, and social enterprises globally now study the Meesho model as a framework for enabling micro-entrepreneurship in price-sensitive markets. The platform effectively invented a new employment category — the digital reseller — that has precedents in China's Pinduoduo but no prior Indian equivalent.</p>
+    </div>
+
+    <!-- 11 LESSONS -->
+    <div class="sec light" id="sec-lessons">
+      <div class="sec-num">11 — Lessons For Builders</div>
+      <h2 class="sec-title">What Founders Can <em>Take From This</em></h2>
+      <p class="lead">Meesho's playbook contains principles that transfer far beyond e-commerce. These are strategies for any founder building in a market with a massive underserved majority.</p>
+      <div class="lessons-grid rc">
+        <div class="lesson-card">
+          <div class="lesson-num">01</div>
+          <div class="lesson-title">Find the Informal Economy and Formalise It</div>
+          <div class="lesson-desc">Meesho didn't invent social commerce — it found women already doing it on WhatsApp and built infrastructure around their behaviour. The best market opportunities often already exist as informal activity. Your job is to add reliability, scale, and trust to what people are already trying to do.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">02</div>
+          <div class="lesson-title">Constraints Are a Design Brief, Not a Problem</div>
+          <div class="lesson-desc">2G internet, ₹8,000 phones, COD payments, and no prior e-commerce experience weren't obstacles for Meesho — they were the user specification. Building within constraints rather than around them produced an experience that worked for the actual user, not the aspirational user.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">03</div>
+          <div class="lesson-title">Price Is a Strategy, Not a Feature</div>
+          <div class="lesson-desc">Eliminating commissions was a structural bet, not a promotional tactic. It reshaped supplier behaviour, buyer expectations, and competitive dynamics permanently. When you can afford to make price a structural commitment rather than a campaign, the competitive advantages compound in ways that promotional discounts cannot replicate.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">04</div>
+          <div class="lesson-title">Distribution Through Trust, Not Ads</div>
+          <div class="lesson-desc">India's social fabric runs on personal relationships. Meesho's distribution was powered by trust transfers — a reseller's recommendation carried her personal reputation. Any market where trust is scarce and social networks are strong has this opportunity: find the trusted node in the network and make them your distribution partner.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">05</div>
+          <div class="lesson-title">The Majority Market Is Not the Metro Market</div>
+          <div class="lesson-desc">Every market has an urban premium segment and a much larger non-urban majority. The majority is consistently underbuilt because founders and investors live in cities. If you can genuinely understand the majority's constraints — not just add regional languages to an app built for Mumbai — you access a TAM that incumbents cannot easily enter.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">06</div>
+          <div class="lesson-title">Empower Your Supply Side to Win Demand</div>
+          <div class="lesson-desc">Meesho's zero-commission bet was ultimately a supply-side investment that paid dividends on the demand side. By lowering barriers for 1.2 million suppliers, Meesho generated price points that attracted 130 million buyers. In marketplace businesses, the supply side often determines demand before demand determines supply — investing in suppliers is investing in buyers.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 VERDICT -->
+    <div class="sec gradient-warm" id="sec-verdict">
+      <div class="sec-num">12 — Final FounderLens Verdict</div>
+      <h2 class="sec-title">India's Most Important <em>E-Commerce Experiment</em></h2>
+      <p class="lead">Meesho is not India's third e-commerce platform. It is the first platform built for India's actual majority — and the difference in those framings explains everything about its strategy, its growth, and the question marks that remain.</p>
+      <div class="verdict-box">
+        <h3>"Does Meesho have a durable business, or is it a brilliant experiment in search of a profit model?"</h3>
+        <p>Meesho's achievement is genuine and structural: it unlocked an entirely new stratum of the Indian economy for digital commerce. The 130 million users it has brought online were not going to be served by Amazon or Flipkart at the price points and in the languages Meesho serves them. That is a real contribution, not just a growth metric.</p>
+        <p>The business model question is real but answerable. The zero-commission model requires advertising yield, logistics margin, and financial services revenue to collectively exceed the cost of running the platform. At Meesho's scale, these levers are activating. The company's 90% reduction in cash burn by 2023 suggests the unit economics are directionally correct — the machine is learning to pay for itself.</p>
+        <p>The deeper question is strategic: <strong>can Meesho defend its Bharat position against Reliance's infrastructure advantages and hold its supplier network against Amazon's balance sheet?</strong> The answer likely lies in the very asset Meesho's competitors cannot easily build — the cultural alignment with a user who doesn't trust corporate India but trusts her reseller neighbour. That trust, accumulated one WhatsApp recommendation at a time, is a moat that capital cannot directly purchase.</p>
+        <p>For founders: Meesho's lesson is that the biggest markets are rarely the most visible ones. The next billion internet users are not a demographic segment — they are a civilisational shift that will produce companies of extraordinary scale. The founders who are willing to sit in a Tier 3 city and build for the constraints of that user — not the aspirations of a Bengaluru investor — will capture it.</p>
+        <p class="verdict-note">Meesho's story isn't finished. The IPO, the grocery vertical, the financial services expansion — these are chapters yet to be written. But the founding insight — that India's real e-commerce market was hiding in plain sight on WhatsApp — is already one of the cleanest market observations in Indian startup history.</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><span class="footer-dot"></span>FounderLens</div>
+    <p class="footer-desc">Business intelligence explained simply through world-class companies. Strategy, execution, and competitive advantage — decoded for builders and operators.</p>
+    <div class="footer-bottom">
+      <div class="footer-copy"><span>FounderLens</span> · Meesho Company Analysis · Issue #14 · Research compiled June 2026 · Educational purposes only</div>
+      <div class="footer-tags">
+        <span class="footer-tag">Social Commerce</span>
+        <span class="footer-tag">Bharat Market</span>
+        <span class="footer-tag">Meesho Inc.</span>
+        <span class="footer-tag">2015</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+</button>
+
+<script>
+function gotoSec(id) {
+  const el = document.getElementById('sec-' + id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+});
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      e.target.querySelectorAll('.moat-fill').forEach(bar => {
+        setTimeout(() => { bar.style.width = bar.dataset.w + '%'; }, 200);
+      });
+    }
+  });
+}, { threshold: 0.05 });
+document.querySelectorAll('.sec, .rc').forEach(el => ro.observe(el));
+const secs = document.querySelectorAll('.sec[id]');
+const tocObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.toc-btn').forEach(b => b.classList.remove('active'));
+      const id = e.target.id.replace('sec-', '');
+      const t = document.querySelector(`.toc-btn[onclick*="'${id}'"]`);
+      if (t) t.classList.add('active');
+    }
+  });
+}, { rootMargin: '-12% 0px -78% 0px' });
+secs.forEach(s => tocObs.observe(s));
+document.querySelectorAll('.nav-pill').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('.nav-pill').forEach(x => x.classList.remove('active'));
+    p.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
