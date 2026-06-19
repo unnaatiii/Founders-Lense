@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FounderLens · Zoho — Strategic Company Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --zoho-blue:       #1A73E8;
+  --zoho-blue2:      #4D94F0;
+  --zoho-blue-pale:  rgba(26,115,232,0.10);
+  --zoho-violet:     #6C3FC5;
+  --zoho-violet2:    #9B72E0;
+  --zoho-violet-pale:rgba(108,63,197,0.10);
+  --zoho-teal:       #0D9E8A;
+  --zoho-teal-pale:  rgba(13,158,138,0.10);
+  --warm-white:      #f8f9fc;
+  --off-white:       #f2f4f8;
+  --ink:             #0d1117;
+  --ink2:            rgba(13,17,23,0.68);
+  --ink3:            rgba(13,17,23,0.40);
+  --light-rule:      rgba(13,17,23,0.08);
+  --midnight:        #080c14;
+  --dark-cream:      #e8edf8;
+  --dark-cream2:     rgba(232,237,248,0.74);
+  --dark-cream3:     rgba(232,237,248,0.40);
+  --dark-rule:       rgba(232,237,248,0.08);
+
+  --serif:  'DM Serif Display', Georgia, serif;
+  --sans:   'Inter', sans-serif;
+  --mono:   'IBM Plex Mono', monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;background:var(--warm-white);overflow-x:hidden}
+
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--midnight)}
+::-webkit-scrollbar-thumb{background:var(--zoho-blue);border-radius:2px}
+
+#progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--zoho-blue),var(--zoho-violet));z-index:200;width:0%;transition:width .1s linear}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(8,12,20,0.96);backdrop-filter:blur(24px) saturate(1.8);border-bottom:1px solid rgba(232,237,248,0.06);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 44px}
+.nav-logo{font-family:var(--serif);font-size:19px;font-weight:400;color:var(--dark-cream);letter-spacing:-.01em}
+.nav-logo em{font-style:italic;color:var(--zoho-blue2)}
+.nav-right{display:flex;align-items:center;gap:20px}
+.nav-tag{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dark-cream3);padding:4px 10px;border:1px solid rgba(232,237,248,.10);border-radius:4px}
+.nav-tag.live{border-color:rgba(26,115,232,.35);color:var(--zoho-blue2)}
+
+/* COVER */
+.cover{min-height:100vh;background:var(--midnight);display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+.cover-bg{position:absolute;inset:0;background:
+  radial-gradient(ellipse 65% 55% at 80% 10%, rgba(26,115,232,0.14) 0%, transparent 60%),
+  radial-gradient(ellipse 50% 50% at 20% 90%, rgba(108,63,197,0.10) 0%, transparent 55%),
+  radial-gradient(ellipse 40% 40% at 55% 50%, rgba(13,158,138,0.04) 0%, transparent 50%)}
+.cover-grid{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(232,237,248,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(232,237,248,.025) 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%)}
+.cover-inner{position:relative;z-index:2;max-width:960px;margin:0 auto;width:100%;padding:120px 44px 100px}
+.cover-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:28px;animation:fadeUp .8s ease both}
+.cover-eyebrow-pill{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:5px 12px;border-radius:4px;background:rgba(26,115,232,.15);border:1px solid rgba(26,115,232,.3);color:var(--zoho-blue)}
+.cover-eyebrow-line{width:28px;height:1px;background:rgba(232,237,248,.2)}
+.cover-eyebrow-text{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dark-cream3)}
+.cover-title{font-family:var(--serif);font-size:clamp(64px,9vw,130px);font-weight:400;line-height:.95;letter-spacing:-.02em;color:var(--dark-cream);margin-bottom:14px;animation:fadeUp .8s .1s ease both}
+.cover-title strong{font-weight:400;display:block;letter-spacing:-.03em}
+.cover-title em{font-style:italic;color:var(--zoho-blue2);font-weight:400}
+.cover-sub{font-size:17px;color:var(--dark-cream2);max-width:620px;line-height:1.68;font-weight:300;margin-bottom:52px;animation:fadeUp .8s .2s ease both}
+.cover-kpis{display:flex;gap:0;flex-wrap:wrap;border-top:1px solid var(--dark-rule);border-bottom:1px solid var(--dark-rule);margin-bottom:48px;animation:fadeUp .8s .3s ease both}
+.ckpi{padding:20px 32px 20px 0;margin-right:32px;border-right:1px solid var(--dark-rule)}
+.ckpi:last-child{border-right:none}
+.ckpi-val{font-family:var(--serif);font-size:32px;font-weight:400;color:var(--dark-cream);line-height:1}
+.ckpi-val em{color:var(--zoho-blue2);font-style:normal}
+.ckpi-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--dark-cream3);margin-top:4px}
+.cover-tags{display:flex;gap:8px;flex-wrap:wrap;animation:fadeUp .8s .35s ease both}
+.cover-chip{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:4px;border:1px solid var(--dark-rule);color:var(--dark-cream3)}
+.cover-chip.blue{border-color:rgba(26,115,232,.4);color:var(--zoho-blue2);background:var(--zoho-blue-pale)}
+.cover-chip.violet{border-color:rgba(108,63,197,.4);color:var(--zoho-violet2);background:var(--zoho-violet-pale)}
+
+/* BANDS */
+.band{width:100%;position:relative;overflow:hidden}
+.band-inner{max-width:900px;margin:0 auto;padding:80px 44px}
+.band-warm{background:var(--warm-white)}
+.band-stone{background:var(--off-white)}
+.band-dark{background:var(--midnight)}
+.band-split .band-inner{display:grid;grid-template-columns:220px 1fr;gap:60px;align-items:start}
+.split-label{position:sticky;top:80px}
+.split-label .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:12px}
+.split-label h2{font-family:var(--serif);font-size:clamp(22px,2.5vw,30px);font-weight:400;line-height:1.1;letter-spacing:-.01em;margin-bottom:12px}
+.split-label h2 em{font-style:italic}
+.split-label .split-rule{width:32px;height:2px;margin-top:14px}
+
+/* NUMBERS BAND */
+.band-numbers{background:#050810}
+.band-numbers .band-inner{padding-top:60px;padding-bottom:60px}
+.numbers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:rgba(26,115,232,.10);border:1px solid rgba(26,115,232,.10);border-radius:8px;overflow:hidden;margin-top:36px}
+.number-cell{background:#050810;padding:28px 24px}
+.number-cell .n{font-family:var(--serif);font-size:42px;font-weight:400;color:var(--zoho-blue2);line-height:1}
+.number-cell .u{font-family:var(--serif);font-size:22px;color:var(--zoho-blue);font-weight:400}
+.number-cell .l{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(232,237,248,.32);margin-top:6px}
+
+/* WARM BAND */
+.band-warm .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--zoho-blue);margin-bottom:10px}
+.band-warm .sec-title{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:400;color:var(--ink);margin-bottom:28px;line-height:1.05;letter-spacing:-.02em}
+.band-warm .sec-title em{font-style:italic;color:var(--zoho-blue)}
+.band-warm .lead{font-size:19px;font-weight:300;color:var(--ink2);line-height:1.7;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--light-rule)}
+.band-warm p{font-size:15.5px;color:var(--ink2);line-height:1.85;margin-bottom:18px}
+.band-warm p strong{color:var(--ink);font-weight:600}
+.band-warm mark{background:rgba(26,115,232,.10);color:#1050a8;padding:1px 5px;border-radius:3px;font-weight:500}
+.band-warm .callout{background:#f0f5ff;border-left:3px solid var(--zoho-blue);border-radius:0 6px 6px 0;padding:18px 22px;margin:24px 0}
+.band-warm .callout.violet{background:#f5f0ff;border-left-color:var(--zoho-violet)}
+.band-warm .callout.teal{background:#eafaf8;border-left-color:var(--zoho-teal)}
+.band-warm .callout-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--zoho-blue);margin-bottom:6px;font-weight:700}
+.band-warm .callout.violet .callout-lbl{color:var(--zoho-violet)}
+.band-warm .callout.teal .callout-lbl{color:var(--zoho-teal)}
+.band-warm .callout p{font-size:14px;color:var(--ink2);margin-bottom:0}
+.band-warm .callout p strong{color:var(--ink)}
+.band-warm .alist{list-style:none;margin:16px 0}
+.band-warm .alist li{padding:10px 0 10px 24px;position:relative;border-bottom:1px solid var(--light-rule);font-size:15px;color:var(--ink2)}
+.band-warm .alist li:last-child{border-bottom:none}
+.band-warm .alist li::before{content:'→';position:absolute;left:0;color:var(--zoho-blue);font-weight:600;font-size:13px}
+.band-warm .alist li strong{color:var(--ink);font-weight:600}
+.band-warm .pq{margin:36px 0;padding:28px 32px;border-left:3px solid var(--zoho-violet);background:linear-gradient(to right,rgba(108,63,197,.05),transparent);border-radius:0 6px 6px 0}
+.band-warm .pq blockquote{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--ink);line-height:1.5;margin-bottom:10px}
+.band-warm .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--zoho-violet);font-style:normal}
+.band-warm .framework-tag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:rgba(26,115,232,.09);color:#1050a8;margin-left:4px;vertical-align:middle;font-weight:700}
+.band-warm .framework-tag.violet{background:rgba(108,63,197,.09);color:#4a2a8c}
+.band-warm .framework-tag.teal{background:rgba(13,158,138,.09);color:#0a6b5c}
+.band-split.band-warm .split-label .sec-num{color:var(--zoho-blue)}
+.band-split.band-warm .split-label h2{color:var(--ink)}
+.band-split.band-warm .split-label h2 em{color:var(--zoho-blue)}
+.band-split.band-warm .split-label .split-rule{background:var(--zoho-blue)}
+
+/* STONE BAND */
+.band-stone .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#1050a8;margin-bottom:10px}
+.band-stone .sec-title{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:400;color:var(--ink);margin-bottom:28px;line-height:1.05;letter-spacing:-.02em}
+.band-stone .sec-title em{font-style:italic;color:#1050a8}
+.band-stone .lead{font-size:19px;font-weight:300;color:var(--ink2);line-height:1.7;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--light-rule)}
+.band-stone p{font-size:15.5px;color:var(--ink2);line-height:1.85;margin-bottom:18px}
+.band-stone p strong{color:var(--ink);font-weight:600}
+.band-stone mark{background:rgba(26,115,232,.10);color:#1050a8;padding:1px 5px;border-radius:3px;font-weight:500}
+.band-stone .callout{background:#e8f0fe;border-left:3px solid #1050a8;border-radius:0 6px 6px 0;padding:18px 22px;margin:24px 0}
+.band-stone .callout.violet{background:#ede8fb;border-left-color:var(--zoho-violet)}
+.band-stone .callout-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#1050a8;margin-bottom:6px;font-weight:700}
+.band-stone .callout.violet .callout-lbl{color:var(--zoho-violet)}
+.band-stone .callout p{font-size:14px;color:var(--ink2);margin-bottom:0}
+.band-stone .callout p strong{color:var(--ink)}
+.band-stone .alist{list-style:none;margin:16px 0}
+.band-stone .alist li{padding:10px 0 10px 24px;position:relative;border-bottom:1px solid var(--light-rule);font-size:15px;color:var(--ink2)}
+.band-stone .alist li:last-child{border-bottom:none}
+.band-stone .alist li::before{content:'→';position:absolute;left:0;color:#1050a8;font-weight:600;font-size:13px}
+.band-stone .alist li strong{color:var(--ink);font-weight:600}
+.band-stone .pq{margin:36px 0;padding:28px 32px;border-left:3px solid var(--zoho-violet);background:linear-gradient(to right,rgba(108,63,197,.05),transparent);border-radius:0 6px 6px 0}
+.band-stone .pq blockquote{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--ink);line-height:1.5;margin-bottom:10px}
+.band-stone .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--zoho-violet);font-style:normal}
+.band-stone .framework-tag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:rgba(26,115,232,.09);color:#1050a8;margin-left:4px;vertical-align:middle;font-weight:700}
+.band-stone .framework-tag.violet{background:rgba(108,63,197,.09);color:#4a2a8c}
+.band-split.band-stone .split-label .sec-num{color:#1050a8}
+.band-split.band-stone .split-label h2{color:var(--ink)}
+.band-split.band-stone .split-label h2 em{color:#1050a8}
+.band-split.band-stone .split-label .split-rule{background:#1050a8}
+
+/* DARK BAND */
+.band-dark .sec-num{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--zoho-blue2);margin-bottom:10px}
+.band-dark .sec-title{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:400;color:var(--dark-cream);margin-bottom:28px;line-height:1.05;letter-spacing:-.02em}
+.band-dark .sec-title em{font-style:italic;color:var(--zoho-blue2)}
+.band-dark .lead{font-size:19px;font-weight:300;color:var(--dark-cream2);line-height:1.7;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--dark-rule)}
+.band-dark p{font-size:15.5px;color:var(--dark-cream2);line-height:1.85;margin-bottom:18px}
+.band-dark p strong{color:var(--dark-cream);font-weight:600}
+.band-dark mark{background:rgba(26,115,232,.18);color:var(--zoho-blue2);padding:1px 5px;border-radius:3px;font-weight:500}
+.band-dark mark.violet{background:rgba(108,63,197,.18);color:var(--zoho-violet2)}
+.band-dark .callout{background:rgba(26,115,232,.07);border-left:3px solid var(--zoho-blue);border-radius:0 6px 6px 0;padding:18px 22px;margin:24px 0}
+.band-dark .callout.violet{background:rgba(108,63,197,.07);border-left-color:var(--zoho-violet)}
+.band-dark .callout-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--zoho-blue2);margin-bottom:6px;font-weight:700}
+.band-dark .callout.violet .callout-lbl{color:var(--zoho-violet2)}
+.band-dark .callout p{font-size:14px;color:var(--dark-cream2);margin-bottom:0}
+.band-dark .callout p strong{color:var(--dark-cream)}
+.band-dark .alist{list-style:none;margin:16px 0}
+.band-dark .alist li{padding:10px 0 10px 24px;position:relative;border-bottom:1px solid var(--dark-rule);font-size:15px;color:var(--dark-cream2)}
+.band-dark .alist li:last-child{border-bottom:none}
+.band-dark .alist li::before{content:'→';position:absolute;left:0;color:var(--zoho-blue2);font-weight:600;font-size:13px}
+.band-dark .alist li strong{color:var(--dark-cream)}
+.band-dark .pq{margin:36px 0;padding:28px 32px;border-left:3px solid var(--zoho-violet);background:linear-gradient(to right,rgba(108,63,197,.08),transparent);border-radius:0 6px 6px 0}
+.band-dark .pq blockquote{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--dark-cream);line-height:1.5;margin-bottom:10px}
+.band-dark .pq cite{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--zoho-violet2);font-style:normal}
+.band-dark .framework-tag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:rgba(26,115,232,.13);color:var(--zoho-blue2);margin-left:4px;vertical-align:middle;font-weight:700}
+.band-dark .framework-tag.violet{background:rgba(108,63,197,.13);color:var(--zoho-violet2)}
+.band-dark .framework-tag.teal{background:rgba(13,158,138,.12);color:#5dcec4}
+.band-split.band-dark .split-label .sec-num{color:var(--zoho-blue2)}
+.band-split.band-dark .split-label h2{color:var(--dark-cream)}
+.band-split.band-dark .split-label h2 em{color:var(--zoho-blue2)}
+.band-split.band-dark .split-label .split-rule{background:var(--zoho-blue)}
+
+/* STATS STRIP */
+.stats-strip{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0}
+.stat-card{flex:1;min-width:130px;border-radius:6px;padding:16px 20px;border:1px solid var(--light-rule);background:rgba(26,115,232,.02)}
+.stat-card.hi{background:rgba(26,115,232,.07);border-color:rgba(26,115,232,.18)}
+.stat-card.violet{background:rgba(108,63,197,.07);border-color:rgba(108,63,197,.20)}
+.stat-card .stat-val{font-family:var(--serif);font-size:26px;font-weight:400;color:var(--ink);line-height:1}
+.stat-card.hi .stat-val{color:#1050a8}
+.stat-card.violet .stat-val{color:#4a2a8c}
+.stat-card .stat-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-top:5px}
+
+/* SWOT */
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:28px 0;border:1px solid var(--light-rule);border-radius:8px;overflow:hidden}
+.swot-cell{padding:20px 24px}
+.swot-cell h4{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.swot-cell ul{list-style:none}
+.swot-cell ul li{font-size:13px;color:var(--ink2);padding:4px 0;border-bottom:1px solid var(--light-rule)}
+.swot-cell ul li:last-child{border-bottom:none}
+.swot-s{background:#eef5ff;border-right:1px solid var(--light-rule);border-bottom:1px solid var(--light-rule)}
+.swot-s h4{color:#1050a8}
+.swot-w{background:#f5f0ff;border-bottom:1px solid var(--light-rule)}
+.swot-w h4{color:#4a2a8c}
+.swot-o{background:#eafaf8;border-right:1px solid var(--light-rule)}
+.swot-o h4{color:#0a6b5c}
+.swot-t{background:#f8f4ff}
+.swot-t h4{color:#6c3fc5}
+
+/* TIMELINE */
+.tl-strip{display:flex;gap:0;margin:32px 0;overflow-x:auto;padding-bottom:8px}
+.tl-node{flex:0 0 auto;width:200px;padding:0 20px 0 0;position:relative}
+.tl-node::after{content:'';position:absolute;top:11px;left:0;right:0;height:1px;background:rgba(26,115,232,.22)}
+.tl-node:last-child::after{right:20px}
+.tl-dot{width:10px;height:10px;border-radius:2px;background:var(--zoho-blue);border:2px solid var(--warm-white);position:relative;z-index:1;margin-bottom:10px}
+.band-dark .tl-dot{border-color:var(--midnight)}
+.tl-year{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--zoho-blue2);font-weight:700;margin-bottom:4px}
+.tl-label{font-size:13px;color:var(--ink2);line-height:1.4}
+.band-dark .tl-label{color:var(--dark-cream2)}
+
+/* VERDICT */
+.band-verdict{background:var(--midnight);border-top:1px solid rgba(26,115,232,.10);position:relative;overflow:hidden}
+.band-verdict::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 70% 40%,rgba(108,63,197,.07) 0%,transparent 60%)}
+.verdict-inner{max-width:860px;margin:0 auto;padding:80px 44px;position:relative;z-index:1}
+.verdict-label{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--zoho-blue2);margin-bottom:18px}
+.verdict-title{font-family:var(--serif);font-size:clamp(36px,5vw,64px);font-weight:400;color:var(--dark-cream);line-height:1.05;letter-spacing:-.02em;margin-bottom:28px}
+.verdict-title em{font-style:italic;color:var(--zoho-blue2)}
+.verdict-title strong{font-style:italic;color:var(--zoho-violet2)}
+.verdict-divider{width:48px;height:2px;background:linear-gradient(90deg,var(--zoho-blue),var(--zoho-violet));margin-bottom:32px}
+.verdict-body p{font-size:16px;color:var(--dark-cream2);line-height:1.9;margin-bottom:20px;font-weight:300}
+.verdict-body p strong{color:var(--dark-cream);font-weight:600}
+.verdict-body p em{font-style:italic;color:var(--zoho-blue2)}
+.verdict-signature{display:flex;align-items:center;gap:16px;margin-top:48px;padding-top:28px;border-top:1px solid var(--dark-rule)}
+.verdict-sig-mark{width:36px;height:36px;border-radius:6px;background:rgba(26,115,232,.12);border:1px solid rgba(26,115,232,.28);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--zoho-blue2)}
+.verdict-sig-text{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dark-cream3);line-height:1.8}
+
+/* FOOTER */
+.footer{background:#04060c;padding:40px 44px 24px;border-top:1px solid rgba(26,115,232,.06)}
+.footer-inner{max-width:860px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px;margin-bottom:28px}
+.footer-brand{font-family:var(--serif);font-size:22px;font-weight:400;color:var(--dark-cream);margin-bottom:4px}
+.footer-brand em{font-style:italic;color:var(--zoho-blue2)}
+.footer-sub{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--dark-cream3)}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap}
+.footer-links a{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dark-cream3);text-decoration:none}
+.footer-links a:hover{color:var(--zoho-blue2)}
+.footer-copy{max-width:860px;margin:0 auto;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(232,237,248,.16);padding-top:16px;border-top:1px solid rgba(232,237,248,.05)}
+.footer-copy span{color:var(--zoho-blue2)}
+
+/* FAB */
+.fab{position:fixed;bottom:28px;right:28px;width:40px;height:40px;border-radius:6px;background:var(--zoho-blue);color:#fff;border:none;font-size:16px;font-weight:700;cursor:pointer;z-index:300;box-shadow:0 4px 20px rgba(26,115,232,.35);display:flex;align-items:center;justify-content:center;transition:transform .15s}
+.fab:hover{transform:scale(1.08)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+@media(max-width:700px){
+  .nav{padding:0 20px}
+  .cover-inner,.band-inner,.verdict-inner{padding-left:20px;padding-right:20px}
+  .footer{padding:32px 20px 20px}
+  .swot{grid-template-columns:1fr}
+  .swot-s,.swot-w,.swot-o{border-right:none}
+  .band-split .band-inner{grid-template-columns:1fr;gap:0}
+  .split-label{position:static;margin-bottom:24px}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">Founder<em>Lens</em></div>
+  <div class="nav-right">
+    <span class="nav-tag">SaaS · Enterprise Tech</span>
+    <span class="nav-tag live">● Zoho</span>
+  </div>
+</nav>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="cover-bg"></div>
+  <div class="cover-grid"></div>
+  <div class="cover-inner">
+    <div class="cover-eyebrow">
+      <span class="cover-eyebrow-pill">Strategic Analysis</span>
+      <span class="cover-eyebrow-line"></span>
+      <span class="cover-eyebrow-text">FounderLens · Case Study</span>
+    </div>
+    <h1 class="cover-title">
+      Zoho<br>
+      <em>Quietly</em>
+      <strong>Unstoppable.</strong>
+    </h1>
+    <p class="cover-sub">How a Chennai engineer built a $15B enterprise software empire without a single rupee of venture capital, rejected a $15B acquisition offer, and created 55+ products used by 100 million people — while keeping headquarters in a small Tamil Nadu village.</p>
+    <div class="cover-kpis">
+      <div class="ckpi"><div class="ckpi-val">$<em>15B</em></div><div class="ckpi-lbl">Estimated Valuation</div></div>
+      <div class="ckpi"><div class="ckpi-val"><em>100M</em>+</div><div class="ckpi-lbl">Users Worldwide</div></div>
+      <div class="ckpi"><div class="ckpi-val"><em>55</em>+</div><div class="ckpi-lbl">Products Built</div></div>
+      <div class="ckpi"><div class="ckpi-val"><em>1996</em></div><div class="ckpi-lbl">Founded</div></div>
+    </div>
+    <div class="cover-tags">
+      <span class="cover-chip blue">Chennai & Tenkasi, Tamil Nadu</span>
+      <span class="cover-chip blue">Sridhar Vembu · Sreenivas Vembu</span>
+      <span class="cover-chip violet">Bootstrapped · Zero VC</span>
+      <span class="cover-chip">Transnational Localism</span>
+    </div>
+  </div>
+</section>
+
+<!-- 01 — OVERVIEW -->
+<div class="band band-warm" id="s01">
+  <div class="band-inner">
+    <div class="reveal">
+      <div class="sec-num">01 — Company Overview</div>
+      <h2 class="sec-title">What Zoho <em>Actually Builds</em></h2>
+      <p class="lead">Most people think Zoho is a CRM company. It's not — or rather, it's not only. Zoho is an operating system for businesses: a self-sufficient, vertically integrated software stack spanning sales, marketing, finance, HR, collaboration, IT, and analytics, all built in-house, owned entirely by its founders.</p>
+      <p>Zoho Corporation (formerly AdventNet) was founded in 1996 by Sridhar Vembu and his brother Sreenivas. It has never raised venture capital, never gone public, and has reportedly rejected acquisition offers at valuations exceeding $15B. <strong>Sridhar Vembu remains the sole controlling shareholder.</strong> He moved his primary residence and part of the company headquarters to Tenkasi — a small town in rural Tamil Nadu — in 2019, as a statement about India's development geography.</p>
+      <p>The product suite spans Zoho CRM, Zoho One (an all-in-one suite of 45+ apps), Zoho Books, Zoho Desk, Zoho Projects, Zoho Analytics, and dozens more. The pricing strategy is aggressive: <strong>Zoho One costs less than a single seat of Salesforce</strong>, and includes applications that Salesforce would sell as five separate products at five separate prices.</p>
+      <div class="callout teal">
+        <div class="callout-lbl">The Real Business</div>
+        <p>Zoho doesn't sell software. It sells business independence — the ability for a company of any size to run entirely on one integrated, affordable platform without becoming hostage to a single vendor's pricing decisions. <strong>The product is the antithesis of enterprise lock-in.</strong> The irony is that Zoho itself creates deep lock-in through integration breadth. That tension is the genius of the model.</p>
+      </div>
+      <div class="stats-strip">
+        <div class="stat-card hi"><div class="stat-val">$1.1B+</div><div class="stat-lbl">Est. Annual Revenue</div></div>
+        <div class="stat-card violet"><div class="stat-val">100M+</div><div class="stat-lbl">Users across 175 countries</div></div>
+        <div class="stat-card hi"><div class="stat-val">55+</div><div class="stat-lbl">Products built in-house</div></div>
+        <div class="stat-card"><div class="stat-val">15K+</div><div class="stat-lbl">Employees globally</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 02 — ORIGIN — dark, split -->
+<div class="band band-dark band-split" id="s02">
+  <div class="band-inner">
+    <div class="reveal split-label">
+      <div class="sec-num">02 — Origin Story</div>
+      <h2>The Engineer Who <em>Refused to Exit</em></h2>
+      <div class="split-rule"></div>
+    </div>
+    <div class="reveal split-content">
+      <p class="lead">In 1994, Sridhar Vembu was a Princeton-trained electrical engineer working at Qualcomm. He returned to India with his brothers and co-founded AdventNet — a network management software company that no one had heard of, in a city (Chennai) that was not yet a tech hub, making software for enterprises that preferred American vendors.</p>
+      <p>The early years were brutal. AdventNet bootstrapped through the dot-com boom without taking capital, then survived the dot-com crash because it had no burn rate to sustain. <strong>The crash that destroyed hundreds of funded startups actually helped Zoho</strong> — it cleared competitors and opened SMB customers who could no longer afford enterprise pricing. <span class="framework-tag">Bootstrapping Resilience</span></p>
+      <p>The company launched its first Zoho-branded product — <mark>Zoho Writer</mark>, a web-based word processor — in 2005. It was widely dismissed as a Google Docs clone. Within five years, Zoho had built CRM, spreadsheets, email, projects, invoicing, and HR tools — all in-house, all integrated, all priced below any comparable product. <span class="framework-tag violet">Platform Strategy</span></p>
+      <div class="pq">
+        <blockquote>"We are not here to build a company to be sold. We are here to build a company to last."</blockquote>
+        <cite>— Sridhar Vembu, Founder & CEO, Zoho Corporation</cite>
+      </div>
+      <div class="tl-strip">
+        <div class="tl-node"><div class="tl-dot"></div><div class="tl-year">1996</div><div class="tl-label">AdventNet founded. Network management tools.</div></div>
+        <div class="tl-node"><div class="tl-dot"></div><div class="tl-year">2005</div><div class="tl-label">Zoho brand launches. First web-based productivity tools.</div></div>
+        <div class="tl-node"><div class="tl-dot"></div><div class="tl-year">2009</div><div class="tl-label">Zoho CRM passes 1M users. SMB market pivot confirmed.</div></div>
+        <div class="tl-node"><div class="tl-dot"></div><div class="tl-year">2017</div><div class="tl-label">Zoho One launched — 40+ apps, one subscription.</div></div>
+        <div class="tl-node"><div class="tl-dot"></div><div class="tl-year">2019</div><div class="tl-label">Vembu relocates to Tenkasi. "Transnational Localism" declared.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 03 — NUMBERS -->
+<div class="band band-numbers" id="s03">
+  <div class="band-inner">
+    <div class="reveal">
+      <div class="sec-num" style="font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--zoho-blue2);margin-bottom:8px">03 — Scale in Numbers</div>
+      <p style="font-family:var(--serif);font-size:18px;font-style:italic;color:rgba(232,237,248,.48);max-width:500px;line-height:1.6">What "bootstrapped" looks like when compounded over 28 years.</p>
+      <div class="numbers-grid">
+        <div class="number-cell"><div class="n">55<span class="u">+</span></div><div class="l">Products built in-house</div></div>
+        <div class="number-cell"><div class="n">100<span class="u">M+</span></div><div class="l">Users in 175 countries</div></div>
+        <div class="number-cell"><div class="n">$15<span class="u">B</span></div><div class="l">Estimated valuation</div></div>
+        <div class="number-cell"><div class="n">$0</div><div class="l">Venture capital raised</div></div>
+        <div class="number-cell"><div class="n">15<span class="u">K+</span></div><div class="l">Employees globally</div></div>
+        <div class="number-cell"><div class="n">28<span class="u">yrs</span></div><div class="l">Profitable every year</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 04 — BUSINESS MODEL — warm, split -->
+<div class="band band-warm band-split" id="s04">
+  <div class="band-inner">
+    <div class="reveal split-label">
+      <div class="sec-num">04 — Business Model</div>
+      <h2>The Integrated <em>Suite Play</em></h2>
+      <div class="split-rule"></div>
+    </div>
+    <div class="reveal split-content">
+      <p class="lead">Zoho's business model is the antithesis of Silicon Valley's "build one thing, raise a series A, acquire everything else" playbook. Zoho builds everything itself, prices below cost-of-replacement, and makes money on volume and retention — not on per-seat upsells or professional services.</p>
+      <ul class="alist">
+        <li><strong>Zoho One — The Anchor Product:</strong> A single subscription ($37/employee/month) that includes 45+ applications. For a 50-person company, this replaces Salesforce, HubSpot, Slack, QuickBooks, Asana, and Google Workspace — potentially saving six figures annually. The value proposition is so clear it sells itself. <span class="framework-tag">Value Pricing</span></li>
+        <li><strong>Freemium Funnel:</strong> Most Zoho products have a free tier with no credit card required. Zoho CRM Free, Zoho Mail Free, Zoho Invoice Free — these create enormous top-of-funnel user volume that converts to paid plans at the business scale. <span class="framework-tag">PLG Motion</span></li>
+        <li><strong>Integration as Lock-In:</strong> Once a business runs CRM, accounting, HR, and helpdesk on Zoho, migration costs are enormous — not because of contracts, but because of data interoperability, workflow automation, and team training invested. The integration depth is both the product's strength and its most powerful retention mechanism. <span class="framework-tag violet">Integration Lock-In</span></li>
+        <li><strong>Zero Sales Overhead Model:</strong> Zoho spends almost nothing on enterprise sales compared to Salesforce or Oracle. Its go-to-market is almost entirely product-led, content-led, and community-led. This dramatically lowers CAC and allows aggressive pricing. <span class="framework-tag">Sales Efficiency</span></li>
+      </ul>
+      <div class="callout violet">
+        <div class="callout-lbl">The Compounding Advantage</div>
+        <p>Every new Zoho product makes the existing suite more valuable. <strong>A business that adds Zoho Desk to an existing Zoho CRM deployment gets ticket-to-contact linkage for free.</strong> The more products a customer uses, the lower the churn probability and the higher the expansion revenue. This is bundle economics compounded over 55 products. <span class="framework-tag violet">Cross-Sell Flywheel</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 — TRANSNATIONAL LOCALISM — stone -->
+<div class="band band-stone" id="s05">
+  <div class="band-inner">
+    <div class="reveal">
+      <div class="sec-num">05 — Philosophy & Culture</div>
+      <h2 class="sec-title">The Village as <em>Headquarters</em></h2>
+      <p class="lead">In 2019, Sridhar Vembu did something no technology CEO of his stature had done: he moved to a village. Not as a retreat. As a statement. He relocated to Tenkasi, Tamil Nadu — a town of 60,000 people, five hours from Chennai — and announced "Transnational Localism" as Zoho's guiding philosophy. It is the most unusual positioning statement in Indian tech history.</p>
+      <p>Transnational Localism means being a global product company that deliberately anchors economic value creation in rural and semi-urban India. Zoho opened offices in Tenkasi and several smaller towns. <strong>It hires engineers from rural Tamil Nadu schools — not from IITs</strong> — and trains them internally through a programme called Zoho Schools of Learning, which gives rural students a technology career without requiring an expensive engineering degree.</p>
+      <p>Vembu's argument: <mark>India's talent pool is not at the IITs</mark> — it's in the millions of students who couldn't access elite institutions but have exceptional raw aptitude. By training them directly, Zoho gets talent at a fraction of the cost and builds extraordinary loyalty. <span class="framework-tag">Talent Arbitrage</span></p>
+      <div class="callout">
+        <div class="callout-lbl">Zoho Schools of Learning</div>
+        <p>Zoho's internal school recruits students from underprivileged backgrounds at age 18, trains them for 12–18 months, and employs them as engineers. Graduates earn full salaries and work on production-grade Zoho products. <strong>This is not CSR. It is a talent strategy that happens to be socially transformative.</strong> The graduates have a lower attrition rate than IIT hires — because their opportunity cost of leaving is dramatically different. <span class="framework-tag violet">Inverted Talent Strategy</span></p>
+      </div>
+      <div class="pq">
+        <blockquote>We don't want to be the company that extracts talent from India and concentrates it in a few cities. We want to build a company that distributes opportunity.</blockquote>
+        <cite>— Sridhar Vembu, on Transnational Localism</cite>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 06 — GROWTH — dark, split -->
+<div class="band band-dark band-split" id="s06">
+  <div class="band-inner">
+    <div class="reveal split-label">
+      <div class="sec-num">06 — Growth Strategy</div>
+      <h2>Growing Without <em>Spending to Grow</em></h2>
+      <div class="split-rule"></div>
+    </div>
+    <div class="reveal split-content">
+      <p class="lead">Zoho's growth strategy is the most counterintuitive in SaaS: spend almost nothing on marketing, underprice every competitor, build everything in-house, and wait. It requires patience, profitability, and the refusal to optimise for quarterly metrics. It has compounded for 28 years.</p>
+      <p><strong>The Salesforce Disruptor Play:</strong> Zoho CRM launched at a fraction of Salesforce's price, targeting the SMB segment that Salesforce had systematically ignored or over-priced out of. Every year, companies that outgrew spreadsheets but couldn't afford Salesforce found Zoho. The addressable market was enormous and underserved. <span class="framework-tag">Underdog Positioning</span></p>
+      <p><strong>The Privacy-First Angle:</strong> In 2020, Zoho announced it does not allow third-party trackers or advertising networks on its platform and does not build advertising profiles of its users. <mark class="violet">This became a significant differentiator</mark> as enterprise customers grew increasingly concerned about data sovereignty and GDPR exposure. No ad-tech = no surveillance risk = clean data governance story. <span class="framework-tag violet">Privacy Moat</span></p>
+      <div class="callout">
+        <div class="callout-lbl">The Anti-Conference Playbook</div>
+        <p>Most enterprise SaaS companies spend 30–40% of revenue on sales and marketing. Zoho spends an estimated 8–12%. <strong>It runs Zoholics — its own customer conference — rather than sponsoring Dreamforce.</strong> It builds communities, YouTube tutorials, and certified partner ecosystems instead of field sales teams. The result: a CAC structure that most VC-backed SaaS companies would consider impossible. <span class="framework-tag">CAC Efficiency</span></p>
+      </div>
+      <p><strong>The Long Game on AI:</strong> Zoho launched Zia, its AI assistant, in 2017 — before "AI-first" became a marketing requirement. In 2023, it integrated large language model capabilities across the suite. <strong>Because Zoho owns its full stack — including the data layer — it can build AI features that cross product boundaries.</strong> A unified AI that reads your CRM, accounting, helpdesk, and HR data simultaneously is something no best-of-breed competitor can offer. <span class="framework-tag violet">AI Integration Advantage</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- 07 — COMPETITIVE ADVANTAGE — warm -->
+<div class="band band-warm" id="s07">
+  <div class="band-inner">
+    <div class="reveal">
+      <div class="sec-num">07 — Competitive Advantage</div>
+      <h2 class="sec-title">Why Salesforce <em>Can't Copy This</em></h2>
+      <p class="lead">Zoho's moat is not any single product — it is the combination of cost structure, integration depth, ownership philosophy, and talent strategy that took 28 years to build and cannot be replicated by a company that answers to shareholders every 90 days.</p>
+      <ul class="alist">
+        <li><strong>Cost Structure Advantage:</strong> Zoho's engineering costs are a fraction of US or European equivalents. Its infrastructure is self-built (including Zoho's own cloud, ManageEngine). Its sales model is product-led. The cumulative cost per customer is so low that Zoho can price at levels that would be loss-making for a US-headquartered competitor. <span class="framework-tag">Structural Cost Moat</span></li>
+        <li><strong>No Shareholder Pressure:</strong> Sridhar Vembu owns 100% of the company. There is no quarterly earnings call, no analyst pressure to cut R&D, no pressure to spinoff unprofitable products. This allows Zoho to play a 10-year product game while competitors optimise for 10-month revenue cycles. <span class="framework-tag violet">Owner Economics</span></li>
+        <li><strong>Suite Breadth as Defence:</strong> To replace Zoho, a customer would need to evaluate, procure, integrate, and train on 8–15 separate products from 8–15 different vendors. The switching cost is not contractual — it is cognitive and operational. This is the stickiest kind of moat. <span class="framework-tag">Integration Switching Cost</span></li>
+        <li><strong>Privacy Architecture:</strong> Zoho's data model was designed without advertising. Rebuilding a company like HubSpot or Salesforce to be truly privacy-first would require dismantling core product architecture. Zoho's privacy story is credible because it was built in — not bolted on. <span class="framework-tag">Architecture Moat</span></li>
+        <li><strong>Proprietary Talent Pipeline:</strong> Zoho Schools graduates are among the most loyal employees in Indian tech. The programme creates a talent pipeline that is structurally insulated from the Bangalore/Hyderabad salary escalation war. <span class="framework-tag violet">Talent Moat</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 08 — SWOT — stone -->
+<div class="band band-stone" id="s08">
+  <div class="band-inner">
+    <div class="reveal">
+      <div class="sec-num">08 — Strategic Analysis</div>
+      <h2 class="sec-title">The Strategy <em>In Full</em></h2>
+      <p class="lead">Zoho's strategic position is unique in enterprise software: it has the cost structure of an Indian services firm, the product ambition of a US software giant, and the independence of a family business. The SWOT must be read with that unusual combination in mind.</p>
+      <div class="swot">
+        <div class="swot-cell swot-s"><h4>Strengths</h4><ul><li>55+ integrated products — one vendor</li><li>Lowest price point at comparable quality</li><li>Zero VC — no exit pressure</li><li>Privacy-first architecture</li><li>Proprietary talent pipeline via Schools</li></ul></div>
+        <div class="swot-cell swot-w"><h4>Weaknesses</h4><ul><li>Brand recognition vs Salesforce/HubSpot</li><li>US enterprise sales motion is thin</li><li>Individual products lose depth comparisons</li><li>Customer support at scale under pressure</li><li>UX polish gap vs best-in-class</li></ul></div>
+        <div class="swot-cell swot-o"><h4>Opportunities</h4><ul><li>SMB segment globally underpenetrated</li><li>AI across integrated suite — unique position</li><li>Data sovereignty concerns favour privacy stack</li><li>India's formalisation of SMB economy</li><li>Partner/reseller ecosystem expansion</li></ul></div>
+        <div class="swot-cell swot-t"><h4>Threats</h4><ul><li>Microsoft 365 + Dynamics bundling</li><li>Salesforce price cuts in SMB segment</li><li>HubSpot expanding downmarket aggressively</li><li>AI-native startups disrupting individual categories</li><li>Key person risk — Vembu-centric culture</li></ul></div>
+      </div>
+      <p>The strategic risk most underappreciated: <mark>Zoho is a one-founder company at $15B.</mark> Sridhar Vembu's philosophy, vision, and decision-making are embedded in every product, pricing, and cultural choice. That concentration of judgment is the source of Zoho's coherence — and its single greatest succession risk. <span class="framework-tag violet">Key Person Risk</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- 09 — RISKS — dark, split -->
+<div class="band band-dark band-split" id="s09">
+  <div class="band-inner">
+    <div class="reveal split-label">
+      <div class="sec-num">09 — Key Risks</div>
+      <h2>What Could <em>Actually Hurt</em> This</h2>
+      <div class="split-rule"></div>
+    </div>
+    <div class="reveal split-content">
+      <p class="lead">Zoho's risks are less competitive and more structural — the challenges of scaling a philosophy-driven, founder-controlled company in a market that rewards aggression and speed over patience and coherence.</p>
+      <ul class="alist">
+        <li><strong>The Depth Problem:</strong> Zoho's suite breadth is its strength, but individual products often lag best-in-class alternatives. A salesperson who has used Salesforce finds Zoho CRM's UX dated. An accountant used to QuickBooks finds Zoho Books has gaps. At the SMB level this doesn't matter. As Zoho moves upmarket, it does.</li>
+        <li><strong>Microsoft's Bundle:</strong> Microsoft 365 + Teams + Dynamics 365 is the one competitor that can match Zoho's integration play at enterprise scale, with comparable pricing, and a brand CIOs already trust. If Microsoft prices Dynamics aggressively into the SMB segment, Zoho's value proposition narrows significantly.</li>
+        <li><strong>AI-Native Disruption:</strong> Zoho's suite was built over 20 years for a workflow-management paradigm. AI-native tools (agents that replace workflows rather than manage them) could make Zoho's integration advantage obsolete if the underlying task structure of business software changes fundamentally. This is not imminent — but it is real.</li>
+        <li><strong>The Succession Question:</strong> Zoho's culture, pricing philosophy, rural hiring strategy, and product vision are inseparable from Sridhar Vembu. No succession plan is publicly known. The company's greatest asset — its founder's clarity of conviction — is also its most concentrated single point of failure.</li>
+      </ul>
+      <div class="callout violet">
+        <div class="callout-lbl">The Existential Question</div>
+        <p>Can Zoho move upmarket and capture enterprise accounts — with their demands for dedicated CSMs, compliance certifications, complex integrations, and enterprise SLAs — without abandoning the operational model that created its cost advantage? <strong>Moving upmarket while staying cheap is the SaaS industry's hardest problem. Zoho is attempting it without changing hands.</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 10 — LESSONS — warm -->
+<div class="band band-warm" id="s10">
+  <div class="band-inner">
+    <div class="reveal">
+      <div class="sec-num">10 — Lessons For Builders</div>
+      <h2 class="sec-title">What You Can <em>Actually Use</em></h2>
+      <p class="lead">Zoho's story is about the power of patient compounding — in products, talent, culture, and conviction. It is the most counterintuitive success in global SaaS. These are the patterns that transfer, regardless of what you're building or where.</p>
+      <ul class="alist">
+        <li><strong>Profitability from day one is a strategy, not a constraint.</strong> Zoho never needed to grow fast because it never needed to impress an investor. That freed it to build for customers rather than for metrics. If you can be profitable early, it changes every subsequent decision — hiring pace, pricing, product sequencing. Build the profit engine first.</li>
+        <li><strong>Integration depth beats feature depth.</strong> Zoho's individual products are rarely the best in their category. But the integration between them is. When your CRM knows about your support tickets, your invoices, and your HR records simultaneously, you have something no standalone product can match. Build for integration, not feature parity.</li>
+        <li><strong>Your cost structure is your competitive moat.</strong> Salesforce cannot price like Zoho — not because it doesn't want to, but because its cost structure won't allow it. Design your cost structure intentionally. Every hire, office, and vendor decision is a strategic choice about who you can outcompete and at what price.</li>
+        <li><strong>Talent strategy is product strategy.</strong> Zoho's decision to hire from rural schools wasn't charitable — it was strategic. The resulting loyalty, cost, and knowledge retention is embedded in every product line. Where you find talent, how you develop it, and how you keep it shapes what you can build.</li>
+        <li><strong>Philosophy is a competitive advantage.</strong> Vembu's "transnational localism" and refusal to sell are not idealistic — they are differentiating. They attract employees who want to build something lasting, customers who value stability, and press coverage that money can't buy. Clarity of conviction compounds.</li>
+      </ul>
+      <div class="callout violet">
+        <div class="callout-lbl">The One Insight</div>
+        <p>Zoho proved that <strong>the size of a market is determined by price, not by demand.</strong> Millions of businesses globally needed CRM, accounting, and collaboration tools — but couldn't afford Salesforce, QuickBooks, or Microsoft at enterprise pricing. Zoho found those businesses, priced for their reality, and compounded for 28 years. Whenever a market seems captured by incumbents, ask whether it's actually captured — or just priced out of reach for most participants.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VERDICT -->
+<section class="band-verdict" id="verdict">
+  <div class="verdict-inner">
+    <div class="reveal">
+      <div class="verdict-label">11 — FounderLens Verdict</div>
+      <h2 class="verdict-title">
+        Not a SaaS Company.<br>
+        <em>A Permanent</em> <strong>Institution.</strong>
+      </h2>
+      <div class="verdict-divider"></div>
+      <div class="verdict-body">
+        <p>Zoho's genius was never the software. It was the realisation that <strong>the most powerful thing a technology company can be is independent.</strong> Independent of investors, of exit timelines, of short-term market pressure. That independence allowed Sridhar Vembu to make decisions — rural hiring, aggressive pricing, building 55 products instead of one — that no VC-backed company could have survived making.</p>
+        <p>What makes Zoho genuinely singular is that it built a $15B company while actively rejecting the norms that govern $15B companies. No IPO. No acquisitions. No enterprise sales army. No Silicon Valley office. <em>Every "no" was a strategic choice</em> that reinforced a cost structure and culture that competitors cannot replicate without dismantling themselves.</p>
+        <p>The challenge ahead is the challenge of all patient companies: can you stay patient as the market accelerates? AI is restructuring enterprise software faster than any previous wave. Zoho's integrated data layer is a potential AI advantage — but only if it can execute fast enough to claim it. <strong>Speed is the one thing patience cannot buy.</strong></p>
+        <p>The lesson isn't "don't raise VC." The lesson is: <strong>be ruthlessly clear about what you're optimising for — and then refuse to optimise for anything else.</strong> Zoho optimised for permanence, farmer dignity, and customer value. Everything else followed. Build something you'd be proud to own forever — and then act like you will.</p>
+        <p><em>The company that moved headquarters to a Tamil Nadu village to prove a point about India's geography may quietly be building the most durable software empire of the 21st century.</em></p>
+      </div>
+      <div class="verdict-signature">
+        <div class="verdict-sig-mark">FL</div>
+        <div class="verdict-sig-text">FounderLens · Zoho Strategic Analysis · June 2026<br>Business intelligence explained simply through world-class companies</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Founder<em>Lens</em></div>
+      <div class="footer-sub">Business intelligence explained simply through world-class companies</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">All Analyses</a>
+      <a href="#">Founder Stories</a>
+      <a href="#">Strategy Library</a>
+      <a href="#">Subscribe</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <span>FounderLens</span> · Zoho Strategic Analysis · June 2026 · For educational purposes · All data sourced from public filings
+  </div>
+</footer>
+
+<button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+const prog = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  prog.style.width = pct + '%';
+});
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(r => io.observe(r));
+</script>
+</body>
+</html>

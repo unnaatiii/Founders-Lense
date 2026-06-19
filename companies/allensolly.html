@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Allen Solly — FounderLens Company Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:       #F2B705;
+  --gold-dk:    #C9920A;
+  --gold-lt:    #FFD24D;
+  --navy:       #142850;
+  --navy-lt:    #27437A;
+  --cream:      #FFFCF4;
+  --cream-mid:  #FFF7E0;
+  --cream-lt:   #FFF0C2;
+  --ink:        #1B1B1B;
+  --ink-mid:    #142850;
+  --silver:     #6B6456;
+  --muted:      #7A7261;
+  --rule:       rgba(20,40,80,0.12);
+  --rule-lt:    rgba(20,40,80,0.2);
+  --text:       #1F2937;
+  --text-soft:  #4B4636;
+
+  --display: 'Fraunces', Georgia, serif;
+  --body:    'Manrope', system-ui, sans-serif;
+  --mono:    'JetBrains Mono', monospace;
+  --r: 10px;
+  --r-lg: 18px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--body); background: var(--cream); color: var(--text); -webkit-font-smoothing: antialiased; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 2px; }
+
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--navy));
+  width: 0%; z-index: 999; transition: width .1s linear;
+}
+
+.top { max-width: 1120px; margin: 16px auto 0; padding: 0 18px; position: sticky; top: 10px; z-index: 500; }
+.topbar {
+  width: 100%; padding: 10px 14px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  border: 1px solid var(--rule-lt); border-radius: 999px;
+  background: rgba(255,252,244,0.9); backdrop-filter: blur(18px) saturate(1.4);
+  box-shadow: 0 8px 32px rgba(20,40,80,0.08);
+}
+.back { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 600; font-size: 13px; }
+.back .b {
+  width: 26px; height: 26px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--rule-lt); background: rgba(242,183,5,0.18); color: var(--navy);
+}
+.back:hover { color: var(--navy-lt); }
+
+.nav {
+  position: sticky; top: 37px; z-index: 190;
+  background: rgba(255,252,244,0.97); backdrop-filter: blur(20px);
+  border-bottom: 3px solid var(--gold);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 56px; height: 60px;
+  box-shadow: 0 2px 16px rgba(20,40,80,0.06);
+}
+.nav-brand { display: flex; align-items: center; gap: 14px; }
+.nav-logo {
+  width: 40px; height: 40px; background: var(--navy); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--display); font-size: 17px; font-weight: 900; font-style: italic;
+  color: var(--gold); letter-spacing: -.02em; border: 2px solid var(--gold);
+}
+.nav-title { font-family: var(--display); font-size: 21px; font-weight: 700; color: var(--navy); letter-spacing: -.005em; }
+.nav-sub { font-family: var(--mono); font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
+.nav-pills { display: flex; gap: 4px; }
+.nav-pill {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 6px 14px; border-radius: 999px; border: 1px solid var(--rule-lt);
+  background: none; color: var(--muted); cursor: pointer; transition: all .15s;
+}
+.nav-pill:hover, .nav-pill.active { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+.nav-badge {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 6px 13px; border-radius: 999px;
+  background: var(--gold); color: var(--navy); border: 1px solid var(--gold-dk); font-weight: 700;
+}
+
+/* HERO */
+.hero {
+  min-height: 88vh; background: var(--cream);
+  position: relative; overflow: hidden;
+  padding: 64px 56px 40px;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 55% 50% at 85% 10%, rgba(242,183,5,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 45% 50% at 5% 90%, rgba(20,40,80,0.08) 0%, transparent 55%);
+}
+.hero-grid-pattern {
+  position: absolute; inset: 0; z-index: 0; opacity: 0.5;
+  background-image:
+    linear-gradient(var(--rule) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 0%, transparent 70%);
+}
+.hero-inner {
+  position: relative; z-index: 1; max-width: 1120px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center;
+}
+.hero-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; animation: fade-up .7s ease both; }
+.hero-eyebrow-bar { width: 30px; height: 4px; background: var(--gold); border-radius: 2px; }
+.hero-eyebrow-text { font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--navy); font-weight: 600; }
+.hero-h1 {
+  font-family: var(--display); font-size: clamp(50px, 7vw, 92px);
+  font-weight: 900; font-style: italic; line-height: .95; color: var(--navy);
+  margin-bottom: 10px; animation: fade-up .7s .07s ease both;
+}
+.hero-h1 em { font-style: italic; color: var(--gold-dk); }
+.hero-sub {
+  font-family: var(--display); font-size: clamp(15px, 2vw, 22px); font-weight: 500;
+  font-style: italic; color: var(--text-soft);
+  margin-bottom: 28px; line-height: 1.35;
+  animation: fade-up .7s .14s ease both;
+  border-left: 3px solid var(--gold); padding-left: 14px;
+}
+.hero-desc {
+  font-size: 15px; line-height: 1.85; color: var(--text-soft);
+  max-width: 520px; font-weight: 400; margin-bottom: 32px;
+  animation: fade-up .7s .2s ease both;
+}
+.hero-desc strong { color: var(--navy); font-weight: 700; }
+
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 10px;
+  margin-bottom: 28px; animation: fade-up .7s .26s ease both;
+}
+.kpi-cell {
+  background: #fff; border: 1px solid var(--rule); border-radius: var(--r);
+  padding: 16px 14px; text-align: center;
+  transition: transform .2s, box-shadow .2s; box-shadow: 0 2px 10px rgba(20,40,80,0.04);
+}
+.kpi-cell:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(242,183,5,0.18); }
+.kpi-val { font-family: var(--display); font-size: 25px; font-weight: 800; color: var(--navy); line-height: 1; margin-bottom: 5px; }
+.kpi-lbl { font-family: var(--mono); font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+.hero-tags { display: flex; gap: 8px; flex-wrap: wrap; animation: fade-up .7s .32s ease both; }
+.hero-tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 6px 13px; border-radius: 999px;
+  background: #fff; border: 1px solid var(--rule-lt);
+  color: var(--muted); transition: all .15s; cursor: default;
+}
+.hero-tag:hover { background: var(--cream-mid); color: var(--navy); border-color: var(--gold); }
+.hero-tag.pink { background: var(--gold); border-color: var(--gold-dk); color: var(--navy); font-weight: 700; }
+
+.hero-right {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  gap: 22px;
+}
+.product-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+.product-glow {
+  position: absolute; width: 250px; height: 250px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(242,183,5,0.28) 0%, transparent 70%);
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+@keyframes pulse-glow { 0%,100% { transform: scale(1); opacity:1; } 50% { transform: scale(1.15); opacity:0.5; } }
+
+/* Logo upload slot */
+.logo-slot {
+  width: 178px; height: 178px; position: relative; z-index: 1;
+  border-radius: 50%; background: #fff;
+  border: 3px dashed var(--gold-dk);
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  gap: 10px; cursor: pointer; overflow: hidden;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+  animation: float 4s ease-in-out infinite;
+  box-shadow: 0 18px 40px rgba(20,40,80,0.14);
+}
+.logo-slot:hover { border-color: var(--navy); transform: translateY(-2px); box-shadow: 0 22px 48px rgba(242,183,5,0.3); }
+.logo-slot.has-logo { border-style: solid; border-color: var(--rule-lt); padding: 18px; }
+.logo-slot img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
+.logo-slot-icon { width: 30px; height: 30px; color: var(--navy); opacity: 0.55; }
+.logo-slot-icon svg { width: 100%; height: 100%; }
+.logo-slot-label { font-family: var(--mono); font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); text-align: center; padding: 0 16px; line-height: 1.5; }
+.logo-slot-input { display: none; }
+.logo-remove {
+  position: absolute; top: 10px; right: 10px; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--navy); color: var(--gold); border: none; cursor: pointer;
+  display: none; align-items: center; justify-content: center; font-size: 12px; z-index: 2;
+}
+.logo-slot.has-logo:hover .logo-remove { display: flex; }
+
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+.orbit-ring { position: absolute; border-radius: 50%; border: 1px dashed; animation: spin 22s linear infinite; }
+.orbit-1 { width: 218px; height: 218px; border-color: rgba(242,183,5,0.4); }
+.orbit-2 { width: 300px; height: 300px; border-color: rgba(20,40,80,0.15); animation-duration: 38s; animation-direction: reverse; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.orbit-dot { position: absolute; width: 7px; height: 7px; border-radius: 50%; background: var(--gold-dk); top: -3.5px; left: 50%; margin-left: -3.5px; }
+.orbit-dot-2 { background: var(--navy); top: auto; bottom: -3.5px; left: 30%; margin-left: -3.5px; }
+
+.hero-quote-card {
+  background: var(--navy); color: #fff; border-radius: var(--r); padding: 20px 24px; max-width: 300px;
+  position: relative;
+}
+.hero-quote-card::before { content: '"'; font-family: var(--display); font-size: 64px; font-weight: 900; color: var(--gold); position: absolute; top: -6px; left: 14px; opacity: 0.5; line-height: 1; }
+.hero-quote-text { font-family: var(--display); font-size: 14.5px; font-style: italic; font-weight: 500; color: #fff; line-height: 1.55; margin-bottom: 10px; padding-top: 14px; }
+.hero-quote-attr { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+
+@keyframes fade-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+/* LAYOUT */
+.article-wrap { display: grid; grid-template-columns: 220px 1fr; }
+
+.sidebar {
+  position: sticky; top: 97px; height: calc(100vh - 97px);
+  overflow-y: auto; scrollbar-width: none;
+  background: var(--cream-mid); border-right: 1px solid var(--rule);
+  padding: 32px 0;
+}
+.sidebar::-webkit-scrollbar { display: none; }
+.toc-label {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold-dk); padding: 0 20px; margin-bottom: 8px; margin-top: 18px; display: block; font-weight: 700;
+}
+.toc-btn {
+  display: block; width: 100%; text-align: left;
+  font-family: var(--body); font-size: 12px; font-weight: 500;
+  color: var(--muted); padding: 8px 20px 8px 18px;
+  border-left: 3px solid transparent; border: none; background: none; cursor: pointer;
+  transition: all .15s; line-height: 1.4;
+}
+.toc-btn:hover { color: var(--navy); background: rgba(242,183,5,0.12); }
+.toc-btn.active { color: var(--navy); border-left-color: var(--gold); background: rgba(242,183,5,0.18); font-weight: 700; }
+
+/* SECTIONS */
+.sec {
+  padding: 72px 64px; scroll-margin-top: 100px;
+  border-bottom: 1px solid var(--rule);
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.sec.vis { opacity: 1; transform: none; }
+.sec.light     { background: var(--cream); }
+.sec.light-alt { background: var(--cream-mid); }
+.sec.light-lt  { background: var(--cream-lt); }
+.sec.gradient-pink { background: linear-gradient(135deg, var(--cream) 0%, rgba(242,183,5,0.08) 50%, var(--cream-mid) 100%); }
+.sec.gradient-violet { background: linear-gradient(135deg, var(--cream-mid) 0%, rgba(20,40,80,0.05) 60%, var(--cream) 100%); }
+.sec.gradient-warm { background: linear-gradient(135deg, #fffdf6 0%, #fff4d6 60%, #fffcf4 100%); }
+
+.sec-num { font-family: var(--mono); font-size: 9px; letter-spacing: .24em; text-transform: uppercase; margin-bottom: 10px; color: var(--gold-dk); font-weight: 700; }
+.sec-title {
+  font-family: var(--display); font-size: clamp(28px, 4vw, 46px);
+  font-weight: 800; font-style: italic; line-height: 1; letter-spacing: -.01em;
+  margin-bottom: 20px; color: var(--navy);
+}
+.sec-title em { font-style: italic; color: var(--gold-dk); font-weight: 900; }
+.lead { font-size: 17px; line-height: 1.75; font-weight: 400; margin-bottom: 28px; max-width: 680px; color: var(--text-soft); }
+.lead strong { color: var(--navy); font-weight: 700; }
+.bp { font-size: 15px; line-height: 1.8; font-weight: 400; margin-bottom: 16px; max-width: 680px; color: var(--text-soft); }
+.bp strong { color: var(--navy); font-weight: 700; }
+.ctag {
+  display: inline-block; font-family: var(--mono); font-size: 9px; letter-spacing: .1em;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 999px;
+  background: var(--gold); color: var(--navy); border: 1px solid var(--gold-dk); font-weight: 700;
+  margin-left: 4px; vertical-align: middle;
+}
+
+.pq {
+  margin: 28px 0; padding: 20px 24px; border-radius: var(--r);
+  border-left: 4px solid var(--gold); background: #fff; max-width: 680px;
+  box-shadow: 0 4px 16px rgba(20,40,80,0.06);
+}
+.pq blockquote { font-family: var(--display); font-size: 21px; font-style: italic; font-weight: 700; line-height: 1.25; margin-bottom: 10px; color: var(--navy); }
+.pq cite { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; font-style: normal; color: var(--gold-dk); }
+
+.insight-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: 12px; margin: 28px 0; }
+.insight-card {
+  background: #fff; border: 1px solid var(--rule);
+  border-radius: var(--r); padding: 20px 18px;
+  transition: transform .15s, border-color .15s, box-shadow .15s;
+}
+.insight-card:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: 0 8px 24px rgba(242,183,5,0.16); }
+.ic-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+.ic-title { font-family: var(--display); font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--navy); }
+.ic-desc { font-size: 12.5px; line-height: 1.6; font-weight: 400; color: var(--muted); }
+
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 8px; margin: 28px 0; }
+.stat-card {
+  background: #fff; border: 1px solid var(--rule); border-radius: var(--r);
+  padding: 18px 14px; text-align: center; transition: transform .15s;
+}
+.stat-card:hover { transform: translateY(-2px); border-color: var(--gold); box-shadow: 0 6px 16px rgba(242,183,5,0.14); }
+.stat-val { font-family: var(--display); font-size: 27px; font-weight: 800; color: var(--navy); line-height: 1; margin-bottom: 5px; }
+.stat-lbl { font-family: var(--mono); font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+.info-rows { margin: 20px 0; max-width: 680px; }
+.info-row { display: flex; gap: 20px; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 14.5px; align-items: flex-start; }
+.info-row:last-child { border-bottom: none; }
+.info-key { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; flex-shrink: 0; width: 140px; padding-top: 3px; font-weight: 700; color: var(--gold-dk); }
+.info-val { line-height: 1.6; font-weight: 400; color: var(--text-soft); }
+.info-val strong { font-weight: 700; color: var(--navy); }
+
+.swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin: 28px 0; border-radius: var(--r); overflow: hidden; max-width: 680px; background: var(--rule); }
+.swot-cell { padding: 22px 20px; }
+.swot-s { background: #eefaf0; } .swot-w { background: #fff3e0; }
+.swot-o { background: #eaf2ff; } .swot-t { background: #fdeef0; }
+.swot-head { font-family: var(--mono); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; font-weight: 700; margin-bottom: 10px; }
+.swot-s .swot-head { color: #1b8a4a; } .swot-w .swot-head { color: #c07a0a; }
+.swot-o .swot-head { color: #2050b0; } .swot-t .swot-head { color: #c0303a; }
+.swot-list { list-style: none; }
+.swot-list li { font-size: 13px; line-height: 1.6; color: var(--text-soft); padding: 3px 0; font-weight: 400; }
+.swot-list li::before { content: '— '; opacity: 0.4; }
+
+.moat-bars { margin: 28px 0; max-width: 600px; }
+.moat-bar { margin-bottom: 16px; }
+.moat-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.moat-name { font-size: 13px; font-weight: 500; color: var(--text-soft); }
+.moat-score { font-family: var(--mono); font-size: 11px; color: var(--gold-dk); font-weight: 700; }
+.moat-track { height: 6px; border-radius: 3px; overflow: hidden; background: var(--cream-lt); }
+.moat-fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--navy));
+  width: 0%; transition: width 1.2s cubic-bezier(.16,1,.3,1);
+}
+
+.risk-list { margin: 24px 0; max-width: 680px; }
+.risk-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--rule); }
+.risk-item:last-child { border-bottom: none; }
+.risk-badge { flex-shrink: 0; width: 48px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 8px; letter-spacing: .1em; font-weight: 700; margin-top: 2px; }
+.risk-high { background: #FCE2E4; color: #B0202A; }
+.risk-med  { background: #FFF0CC; color: #A06600; }
+.risk-low  { background: #E0F0E8; color: #1B7A4A; }
+.risk-content-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; color: var(--navy); }
+.risk-content-desc { font-size: 13px; line-height: 1.65; font-weight: 400; color: var(--muted); }
+
+.timeline { margin: 28px 0; max-width: 680px; position: relative; padding-left: 28px; }
+.timeline::before { content: ''; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(to bottom, var(--gold), var(--navy)); }
+.tl-item { position: relative; margin-bottom: 24px; }
+.tl-dot { position: absolute; left: -24px; top: 4px; width: 11px; height: 11px; border-radius: 50%; background: var(--gold); border: 2px solid var(--navy); }
+.tl-year { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; color: var(--gold-dk); margin-bottom: 4px; font-weight: 700; }
+.tl-event { font-size: 13.5px; line-height: 1.6; color: var(--text-soft); font-weight: 400; }
+.tl-event strong { color: var(--navy); font-weight: 700; }
+
+.lessons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0; }
+.lesson-card {
+  background: #fff; border: 1px solid var(--rule);
+  border-radius: var(--r); padding: 22px 20px;
+  transition: transform .15s, border-color .15s, box-shadow .15s;
+}
+.lesson-card:hover { transform: translateY(-2px); border-color: var(--gold); box-shadow: 0 6px 20px rgba(242,183,5,0.16); }
+.lesson-num { font-family: var(--display); font-size: 44px; font-weight: 900; font-style: italic; color: rgba(20,40,80,0.1); line-height: 1; margin-bottom: -2px; }
+.lesson-title { font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+.lesson-desc { font-size: 13px; line-height: 1.65; color: var(--text-soft); font-weight: 400; }
+
+.verdict-box {
+  border-radius: var(--r-lg); padding: 40px 44px; margin: 32px 0; max-width: 720px;
+  border-left: 6px solid var(--gold);
+  background: var(--navy); color: #fff;
+}
+.verdict-box h3 { font-family: var(--display); font-size: 24px; font-style: italic; font-weight: 700; margin-bottom: 20px; line-height: 1.25; color: var(--gold); }
+.verdict-box p { font-size: 15px; line-height: 1.85; margin-bottom: 14px; font-weight: 400; color: #E8E4D8; }
+.verdict-box p strong { font-weight: 700; color: #fff; }
+.verdict-box .verdict-note { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 18px; margin-top: 20px; font-style: italic; font-size: 13.5px; color: #B8B2A0; }
+
+.pillar-list { margin: 24px 0; max-width: 680px; }
+.pillar { display: flex; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--rule); align-items: flex-start; }
+.pillar:last-child { border-bottom: none; }
+.pillar-num { font-family: var(--display); font-size: 30px; font-weight: 900; font-style: italic; color: var(--gold-dk); line-height: 1; flex-shrink: 0; width: 36px; }
+.pillar-body { flex: 1; }
+.pillar-title { font-family: var(--display); font-size: 15.5px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+.pillar-desc { font-size: 13.5px; line-height: 1.65; color: var(--muted); font-weight: 400; }
+
+.footer {
+  background: var(--navy); color: #fff;
+  padding: 48px 56px 40px;
+}
+.footer-inner { max-width: 720px; }
+.footer-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--display); font-size: 18px; font-weight: 800; font-style: italic;
+  color: #fff; margin-bottom: 12px;
+}
+.footer-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--gold); }
+.footer-desc { font-size: 13px; line-height: 1.7; color: #B8B2A0; margin-bottom: 24px; max-width: 480px; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.15); }
+.footer-copy { font-family: var(--mono); font-size: 10px; color: #B8B2A0; letter-spacing: .06em; }
+.footer-copy span { color: var(--gold); }
+.footer-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.footer-tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 11px; border-radius: 999px;
+  background: rgba(255,255,255,0.08); color: #E8E4D8;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.scroll-top {
+  position: fixed; bottom: 24px; right: 24px; width: 42px; height: 42px;
+  background: var(--gold); border: 2px solid var(--navy); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: transform .15s; z-index: 100;
+  box-shadow: 0 4px 16px rgba(242,183,5,0.4);
+}
+.scroll-top:hover { transform: translateY(-2px); }
+.scroll-top svg { width: 18px; height: 18px; fill: var(--navy); }
+
+.rc { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+.rc.vis { opacity: 1; transform: none; }
+
+.category-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 10px; margin: 24px 0; }
+.category-card {
+  background: #fff; border: 1px solid var(--rule); border-radius: var(--r);
+  padding: 16px 14px; text-align: center; transition: transform .15s, border-color .15s;
+}
+.category-card:hover { transform: translateY(-3px); border-color: var(--gold); box-shadow: 0 6px 16px rgba(242,183,5,0.14); }
+.cat-emoji { font-size: 28px; margin-bottom: 8px; display: block; }
+.cat-name { font-family: var(--display); font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.cat-detail { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: .08em; }
+
+@media (max-width: 860px) {
+  .hero-inner { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<div class="top">
+  <div class="topbar">
+    <a class="back" href="../company.html"><span class="b">&larr;</span> Companies</a>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-logo">A</div>
+    <div>
+      <div class="nav-title">Allen Solly</div>
+      <div class="nav-sub">FounderLens · Company Analysis</div>
+    </div>
+  </div>
+  <div class="nav-pills">
+    <button class="nav-pill active" onclick="gotoSec('origin')">Origin</button>
+    <button class="nav-pill" onclick="gotoSec('model')">Model</button>
+    <button class="nav-pill" onclick="gotoSec('growth')">Growth</button>
+    <button class="nav-pill" onclick="gotoSec('moat')">Moat</button>
+    <button class="nav-pill" onclick="gotoSec('lessons')">Lessons</button>
+  </div>
+  <div class="nav-badge">Issue #16</div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-pattern"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-bar"></div>
+        <div class="hero-eyebrow-text">FounderLens · Apparel & Workwear</div>
+      </div>
+      <h1 class="hero-h1">Allen <em>Solly</em></h1>
+      <p class="hero-sub">The 1744 British Woollen Brand That Taught India to Wear Colour to Work</p>
+      <p class="hero-desc">Allen Solly took a 249-year-old English textile name and turned it into India's most recognisable workwear story — <strong>"Friday Dressing"</strong> — replacing decades of grey-and-white office formality with colour, comfort, and a tagline that became a cultural shorthand for relaxed professionalism.</p>
+      <div class="kpi-grid">
+        <div class="kpi-cell"><div class="kpi-val">1744</div><div class="kpi-lbl">Original founding, England</div></div>
+        <div class="kpi-cell"><div class="kpi-val">1993</div><div class="kpi-lbl">Launched in India</div></div>
+        <div class="kpi-cell"><div class="kpi-val">1995</div><div class="kpi-lbl">First Friday Dressing ad</div></div>
+        <div class="kpi-cell"><div class="kpi-val">2001</div><div class="kpi-lbl">Aditya Birla acquisition</div></div>
+        <div class="kpi-cell"><div class="kpi-val">2002</div><div class="kpi-lbl">First Indian work-fashion line for women</div></div>
+        <div class="kpi-cell"><div class="kpi-val">₹1,000Cr+</div><div class="kpi-lbl">Long-cited annual turnover</div></div>
+      </div>
+      <div class="hero-tags">
+        <span class="hero-tag pink">Friday Dressing</span>
+        <span class="hero-tag pink">Smart Casuals Pioneer</span>
+        <span class="hero-tag">British Heritage Brand</span>
+        <span class="hero-tag">Aditya Birla Group</span>
+        <span class="hero-tag">Work Casual Category Creator</span>
+        <span class="hero-tag">Stag Logo</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="product-wrap">
+        <div class="product-glow"></div>
+        <div class="orbit-ring orbit-1"><div class="orbit-dot"></div></div>
+        <div class="orbit-ring orbit-2"><div class="orbit-dot orbit-dot-2"></div></div>
+        <label class="logo-slot" id="logoSlot" for="logoInput">
+          <button class="logo-remove" id="logoRemove" type="button" aria-label="Remove logo">✕</button>
+          <span class="logo-slot-icon" id="logoIcon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 15V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V15M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="logo-slot-label" id="logoLabel">Click to add<br>Allen Solly logo</span>
+          <img id="logoImg" src="" alt="Allen Solly logo" style="display:none;">
+          <input type="file" accept="image/*" id="logoInput" class="logo-slot-input">
+        </label>
+      </div>
+      <div class="hero-quote-card">
+        <div class="hero-quote-text">Allen Solly redefined work-wear through its unique "Friday Dressing" concept — replacing the blues and whites of corporate India with a wardrobe of relaxed formal wear in bold colour.</div>
+        <div class="hero-quote-attr">— Brand positioning, since 1993 launch</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="article-wrap">
+  <aside class="sidebar">
+    <span class="toc-label">Contents</span>
+    <button class="toc-btn active" onclick="gotoSec('origin')">01 Origin Story</button>
+    <button class="toc-btn" onclick="gotoSec('model')">02 Business Model</button>
+    <button class="toc-btn" onclick="gotoSec('growth')">03 Growth Engine</button>
+    <button class="toc-btn" onclick="gotoSec('reseller')">04 Women's Wear Bet</button>
+    <button class="toc-btn" onclick="gotoSec('product')">05 Product Strategy</button>
+    <button class="toc-btn" onclick="gotoSec('moat')">06 Competitive Moat</button>
+    <button class="toc-btn" onclick="gotoSec('swot')">07 SWOT Analysis</button>
+    <button class="toc-btn" onclick="gotoSec('timeline')">08 Key Milestones</button>
+    <button class="toc-btn" onclick="gotoSec('risks')">09 Risks</button>
+    <button class="toc-btn" onclick="gotoSec('impact')">10 Industry Impact</button>
+    <button class="toc-btn" onclick="gotoSec('lessons')">11 Lessons for Builders</button>
+    <button class="toc-btn" onclick="gotoSec('verdict')">12 Final Verdict</button>
+  </aside>
+
+  <main>
+    <!-- 01 ORIGIN -->
+    <div class="sec light" id="sec-origin">
+      <div class="sec-num">01 — Origin Story</div>
+      <h2 class="sec-title">A Nottingham Mill <em>Reborn in India</em></h2>
+      <p class="lead">Allen Solly's story doesn't start in India at all. It starts in 1744 in Nottingham, England, when William Hollins & Co. Ltd. established a woollen textile manufacturer whose coat of arms carried a ram (for Britain's wool industry) and a stag (for the city of Nottingham). <strong>For nearly 250 years, it was a respected but unremarkable British knitwear name.</strong></p>
+      <p class="bp">The brand's second life began in 1993, when Madura Garments — at the time part of Madura Coats, itself linked to the UK's Coats Viyella — launched Allen Solly in India under licence. Indian corporate dress in the early 1990s was rigid: white and grey formals, dark ties, no room for individual expression. Madura's bet was that liberalising India's young, urban professionals were ready for something less stiff. <span class="ctag">Heritage Licensing</span> <span class="ctag">Post-Liberalisation Bet</span></p>
+      <p class="bp">The breakthrough idea — what would later be called "Friday Dressing" — was conceived by creative agency Ogilvy & Mather's Bangalore office. The first advertising built around this idea ran in 1995, introducing colour-blocked shirts and khaki trousers into a market that had never seen branded office colour before. Within a few years, the phrase became inseparable from the brand itself.</p>
+      <div class="pq">
+        <blockquote>"Friday Dressing" signified a critical change in attitude toward the work week — from the gear of serious work to the dress code of the relaxed, easy achiever.</blockquote>
+        <cite>— Brand history, as documented by Aditya Birla Group</cite>
+      </div>
+      <p class="bp">Ownership changed twice in less than a decade. The Aditya Birla Group acquired Madura Garments in 1999, and by 2001 had secured the worldwide rights to the Allen Solly brand itself — folding a 257-year-old British name into one of India's largest industrial conglomerates. What followed was not a quiet integration but an acceleration: faster store rollout, a sharper retail identity, and eventually a full visual rebrand built around the stag.</p>
+      <div class="info-rows">
+        <div class="info-row"><span class="info-key">Original founding</span><span class="info-val"><strong>1744</strong> · Nottingham, England, by William Hollins & Co. Ltd.</span></div>
+        <div class="info-row"><span class="info-key">India launch</span><span class="info-val"><strong>1993</strong> · By Madura Garments, then part of Madura Coats/Coats Viyella</span></div>
+        <div class="info-row"><span class="info-key">Signature idea</span><span class="info-val">"Friday Dressing" — colour and khaki replacing white-and-grey corporate formalwear; first ad ran in 1995</span></div>
+        <div class="info-row"><span class="info-key">Current owner</span><span class="info-val"><strong>Aditya Birla Lifestyle Brands Limited (ABLBL)</strong>, since the May 2025 demerger from ABFRL</span></div>
+        <div class="info-row"><span class="info-key">Target user</span><span class="info-val">Young, urban Indian professionals seeking smart-casual workwear distinct from rigid formal attire</span></div>
+      </div>
+    </div>
+
+    <!-- 02 MODEL -->
+    <div class="sec light-alt" id="sec-model">
+      <div class="sec-num">02 — Business Model</div>
+      <h2 class="sec-title">Own the Category, <em>Not Just the Brand</em></h2>
+      <p class="lead">Allen Solly's commercial model is straightforward retail apparel — but its strategic insight was rarer: instead of competing inside an existing category, it invented a new one. "Work casuals" did not meaningfully exist in Indian retail before Allen Solly built a wardrobe and a vocabulary around it.</p>
+      <p class="bp">The brand operates through a network of exclusive brand outlets, large-format multi-brand outlets, shop-in-shops inside department stores, and e-commerce — a multi-channel structure shared across its sibling brands under the Madura Fashion & Lifestyle umbrella (now part of ABLBL). Revenue is driven by full-price retail in metros and increasingly in Tier 2/3 cities, supplemented by wholesale and trade distribution. <span class="ctag">Category Creation</span> <span class="ctag">Multi-Channel Retail</span></p>
+      <div class="insight-grid rc">
+        <div class="insight-card">
+          <span class="ic-icon">🏬</span>
+          <div class="ic-title">Exclusive Brand Outlets</div>
+          <div class="ic-desc">A dedicated retail network gives Allen Solly full control over visual merchandising and the in-store "Friday Dressing" experience, distinct from generic mall racks.</div>
+        </div>
+        <div class="insight-card">
+          <span class="ic-icon">🛍️</span>
+          <div class="ic-title">Department Store Shop-in-Shops</div>
+          <div class="ic-desc">Thousands of shop-in-shop counters across department stores extend reach into cities where a standalone store isn't yet viable.</div>
+        </div>
+        <div class="insight-card">
+          <span class="ic-icon">👩‍💼</span>
+          <div class="ic-title">Menswear-to-Womenswear Extension</div>
+          <div class="ic-desc">A 2002 expansion into dedicated women's workwear opened an entirely new customer base without diluting the core brand promise.</div>
+        </div>
+        <div class="insight-card">
+          <span class="ic-icon">🧒</span>
+          <div class="ic-title">Category Extensions</div>
+          <div class="ic-desc">Allen Solly Juniors (kidswear), Solly Jeans Co., and Solly Sport extend the brand's "freedom and effortlessness" positioning beyond office hours.</div>
+        </div>
+      </div>
+      <p class="bp">The deeper economic logic is brand equity compounding through a single, repeatable idea. Every campaign for three decades has returned to some version of "Friday Dressing" or its more recent reframing, "Every Day Is Friday" — meaning marketing spend keeps reinforcing the same mental shortcut rather than starting from zero each season.</p>
+    </div>
+
+    <!-- 03 GROWTH -->
+    <div class="sec light gradient-pink" id="sec-growth">
+      <div class="sec-num">03 — Growth Engine</div>
+      <h2 class="sec-title">Riding India's <em>Office Culture Shift</em></h2>
+      <p class="lead">Allen Solly's growth has tracked a structural shift in Indian work culture: as multinational offices, IT parks, and services-sector jobs multiplied through the 2000s and 2010s, the rigid formalwear code that once defined "professional" gradually gave way to smart casual norms — exactly the wardrobe Allen Solly had been selling for a decade already.</p>
+      <div class="stat-row rc">
+        <div class="stat-card"><div class="stat-val">~30%</div><div class="stat-lbl">Historic CAGR cited by brand leadership (2010s)</div></div>
+        <div class="stat-card"><div class="stat-val">200+</div><div class="stat-lbl">Exclusive outlets, mid-2010s milestone</div></div>
+        <div class="stat-card"><div class="stat-val">3,315</div><div class="stat-lbl">ABLBL group-wide store network (Dec 2025)</div></div>
+        <div class="stat-card"><div class="stat-val">39,000+</div><div class="stat-lbl">Multi-brand outlets across ABLBL portfolio</div></div>
+      </div>
+      <p class="bp">Three structural advantages drove this growth: <strong>first-mover category ownership</strong> (Allen Solly didn't enter "smart casuals," it created the category that competitors then chased), <strong>tagline durability</strong> ("Friday Dressing" has survived three decades of re-interpretation without losing recognition), and <strong>distribution backed by a conglomerate</strong> (Aditya Birla's retail infrastructure let the brand scale store count faster than an independent label could finance alone). <span class="ctag">First-Mover Category</span> <span class="ctag">Conglomerate Backing</span></p>
+      <p class="bp">Brand leadership has periodically had to defend the core idea against dilution — most visibly around 2009-2011, when an attempt to stretch into general casualwear blurred the brand's identity, prompting a deliberate return to "Friday Dressing" as the organising principle. The 2023 "Every Day Is Friday" campaign and the earlier "My World, My Way" tagline both represent the same underlying discipline: keep evolving the expression, never abandon the core insight.</p>
+    </div>
+
+    <!-- 04 WOMEN'S WEAR -->
+    <div class="sec light-alt" id="sec-reseller">
+      <div class="sec-num">04 — Women's Wear Bet</div>
+      <h2 class="sec-title">The First Indian Brand <em>to Dress Working Women</em></h2>
+      <p class="lead">In 2002, Allen Solly became the first Indian apparel brand to launch a dedicated work-fashion line for women — a genuinely contrarian bet at a time when most menswear brands treated "women's wear" as an afterthought, if they addressed it at all.</p>
+      <div class="pillar-list rc">
+        <div class="pillar">
+          <div class="pillar-num">1</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Reading a Demographic Shift Early</div>
+            <div class="pillar-desc">As India's urban workforce absorbed a growing share of working women through the 2000s, most apparel brands were still designing for men by default. Allen Solly built a standalone product line — not a shrunk-down menswear range — for a customer the rest of the market was underserving.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">2</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Fit, Not Just Colour</div>
+            <div class="pillar-desc">The brand identified the need for trouser sizing and silhouettes designed around Indian women's body types rather than adapted Western fits — a product decision, not just a marketing one, that helped the line earn credibility rather than feel like a side offering.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">3</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Extending Friday Dressing, Not Replacing It</div>
+            <div class="pillar-desc">Crucially, the women's line carried the same "Friday Dressing" philosophy rather than inventing a separate brand language — reinforcing one consistent idea across a now-doubled addressable market instead of fragmenting marketing spend across two brand stories.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">4</div>
+          <div class="pillar-body">
+            <div class="pillar-title">A Durable Category Today</div>
+            <div class="pillar-desc">Allen Solly Women has since expanded well beyond its original workwear line into dresses, tunics, suits, and a premium "Edition" range for boardroom-appropriate formalwear — evidence that the 2002 bet became a durable, expanding business line rather than a one-off campaign.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 PRODUCT -->
+    <div class="sec light gradient-violet" id="sec-product">
+      <div class="sec-num">05 — Product Strategy</div>
+      <h2 class="sec-title">Designed for the <em>In-Between</em></h2>
+      <p class="lead">Allen Solly's product philosophy occupies a deliberately narrow space: smarter than casualwear, more relaxed than formalwear. Every collection decision has to answer one question — does this still feel like "Friday," even on a Tuesday?</p>
+      <div class="category-grid rc">
+        <div class="category-card"><span class="cat-emoji">👔</span><div class="cat-name">Work Casuals (Men)</div><div class="cat-detail">Core category</div></div>
+        <div class="category-card"><span class="cat-emoji">👩‍💼</span><div class="cat-name">Allen Solly Women</div><div class="cat-detail">Since 2002</div></div>
+        <div class="category-card"><span class="cat-emoji">🧒</span><div class="cat-name">Allen Solly Juniors</div><div class="cat-detail">Since 2013</div></div>
+        <div class="category-card"><span class="cat-emoji">👖</span><div class="cat-name">Solly Jeans Co.</div><div class="cat-detail">Since 2014</div></div>
+        <div class="category-card"><span class="cat-emoji">🎾</span><div class="cat-name">Solly Sport</div><div class="cat-detail">Tennis-inspired lifestyle line</div></div>
+        <div class="category-card"><span class="cat-emoji">👗</span><div class="cat-name">Edition (Premium Women's)</div><div class="cat-detail">Boardroom formalwear</div></div>
+      </div>
+      <p class="bp">Trousers occupy an unusually important place in the brand's product mix — historically contributing close to as much revenue as shirts, an unusual balance in a category where shirts typically dominate apparel-brand revenue. The brand has continued to innovate around fit, introducing slimmer "custom fit" trousers and "sport fit" shirts to contemporise its traditionally relaxed silhouettes for younger buyers. <span class="ctag">Trouser-Led Mix</span> <span class="ctag">Fit Innovation</span></p>
+      <p class="bp">The 2012 rebrand simplified Allen Solly's visual identity by retiring the multi-element coat of arms (monogram, ram, and stag together) in favour of a single, contemporised stag mark — a deliberate choice to make a complex 18th-century heritage symbol legible to a generation that had never seen the original crest.</p>
+    </div>
+
+    <!-- 06 MOAT -->
+    <div class="sec light-alt" id="sec-moat">
+      <div class="sec-num">06 — Competitive Moat</div>
+      <h2 class="sec-title">Why It's <em>Hard to Dislodge</em></h2>
+      <p class="lead">Allen Solly's advantages are built from three decades of consistent positioning and a conglomerate's retail muscle behind it — but the moat is narrower today than it was a decade ago, as the lines between "formal" and "casual" blur across the entire menswear market.</p>
+      <div class="moat-bars rc">
+        <div class="moat-bar"><div class="moat-label"><span class="moat-name">"Friday Dressing" Brand Recall (30+ years of consistent messaging)</span><span class="moat-score">88/100</span></div><div class="moat-track"><div class="moat-fill" data-w="88"></div></div></div>
+        <div class="moat-bar"><div class="moat-label"><span class="moat-name">Aditya Birla / ABLBL Distribution & Retail Scale</span><span class="moat-score">82/100</span></div><div class="moat-track"><div class="moat-fill" data-w="82"></div></div></div>
+        <div class="moat-bar"><div class="moat-label"><span class="moat-name">Category Origination ("Work Casuals" Ownership)</span><span class="moat-score">75/100</span></div><div class="moat-track"><div class="moat-fill" data-w="75"></div></div></div>
+        <div class="moat-bar"><div class="moat-label"><span class="moat-name">Women's Workwear Pioneer Credibility</span><span class="moat-score">70/100</span></div><div class="moat-track"><div class="moat-fill" data-w="70"></div></div></div>
+        <div class="moat-bar"><div class="moat-label"><span class="moat-name">Heritage Storytelling (1744 British Provenance)</span><span class="moat-score">58/100</span></div><div class="moat-track"><div class="moat-fill" data-w="58"></div></div></div>
+        <div class="moat-bar"><div class="moat-label"><span class="moat-name">Speed-to-Trend vs Digital-Native D2C Brands</span><span class="moat-score">38/100</span></div><div class="moat-track"><div class="moat-fill" data-w="38"></div></div></div>
+      </div>
+      <p class="bp">The deepest part of Allen Solly's moat is semantic: "Friday Dressing" isn't just a tagline, it's a phrase that entered everyday Indian office vocabulary independent of the brand. Few apparel brands anywhere achieve that level of language ownership. But the weakest part of the moat is operational speed — newer D2C menswear brands now design, prototype, and restock in under three weeks, a cycle Allen Solly's traditional seasonal-collection model was never built to match.</p>
+    </div>
+
+    <!-- 07 SWOT -->
+    <div class="sec light" id="sec-swot">
+      <div class="sec-num">07 — SWOT Analysis</div>
+      <h2 class="sec-title">Strengths, Risks, <em>and Everything Between</em></h2>
+      <div class="swot-grid rc">
+        <div class="swot-cell swot-s">
+          <div class="swot-head">▲ Strengths</div>
+          <ul class="swot-list">
+            <li>"Friday Dressing" remains one of Indian advertising's most durable taglines</li>
+            <li>First-mover credibility in both work casuals and women's workwear</li>
+            <li>Backed by ABLBL's group-wide retail and distribution infrastructure</li>
+            <li>Diversified product range: men's, women's, kids', denim, sportswear lines</li>
+            <li>Multi-decade brand recognition across metro and growing Tier 2/3 presence</li>
+            <li>Genuine 1744 British heritage gives the brand a storytelling asset rivals lack</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-w">
+          <div class="swot-head">▼ Weaknesses</div>
+          <ul class="swot-list">
+            <li>Seasonal collection cycles are slower than D2C "drop" models</li>
+            <li>Brand has periodically diluted its core "Friday Dressing" identity, then had to walk it back</li>
+            <li>Heritage positioning can feel dated to Gen Z shoppers raised on fast fashion</li>
+            <li>Brand-level financials aren't separately disclosed, limiting external scrutiny</li>
+            <li>Reliant on department-store and mall footfall as e-commerce-native rivals grow online-first</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-o">
+          <div class="swot-head">▲ Opportunities</div>
+          <ul class="swot-list">
+            <li>ABLBL's stated ambition to roughly double lifestyle brand revenue by FY2030</li>
+            <li>Continued blurring of formal/casual lines across Indian offices favours the category</li>
+            <li>Tier 2/3 city retail expansion still has meaningful runway</li>
+            <li>Premiumisation within existing customer base (e.g. the Edition women's line)</li>
+            <li>E-commerce and quick-commerce channels still underpenetrated relative to digital-native rivals</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-t">
+          <div class="swot-head">▼ Threats</div>
+          <ul class="swot-list">
+            <li>Fast-moving D2C menswear brands (e.g. Snitch) compressing design-to-shelf cycles to under three weeks</li>
+            <li>Global fast fashion (Zara, H&M, Uniqlo) expanding aggressively in Indian metros</li>
+            <li>Youth-focused digital-first brands capturing Gen Z attention and spend</li>
+            <li>Margin pressure from rising real estate and retail operating costs</li>
+            <li>Regulatory and tax exposure as a large listed-group subsidiary (e.g. disputed GST demands)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 TIMELINE -->
+    <div class="sec light-alt gradient-violet" id="sec-timeline">
+      <div class="sec-num">08 — Key Milestones</div>
+      <h2 class="sec-title">Allen Solly's <em>Journey Through India</em></h2>
+      <div class="timeline rc">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1744</div><div class="tl-event"><strong>William Hollins & Co. Ltd.</strong> establishes Allen Solly as a woollen textile manufacturer in Nottingham, England.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1993</div><div class="tl-event"><strong>Madura Garments launches Allen Solly in India</strong>, introducing relaxed formalwear into a market dominated by rigid white-and-grey office dress codes.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1995</div><div class="tl-event">The first <strong>"Friday Dressing"</strong> advertising campaign airs, conceived by Ogilvy & Mather Bangalore — the idea that becomes synonymous with the brand.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1999–2001</div><div class="tl-event"><strong>Aditya Birla Group acquires Madura Garments</strong> (1999) and secures worldwide rights to the Allen Solly brand (2001), bringing it into one of India's largest conglomerates.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2002</div><div class="tl-event">Allen Solly becomes the <strong>first Indian brand to launch dedicated work fashion for women</strong>, extending Friday Dressing to a new customer base.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2012</div><div class="tl-event">Unveils a <strong>new Stag logo</strong> and retail identity, simplifying its heritage coat-of-arms into a single contemporary brand mark across stores nationwide.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2013–2014</div><div class="tl-event">Launches <strong>Allen Solly Juniors</strong> (kidswear) and <strong>Solly Jeans Co.</strong>, extending the brand across age groups and casual categories.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2023</div><div class="tl-event">Launches the <strong>"Every Day Is Friday"</strong> campaign timed to the ICC Cricket World Cup, refreshing the core idea for a new generation.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2025</div><div class="tl-event">ABFRL completes a <strong>vertical demerger</strong>; Allen Solly moves under the newly listed <strong>Aditya Birla Lifestyle Brands Limited (ABLBL)</strong>, alongside Louis Philippe, Van Heusen, and Peter England.</div></div>
+      </div>
+    </div>
+
+    <!-- 09 RISKS -->
+    <div class="sec light" id="sec-risks">
+      <div class="sec-num">09 — Risks & Vulnerabilities</div>
+      <h2 class="sec-title">Where the Brand <em>Gets Tested</em></h2>
+      <p class="lead">Allen Solly's heritage and brand recall are real assets, but the business now competes in a market moving faster than the seasonal-collection model it was built on three decades ago.</p>
+      <div class="risk-list rc">
+        <div class="risk-item">
+          <div class="risk-badge risk-high">HIGH</div>
+          <div>
+            <div class="risk-content-title">Digital-Native Speed Disadvantage</div>
+            <div class="risk-content-desc">D2C menswear challengers like Snitch — which posted roughly ₹506 crore in FY25 revenue, up from about ₹243 crore the year before — operate on design-to-shelf cycles of around three weeks, compared to traditional seasonal planning that takes months. Heritage brands built around quarterly collections structurally cannot match that responsiveness without rebuilding their supply chain.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-high">HIGH</div>
+          <div>
+            <div class="risk-content-title">Brand Identity Dilution Risk</div>
+            <div class="risk-content-desc">Allen Solly's own history shows what happens when the core idea gets stretched too far — its early-2010s push into general casualwear blurred the "Friday Dressing" promise enough that the brand had to deliberately recommit to its original positioning. Repeating that mistake under competitive pressure remains a live risk.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-med">MED</div>
+          <div>
+            <div class="risk-content-title">Global Fast Fashion Encroachment</div>
+            <div class="risk-content-desc">Zara, H&M, and Uniqlo continue expanding their Indian footprint and have well-resourced design and supply chain operations of their own. Their entry into smart-casual menswear narrows the space Allen Solly once occupied with comparatively little direct international competition.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-med">MED</div>
+          <div>
+            <div class="risk-content-title">Heritage Storytelling Losing Relevance with Gen Z</div>
+            <div class="risk-content-desc">A 1744 British provenance and a three-decade-old tagline carry real weight with millennial and older professionals, but younger shoppers raised on social-media-native, fast-drop brands may not find "heritage" as persuasive a reason to buy.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-low">LOW</div>
+          <div>
+            <div class="risk-content-title">Regulatory and Tax Exposure</div>
+            <div class="risk-content-desc">As part of a listed group entity, ABLBL has faced scrutiny such as a disputed GST demand spanning multiple fiscal years, which the company has stated it plans to appeal. This is a manageable, group-level risk rather than a brand-specific one, but it is a real line item.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 IMPACT -->
+    <div class="sec light-alt gradient-pink" id="sec-impact">
+      <div class="sec-num">10 — Industry Impact</div>
+      <h2 class="sec-title">Allen Solly Invented a Category <em>India Didn't Have</em></h2>
+      <p class="lead">Before Allen Solly, Indian apparel retail had formals and it had casuals — denim, T-shirts, weekend wear. There was no language for the space in between. After Allen Solly, "smart casuals" and "work casuals" became standard retail-category terms used across the entire Indian apparel industry.</p>
+      <p class="bp">Competing menswear brands that launched around the same period — Van Heusen (a sibling brand under the same eventual parent), Louis Philippe, Peter England, and international entrants like Arrow and Park Avenue — all eventually built their own "smart casual" or "work casual" lines, responding to a category Allen Solly had defined and proven commercially viable first. <span class="ctag">Category Creation</span> <span class="ctag">Competitive Response</span></p>
+      <p class="bp">The brand's 2002 move into dedicated women's workwear also had ripple effects: it validated women's professional apparel as a serious, standalone retail category in India rather than a secondary extension of menswear lines, at a time when India's women's western-wear market was growing 15-20% annually. <span class="ctag">Women's Workwear Validation</span></p>
+      <p class="bp">Perhaps the most lasting impact is linguistic: "Friday Dressing" entered everyday Indian office vocabulary as a general concept, used informally by people who may not even consciously associate it with the Allen Solly brand anymore — the rare case of a marketing campaign outliving its own brand attribution to become part of common usage.</p>
+    </div>
+
+    <!-- 11 LESSONS -->
+    <div class="sec light" id="sec-lessons">
+      <div class="sec-num">11 — Lessons For Builders</div>
+      <h2 class="sec-title">What Founders Can <em>Take From This</em></h2>
+      <p class="lead">Allen Solly's three-decade run contains principles that transfer well beyond apparel — particularly for anyone building a brand inside a category that doesn't fully exist yet.</p>
+      <div class="lessons-grid rc">
+        <div class="lesson-card">
+          <div class="lesson-num">01</div>
+          <div class="lesson-title">Name the Gap Before You Fill It</div>
+          <div class="lesson-desc">"Work casuals" didn't exist as a retail category until Allen Solly named it. Sometimes the biggest opportunity isn't picking a side in an existing market (formal vs. casual) — it's identifying the space between two categories that nobody has claimed yet.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">02</div>
+          <div class="lesson-title">One Idea, Said Consistently, Compounds</div>
+          <div class="lesson-desc">"Friday Dressing" has anchored Allen Solly's marketing for three decades, surviving rebrands, ownership changes, and shifting taglines. A single durable idea, reinforced year after year, builds brand equity that a constantly changing message never can.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">03</div>
+          <div class="lesson-title">Know When You've Drifted — and Say So</div>
+          <div class="lesson-desc">When Allen Solly's casualwear push diluted its identity around 2009-2011, brand leadership publicly acknowledged the drift and recommitted to the original positioning. Admitting a strategic misstep early is cheaper than letting a diluted identity calcify.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">04</div>
+          <div class="lesson-title">Underserved Segments Are Often Adjacent, Not Distant</div>
+          <div class="lesson-desc">Allen Solly didn't need a new brand to serve working women in 2002 — it needed a thoughtfully designed extension of the same philosophy with the right fit and silhouette. The biggest adjacent opportunity is sometimes inside your existing brand promise, not outside it.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">05</div>
+          <div class="lesson-title">Heritage Is an Asset Only If You Translate It</div>
+          <div class="lesson-desc">A 1744 British coat of arms meant little to Indian consumers until the brand simplified it into a single legible stag mark in 2012. Heritage only compounds value when it's actively translated into something the current customer can actually read and remember.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">06</div>
+          <div class="lesson-title">Distribution Scale Buys You Time, Not Immunity</div>
+          <div class="lesson-desc">Aditya Birla's retail infrastructure let Allen Solly scale stores faster than an independent brand could finance. But that same scale advantage doesn't protect against faster-moving digital-native competitors — distribution muscle and product-cycle speed are two different battles that both need fighting.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 VERDICT -->
+    <div class="sec gradient-warm" id="sec-verdict">
+      <div class="sec-num">12 — Final FounderLens Verdict</div>
+      <h2 class="sec-title">India's Most Durable <em>Marketing Idea in Apparel</em></h2>
+      <p class="lead">Allen Solly is not simply a heritage brand coasting on a 1744 founding date. It is a case study in how one well-named idea — "Friday Dressing" — can anchor a business through three decades, two changes of ownership, and a complete transformation of Indian office culture.</p>
+      <div class="verdict-box">
+        <h3>"Can a 30-year-old idea still out-manoeuvre a 21-day product cycle?"</h3>
+        <p>Allen Solly's achievement is genuine and structural: it created a retail category that didn't exist, gave it a name that entered everyday language, and built a multi-decade business — now organised under the newly listed Aditya Birla Lifestyle Brands Limited — around that single insight. That is a real and durable contribution, not just nostalgic brand trivia.</p>
+        <p>The competitive question is real but not yet settled. ABLBL's stated ambition to roughly double lifestyle-brand revenue and meaningfully expand margins by FY2030 suggests management believes the core brands — Allen Solly among them — still have substantial room to grow through store expansion and premiumisation, even as digital-native challengers move faster on product cycles.</p>
+        <p>The deeper strategic question is this: <strong>can a brand built on seasonal collections and conglomerate-scale retail compete with menswear challengers operating on three-week design cycles, without losing the consistency that built its identity in the first place?</strong> The honest answer is that Allen Solly's moat is real but narrower than it once was — its brand recall is still unmatched in its category, but recall alone does not guarantee relevance to a shopper who has never lived through a decade when "Friday Dressing" felt revolutionary rather than familiar.</p>
+        <p class="verdict-note">Allen Solly's story is still being written under its new ownership structure. The brand's next chapter will likely be decided less by nostalgia for a 1744 British mill and more by whether it can move as fast as the market it once defined.</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><span class="footer-dot"></span>FounderLens</div>
+    <p class="footer-desc">Business intelligence explained simply through world-class companies. Strategy, execution, and competitive advantage — decoded for builders and operators.</p>
+    <div class="footer-bottom">
+      <div class="footer-copy"><span>FounderLens</span> · Allen Solly Company Analysis · Issue #16 · Research compiled June 2026 · Educational purposes only</div>
+      <div class="footer-tags">
+        <span class="footer-tag">Work Casuals</span>
+        <span class="footer-tag">Apparel & Retail</span>
+        <span class="footer-tag">Aditya Birla Lifestyle Brands</span>
+        <span class="footer-tag">1744 / 1993</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+</button>
+
+<script>
+function gotoSec(id) {
+  const el = document.getElementById('sec-' + id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+});
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      e.target.querySelectorAll('.moat-fill').forEach(bar => {
+        setTimeout(() => { bar.style.width = bar.dataset.w + '%'; }, 200);
+      });
+    }
+  });
+}, { threshold: 0.05 });
+document.querySelectorAll('.sec, .rc').forEach(el => ro.observe(el));
+const secs = document.querySelectorAll('.sec[id]');
+const tocObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.toc-btn').forEach(b => b.classList.remove('active'));
+      const id = e.target.id.replace('sec-', '');
+      const t = document.querySelector(`.toc-btn[onclick*="'${id}'"]`);
+      if (t) t.classList.add('active');
+    }
+  });
+}, { rootMargin: '-12% 0px -78% 0px' });
+secs.forEach(s => tocObs.observe(s));
+document.querySelectorAll('.nav-pill').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('.nav-pill').forEach(x => x.classList.remove('active'));
+    p.classList.add('active');
+  });
+});
+
+/* Logo upload handling */
+const logoInput = document.getElementById('logoInput');
+const logoSlot = document.getElementById('logoSlot');
+const logoImg = document.getElementById('logoImg');
+const logoIcon = document.getElementById('logoIcon');
+const logoLabel = document.getElementById('logoLabel');
+const logoRemove = document.getElementById('logoRemove');
+
+logoInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    logoImg.src = ev.target.result;
+    logoImg.style.display = 'block';
+    logoIcon.style.display = 'none';
+    logoLabel.style.display = 'none';
+    logoSlot.classList.add('has-logo');
+  };
+  reader.readAsDataURL(file);
+});
+
+logoRemove.addEventListener('click', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  logoImg.src = '';
+  logoImg.style.display = 'none';
+  logoIcon.style.display = 'flex';
+  logoLabel.style.display = 'block';
+  logoSlot.classList.remove('has-logo');
+  logoInput.value = '';
+});
+</script>
+</body>
+</html>

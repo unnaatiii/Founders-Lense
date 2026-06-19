@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Myntra — FounderLens Company Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --fuchsia:     #FF3F6C;
+  --fuchsia-dk:  #CC2050;
+  --fuchsia-lt:  #FF6B8A;
+  --fuchsia-glow:rgba(255,63,108,0.13);
+  --teal:        #1C6758;
+  --teal-lt:     #2a9678;
+  --gold:        #C9952A;
+  --gold-lt:     #e8b84b;
+  --page:        #FAFAFA;
+  --page-warm:   #FFF7F9;
+  --page-card:   #FFFFFF;
+  --rule:        rgba(255,63,108,0.1);
+  --rule-lt:     rgba(255,63,108,0.18);
+  --text:        #1A1018;
+  --text-soft:   #4A2E38;
+  --muted:       #7A5060;
+  --mid:         #9A6878;
+
+  --display: 'Cormorant Garamond', Georgia, serif;
+  --body:    'Inter', system-ui, sans-serif;
+  --mono:    'Space Mono', monospace;
+  --r:  8px;
+  --r-lg: 16px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--body); background: var(--page); color: var(--text); -webkit-font-smoothing: antialiased; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--fuchsia); border-radius: 2px; }
+
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--fuchsia), var(--gold));
+  width: 0%; z-index: 999; transition: width .1s linear;
+}
+
+/* TICKER */
+.ticker {
+  background: var(--fuchsia); color: #fff;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: .16em; text-transform: uppercase;
+  padding: 9px 0; overflow: hidden; white-space: nowrap;
+  position: sticky; top: 0; z-index: 200;
+}
+.ticker-track { display: inline-block; animation: scroll-left 32s linear infinite; padding-left: 100%; }
+.ticker-track span { margin: 0 48px; }
+.ticker-track .bull { opacity: 0.55; }
+@keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* TOPBAR */
+.top { max-width: 1120px; margin: 12px auto 0; padding: 0 18px; position: sticky; top: 10px; z-index: 500; }
+.topbar {
+  width: 100%; padding: 10px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  border: 1px solid var(--rule-lt); border-radius: 999px;
+  background: rgba(250,250,250,0.88); backdrop-filter: blur(18px) saturate(1.4);
+  box-shadow: 0 8px 32px rgba(255,63,108,0.08);
+}
+.back { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 600; font-size: 13px; }
+.back .b {
+  width: 26px; height: 26px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--rule-lt); background: rgba(255,63,108,0.07); color: var(--fuchsia);
+}
+.back:hover { color: var(--fuchsia); }
+
+/* NAV */
+.nav {
+  position: sticky; top: 33px; z-index: 190;
+  background: rgba(250,250,250,0.97); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--rule-lt);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 56px; height: 56px;
+  box-shadow: 0 2px 16px rgba(255,63,108,0.06);
+}
+.nav-brand { display: flex; align-items: center; gap: 14px; }
+.nav-logo {
+  width: 38px; height: 38px; background: var(--fuchsia); border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--display); font-size: 19px; font-weight: 700;
+  color: #fff; font-style: italic;
+}
+.nav-title { font-family: var(--display); font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: .01em; }
+.nav-sub { font-family: var(--mono); font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
+.nav-pills { display: flex; gap: 4px; }
+.nav-pill {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 13px; border-radius: 4px; border: 1px solid var(--rule-lt);
+  background: none; color: var(--muted); cursor: pointer; transition: all .15s;
+}
+.nav-pill:hover, .nav-pill.active { background: var(--fuchsia); color: #fff; border-color: var(--fuchsia); }
+.nav-badge {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 4px;
+  background: rgba(255,63,108,0.09); color: var(--fuchsia); border: 1px solid rgba(255,63,108,0.22);
+}
+
+/* HERO */
+.hero {
+  min-height: 92vh; background: var(--page);
+  display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 65% 65% at 80% 50%, rgba(255,63,108,0.08) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 55% at 5% 85%, rgba(201,149,42,0.05) 0%, transparent 55%);
+}
+.hero-pattern {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,63,108,0.03) 39px, rgba(255,63,108,0.03) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,63,108,0.03) 39px, rgba(255,63,108,0.03) 40px);
+}
+.hero-left {
+  padding: 80px 56px; display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 1;
+}
+.hero-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; animation: fade-up .7s ease both; }
+.hero-eyebrow-bar { width: 28px; height: 2px; background: var(--fuchsia); }
+.hero-eyebrow-text { font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--fuchsia); }
+.hero-h1 {
+  font-family: var(--display); font-size: clamp(60px, 9vw, 118px);
+  font-weight: 700; line-height: .88; color: var(--text);
+  margin-bottom: 10px; animation: fade-up .7s .07s ease both;
+}
+.hero-h1 em { font-style: italic; color: var(--fuchsia); }
+.hero-sub {
+  font-family: var(--display); font-size: clamp(17px, 2.2vw, 25px); font-weight: 400;
+  font-style: italic; color: var(--muted);
+  margin-bottom: 32px; line-height: 1.3;
+  animation: fade-up .7s .14s ease both;
+}
+.hero-desc {
+  font-size: 15px; line-height: 1.85; color: var(--text-soft);
+  max-width: 460px; font-weight: 300; margin-bottom: 36px;
+  animation: fade-up .7s .2s ease both;
+}
+.hero-desc strong { color: var(--text); font-weight: 600; }
+
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
+  background: var(--rule); border-radius: var(--r); overflow: hidden;
+  margin-bottom: 28px; animation: fade-up .7s .26s ease both;
+}
+.kpi-cell { background: var(--page-card); padding: 16px 14px; text-align: center; transition: background .2s; }
+.kpi-cell:hover { background: rgba(255,63,108,0.07); }
+.kpi-val { font-family: var(--display); font-size: 28px; font-weight: 700; color: var(--fuchsia); line-height: 1; margin-bottom: 5px; }
+.kpi-lbl { font-family: var(--mono); font-size: 8px; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
+
+.hero-tags { display: flex; gap: 7px; flex-wrap: wrap; animation: fade-up .7s .32s ease both; }
+.hero-tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 11px; border-radius: 4px;
+  background: rgba(255,63,108,0.06); border: 1px solid var(--rule-lt);
+  color: var(--muted); transition: all .15s; cursor: default;
+}
+.hero-tag:hover { background: rgba(255,63,108,0.14); color: var(--fuchsia); border-color: var(--fuchsia-lt); }
+.hero-tag.fuchsia { background: rgba(255,63,108,0.1); border-color: rgba(255,63,108,0.28); color: var(--fuchsia); }
+
+/* HERO RIGHT — Fashion Hanger Visual */
+.hero-right {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  gap: 24px; padding: 60px 40px;
+}
+.product-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+.product-glow {
+  position: absolute; width: 250px; height: 250px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,63,108,0.13) 0%, transparent 70%);
+  animation: pulse-glow 3.5s ease-in-out infinite;
+}
+@keyframes pulse-glow { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.14); opacity: 0.5; } }
+.product-svg {
+  width: 140px; position: relative; z-index: 1;
+  animation: float 4.5s ease-in-out infinite;
+  filter: drop-shadow(0 18px 40px rgba(255,63,108,0.18));
+}
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+.orbit-ring { position: absolute; border-radius: 50%; border: 1px solid; animation: spin 22s linear infinite; }
+.orbit-1 { width: 220px; height: 220px; border-color: rgba(255,63,108,0.15); }
+.orbit-2 { width: 300px; height: 300px; border-color: rgba(201,149,42,0.1); animation-duration: 38s; animation-direction: reverse; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.orbit-dot { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: var(--fuchsia); top: -3px; left: 50%; margin-left: -3px; }
+.orbit-dot-2 { background: var(--gold); top: auto; bottom: -3px; left: 30%; margin-left: -3px; }
+
+.hero-quote-card {
+  background: rgba(255,63,108,0.04); border: 1px solid var(--rule-lt);
+  border-left: 3px solid var(--fuchsia); border-radius: var(--r); padding: 18px 22px; max-width: 290px;
+}
+.hero-quote-text { font-family: var(--display); font-size: 16px; font-style: italic; font-weight: 400; color: var(--text-soft); line-height: 1.5; margin-bottom: 10px; }
+.hero-quote-attr { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--fuchsia); }
+
+@keyframes fade-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+/* LAYOUT */
+.article-wrap { display: grid; grid-template-columns: 220px 1fr; }
+
+.sidebar {
+  position: sticky; top: 89px; height: calc(100vh - 89px);
+  overflow-y: auto; scrollbar-width: none;
+  background: var(--page-warm); border-right: 1px solid var(--rule);
+  padding: 32px 0;
+}
+.sidebar::-webkit-scrollbar { display: none; }
+.toc-label {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--fuchsia); padding: 0 20px; margin-bottom: 8px; margin-top: 18px; display: block;
+}
+.toc-btn {
+  display: block; width: 100%; text-align: left;
+  font-family: var(--body); font-size: 12px; font-weight: 400;
+  color: var(--muted); padding: 8px 20px 8px 18px;
+  border-left: 3px solid transparent; border: none; background: none; cursor: pointer;
+  transition: all .15s; line-height: 1.4;
+}
+.toc-btn:hover { color: var(--fuchsia); background: rgba(255,63,108,0.06); }
+.toc-btn.active { color: var(--fuchsia); border-left-color: var(--fuchsia); background: rgba(255,63,108,0.09); font-weight: 600; }
+
+/* SECTIONS */
+.sec {
+  padding: 72px 64px; scroll-margin-top: 92px;
+  border-bottom: 1px solid var(--rule);
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.sec.vis { opacity: 1; transform: none; }
+.sec.s1  { background: var(--page); }
+.sec.s2  { background: var(--page-warm); }
+.sec.s3  { background: #fff; }
+.sec.grad-pink   { background: linear-gradient(135deg, var(--page) 0%, rgba(255,63,108,0.05) 55%, var(--page-warm) 100%); }
+.sec.grad-gold   { background: linear-gradient(135deg, var(--page-warm) 0%, rgba(201,149,42,0.05) 60%, var(--page) 100%); }
+.sec.grad-teal   { background: linear-gradient(135deg, #f7fffe 0%, rgba(28,103,88,0.04) 60%, var(--page) 100%); }
+
+.sec-num { font-family: var(--mono); font-size: 9px; letter-spacing: .24em; text-transform: uppercase; margin-bottom: 10px; color: var(--fuchsia); }
+.sec-title {
+  font-family: var(--display); font-size: clamp(30px, 4vw, 50px);
+  font-weight: 700; line-height: .95; letter-spacing: -.01em;
+  margin-bottom: 20px; color: var(--text);
+}
+.sec-title em { font-style: italic; color: var(--fuchsia); }
+.lead { font-size: 17px; line-height: 1.78; font-weight: 300; margin-bottom: 28px; max-width: 680px; color: var(--text-soft); }
+.lead strong { color: var(--text); font-weight: 600; }
+.bp { font-size: 15px; line-height: 1.82; font-weight: 300; margin-bottom: 16px; max-width: 680px; color: var(--text-soft); }
+.bp strong { color: var(--text); font-weight: 600; }
+.ctag {
+  display: inline-block; font-family: var(--mono); font-size: 9px; letter-spacing: .1em;
+  text-transform: uppercase; padding: 3px 9px; border-radius: 4px;
+  background: rgba(255,63,108,0.09); color: var(--fuchsia); border: 1px solid rgba(255,63,108,0.2);
+  margin-left: 4px; vertical-align: middle;
+}
+
+.pq {
+  margin: 28px 0; padding: 22px 26px; border-radius: var(--r);
+  border-left: 3px solid var(--fuchsia); background: rgba(255,63,108,0.05); max-width: 680px;
+}
+.pq blockquote { font-family: var(--display); font-size: 24px; font-style: italic; font-weight: 600; line-height: 1.2; margin-bottom: 10px; color: var(--text); }
+.pq cite { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; font-style: normal; color: var(--fuchsia); }
+
+/* INSIGHT CARDS */
+.insight-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: 12px; margin: 28px 0; }
+.insight-card {
+  background: var(--page-card); border: 1px solid var(--rule);
+  border-radius: var(--r); padding: 20px 18px;
+  transition: transform .15s, border-color .15s, box-shadow .15s;
+}
+.insight-card:hover { transform: translateY(-3px); border-color: var(--fuchsia-lt); box-shadow: 0 8px 24px rgba(255,63,108,0.1); }
+.ic-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+.ic-title { font-family: var(--display); font-size: 18px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+.ic-desc { font-size: 12.5px; line-height: 1.6; font-weight: 300; color: var(--muted); }
+
+/* STAT CARDS */
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 8px; margin: 28px 0; }
+.stat-card {
+  background: var(--page-card); border: 1px solid var(--rule); border-radius: var(--r);
+  padding: 18px 14px; text-align: center; transition: transform .15s;
+}
+.stat-card:hover { transform: translateY(-2px); border-color: rgba(255,63,108,0.3); }
+.stat-val { font-family: var(--display); font-size: 30px; font-weight: 700; color: var(--fuchsia); line-height: 1; margin-bottom: 5px; }
+.stat-lbl { font-family: var(--mono); font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+/* INFO ROWS */
+.info-rows { margin: 20px 0; max-width: 680px; }
+.info-row { display: flex; gap: 20px; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 14.5px; align-items: flex-start; }
+.info-row:last-child { border-bottom: none; }
+.info-key { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; flex-shrink: 0; width: 140px; padding-top: 3px; font-weight: 500; color: var(--fuchsia); }
+.info-val { line-height: 1.6; font-weight: 300; color: var(--text-soft); }
+.info-val strong { font-weight: 600; color: var(--text); }
+
+/* SWOT */
+.swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 28px 0; border-radius: var(--r); overflow: hidden; max-width: 680px; background: var(--rule); }
+.swot-cell { padding: 22px 20px; }
+.swot-s { background: #f2faf3; } .swot-w { background: #fff5f5; }
+.swot-o { background: #f3f8ff; } .swot-t { background: #fff8f0; }
+.swot-head { font-family: var(--mono); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; font-weight: 700; margin-bottom: 10px; }
+.swot-s .swot-head { color: #287830; } .swot-w .swot-head { color: #cc2020; }
+.swot-o .swot-head { color: #2050b0; } .swot-t .swot-head { color: #c06010; }
+.swot-list { list-style: none; }
+.swot-list li { font-size: 13px; line-height: 1.6; color: var(--text-soft); padding: 3px 0; font-weight: 300; }
+.swot-list li::before { content: '— '; opacity: 0.35; }
+
+/* MOAT BARS */
+.moat-bars { margin: 28px 0; max-width: 600px; }
+.moat-bar { margin-bottom: 18px; }
+.moat-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.moat-name { font-size: 13px; font-weight: 400; color: var(--text-soft); }
+.moat-score { font-family: var(--mono); font-size: 11px; color: var(--fuchsia); }
+.moat-track { height: 5px; border-radius: 3px; overflow: hidden; background: rgba(255,63,108,0.1); }
+.moat-fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--fuchsia), var(--gold));
+  width: 0%; transition: width 1.2s cubic-bezier(.16,1,.3,1);
+}
+
+/* RISK CARDS */
+.risk-list { margin: 24px 0; max-width: 680px; }
+.risk-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--rule); }
+.risk-item:last-child { border-bottom: none; }
+.risk-badge { flex-shrink: 0; width: 44px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 8px; letter-spacing: .1em; font-weight: 700; margin-top: 2px; }
+.risk-high { background: rgba(255,63,108,0.1); color: var(--fuchsia-dk); }
+.risk-med  { background: rgba(201,149,42,0.12); color: #8a6010; }
+.risk-low  { background: rgba(28,103,88,0.1); color: var(--teal); }
+.risk-content-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--text); }
+.risk-content-desc { font-size: 13px; line-height: 1.65; font-weight: 300; color: var(--muted); }
+
+/* TIMELINE */
+.timeline { margin: 28px 0; max-width: 680px; position: relative; padding-left: 28px; }
+.timeline::before { content: ''; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(to bottom, var(--fuchsia), var(--gold)); }
+.tl-item { position: relative; margin-bottom: 26px; }
+.tl-dot { position: absolute; left: -24px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--fuchsia); border: 2px solid var(--page); }
+.tl-year { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; color: var(--fuchsia); margin-bottom: 4px; }
+.tl-event { font-size: 13.5px; line-height: 1.6; color: var(--text-soft); font-weight: 300; }
+.tl-event strong { color: var(--text); font-weight: 600; }
+
+/* LESSONS GRID */
+.lessons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0; }
+.lesson-card {
+  background: var(--page-card); border: 1px solid var(--rule);
+  border-radius: var(--r); padding: 22px 20px;
+  transition: transform .15s, border-color .15s, box-shadow .15s;
+}
+.lesson-card:hover { transform: translateY(-2px); border-color: rgba(255,63,108,0.35); box-shadow: 0 6px 20px rgba(255,63,108,0.07); }
+.lesson-num { font-family: var(--display); font-size: 52px; font-weight: 700; color: rgba(255,63,108,0.09); line-height: 1; margin-bottom: -6px; }
+.lesson-title { font-family: var(--display); font-size: 18px; font-weight: 700; font-style: italic; color: var(--fuchsia); margin-bottom: 8px; }
+.lesson-desc { font-size: 13px; line-height: 1.65; color: var(--text-soft); font-weight: 300; }
+
+/* VERDICT */
+.verdict-box {
+  border-radius: var(--r-lg); padding: 40px 46px; margin: 32px 0; max-width: 720px;
+  border-left: 5px solid var(--fuchsia);
+  background: rgba(255,63,108,0.03); border-top: 1px solid var(--rule); border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+}
+.verdict-box h3 { font-family: var(--display); font-size: 28px; font-style: italic; font-weight: 700; margin-bottom: 20px; line-height: 1.2; color: var(--fuchsia); }
+.verdict-box p { font-size: 15px; line-height: 1.88; margin-bottom: 14px; font-weight: 300; color: var(--text-soft); }
+.verdict-box p strong { font-weight: 600; color: var(--text); }
+.verdict-box .verdict-note { border-top: 1px solid var(--rule); padding-top: 18px; margin-top: 20px; font-style: italic; font-size: 13.5px; color: var(--muted); }
+
+/* PILLARS */
+.pillar-list { margin: 24px 0; max-width: 680px; }
+.pillar { display: flex; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--rule); align-items: flex-start; }
+.pillar:last-child { border-bottom: none; }
+.pillar-num { font-family: var(--display); font-size: 34px; font-weight: 700; font-style: italic; color: var(--fuchsia); line-height: 1; flex-shrink: 0; width: 36px; }
+.pillar-body { flex: 1; }
+.pillar-title { font-family: var(--display); font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+.pillar-desc { font-size: 13.5px; line-height: 1.65; color: var(--muted); font-weight: 300; }
+
+/* BRAND GRID */
+.brand-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap: 10px; margin: 24px 0; }
+.brand-card {
+  background: var(--page-card); border: 1px solid var(--rule); border-radius: var(--r);
+  padding: 16px 14px; text-align: center; transition: transform .15s, border-color .15s;
+}
+.brand-card:hover { transform: translateY(-3px); border-color: rgba(255,63,108,0.4); }
+.brand-emoji { font-size: 26px; margin-bottom: 8px; display: block; }
+.brand-name { font-family: var(--display); font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+.brand-detail { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: .07em; }
+
+/* FOOTER */
+.footer {
+  background: var(--page-warm); border-top: 1px solid var(--rule);
+  padding: 48px 56px 40px;
+}
+.footer-inner { max-width: 720px; }
+.footer-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--display); font-size: 20px; font-weight: 700;
+  color: var(--text); margin-bottom: 12px;
+}
+.footer-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--fuchsia); }
+.footer-desc { font-size: 13px; line-height: 1.7; color: var(--muted); margin-bottom: 24px; max-width: 480px; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; padding-top: 20px; border-top: 1px solid var(--rule); }
+.footer-copy { font-family: var(--mono); font-size: 10px; color: var(--mid); letter-spacing: .06em; }
+.footer-copy span { color: var(--fuchsia); }
+.footer-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.footer-tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 4px;
+  background: rgba(255,63,108,0.06); color: var(--muted);
+  border: 1px solid var(--rule);
+}
+
+.scroll-top {
+  position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px;
+  background: var(--fuchsia); border: none; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .15s; z-index: 100;
+  box-shadow: 0 4px 16px rgba(255,63,108,0.28);
+}
+.scroll-top:hover { background: var(--fuchsia-dk); }
+.scroll-top svg { width: 18px; height: 18px; fill: #fff; }
+
+.rc { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+.rc.vis { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>Myntra Designs Pvt. Ltd.</span><span class="bull">◆</span>
+    <span>Founded 2007 · Bengaluru, India</span><span class="bull">◆</span>
+    <span>Acquired by Flipkart 2014</span><span class="bull">◆</span>
+    <span>50M+ active customers</span><span class="bull">◆</span>
+    <span>India's No.1 Fashion Destination</span><span class="bull">◆</span>
+    <span>6,000+ brands on platform</span><span class="bull">◆</span>
+    <span>FWD · M-Now · Studio — Next gen plays</span><span class="bull">◆</span>
+    <span>Myntra Designs Pvt. Ltd.</span><span class="bull">◆</span>
+    <span>Founded 2007 · Bengaluru, India</span><span class="bull">◆</span>
+    <span>Acquired by Flipkart 2014</span><span class="bull">◆</span>
+    <span>50M+ active customers</span><span class="bull">◆</span>
+    <span>India's No.1 Fashion Destination</span><span class="bull">◆</span>
+    <span>6,000+ brands on platform</span><span class="bull">◆</span>
+    <span>FWD · M-Now · Studio — Next gen plays</span><span class="bull">◆</span>
+  </div>
+</div>
+
+<div class="top">
+  <div class="topbar">
+    <a class="back" href="../company.html"><span class="b">&larr;</span> Companies</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-logo">M</div>
+    <div>
+      <div class="nav-title">Myntra</div>
+      <div class="nav-sub">FounderLens · Company Analysis</div>
+    </div>
+  </div>
+  <div class="nav-pills">
+    <button class="nav-pill active" onclick="gotoSec('origin')">Origin</button>
+    <button class="nav-pill" onclick="gotoSec('model')">Model</button>
+    <button class="nav-pill" onclick="gotoSec('brand')">Brand</button>
+    <button class="nav-pill" onclick="gotoSec('moat')">Moat</button>
+    <button class="nav-pill" onclick="gotoSec('lessons')">Lessons</button>
+  </div>
+  <div class="nav-badge">Issue #17</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-bar"></div>
+      <div class="hero-eyebrow-text">FounderLens · Fashion Commerce</div>
+    </div>
+    <h1 class="hero-h1">Myn<br><em>tra</em></h1>
+    <p class="hero-sub">India Dresses Up — Online, Aspirationally</p>
+    <p class="hero-desc">Myntra didn't just sell clothes online — it <strong>redefined what fashion meant for an aspirational, digitally-native Indian consumer.</strong> It built the country's first fashion-first brand, survived an existential pivot, and grew into a cultural institution that sets trends, owns brands, and competes with the best in the world.</p>
+
+    <div class="kpi-grid">
+      <div class="kpi-cell"><div class="kpi-val">50M+</div><div class="kpi-lbl">Active customers</div></div>
+      <div class="kpi-cell"><div class="kpi-val">6,000+</div><div class="kpi-lbl">Brands</div></div>
+      <div class="kpi-cell"><div class="kpi-val">~₹5K Cr</div><div class="kpi-lbl">Est. revenue FY24</div></div>
+      <div class="kpi-cell"><div class="kpi-val">#1</div><div class="kpi-lbl">India fashion app</div></div>
+      <div class="kpi-cell"><div class="kpi-val">1.4M+</div><div class="kpi-lbl">Daily orders</div></div>
+      <div class="kpi-cell"><div class="kpi-val">100+</div><div class="kpi-lbl">Private labels</div></div>
+    </div>
+
+    <div class="hero-tags">
+      <span class="hero-tag fuchsia">Fashion-First</span>
+      <span class="hero-tag fuchsia">Private Labels</span>
+      <span class="hero-tag">Tier 1 India</span>
+      <span class="hero-tag">Gen Z Platform</span>
+      <span class="hero-tag">Flipkart Group</span>
+      <span class="hero-tag">FWD · M-Now</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="product-wrap">
+      <div class="product-glow"></div>
+      <div class="orbit-ring orbit-1"><div class="orbit-dot"></div></div>
+      <div class="orbit-ring orbit-2"><div class="orbit-dot orbit-dot-2"></div></div>
+
+      <!-- Fashion Bag SVG -->
+      <svg class="product-svg" viewBox="0 0 130 180" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bagGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#FF3F6C"/>
+            <stop offset="100%" style="stop-color:#ff6b8a"/>
+          </linearGradient>
+          <linearGradient id="bagShade" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:rgba(0,0,0,0.08)"/>
+            <stop offset="50%" style="stop-color:rgba(255,255,255,0.05)"/>
+            <stop offset="100%" style="stop-color:rgba(0,0,0,0.1)"/>
+          </linearGradient>
+        </defs>
+        <!-- Bag body -->
+        <rect x="10" y="52" width="110" height="110" rx="12" fill="url(#bagGrad)"/>
+        <rect x="10" y="52" width="110" height="110" rx="12" fill="url(#bagShade)"/>
+        <!-- Handles -->
+        <path d="M 38 52 Q 38 20 65 20 Q 92 20 92 52" fill="none" stroke="#FF3F6C" stroke-width="7" stroke-linecap="round"/>
+        <path d="M 38 52 Q 38 22 65 22 Q 92 22 92 52" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="3" stroke-linecap="round"/>
+        <!-- Handle shine -->
+        <path d="M 42 50 Q 42 28 65 28 Q 88 28 88 50" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2" stroke-linecap="round"/>
+        <!-- Clasp -->
+        <rect x="51" y="96" width="28" height="18" rx="4" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+        <circle cx="65" cy="105" r="5" fill="rgba(255,255,255,0.35)"/>
+        <!-- M Logo on bag -->
+        <text x="65" y="82" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="20" font-family="'Cormorant Garamond',serif" font-weight="700" font-style="italic">Myntra</text>
+        <!-- Shine strip -->
+        <rect x="14" y="56" width="10" height="98" rx="5" fill="rgba(255,255,255,0.12)"/>
+        <!-- Bottom tag -->
+        <rect x="55" y="144" width="20" height="10" rx="2" fill="rgba(255,255,255,0.25)"/>
+        <text x="65" y="151" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="5" font-family="'Space Mono',monospace">FASHION</text>
+      </svg>
+    </div>
+
+    <div class="hero-quote-card">
+      <div class="hero-quote-text">"Myntra is not just a shopping destination — it is where India discovers its personal style."</div>
+      <div class="hero-quote-attr">— Nandita Sinha, CEO, Myntra</div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLE BODY -->
+<div class="article-wrap">
+
+  <aside class="sidebar">
+    <span class="toc-label">Contents</span>
+    <button class="toc-btn active" onclick="gotoSec('origin')">01 Origin Story</button>
+    <button class="toc-btn" onclick="gotoSec('model')">02 Business Model</button>
+    <button class="toc-btn" onclick="gotoSec('brand')">03 Brand Strategy</button>
+    <button class="toc-btn" onclick="gotoSec('private')">04 Private Labels</button>
+    <button class="toc-btn" onclick="gotoSec('genz')">05 The Gen Z Bet</button>
+    <button class="toc-btn" onclick="gotoSec('moat')">06 Competitive Moat</button>
+    <button class="toc-btn" onclick="gotoSec('swot')">07 SWOT Analysis</button>
+    <button class="toc-btn" onclick="gotoSec('timeline')">08 Key Milestones</button>
+    <button class="toc-btn" onclick="gotoSec('risks')">09 Risks</button>
+    <button class="toc-btn" onclick="gotoSec('impact')">10 Industry Impact</button>
+    <button class="toc-btn" onclick="gotoSec('lessons')">11 Lessons for Builders</button>
+    <button class="toc-btn" onclick="gotoSec('verdict')">12 Final Verdict</button>
+  </aside>
+
+  <main>
+
+    <!-- 01 ORIGIN -->
+    <div class="sec s1" id="sec-origin">
+      <div class="sec-num">01 — Origin Story</div>
+      <h2 class="sec-title">From Gift Cards <em>to a Fashion Empire</em></h2>
+      <p class="lead">Myntra's founding story is one of the most instructive pivots in Indian tech. The company started in 2007 selling <strong>personalised gift items</strong> — mugs, T-shirts, and mousepads with custom prints. It had nothing to do with fashion. The fashion empire came later, driven by a market signal the founders were honest enough to follow.</p>
+      <p class="bp">Mukesh Bansal, Ashutosh Lawania, and Vineet Saxena founded Myntra with a customisation-first approach in a market that didn't yet know it wanted online retail. By 2011, the founders noticed their gifting revenues were being dwarfed by a new pattern: people were coming to the site for branded apparel, not for prints on merchandise. They made a clean pivot — shut down the gifting business entirely and relaunched as a fashion-first marketplace. <span class="ctag">Clean Pivot</span> <span class="ctag">Market-Led</span></p>
+      <p class="bp">The early fashion strategy was differentiated from the start: Myntra didn't compete on price with Flipkart for commodity goods. It competed on brand aspiration. It signed exclusive online partnerships with Adidas, Puma, Levi's, and H&M before those brands fully trusted Indian e-commerce — and built a curation-first buying experience that felt less like a warehouse and more like a department store. That positioning decision defined the next decade.</p>
+      <div class="pq">
+        <blockquote>"Fashion is about helping people discover who they want to be — not just selling them clothes."</blockquote>
+        <cite>— Mukesh Bansal, Co-Founder</cite>
+      </div>
+      <div class="info-rows">
+        <div class="info-row"><span class="info-key">Founded</span><span class="info-val"><strong>2007</strong> · Bengaluru, Karnataka, India</span></div>
+        <div class="info-row"><span class="info-key">Founders</span><span class="info-val"><strong>Mukesh Bansal</strong>, Ashutosh Lawania, Vineet Saxena — IIT/IIM alumni</span></div>
+        <div class="info-row"><span class="info-key">Original model</span><span class="info-val">Personalised gifting (mugs, T-shirts). Pivoted to fashion marketplace in 2011.</span></div>
+        <div class="info-row"><span class="info-key">Flipkart acquisition</span><span class="info-val"><strong>2014</strong> · Deal valued at ~$330M — India's largest e-commerce acquisition at the time</span></div>
+        <div class="info-row"><span class="info-key">Mobile-only experiment</span><span class="info-val">2015: Myntra went <strong>app-only</strong>, shutting its website. Reversed 6 months later after backlash.</span></div>
+        <div class="info-row"><span class="info-key">Current ownership</span><span class="info-val">Flipkart Group (Walmart) · Myntra operates with significant operational independence</span></div>
+      </div>
+    </div>
+
+    <!-- 02 MODEL -->
+    <div class="sec s2" id="sec-model">
+      <div class="sec-num">02 — Business Model</div>
+      <h2 class="sec-title">The Fashion Marketplace <em>Flywheel</em></h2>
+      <p class="lead">Myntra operates a hybrid model — marketplace for third-party brands alongside an expanding portfolio of owned private labels — that allows it to capture margin across the entire fashion value chain, from discovery to delivery.</p>
+      <div class="insight-grid rc">
+        <div class="insight-card">
+          <span class="ic-icon">🏷️</span>
+          <div class="ic-title">Marketplace Commission</div>
+          <div class="ic-desc">Myntra earns 25–35% take rate on brand sales on its platform. Premium and exclusive brand partnerships command higher rates in exchange for traffic and visibility.</div>
+        </div>
+        <div class="insight-card">
+          <span class="ic-icon">👗</span>
+          <div class="ic-title">Private Labels</div>
+          <div class="ic-desc">Brands like HRX, Roadster, and Mast & Harbour are Myntra-owned — generating 2–3x the margin of third-party brands and building platform loyalty that survives brand exits.</div>
+        </div>
+        <div class="insight-card">
+          <span class="ic-icon">📣</span>
+          <div class="ic-title">Advertising</div>
+          <div class="ic-desc">Sponsored placements, brand stores, and premium listing fees from 6,000+ brands. Advertising yield per session has grown consistently as the platform matures.</div>
+        </div>
+        <div class="insight-card">
+          <span class="ic-icon">💎</span>
+          <div class="ic-title">Myntra Insider</div>
+          <div class="ic-desc">Loyalty programme monetising high-frequency shoppers through exclusive access, early sales, and styling services. Creates a recurring engagement loop that reduces churn.</div>
+        </div>
+        <div class="insight-card">
+          <span class="ic-icon">✂️</span>
+          <div class="ic-title">Myntra Studio</div>
+          <div class="ic-desc">Short-form content and styling feature in-app. Converts inspiration to purchase natively — Instagram-like browsing that reduces the journey from discover to buy.</div>
+        </div>
+        <div class="insight-card">
+          <span class="ic-icon">⚡</span>
+          <div class="ic-title">M-Now</div>
+          <div class="ic-desc">30-minute fashion delivery in select cities — a premium logistics product charging a delivery fee. Addresses impulse purchases and competes with quick-commerce incumbents.</div>
+        </div>
+      </div>
+      <p class="bp">The model's leverage point is private labels: when Myntra builds its own brand, it controls design, pricing, and margin from day one. HRX — co-created with Hrithik Roshan — is India's most successful celebrity fitness fashion brand and lives exclusively on Myntra. This exclusivity both drives platform traffic and creates a brand asset that Myntra wholly owns. <span class="ctag">Owned IP</span> <span class="ctag">Vertical Integration</span></p>
+    </div>
+
+    <!-- 03 BRAND -->
+    <div class="sec s3 grad-pink" id="sec-brand">
+      <div class="sec-num">03 — Brand Strategy</div>
+      <h2 class="sec-title">India's First <em>Fashion Authority</em></h2>
+      <p class="lead">Myntra's most durable advantage is cultural, not operational. Over 17 years it has built the authority to tell India what's in fashion — an extraordinarily rare and valuable position that no amount of capital can quickly recreate.</p>
+      <div class="stat-row rc">
+        <div class="stat-card"><div class="stat-val">50M+</div><div class="stat-lbl">Active shoppers</div></div>
+        <div class="stat-card"><div class="stat-val">~500</div><div class="stat-lbl">Exclusive brands</div></div>
+        <div class="stat-card"><div class="stat-val">End of Reason Sale</div><div class="stat-lbl">India's biggest fashion event</div></div>
+        <div class="stat-card"><div class="stat-val">HRX</div><div class="stat-lbl">₹1,000Cr+ brand</div></div>
+        <div class="stat-card"><div class="stat-val">Myntra Studio</div><div class="stat-lbl">10M+ content viewers</div></div>
+      </div>
+      <p class="bp">The End of Reason Sale (EORS) is Myntra's equivalent of Red Bull Stratos — a brand moment that transcends commerce. Twice a year, the fashion world in India revolves around EORS. Brands that don't participate face consumer questions about why they're absent. Myntra doesn't just host a sale; it sets the calendar for Indian fashion retail. That is editorial power — and it is the result of a decade of consistent brand investment. <span class="ctag">Cultural Ownership</span> <span class="ctag">Event Commerce</span></p>
+      <p class="bp">Myntra's brand partnerships strategy deliberately leaned international before it was fashionable. H&M's Indian e-commerce launch was Myntra-exclusive. Marks & Spencer chose Myntra as its primary digital partner. These decisions embedded Myntra into the aspiration ladder that India's urban middle class was climbing — creating an association between the platform and the kind of international style they aspired to wear.</p>
+      <div class="brand-grid rc">
+        <div class="brand-card"><span class="brand-emoji">🏃</span><div class="brand-name">HRX</div><div class="brand-detail">Hrithik Roshan · Fitness</div></div>
+        <div class="brand-card"><span class="brand-emoji">🌿</span><div class="brand-name">Roadster</div><div class="brand-detail">Casual Western</div></div>
+        <div class="brand-card"><span class="brand-emoji">🏠</span><div class="brand-name">Mast & Harbour</div><div class="brand-detail">Casual Lifestyle</div></div>
+        <div class="brand-card"><span class="brand-emoji">👔</span><div class="brand-name">Dennison</div><div class="brand-detail">Formals</div></div>
+        <div class="brand-card"><span class="brand-emoji">👜</span><div class="brand-name">Sassafras</div><div class="brand-detail">Women's Western</div></div>
+        <div class="brand-card"><span class="brand-emoji">💪</span><div class="brand-name">Kook N Keech</div><div class="brand-detail">Youth Streetwear</div></div>
+      </div>
+    </div>
+
+    <!-- 04 PRIVATE LABELS -->
+    <div class="sec s2" id="sec-private">
+      <div class="sec-num">04 — Private Labels</div>
+      <h2 class="sec-title">Building Brands <em>While Selling Them</em></h2>
+      <p class="lead">Myntra's private label strategy is one of the most sophisticated vertical integration plays in Indian retail. With over 100 in-house brands, Myntra has become both a marketplace and a brand builder — using platform data to design products it knows will sell before a single unit is produced.</p>
+      <div class="pillar-list rc">
+        <div class="pillar">
+          <div class="pillar-num">1</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Data-Driven Design</div>
+            <div class="pillar-desc">Myntra designs private label products using real-time purchase data from 50 million shoppers. It knows which colour combinations sell fastest in Mumbai versus Hyderabad, which price points trigger abandonment, and which category gaps its third-party brands are failing to fill. Private labels are designed to win, not to guess.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">2</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Celebrity Co-Creation</div>
+            <div class="pillar-desc">HRX is the template: partner with a credible celebrity who embodies the target customer's aspiration, co-design a brand, offer it exclusively on Myntra. The celebrity brings organic reach and genuine lifestyle association; Myntra brings design capability, manufacturing access, and a captive audience of 50 million fashion shoppers.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">3</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Margin Architecture</div>
+            <div class="pillar-desc">Third-party brands generate 25–35% commission. Private labels generate 50–65% gross margin. As private label share increases, Myntra's blended margin structure improves significantly — meaning faster growth doesn't require proportionally higher logistics or customer acquisition costs.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">4</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Platform Lock-In</div>
+            <div class="pillar-desc">When a consumer builds loyalty to a Myntra-exclusive brand, she can't take that brand to Amazon or Flipkart — it doesn't exist there. Private labels are a retention mechanism masquerading as a product strategy. Every HRX loyalist is a customer Amazon cannot steal, regardless of how aggressive its fashion promotions become.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 GEN Z -->
+    <div class="sec s1 grad-gold" id="sec-genz">
+      <div class="sec-num">05 — The Gen Z Bet</div>
+      <h2 class="sec-title">Replatforming for <em>the Next Shopper</em></h2>
+      <p class="lead">Myntra's most consequential strategic decision of the last five years was recognising that its millennial buyer was ageing out of fashion-forward behaviour — and that Gen Z was an entirely different consumer with different content habits, brand values, and shopping triggers.</p>
+      <p class="bp">The response was FWD — a dedicated Gen Z fashion product embedded within the Myntra app. FWD curates trend-led youth fashion with faster drop cycles, a TikTok-style browsing interface, and community features including polls, styling challenges, and trend voting. It's less a shopping app and more a fashion social network that happens to sell clothes. <span class="ctag">Social Commerce</span> <span class="ctag">Gen Z Native</span></p>
+      <p class="bp">Myntra Studio extended this logic platform-wide: short-form styling videos created by influencers and brand stylists, integrated natively into the browse experience. A user watching a "5 ways to style white sneakers" video can buy every product featured with two taps. The inspiration-to-purchase journey collapses from days (search → review → decide) to seconds (see → tap → checkout). This is the future of fashion retail globally, and Myntra is building it for India first.</p>
+      <p class="bp">M-Now — Myntra's 30-minute delivery product — addresses the Gen Z expectation that "want now, have now" should apply to fashion as it does to food. The unit economics are challenging, but the strategic value is clear: if a consumer can receive a Myntra order in 30 minutes, the mental model shifts from "plan purchase" to "impulse buy" — which is where fashion's highest-frequency occasions live.</p>
+    </div>
+
+    <!-- 06 MOAT -->
+    <div class="sec s2" id="sec-moat">
+      <div class="sec-num">06 — Competitive Moat</div>
+      <h2 class="sec-title">Where Myntra <em>Becomes Irreplaceable</em></h2>
+      <p class="lead">Myntra's moat is the product of 17 years of compounding — brand relationships, consumer trust, private label equity, and fashion authority that no amount of capital can buy quickly.</p>
+      <div class="moat-bars rc">
+        <div class="moat-bar"><div class="moat-label"><span class="moat-name">Fashion Brand Authority & Consumer Trust</span><span class="moat-score">93/100</span></div><div class="moat-track"><div class="moat-fill" data-w="93"></div></div></div>
+        <div class="moat-bar"><div class="moat-label"><span class="moat-name">Exclusive Brand & International Partnerships</span><span class="moat-score">89/100</span></div><div class="moat-track"><div class="moat-fill" data-w="89"></div></div></div>
+        <div class="moat-bar"><div class="moat-label"><span class="moat-name">Private Label Portfolio (HRX, Roadster, etc.)</span><span class="moat-score">85/100</span></div><div class="moat-track"><div class="moat-fill" data-w="85"></div></div></div>
+        <div class="moat-bar"><div class="moat-label"><span class="moat-name">Demand Forecasting via 50M User Data</span><span class="moat-score">82/100</span></div><div class="moat-track"><div class="moat-fill" data-w="82"></div></div></div>
+        <div class="moat-bar"><div class="moat-label"><span class="moat-name">EORS — India's Defining Fashion Event</span><span class="moat-score">78/100</span></div><div class="moat-track"><div class="moat-fill" data-w="78"></div></div></div>
+        <div class="moat-bar"><div class="moat-label"><span class="moat-name">Fashion-Specific Returns & Logistics Infrastructure</span><span class="moat-score">74/100</span></div><div class="moat-track"><div class="moat-fill" data-w="74"></div></div></div>
+      </div>
+      <p class="bp">The hardest-to-replicate element of Myntra's position is its role as India's fashion authority. Brands want to be on Myntra not just for sales volume but for the implicit endorsement — being listed on Myntra signals legitimacy in the Indian fashion market. This creates a reflexive advantage: the more authoritative Myntra becomes, the more the best brands prioritise it, making it more authoritative still.</p>
+    </div>
+
+    <!-- 07 SWOT -->
+    <div class="sec s3" id="sec-swot">
+      <div class="sec-num">07 — SWOT Analysis</div>
+      <h2 class="sec-title">The Full Picture, <em>Honestly</em></h2>
+      <div class="swot-grid rc">
+        <div class="swot-cell swot-s">
+          <div class="swot-head">▲ Strengths</div>
+          <ul class="swot-list">
+            <li>India's most trusted fashion brand — 17 years of authority</li>
+            <li>Exclusive partnerships with 500+ international and premium brands</li>
+            <li>Private label portfolio with 50%+ gross margins</li>
+            <li>50M+ shopper dataset — strongest fashion demand signal in India</li>
+            <li>EORS — India's single biggest fashion retail moment</li>
+            <li>Flipkart group logistics and balance sheet backing</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-w">
+          <div class="swot-head">▼ Weaknesses</div>
+          <ul class="swot-list">
+            <li>Premium/urban skew limits total addressable market</li>
+            <li>High return rates (35–45%) in fashion are structurally costly</li>
+            <li>App-only pivot in 2015 damaged trust — brand still carries some scar tissue</li>
+            <li>Dependence on discount-driven traffic during sale events</li>
+            <li>Profitability timeline extends despite revenue growth</li>
+            <li>Limited presence in Tier 3/4 India vs Meesho</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-o">
+          <div class="swot-head">▲ Opportunities</div>
+          <ul class="swot-list">
+            <li>Luxury and premium expansion as India's disposable income rises</li>
+            <li>FWD and Gen Z platform becoming standalone growth engine</li>
+            <li>M-Now quick commerce — redefining impulse fashion purchase</li>
+            <li>International expansion to South and Southeast Asia</li>
+            <li>Beauty and personal care expansion leveraging fashion audience</li>
+            <li>Creator economy integration — Myntra Studio at scale</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-t">
+          <div class="swot-head">▼ Threats</div>
+          <ul class="swot-list">
+            <li>Nykaa Fashion scaling aggressively in beauty-adjacent fashion</li>
+            <li>Reliance's AJIO backed by deep physical retail infrastructure</li>
+            <li>Instagram and Meesho eating social commerce opportunity</li>
+            <li>International entrants (Zara, Shein-style models) disrupting pricing</li>
+            <li>D2C brands bypassing Myntra to build direct relationships</li>
+            <li>Flipkart group strategic priorities shifting resource allocation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 TIMELINE -->
+    <div class="sec s2 grad-teal" id="sec-timeline">
+      <div class="sec-num">08 — Key Milestones</div>
+      <h2 class="sec-title">Seventeen Years of <em>Reinvention</em></h2>
+      <div class="timeline rc">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2007</div><div class="tl-event">Myntra founded as a <strong>personalised gifting platform</strong> — custom mugs, T-shirts, mousepads. Raises seed funding from IDG Ventures.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2011</div><div class="tl-event"><strong>Full pivot to branded fashion marketplace.</strong> Signs early exclusive deals with Adidas, Puma, and Levi's. The gifting business is shut entirely.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2012</div><div class="tl-event">Raises $50M from Accel, IDG, Tiger Global. Launches first <strong>End of Reason Sale</strong> — creates India's biggest fashion shopping event from scratch.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2013</div><div class="tl-event"><strong>HRX launched</strong> with Hrithik Roshan. First Myntra private label and India's first major celebrity-collaborative fashion brand. Becomes a ₹1,000Cr+ brand.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2014</div><div class="tl-event"><strong>Flipkart acquires Myntra for ~$330M</strong> — India's largest e-commerce deal at the time. Myntra operates independently under Mukesh Bansal's leadership.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2015</div><div class="tl-event"><strong>App-only pivot</strong>: Myntra shuts its website. Backlash is immediate. Reverses after 6 months. Lessons: mobile-first ≠ mobile-only; user choice matters.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2018</div><div class="tl-event">H&M India e-commerce <strong>launches exclusively on Myntra</strong>. Marks the platform's maturation as the preferred partner for international fashion brands entering India.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2021</div><div class="tl-event">Reaches <strong>50M active customers</strong>. Acquires Fashinza (B2B fashion supply chain). Launches Myntra Studio. Crosses 1M daily orders milestone.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2022</div><div class="tl-event"><strong>FWD launched</strong> — dedicated Gen Z fashion platform within the Myntra app. Nandita Sinha becomes CEO, first female leader of a major Indian fashion platform.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2024</div><div class="tl-event"><strong>M-Now</strong> (30-minute delivery) launched in Bengaluru, Mumbai, Delhi. Reports 9 consecutive quarters of improving unit economics. Targets profitability milestone.</div></div>
+      </div>
+    </div>
+
+    <!-- 09 RISKS -->
+    <div class="sec s1" id="sec-risks">
+      <div class="sec-num">09 — Risks & Vulnerabilities</div>
+      <h2 class="sec-title">Where <em>the Seams Could Split</em></h2>
+      <p class="lead">Myntra is the clear leader in Indian fashion e-commerce — but it competes in one of the most structurally difficult retail categories, and several pressures are intensifying.</p>
+      <div class="risk-list rc">
+        <div class="risk-item">
+          <div class="risk-badge risk-high">HIGH</div>
+          <div>
+            <div class="risk-content-title">AJIO / Reliance Competition</div>
+            <div class="risk-content-desc">AJIO is backed by Reliance's physical retail network — 2,000+ Trends stores as brand showrooms, returns points, and discovery venues. It carries Reliance's private label heritage from Trends, and its access to Jio's 400M user base means it can acquire fashion shoppers at near-zero marginal cost. AJIO's 2022–24 growth trajectory is the most credible competitive threat Myntra has ever faced.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-high">HIGH</div>
+          <div>
+            <div class="risk-content-title">Return Rate Economics</div>
+            <div class="risk-content-desc">Fashion returns in India run at 35–45%. Each returned item involves two logistics legs, quality checking, and potential write-down if the product can't be relisted. In premium fashion, return rates can exceed 50%. As Myntra grows in higher-ticket categories, this structural cost grows proportionally — and is not easily solved by technology alone, since fit, colour accuracy, and fabric feel are tactile problems.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-med">MED</div>
+          <div>
+            <div class="risk-content-title">D2C Brand Disintermediation</div>
+            <div class="risk-content-desc">As D2C brands (Bewakoof, Rare Rabbit, House of Pataudi) build direct customer relationships, they have less incentive to pay Myntra's 30%+ commission. The brands that succeed on Myntra often graduate to owning their own traffic — and eventually negotiate from a position of strength or exit entirely. Myntra must continuously refresh its brand catalogue to stay compelling.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-med">MED</div>
+          <div>
+            <div class="risk-content-title">Instagram / Social Commerce Threat</div>
+            <div class="risk-content-desc">Instagram Shopping and WhatsApp Commerce are building discovery-to-purchase flows that compete directly with Myntra Studio. The difference: Instagram has 230M Indian users spending hours daily on content. Myntra's Studio must compete for the same attention with a fraction of the inventory and social graph. Winning the content layer is a real battle.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-low">LOW</div>
+          <div>
+            <div class="risk-content-title">Flipkart Group Strategy Risk</div>
+            <div class="risk-content-desc">Myntra operates with significant autonomy within Flipkart/Walmart, but strategic shifts at the parent level can affect capex, IPO timelines, and leadership continuity. Walmart's global priorities, Flipkart's competitive battles with Amazon, and any potential restructuring could redirect resources at a critical point in Myntra's growth trajectory.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 IMPACT -->
+    <div class="sec s2 grad-pink" id="sec-impact">
+      <div class="sec-num">10 — Industry Impact</div>
+      <h2 class="sec-title">How Myntra <em>Dressed Indian Commerce</em></h2>
+      <p class="lead">Myntra's 17-year journey reshaped not just how India shops for clothes, but how Indian consumers think about fashion — and how global brands think about India as a market.</p>
+      <p class="bp">Before Myntra, fashion retail in India was fragmented between unbranded local markets, a small number of premium mall stores, and a handful of multi-brand retailers. Myntra aggregated that fragmentation into a single, searchable, curated destination — and in doing so, created the first national fashion market that a brand could reach comprehensively from one platform. <span class="ctag">Market Creation</span> <span class="ctag">National Aggregation</span></p>
+      <p class="bp">The international partnership template Myntra established — exclusive digital launch, then phased offline expansion — is now standard for every global fashion brand entering India. H&M, Marks & Spencer, and Mango all used Myntra as their digital beachhead. Myntra proved to international fashion that India's e-commerce shopper was not just a volume story but a premium opportunity. <span class="ctag">International Gateway</span></p>
+      <p class="bp">Myntra's private label success with HRX also created a new template: celebrity co-creation as brand strategy. Before HRX, celebrity fashion in India meant endorsement deals and faces on packaging. After HRX, a generation of founders and celebrities understood that jointly-owned brands — designed for the platform's data and built on its audience — could scale faster and generate more durable returns than any sponsorship fee. The model has since been replicated across categories from fitness to beauty.</p>
+    </div>
+
+    <!-- 11 LESSONS -->
+    <div class="sec s3" id="sec-lessons">
+      <div class="sec-num">11 — Lessons For Builders</div>
+      <h2 class="sec-title">What Founders Can <em>Take From the Rack</em></h2>
+      <p class="lead">Myntra's journey from personalised mugs to India's fashion authority contains lessons about pivoting, positioning, and the compound value of category authority that apply across any consumer business.</p>
+      <div class="lessons-grid rc">
+        <div class="lesson-card">
+          <div class="lesson-num">01</div>
+          <div class="lesson-title">Pivot Cleanly or Not At All</div>
+          <div class="lesson-desc">Myntra's pivot from gifting to fashion was complete — they shut the gifting business, not hedged it. Half-pivots are usually the worst outcome: you allocate resources to two strategies, excel at neither, and confuse your brand. When the data says pivot, the courage required is to stop doing the old thing, not just start doing the new one.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">02</div>
+          <div class="lesson-title">Aspiration Is a Product Category</div>
+          <div class="lesson-desc">Myntra didn't sell clothes — it sold the feeling of dressing like the person you wanted to be. That aspiration is a real consumer product, not a marketing abstraction. Any business that lets people access a lifestyle or identity they aspire to — at the right price point — has found one of the most durable demand generators in consumer psychology.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">03</div>
+          <div class="lesson-title">Events Create Authority Faster Than Ads</div>
+          <div class="lesson-desc">EORS didn't happen by accident — it was designed to make Myntra the calendar anchor for fashion in India. When you own the event, you own the conversation. No advertising spend builds the kind of authority that coming on twice a year to define the nation's fashion moment creates. Build your event before your ads.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">04</div>
+          <div class="lesson-title">Data Should Design Your Products</div>
+          <div class="lesson-desc">Myntra's private labels win because they are designed from sales data, not from fashion intuition. When you know which SKUs sell before production begins, your hit rate is structurally higher. Any marketplace building proprietary products should invest in turning transaction data into design intelligence — the information advantage is the real moat, not the product itself.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">05</div>
+          <div class="lesson-title">Exclusivity Is a Growth Strategy</div>
+          <div class="lesson-desc">Myntra's exclusive brand partnerships created a reason to come that Amazon couldn't replicate — you couldn't get H&M anywhere else online. In any marketplace, exclusivity is the highest-leverage inventory acquisition strategy. If you can offer a brand something no one else can — audience, data, co-creation, or marketing reach — exclusive partnerships transform your catalogue into a destination moat.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">06</div>
+          <div class="lesson-title">Platform Transitions Must Respect User Choice</div>
+          <div class="lesson-desc">The 2015 app-only experiment taught a lesson the hard way: users will switch platforms when you remove optionality, even if mobile is where they mostly shop. Aggressive platform transitions — removing web, forcing app, mandating login — signal to the user that your convenience matters more than theirs. In consumer trust, reversing that signal is expensive and slow.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 VERDICT -->
+    <div class="sec grad-gold" id="sec-verdict">
+      <div class="sec-num">12 — Final FounderLens Verdict</div>
+      <h2 class="sec-title">India's Fashion Platform — <em>Built to Last</em></h2>
+      <p class="lead">Myntra is, without serious debate, India's most authoritative fashion commerce platform. The question worth examining is whether authority is enough to win the next decade — or whether the forces reshaping fashion globally will require a different kind of platform.</p>
+      <div class="verdict-box">
+        <h3>"Does Myntra have the foundations to lead Indian fashion commerce for another 17 years?"</h3>
+        <p>Myntra's core advantage — fashion authority — is real and durable. It took 17 years to build the credibility to say "this is what's trending" and have 50 million people adjust their wardrobes accordingly. That is not a product feature; it is a cultural position, and cultural positions compound rather than decay when they are maintained actively. Myntra has maintained it.</p>
+        <p>The private label portfolio is the business model evolution that separates Myntra from being merely a good marketplace. When Myntra builds a brand, it doesn't just earn commission — it owns the intellectual property, the manufacturing relationship, and the customer loyalty. <strong>HRX as a billion-rupee brand that can only be bought on Myntra is the clearest expression of what platform power looks like when used well.</strong></p>
+        <p>The competitive risk from AJIO is real but not existential. Reliance's physical retail network is an advantage for the majority of Indian shoppers who still buy clothes in stores — but Myntra's core user is digital-native, brand-literate, and has been conditioned over years to trust Myntra's curation. Converting them requires more than distribution infrastructure; it requires the kind of fashion credibility that AJIO is still building.</p>
+        <p>The most interesting question for the next five years is whether FWD and Myntra Studio represent a genuine platform evolution or a feature response to Gen Z anxiety. If Myntra can make its app the place where young India discovers and participates in fashion — not just buys it — it will have extended its authority across a generational transition that kills most incumbents. The ambition is correct; the execution is still being proven.</p>
+        <p class="verdict-note">Seventeen years in, Myntra's greatest achievement is not its revenue or its user count — it is that India now has an aspirational relationship with fashion that didn't exist before. Myntra didn't just sell to that aspiration. In large part, it created it.</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><span class="footer-dot"></span>FounderLens</div>
+    <p class="footer-desc">Business intelligence explained simply through world-class companies. Strategy, execution, and competitive advantage — decoded for builders and operators.</p>
+    <div class="footer-bottom">
+      <div class="footer-copy"><span>FounderLens</span> · Myntra Company Analysis · Issue #17 · Research compiled June 2026 · Educational purposes only</div>
+      <div class="footer-tags">
+        <span class="footer-tag">Fashion Commerce</span>
+        <span class="footer-tag">Private Labels</span>
+        <span class="footer-tag">Myntra Designs</span>
+        <span class="footer-tag">2007</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+</button>
+
+<script>
+function gotoSec(id) {
+  const el = document.getElementById('sec-' + id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+});
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      e.target.querySelectorAll('.moat-fill').forEach(bar => {
+        setTimeout(() => { bar.style.width = bar.dataset.w + '%'; }, 200);
+      });
+    }
+  });
+}, { threshold: 0.05 });
+document.querySelectorAll('.sec, .rc').forEach(el => ro.observe(el));
+const secs = document.querySelectorAll('.sec[id]');
+const tocObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.toc-btn').forEach(b => b.classList.remove('active'));
+      const id = e.target.id.replace('sec-', '');
+      const t = document.querySelector(`.toc-btn[onclick*="'${id}'"]`);
+      if (t) t.classList.add('active');
+    }
+  });
+}, { rootMargin: '-12% 0px -78% 0px' });
+secs.forEach(s => tocObs.observe(s));
+document.querySelectorAll('.nav-pill').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('.nav-pill').forEach(x => x.classList.remove('active'));
+    p.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

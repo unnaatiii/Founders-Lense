@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRED — FounderLens Company Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --indigo:      #4F3FF3;
+  --indigo-dk:   #372BC0;
+  --indigo-lt:   #7468FF;
+  --indigo-glow: rgba(79,63,243,0.12);
+  --gold:        #B6901E;
+  --gold-lt:     #D9AE3F;
+  --ink:         #15131F;
+  --ink-soft:    #423F54;
+  --paper:       #FAF9F4;
+  --surface:     #FFFFFF;
+  --tint:        #F1EEFB;
+  --tint-gold:   #FBF3DE;
+  --muted:       #79758A;
+  --mid:         #56536A;
+  --rule:        rgba(21,19,31,0.10);
+  --rule-soft:   rgba(21,19,31,0.06);
+
+  --display: 'Space Grotesk', system-ui, sans-serif;
+  --body:    'Sora', system-ui, sans-serif;
+  --mono:    'IBM Plex Mono', monospace;
+  --r: 8px;
+  --r-lg: 16px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--body); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--indigo); border-radius: 2px; }
+
+/* ── PROGRESS BAR ── */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--indigo), var(--gold));
+  width: 0%; z-index: 999; transition: width .1s linear;
+}
+
+/* ── TICKER ── */
+.ticker {
+  background: var(--indigo);
+  color: #fff;
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: .14em; text-transform: uppercase;
+  padding: 9px 0; overflow: hidden; white-space: nowrap;
+  position: sticky; top: 0; z-index: 200;
+}
+.ticker-track {
+  display: inline-block;
+  animation: scroll-left 32s linear infinite;
+  padding-left: 100%;
+}
+.ticker-track span { margin: 0 48px; }
+.ticker-track .dot { opacity: 0.55; }
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Back to companies ── */
+.top{
+  max-width:1120px;margin:12px auto 0;padding:0 18px;
+  position:sticky;top:10px;z-index:500;
+}
+.topbar{
+  width:100%;
+  padding:10px 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  border:1px solid var(--rule);
+  border-radius:999px;
+  background:rgba(255,255,255,0.7);
+  backdrop-filter:blur(18px) saturate(1.4);
+  box-shadow:0 12px 30px rgba(21,19,31,.06);
+}
+.back{
+  display:flex;align-items:center;gap:10px;text-decoration:none;
+  color:var(--ink);font-weight:600;font-size:13px;
+}
+.back .b{
+  width:26px;height:26px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--rule);background:rgba(21,19,31,.04);
+  color:var(--ink-soft);
+}
+.back:hover{color:var(--indigo)}
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 33px; z-index: 190;
+  background: rgba(250,249,244,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--rule);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 56px; height: 56px;
+}
+.nav-brand { display: flex; align-items: center; gap: 14px; }
+.nav-logo {
+  width: 38px; height: 38px;
+  background: var(--indigo); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--display); font-size: 16px; font-weight: 700;
+  color: #fff; letter-spacing: -.02em;
+}
+.nav-title { font-family: var(--display); font-size: 19px; font-weight: 700; color: var(--ink); letter-spacing: .01em; }
+.nav-sub { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.nav-pills { display: flex; gap: 4px; }
+.nav-pill {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
+  padding: 5px 13px; border-radius: 5px; border: 1px solid var(--rule);
+  background: none; color: var(--muted); cursor: pointer; transition: all .15s;
+}
+.nav-pill:hover, .nav-pill.active { background: var(--indigo); color: #fff; border-color: var(--indigo); }
+.nav-badge {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 5px;
+  background: var(--tint); color: var(--indigo-dk); border: 1px solid rgba(79,63,243,0.22);
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 92vh;
+  background: var(--paper);
+  display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 70% at 80% 40%, rgba(79,63,243,0.09) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 60% at 8% 85%, rgba(182,144,30,0.07) 0%, transparent 55%);
+}
+.hero-stripes {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 60px,
+    rgba(21,19,31,0.015) 60px,
+    rgba(21,19,31,0.015) 61px
+  );
+}
+.hero-left {
+  padding: 80px 56px; display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 1;
+}
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+  animation: fade-up .7s ease both;
+}
+.hero-eyebrow-bar { width: 28px; height: 3px; background: var(--indigo); }
+.hero-eyebrow-text {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--indigo-dk);
+}
+.hero-h1 {
+  font-family: var(--display); font-size: clamp(56px, 9vw, 116px);
+  font-weight: 700; line-height: .92; color: var(--ink);
+  letter-spacing: -.02em; margin-bottom: 10px;
+  animation: fade-up .7s .07s ease both;
+}
+.hero-sub {
+  font-family: var(--display); font-size: clamp(17px, 2.4vw, 25px); font-weight: 500;
+  font-style: italic; color: var(--ink-soft);
+  margin-bottom: 30px; line-height: 1.3;
+  animation: fade-up .7s .14s ease both;
+}
+.hero-desc {
+  font-size: 15px; line-height: 1.85; color: var(--mid);
+  max-width: 460px; font-weight: 300; margin-bottom: 34px;
+  animation: fade-up .7s .2s ease both;
+}
+.hero-desc strong { color: var(--ink); font-weight: 600; }
+
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
+  background: var(--rule); border-radius: var(--r); overflow: hidden;
+  margin-bottom: 26px; animation: fade-up .7s .26s ease both;
+  border: 1px solid var(--rule);
+}
+.kpi-cell {
+  background: var(--surface); padding: 16px 14px; text-align: center;
+  transition: background .2s;
+}
+.kpi-cell:hover { background: var(--tint); }
+.kpi-val {
+  font-family: var(--display); font-size: 24px; font-weight: 700;
+  color: var(--indigo-dk); line-height: 1; margin-bottom: 5px; letter-spacing: -.01em;
+}
+.kpi-lbl {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted);
+}
+
+.hero-tags { display: flex; gap: 7px; flex-wrap: wrap; animation: fade-up .7s .32s ease both; }
+.hero-tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
+  padding: 5px 11px; border-radius: 5px;
+  background: var(--surface); border: 1px solid var(--rule);
+  color: var(--ink-soft); transition: all .15s; cursor: default;
+}
+.hero-tag:hover { background: var(--tint); color: var(--indigo-dk); border-color: rgba(79,63,243,0.3); }
+.hero-tag.acc { background: var(--tint); border-color: rgba(79,63,243,0.28); color: var(--indigo-dk); }
+
+/* Hero right — membership card visual */
+.hero-right {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  gap: 26px; padding: 60px 40px;
+}
+.card-wrap {
+  position: relative; display: flex; align-items: center; justify-content: center;
+}
+.card-glow {
+  position: absolute; width: 260px; height: 260px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(79,63,243,0.16) 0%, transparent 70%);
+  animation: pulse-glow 3.4s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.12); opacity: 0.6; }
+}
+.card-svg {
+  width: 230px; position: relative; z-index: 1;
+  animation: float 4.2s ease-in-out infinite;
+  filter: drop-shadow(0 24px 40px rgba(79,63,243,0.22));
+}
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-12px) rotate(-2deg); }
+}
+.orbit-ring {
+  position: absolute; border-radius: 50%; border: 1px solid;
+  animation: spin 22s linear infinite;
+}
+.orbit-1 { width: 230px; height: 230px; border-color: rgba(79,63,243,0.16); }
+.orbit-2 { width: 320px; height: 320px; border-color: rgba(182,144,30,0.16); animation-duration: 38s; animation-direction: reverse; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.orbit-dot {
+  position: absolute; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--indigo); top: -3px; left: 50%; margin-left: -3px;
+}
+.orbit-dot-2 {
+  background: var(--gold); top: auto; bottom: -3px; left: 30%; margin-left: -3px;
+}
+
+.hero-quote-card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--indigo);
+  border-radius: var(--r); padding: 18px 22px; max-width: 280px;
+}
+.hero-quote-text {
+  font-family: var(--display); font-size: 16px; font-style: italic; font-weight: 500;
+  color: var(--ink); line-height: 1.5; margin-bottom: 10px;
+}
+.hero-quote-attr {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--indigo-dk);
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── LAYOUT ── */
+.article-wrap { display: grid; grid-template-columns: 230px 1fr; }
+
+/* Sidebar */
+.sidebar {
+  position: sticky; top: 89px; height: calc(100vh - 89px);
+  overflow-y: auto; scrollbar-width: none;
+  background: var(--surface); border-right: 1px solid var(--rule);
+  padding: 32px 0;
+}
+.sidebar::-webkit-scrollbar { display: none; }
+.toc-label {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--indigo-dk); padding: 0 20px; margin-bottom: 8px; margin-top: 18px; display: block;
+}
+.toc-btn {
+  display: block; width: 100%; text-align: left;
+  font-family: var(--body); font-size: 12px; font-weight: 400;
+  color: var(--muted); padding: 8px 20px 8px 18px;
+  border-left: 3px solid transparent; border: none; background: none; cursor: pointer;
+  transition: all .15s; line-height: 1.4; border-left: 3px solid transparent;
+}
+.toc-btn:hover { color: var(--ink); background: var(--tint); }
+.toc-btn.active {
+  color: var(--ink); border-left-color: var(--indigo);
+  background: var(--tint); font-weight: 600;
+}
+
+/* ── SECTION BLOCKS ── */
+.sec {
+  padding: 72px 64px;
+  scroll-margin-top: 92px;
+  border-bottom: 1px solid var(--rule);
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.sec.vis { opacity: 1; transform: none; }
+
+.sec.base    { background: var(--surface); }
+.sec.alt     { background: var(--tint); }
+.sec.tint-gd { background: var(--tint-gold); }
+.sec.grad-i {
+  background: linear-gradient(135deg, var(--surface) 0%, rgba(79,63,243,0.07) 55%, var(--tint) 100%);
+}
+.sec.grad-g {
+  background: linear-gradient(135deg, var(--tint) 0%, rgba(182,144,30,0.08) 55%, var(--surface) 100%);
+}
+.sec.grad-p {
+  background: linear-gradient(135deg, #fdfcf8 0%, #f3eefc 55%, #fbf6e9 100%);
+}
+
+/* Section typography */
+.sec-num {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .22em;
+  text-transform: uppercase; margin-bottom: 10px; color: var(--indigo-dk);
+}
+.sec-title {
+  font-family: var(--display); font-size: clamp(27px, 3.6vw, 44px);
+  font-weight: 700; line-height: 1.04;
+  letter-spacing: -.01em; margin-bottom: 20px; color: var(--ink);
+}
+.sec-title em { font-style: italic; color: var(--indigo); font-weight: 600; }
+.lead {
+  font-size: 17px; line-height: 1.75; font-weight: 300; margin-bottom: 28px; max-width: 680px;
+  color: var(--ink-soft);
+}
+.lead strong { color: var(--ink); font-weight: 600; }
+.bp {
+  font-size: 15px; line-height: 1.8; font-weight: 300; margin-bottom: 16px; max-width: 680px;
+  color: var(--mid);
+}
+.bp strong { color: var(--ink); font-weight: 600; }
+.ctag {
+  display: inline-block; font-family: var(--mono); font-size: 9px; letter-spacing: .08em;
+  text-transform: uppercase; padding: 3px 9px; border-radius: 4px;
+  background: var(--tint); color: var(--indigo-dk); border: 1px solid rgba(79,63,243,0.2);
+  margin-left: 4px; vertical-align: middle;
+}
+
+/* ── PULLQUOTE ── */
+.pq {
+  margin: 28px 0; padding: 20px 24px; border-radius: var(--r);
+  border-left: 3px solid var(--indigo); background: rgba(79,63,243,0.05); max-width: 680px;
+}
+.pq blockquote {
+  font-family: var(--display); font-size: 21px; font-style: italic; font-weight: 600;
+  line-height: 1.3; margin-bottom: 10px; color: var(--ink);
+}
+.pq cite { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; font-style: normal; color: var(--indigo-dk); }
+
+/* ── INSIGHT CARDS ── */
+.insight-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: 12px; margin: 28px 0; }
+.insight-card {
+  background: var(--surface); border: 1px solid var(--rule);
+  border-radius: var(--r); padding: 20px 18px;
+  transition: transform .15s, border-color .15s;
+}
+.insight-card:hover { transform: translateY(-3px); border-color: rgba(79,63,243,0.35); }
+.ic-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+.ic-title { font-family: var(--display); font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--ink); }
+.ic-desc { font-size: 12.5px; line-height: 1.6; font-weight: 300; color: var(--muted); }
+
+/* ── STAT CARDS ── */
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 8px; margin: 28px 0; }
+.stat-card {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: var(--r);
+  padding: 18px 14px; text-align: center; transition: transform .15s;
+}
+.stat-card:hover { transform: translateY(-2px); border-color: rgba(79,63,243,0.28); }
+.stat-val { font-family: var(--display); font-size: 26px; font-weight: 700; color: var(--indigo-dk); line-height: 1; margin-bottom: 5px; }
+.stat-lbl { font-family: var(--mono); font-size: 8px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+
+/* ── INFO ROWS ── */
+.info-rows { margin: 20px 0; max-width: 680px; }
+.info-row { display: flex; gap: 20px; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 14.5px; align-items: flex-start; }
+.info-row:last-child { border-bottom: none; }
+.info-key { font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; flex-shrink: 0; width: 150px; padding-top: 3px; font-weight: 500; color: var(--indigo-dk); }
+.info-val { line-height: 1.6; font-weight: 300; color: var(--mid); }
+.info-val strong { font-weight: 600; color: var(--ink); }
+
+/* ── SWOT ── */
+.swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 28px 0; border-radius: var(--r); overflow: hidden; max-width: 680px; background: var(--rule); }
+.swot-cell { padding: 22px 20px; }
+.swot-s { background: #EBF6EE; } .swot-w { background: #FCEFE4; }
+.swot-o { background: #EEEDFC; } .swot-t { background: #FCEAEA; }
+.swot-head { font-family: var(--mono); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; font-weight: 600; margin-bottom: 10px; }
+.swot-s .swot-head { color: #2C8050; } .swot-w .swot-head { color: #B5641C; }
+.swot-o .swot-head { color: var(--indigo-dk); } .swot-t .swot-head { color: #B3303C; }
+.swot-list { list-style: none; }
+.swot-list li { font-size: 13px; line-height: 1.6; color: var(--mid); padding: 3px 0; font-weight: 300; }
+.swot-list li::before { content: '— '; opacity: 0.55; }
+
+/* ── MOAT BARS ── */
+.moat-bars { margin: 28px 0; max-width: 600px; }
+.moat-bar { margin-bottom: 16px; }
+.moat-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.moat-name { font-size: 13px; font-weight: 400; color: var(--ink-soft); }
+.moat-score { font-family: var(--mono); font-size: 11px; color: var(--indigo-dk); }
+.moat-track { height: 5px; border-radius: 3px; overflow: hidden; background: var(--rule); }
+.moat-fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--indigo), var(--gold));
+  width: 0%; transition: width 1.2s cubic-bezier(.16,1,.3,1);
+}
+
+/* ── RISK CARDS ── */
+.risk-list { margin: 24px 0; max-width: 680px; }
+.risk-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--rule); }
+.risk-item:last-child { border-bottom: none; }
+.risk-badge { flex-shrink: 0; width: 44px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 8px; letter-spacing: .08em; font-weight: 600; margin-top: 2px; }
+.risk-high { background: #FBE2E2; color: #B0212A; }
+.risk-med  { background: #FBEAD3; color: #95591A; }
+.risk-low  { background: #E1F1E5; color: #257A3F; }
+.risk-content-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--ink); }
+.risk-content-desc { font-size: 13px; line-height: 1.65; font-weight: 300; color: var(--muted); }
+
+/* ── TIMELINE ── */
+.timeline { margin: 28px 0; max-width: 680px; position: relative; padding-left: 28px; }
+.timeline::before { content: ''; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(to bottom, var(--indigo), var(--gold)); }
+.tl-item { position: relative; margin-bottom: 24px; }
+.tl-dot { position: absolute; left: -24px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--indigo); border: 2px solid var(--paper); }
+.tl-year { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; color: var(--indigo-dk); margin-bottom: 4px; }
+.tl-event { font-size: 13.5px; line-height: 1.6; color: var(--mid); font-weight: 300; }
+.tl-event strong { color: var(--ink); font-weight: 600; }
+
+/* ── LESSONS GRID ── */
+.lessons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0; }
+.lesson-card {
+  background: var(--surface); border: 1px solid var(--rule);
+  border-radius: var(--r); padding: 22px 20px;
+  transition: transform .15s, border-color .15s;
+}
+.lesson-card:hover { transform: translateY(-2px); border-color: rgba(79,63,243,0.32); }
+.lesson-num { font-family: var(--display); font-size: 46px; font-weight: 700; color: rgba(79,63,243,0.12); line-height: 1; margin-bottom: -4px; }
+.lesson-title { font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--indigo-dk); margin-bottom: 8px; }
+.lesson-desc { font-size: 13px; line-height: 1.65; color: var(--mid); font-weight: 300; }
+
+/* ── VERDICT ── */
+.verdict-box {
+  border-radius: var(--r-lg); padding: 40px 44px; margin: 32px 0; max-width: 720px;
+  border-left: 5px solid var(--indigo);
+  background: rgba(255,255,255,0.6); border-top: 1px solid var(--rule); border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+}
+.verdict-box h3 { font-family: var(--display); font-size: 24px; font-style: italic; font-weight: 600; margin-bottom: 20px; line-height: 1.3; color: var(--indigo-dk); }
+.verdict-box p { font-size: 15px; line-height: 1.85; margin-bottom: 14px; font-weight: 300; color: var(--mid); }
+.verdict-box p strong { font-weight: 600; color: var(--ink); }
+.verdict-box .verdict-note { border-top: 1px solid var(--rule); padding-top: 18px; margin-top: 20px; font-style: italic; font-size: 13.5px; color: var(--muted); }
+
+/* ── PRODUCT GRID ── */
+.product-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(170px,1fr)); gap: 10px; margin: 24px 0; }
+.product-card {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: var(--r);
+  padding: 16px 14px; text-align: center; transition: transform .15s, border-color .15s;
+}
+.product-card:hover { transform: translateY(-3px); border-color: rgba(79,63,243,0.4); }
+.product-emoji { font-size: 26px; margin-bottom: 8px; display: block; }
+.product-name { font-family: var(--display); font-size: 13px; font-weight: 700; letter-spacing: .01em; color: var(--ink); margin-bottom: 4px; }
+.product-detail { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: .04em; line-height: 1.5; }
+
+/* ── PILLARS ── */
+.pillar-list { margin: 24px 0; max-width: 680px; }
+.pillar { display: flex; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--rule); align-items: flex-start; }
+.pillar:last-child { border-bottom: none; }
+.pillar-num { font-family: var(--display); font-size: 30px; font-weight: 700; color: var(--indigo); line-height: 1; flex-shrink: 0; width: 36px; }
+.pillar-body { flex: 1; }
+.pillar-title { font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 5px; }
+.pillar-desc { font-size: 13.5px; line-height: 1.65; color: var(--muted); font-weight: 300; }
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--surface); border-top: 1px solid var(--rule);
+  padding: 48px 56px 40px;
+}
+.footer-inner { max-width: 720px; }
+.footer-brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--display); font-size: 18px; font-weight: 700;
+  color: var(--ink); margin-bottom: 12px;
+}
+.footer-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--indigo); }
+.footer-desc { font-size: 13px; line-height: 1.7; color: var(--muted); margin-bottom: 24px; max-width: 480px; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; padding-top: 20px; border-top: 1px solid var(--rule); }
+.footer-copy { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: .04em; }
+.footer-copy span { color: var(--indigo-dk); }
+.footer-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.footer-tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .06em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 4px;
+  background: var(--tint); color: var(--ink-soft);
+  border: 1px solid var(--rule);
+}
+
+.scroll-top {
+  position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px;
+  background: var(--indigo); border: none; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .15s; z-index: 100;
+  box-shadow: 0 8px 24px rgba(79,63,243,0.3);
+}
+.scroll-top:hover { background: var(--indigo-dk); }
+.scroll-top svg { width: 18px; height: 18px; fill: #fff; }
+
+/* rc = reveal container */
+.rc { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+.rc.vis { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>CRED · Dreamplug Technologies</span><span class="dot">◆</span>
+    <span>Founded 2018 · Bengaluru, India</span><span class="dot">◆</span>
+    <span>Founder: Kunal Shah</span><span class="dot">◆</span>
+    <span>FY25 Operating Revenue: ₹2,735 Cr</span><span class="dot">◆</span>
+    <span>Monthly Transacting Users: 1.26 Cr</span><span class="dot">◆</span>
+    <span>Valuation (May 2025): ~$3.6B</span><span class="dot">◆</span>
+    <span>Minimum Credit Score To Join: 750+</span><span class="dot">◆</span>
+    <span>Official IPL Sponsor 2020–2023</span><span class="dot">◆</span>
+    <span>CRED · Dreamplug Technologies</span><span class="dot">◆</span>
+    <span>Founded 2018 · Bengaluru, India</span><span class="dot">◆</span>
+    <span>Founder: Kunal Shah</span><span class="dot">◆</span>
+    <span>FY25 Operating Revenue: ₹2,735 Cr</span><span class="dot">◆</span>
+    <span>Monthly Transacting Users: 1.26 Cr</span><span class="dot">◆</span>
+    <span>Valuation (May 2025): ~$3.6B</span><span class="dot">◆</span>
+    <span>Minimum Credit Score To Join: 750+</span><span class="dot">◆</span>
+    <span>Official IPL Sponsor 2020–2023</span><span class="dot">◆</span>
+  </div>
+</div>
+
+<!-- BACK TO COMPANIES -->
+<div class="top">
+  <div class="topbar">
+    <a class="back" href="../company.html"><span class="b">&larr;</span> Companies</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-logo">CR</div>
+    <div>
+      <div class="nav-title">CRED</div>
+      <div class="nav-sub">FounderLens · Company Analysis</div>
+    </div>
+  </div>
+  <div class="nav-pills">
+    <button class="nav-pill active" onclick="gotoSec('origin')">Origin</button>
+    <button class="nav-pill" onclick="gotoSec('model')">Model</button>
+    <button class="nav-pill" onclick="gotoSec('marketing')">Marketing</button>
+    <button class="nav-pill" onclick="gotoSec('moat')">Moat</button>
+    <button class="nav-pill" onclick="gotoSec('lessons')">Lessons</button>
+  </div>
+  <div class="nav-badge">Company Analysis</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-stripes"></div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-bar"></div>
+      <div class="hero-eyebrow-text">FounderLens · Fintech & Design</div>
+    </div>
+    <h1 class="hero-h1">CRED</h1>
+    <p class="hero-sub">Built A Brand By Deciding Who's Not Invited</p>
+    <p class="hero-desc">CRED turned a single filter — a credit score above 750 — into one of India's most talked-about fintech brands. <strong>The reward was never really the point.</strong> The point was the gate. Understanding CRED means understanding how scarcity, design, and culturally loud advertising can manufacture desirability in a category usually sold on convenience and cashback.</p>
+
+    <div class="kpi-grid">
+      <div class="kpi-cell"><div class="kpi-val">₹2,735 Cr</div><div class="kpi-lbl">FY25 op. revenue</div></div>
+      <div class="kpi-cell"><div class="kpi-val">1.26 Cr</div><div class="kpi-lbl">Monthly transacting users</div></div>
+      <div class="kpi-cell"><div class="kpi-val">~$3.6B</div><div class="kpi-lbl">Valuation, May 2025</div></div>
+      <div class="kpi-cell"><div class="kpi-val">750+</div><div class="kpi-lbl">Min. credit score to join</div></div>
+      <div class="kpi-cell"><div class="kpi-val">2018</div><div class="kpi-lbl">Founded, Bengaluru</div></div>
+      <div class="kpi-cell"><div class="kpi-val">₹8.5L Cr</div><div class="kpi-lbl">FY25 payments processed</div></div>
+    </div>
+
+    <div class="hero-tags">
+      <span class="hero-tag acc">Members-Only Model</span>
+      <span class="hero-tag acc">Design-Led Growth</span>
+      <span class="hero-tag">Credit-Score Gate</span>
+      <span class="hero-tag">IPL-Era Marketing</span>
+      <span class="hero-tag">Lending & Insurance</span>
+      <span class="hero-tag">2025 Down Round</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="card-wrap">
+      <div class="card-glow"></div>
+      <div class="orbit-ring orbit-1"><div class="orbit-dot"></div></div>
+      <div class="orbit-ring orbit-2"><div class="orbit-dot orbit-dot-2"></div></div>
+      <!-- Generic membership card SVG -->
+      <svg class="card-svg" viewBox="0 0 220 138" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#1C1733"/>
+            <stop offset="45%" style="stop-color:#372BC0"/>
+            <stop offset="100%" style="stop-color:#4F3FF3"/>
+          </linearGradient>
+          <linearGradient id="chipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#E2BE52"/>
+            <stop offset="100%" style="stop-color:#B6901E"/>
+          </linearGradient>
+        </defs>
+        <!-- Card body -->
+        <rect x="4" y="4" width="212" height="130" rx="16" fill="url(#cardGrad)"/>
+        <!-- Sheen -->
+        <rect x="4" y="4" width="212" height="46" rx="16" fill="rgba(255,255,255,0.06)"/>
+        <!-- Chip -->
+        <rect x="24" y="30" width="30" height="22" rx="4" fill="url(#chipGrad)"/>
+        <rect x="29" y="35" width="20" height="2.5" fill="rgba(0,0,0,0.25)"/>
+        <rect x="29" y="41" width="20" height="2.5" fill="rgba(0,0,0,0.25)"/>
+        <!-- Masked number dots -->
+        <circle cx="24" cy="78" r="2.6" fill="rgba(255,255,255,0.7)"/>
+        <circle cx="33" cy="78" r="2.6" fill="rgba(255,255,255,0.7)"/>
+        <circle cx="42" cy="78" r="2.6" fill="rgba(255,255,255,0.7)"/>
+        <circle cx="51" cy="78" r="2.6" fill="rgba(255,255,255,0.7)"/>
+        <text x="64" y="82" fill="rgba(255,255,255,0.85)" font-size="11" font-family="'IBM Plex Mono',monospace" letter-spacing="2">4471</text>
+        <!-- Member label -->
+        <text x="24" y="106" fill="rgba(255,255,255,0.55)" font-size="6.5" font-family="'IBM Plex Mono',monospace" letter-spacing="2">MEMBER SINCE 2018</text>
+        <text x="24" y="118" fill="rgba(255,255,255,0.95)" font-size="9" font-family="'Space Grotesk',sans-serif" font-weight="700" letter-spacing="1.5">CRED</text>
+        <!-- corner emblem -->
+        <circle cx="190" cy="100" r="16" fill="none" stroke="rgba(182,144,30,0.55)" stroke-width="1.5"/>
+        <circle cx="190" cy="100" r="10" fill="none" stroke="rgba(182,144,30,0.4)" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <div class="hero-quote-card">
+      <div class="hero-quote-text">"Not everyone gets it."</div>
+      <div class="hero-quote-attr">— CRED brand campaign line</div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLE BODY -->
+<div class="article-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <span class="toc-label">Contents</span>
+    <button class="toc-btn active" onclick="gotoSec('origin')">01 Origin Story</button>
+    <button class="toc-btn" onclick="gotoSec('model')">02 Business Model</button>
+    <button class="toc-btn" onclick="gotoSec('marketing')">03 Marketing Engine</button>
+    <button class="toc-btn" onclick="gotoSec('products')">04 Product Ecosystem</button>
+    <button class="toc-btn" onclick="gotoSec('exclusivity')">05 The Exclusivity Paradox</button>
+    <button class="toc-btn" onclick="gotoSec('moat')">06 Competitive Moat</button>
+    <button class="toc-btn" onclick="gotoSec('swot')">07 SWOT Analysis</button>
+    <button class="toc-btn" onclick="gotoSec('timeline')">08 Key Milestones</button>
+    <button class="toc-btn" onclick="gotoSec('risks')">09 Risks</button>
+    <button class="toc-btn" onclick="gotoSec('impact')">10 Industry Impact</button>
+    <button class="toc-btn" onclick="gotoSec('lessons')">11 Lessons for Builders</button>
+    <button class="toc-btn" onclick="gotoSec('verdict')">12 Final Verdict</button>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- 01 ORIGIN -->
+    <div class="sec base" id="sec-origin">
+      <div class="sec-num">01 — Origin Story</div>
+      <h2 class="sec-title">The App Built On <em>Exclusion</em></h2>
+      <p class="lead">CRED began with a frustration about a system, not a gap in the market. <strong>Kunal Shah had already built and sold one fintech company</strong> before he turned his attention to how India's credit system treats its most reliable customers.</p>
+      <p class="bp">Shah co-founded FreeCharge, a mobile recharge and cashback platform, in 2010. By 2015, Snapdeal acquired it in a deal widely reported at around $400 million — one of the larger consumer-internet exits in India at the time. After the sale, Shah spent time as an active angel investor, eventually backing well over a hundred startups, while turning over an idea about Indian credit behaviour: people who paid their bills on time and kept clean credit scores got no real benefit for it, while the system was built almost entirely around penalising default.</p>
+      <p class="bp">He founded CRED in Bengaluru in 2018 with a narrow, deliberate premise: build a platform exclusively for people who already had good credit, and reward the behaviour that the rest of the financial system ignored. <strong>The gate came before the product.</strong> Reports on CRED's seed round point to backing from Sequoia Capital and Ribbit Capital ahead of its November 2018 public launch. <span class="ctag">Second-Time Founder</span> <span class="ctag">Founder-Market Fit</span></p>
+      <p class="bp">From day one, eligibility was tied to a credit score, commonly cited as 750 or above on the CIBIL scale, which immediately narrowed the addressable market to a sliver of India's roughly 120 million active credit cardholders. Most Indian consumer apps at the time were chasing scale across the broadest possible user base; CRED chose to be unavailable to nearly everyone, and built its brand around that choice rather than around it.</p>
+
+      <div class="info-rows">
+        <div class="info-row"><span class="info-key">Founded</span><span class="info-val">2018, Bengaluru, India (public launch reported November 2018)</span></div>
+        <div class="info-row"><span class="info-key">Founder & CEO</span><span class="info-val"><strong>Kunal Shah</strong> — previously co-founded FreeCharge (2010), sold to Snapdeal in 2015</span></div>
+        <div class="info-row"><span class="info-key">Legal entity</span><span class="info-val">Dreamplug Technologies Private Limited</span></div>
+        <div class="info-row"><span class="info-key">Early backers</span><span class="info-val">Sequoia Capital, Ribbit Capital (seed); later Tiger Global, Dragoneer, Alpha Wave, GIC, Peak XV Partners and others</span></div>
+        <div class="info-row"><span class="info-key">Entry criterion</span><span class="info-val">Credit (CIBIL) score commonly cited at 750 or above</span></div>
+        <div class="info-row"><span class="info-key">Status</span><span class="info-val">Privately held; not listed. Financial figures below are as disclosed in regulatory filings and reported by the financial press.</span></div>
+      </div>
+    </div>
+
+    <!-- 02 BUSINESS MODEL -->
+    <div class="sec alt" id="sec-model">
+      <div class="sec-num">02 — Business Model</div>
+      <h2 class="sec-title">Reward The Bill, <em>Monetise Everything After</em></h2>
+      <p class="lead">CRED's headline feature — paying a credit card bill and earning CRED Coins — doesn't make the company money by itself. The business sits one layer behind it: lending, insurance, and commerce, sold to a pre-qualified, high-trust audience.</p>
+
+      <div class="stat-row">
+        <div class="stat-card"><div class="stat-val">₹1,484 Cr</div><div class="stat-lbl">Total revenue, FY23</div></div>
+        <div class="stat-card"><div class="stat-val">₹2,473 Cr</div><div class="stat-lbl">Total revenue, FY24 (+66%)</div></div>
+        <div class="stat-card"><div class="stat-val">₹2,735 Cr</div><div class="stat-lbl">Op. revenue, FY25 (+16%)</div></div>
+        <div class="stat-card"><div class="stat-val">~70%</div><div class="stat-lbl">Gross margin, FY25</div></div>
+        <div class="stat-card"><div class="stat-val">₹1,457 Cr</div><div class="stat-lbl">Net loss, FY25 (down 11.5%)</div></div>
+      </div>
+
+      <p class="bp">Reporting on CRED's filings indicates roughly 90% of revenue now comes from a small set of services: <strong>CRED Cash</strong> (personal credit lines), P2P lending commissions through <strong>CRED Mint</strong>, and insurance distribution. Smaller streams come from commerce listing fees on CRED Store and processing fees on services like CRED RentPay, typically cited at around 1–1.5% of the amount transferred.</p>
+      <p class="bp">The loss trajectory is the more interesting story. In FY23, CRED's net loss was reported at ₹1,347 crore. In FY24, that net loss actually widened to roughly ₹1,644 crore even as operating revenue grew 66% — but the company's operating loss, a narrower measure that excludes items like ESOP charges and depreciation, fell 41% to ₹609 crore from ₹1,024 crore. By FY25, the improvement showed up in both numbers: operating loss fell a further 51% to ₹298 crore, and total losses narrowed to ₹1,457 crore. CRED has said it is targeting full profitability in FY26. <span class="ctag">Path to Profitability</span></p>
+      <p class="bp">Average revenue per user reached roughly ₹2,000 in FY25, and the company reports that about 45% of active members now use three or more CRED products — the figure it points to as evidence that cross-selling, not bill-payment volume, is what's actually driving the business. The combined loan book managed across its lending products reportedly reached ₹22,000 crore in FY25.</p>
+
+      <div class="insight-grid rc">
+        <div class="insight-card"><span class="ic-icon">💳</span><div class="ic-title">CRED Cash & Cash+</div><div class="ic-desc">Instant personal credit lines distributed through bank and NBFC partners — the largest single revenue contributor.</div></div>
+        <div class="insight-card"><span class="ic-icon">🤝</span><div class="ic-title">CRED Mint</div><div class="ic-desc">Peer-to-peer lending via Liquiloans, an RBI-registered NBFC-P2P; lenders are offered returns reported up to roughly 9% per annum.</div></div>
+        <div class="insight-card"><span class="ic-icon">🛡️</span><div class="ic-title">CRED Garage</div><div class="ic-desc">An insurance marketplace alongside vehicle document and FASTag management; insurer partnerships expanded through FY25.</div></div>
+        <div class="insight-card"><span class="ic-icon">🛍️</span><div class="ic-title">CRED Store</div><div class="ic-desc">A members-only marketplace with 500+ partner brands; CRED earns listing fees and commissions on redemptions.</div></div>
+        <div class="insight-card"><span class="ic-icon">🏠</span><div class="ic-title">CRED RentPay</div><div class="ic-desc">Rent paid via credit card, funded through to the landlord, with CRED taking a service fee of roughly 1–1.5%.</div></div>
+        <div class="insight-card"><span class="ic-icon">💰</span><div class="ic-title">CRED Money & PPI wallet</div><div class="ic-desc">Newer FY25 launches — card management tools, a prepaid wallet, and personal-finance features layered onto the core app.</div></div>
+      </div>
+    </div>
+
+    <!-- 03 MARKETING ENGINE -->
+    <div class="sec grad-i" id="sec-marketing">
+      <div class="sec-num">03 — Marketing Engine</div>
+      <h2 class="sec-title">How A Credit-Score Gate <em>Became Culture</em></h2>
+      <p class="lead">CRED spent heavily, and loudly, to make a niche, invite-gated product feel like the most talked-about brand in Indian fintech. For a few IPL seasons, the strategy worked almost too well: CRED produced the country's most discussed advertising while serving a fraction of the user base of its mass-market competitors.</p>
+
+      <div class="pillar-list rc">
+        <div class="pillar">
+          <div class="pillar-num">1</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Sponsor The Biggest Stage in Indian Sport</div>
+            <div class="pillar-desc">CRED was the Indian Premier League's official sponsor for four consecutive seasons, 2020 through 2023, putting the brand in front of hundreds of millions of cricket viewers across each tournament.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">2</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Cast Against Type</div>
+            <div class="pillar-desc">Rather than run standard product ads, CRED's signature campaigns took well-known, deliberately composed public figures and placed them in absurd, out-of-character situations — using surprise itself as the creative engine.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">3</div>
+          <div class="pillar-body">
+            <div class="pillar-title">"Indiranagar Ka Gunda" — The Rahul Dravid Case Study</div>
+            <div class="pillar-desc">Released April 9, 2021, timed to IPL Season 14's opening match, the ad showed former India captain Rahul Dravid — known for his composure — losing his temper in Bengaluru traffic. It was released first on social media rather than television. Virat Kohli's public reaction tweet helped it travel; brands including Zomato, Dunzo, Ather Energy and CARS24 piled on with their own "Gunda" posts. Industry coverage at the time cited a roughly 700% jump in app downloads following the campaign and a spontaneous ad-recall rate around 17% in an Indian Institute of Human Brands study. The ad landed the same week CRED crossed unicorn status.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">4</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Spend At Scale</div>
+            <div class="pillar-desc">CRED's FY22 filings, as reported by Entrackr, put marketing and promotional expenses at ₹973 crore — 57% of total expenses that year. The scale of that spend became a recurring point of scrutiny as the company's losses stayed large in the years that followed.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">5</div>
+          <div class="pillar-body">
+            <div class="pillar-title">Identity Over Information</div>
+            <div class="pillar-desc">Across campaigns, CRED leaned on the line "Not everyone gets it" — turning the credit-score gate itself into the marketing hook, where membership status was treated as the reward rather than any single feature inside the app.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pq">
+        <blockquote>"Indiranagar ka gunda hoon main."</blockquote>
+        <cite>— CRED's 2021 IPL campaign, voiced by Rahul Dravid</cite>
+      </div>
+    </div>
+
+    <!-- 04 PRODUCT ECOSYSTEM -->
+    <div class="sec alt" id="sec-products">
+      <div class="sec-num">04 — Product Ecosystem</div>
+      <h2 class="sec-title">From Bill Payments To A <em>Full Financial Stack</em></h2>
+      <p class="lead">CRED has spent seven years layering products onto its original bill-payment hook — lending, insurance, P2P investing, commerce, and even enterprise tools — turning a single feature into a stack that now drives the bulk of its revenue.</p>
+
+      <div class="product-grid rc">
+        <div class="product-card"><span class="product-emoji">💳</span><div class="product-name">CRED Cash / Cash+</div><div class="product-detail">Personal credit lines & loans</div></div>
+        <div class="product-card"><span class="product-emoji">🤝</span><div class="product-name">CRED Mint</div><div class="product-detail">P2P lending via Liquiloans</div></div>
+        <div class="product-card"><span class="product-emoji">🚗</span><div class="product-name">CRED Garage</div><div class="product-detail">Insurance & vehicle documents</div></div>
+        <div class="product-card"><span class="product-emoji">🛍️</span><div class="product-name">CRED Store</div><div class="product-detail">500+ partner brand marketplace</div></div>
+        <div class="product-card"><span class="product-emoji">🏠</span><div class="product-name">RentPay</div><div class="product-detail">Card-funded rent payments</div></div>
+        <div class="product-card"><span class="product-emoji">⚡</span><div class="product-name">CRED Pay</div><div class="product-detail">Checkout via Visa & Razorpay</div></div>
+        <div class="product-card"><span class="product-emoji">🧾</span><div class="product-name">Happay</div><div class="product-detail">Enterprise expense management</div></div>
+        <div class="product-card"><span class="product-emoji">👛</span><div class="product-name">CRED Money / PPI Wallet</div><div class="product-detail">Personal finance, launched FY25</div></div>
+      </div>
+
+      <p class="bp">In December 2021, CRED acquired enterprise expense-management startup Happay in a deal reported at roughly $180 million — a move into B2B spend management that continues to operate as a largely separate business. It also acquired HipBar, a deal that reportedly came with a prepaid payment instrument (PPI) licence, letting CRED issue its own wallet products directly rather than only routing transactions through bank partners.</p>
+      <p class="bp">The logic behind the expanding stack is monetisation depth, not reach: CRED reports that about 45% of active members now use three or more of its products, which the company treats as the clearest signal that cross-selling — not new sign-ups — is what's moving its revenue numbers. <span class="ctag">Cross-Sell Strategy</span></p>
+    </div>
+
+    <!-- 05 EXCLUSIVITY PARADOX -->
+    <div class="sec tint-gd" id="sec-exclusivity">
+      <div class="sec-num">05 — The Exclusivity Paradox</div>
+      <h2 class="sec-title">The Real Product Is Who's <em>Not Allowed In</em></h2>
+      <p class="lead">Strip away the rewards and the lending products, and CRED's most distinctive asset is simpler than any single feature: it remains one of the few consumer apps in India that is genuinely harder to get into than to use.</p>
+      <p class="bp">To join, a user typically needs a credit (CIBIL) score of roughly 750 or above — already a meaningful filter in a market of around 120 million active credit cards nationwide. Most Indian fintech apps compete for as many of the country's billion-plus residents as possible; CRED chose, deliberately, to be unavailable to nearly all of them.</p>
+      <p class="bp">That scarcity functions as the marketing. Being "let in" works the way an invitation to a private club does — qualifying for membership carries social weight independent of anything inside the app. <span class="ctag">Velvet-Rope Growth</span></p>
+
+      <div class="stat-row rc">
+        <div class="stat-card"><div class="stat-val">750+</div><div class="stat-lbl">Minimum credit score to join</div></div>
+        <div class="stat-card"><div class="stat-val">~120M</div><div class="stat-lbl">Active credit cards in India (est.)</div></div>
+        <div class="stat-card"><div class="stat-val">1.26 Cr</div><div class="stat-lbl">CRED monthly transacting users</div></div>
+        <div class="stat-card"><div class="stat-val">~10%</div><div class="stat-lbl">Rough share of cardholders reached</div></div>
+      </div>
+
+      <p class="bp">The trade-off is a structurally smaller ceiling than mass-market peers. PhonePe and Paytm each chase hundreds of millions of UPI users with free, open products; CRED chose a market that, even fully saturated, looks more like a few tens of millions of households than a national user base — a deliberate bet that depth of monetisation per user would outpace breadth of reach.</p>
+    </div>
+
+    <!-- 06 MOAT -->
+    <div class="sec base" id="sec-moat">
+      <div class="sec-num">06 — Competitive Moat</div>
+      <h2 class="sec-title">A Brand Moat, Built On <em>Borrowed Trust</em></h2>
+      <p class="lead">CRED's defences are real, but several of them sit on relationships and regulatory permissions it doesn't fully control. The scores below are FounderLens' own qualitative read, not third-party data, and they describe a meaningfully shallower moat than the cultural-ownership model CRED is often compared to.</p>
+
+      <div class="moat-bars rc">
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Brand Recall Among Affluent Urban India</span><span class="moat-score">88/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="88"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Product Design & User Experience</span><span class="moat-score">82/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="82"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Bank & NBFC Partnership Network</span><span class="moat-score">70/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="70"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Cross-Sell Data on High-Trust Spenders</span><span class="moat-score">66/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="66"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Member Switching Costs</span><span class="moat-score">54/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="54"></div></div>
+        </div>
+        <div class="moat-bar">
+          <div class="moat-label"><span class="moat-name">Balance-Sheet Strength Post Down-Round</span><span class="moat-score">42/100</span></div>
+          <div class="moat-track"><div class="moat-fill" data-w="42"></div></div>
+        </div>
+      </div>
+
+      <p class="bp">CRED doesn't originate or hold most of the capital it lends. CRED Cash is distributed through bank and NBFC partners; CRED Mint routes peer-to-peer loans through Liquiloans, an RBI-registered partner. That means a meaningful share of the credit risk, and the regulatory exposure that comes with it, sits with partners CRED doesn't control — a structurally different position from owning end-to-end lending infrastructure.</p>
+      <p class="bp">The clearest external signal that investors started pricing this moat lower came in May 2025: a Series G round, led by Singapore's GIC through its Lathe Investment vehicle, valued CRED at roughly $3.5–3.6 billion — a cut of about 45% from the $6.4 billion peak it reached in its June 2022 Series F round. <strong>A down round of that size is a market judgement, not a marketing claim.</strong></p>
+    </div>
+
+    <!-- 07 SWOT -->
+    <div class="sec alt" id="sec-swot">
+      <div class="sec-num">07 — SWOT Analysis</div>
+      <h2 class="sec-title">Strengths, Weaknesses,<br><em>Opportunities, Threats</em></h2>
+      <p class="lead">A clear-eyed view of where CRED's position is genuinely strong — and where it remains exposed.</p>
+
+      <div class="swot-grid rc">
+        <div class="swot-cell swot-s">
+          <div class="swot-head">✦ Strengths</div>
+          <ul class="swot-list">
+            <li>Strong brand recall among affluent, urban Indian consumers</li>
+            <li>Design-led product widely cited as a category benchmark</li>
+            <li>Diversified into lending, insurance, P2P and commerce</li>
+            <li>Improving unit economics — FY25 gross margin ~70%</li>
+            <li>Backed by marquee investors: Sequoia/Peak XV, Tiger Global, GIC</li>
+            <li>Pre-qualified, high-trust user base attractive to lending partners</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-w">
+          <div class="swot-head">◆ Weaknesses</div>
+          <ul class="swot-list">
+            <li>Still net loss-making — ₹1,457 crore in FY25</li>
+            <li>Credit-score gate structurally caps the addressable market</li>
+            <li>History of marketing-heavy customer acquisition (₹973 Cr in FY22)</li>
+            <li>45% valuation cut from its 2022 peak in the May 2025 round</li>
+            <li>Smaller absolute scale than mass-market UPI rivals</li>
+            <li>Revenue concentrated in lending and insurance distribution</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-o">
+          <div class="swot-head">▲ Opportunities</div>
+          <ul class="swot-list">
+            <li>Further cross-sell into wealth, insurance, and new FY25 products</li>
+            <li>Rising credit card penetration could grow the eligible base</li>
+            <li>Improving FY25 numbers strengthen any future IPO case</li>
+            <li>Managed loan book (₹22,000 Cr AUM) still has room to scale</li>
+            <li>Member base shows high multi-product adoption (45%+)</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-t">
+          <div class="swot-head">▼ Threats</div>
+          <ul class="swot-list">
+            <li>RBI tightening of digital lending and P2P/NBFC norms</li>
+            <li>PhonePe and Paytm layering credit features onto free, mass apps</li>
+            <li>Focused challengers: OneCard, Slice, CheQ targeting similar users</li>
+            <li>Cooling investor appetite for late-stage Indian fintech valuations</li>
+            <li>Dependence on third-party lenders for its core revenue stream</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 TIMELINE -->
+    <div class="sec grad-g" id="sec-timeline">
+      <div class="sec-num">08 — Key Milestones</div>
+      <h2 class="sec-title">From A Bill-Pay App To A <em>Lending Platform</em></h2>
+
+      <div class="timeline rc">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2010</div><div class="tl-event">Kunal Shah co-founds <strong>FreeCharge</strong>, a mobile recharge and cashback platform.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2015</div><div class="tl-event">Snapdeal acquires FreeCharge in a deal widely reported at <strong>~$400 million.</strong></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2018</div><div class="tl-event">CRED founded in Bengaluru. Seed backing reported from <strong>Sequoia Capital and Ribbit Capital</strong> ahead of a November 2018 launch.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2019</div><div class="tl-event">Series B funding, with Tiger Global and Dragoneer among the investors, as the user base scales.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">Apr 2021</div><div class="tl-event">CRED reaches <strong>unicorn status</strong> on a Series D round (~$215M) at a $2.2 billion valuation — the same week the "Indiranagar Ka Gunda" ad with Rahul Dravid airs.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">Oct 2021</div><div class="tl-event">Series E round, ~$251 million raised, as CRED seeks new investors at a valuation reported around <strong>$5.5 billion.</strong></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">Dec 2021</div><div class="tl-event">CRED acquires enterprise expense-management startup <strong>Happay</strong> for a reported ~$180 million.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">Jun 2022</div><div class="tl-event">Series F round, $80 million led by Singapore's <strong>GIC</strong>, valuing CRED at its peak of <strong>$6.4 billion.</strong></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2020–23</div><div class="tl-event">CRED serves as the <strong>official sponsor of the Indian Premier League</strong> for four consecutive seasons.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">FY24</div><div class="tl-event">Revenue grows 66% to ₹2,473 crore; operating loss falls 41% to ₹609 crore even as net loss widens to ₹1,644 crore on non-operating costs.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">May 2025</div><div class="tl-event">Series G <strong>down round</strong>: ~$72 million (₹617 Cr) led by GIC's Lathe Investment, cutting valuation roughly 45% to about <strong>$3.5–3.6 billion.</strong></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">FY25</div><div class="tl-event">Operating revenue reaches ₹2,735 crore (+16%); operating loss falls 51% to ₹298 crore. Company targets <strong>full profitability in FY26.</strong></div></div>
+      </div>
+    </div>
+
+    <!-- 09 RISKS -->
+    <div class="sec base" id="sec-risks">
+      <div class="sec-num">09 — Risks & Vulnerabilities</div>
+      <h2 class="sec-title">Where The <em>Membership Model</em> Could Strain</h2>
+      <p class="lead">CRED's FY25 numbers point in the right direction, but several structural risks remain unresolved.</p>
+
+      <div class="risk-list rc">
+        <div class="risk-item">
+          <div class="risk-badge risk-high">HIGH</div>
+          <div>
+            <div class="risk-content-title">Profitability Is Improving, Not Achieved</div>
+            <div class="risk-content-desc">FY25 operating losses fell 51% and total losses narrowed 11.5%, but CRED remained loss-making on a net basis at ₹1,457 crore. The company's own stated goal of full profitability in FY26 has not yet been delivered, and prior years show how quickly an improving operating number can be offset by other costs, as happened in FY24.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-high">HIGH</div>
+          <div>
+            <div class="risk-content-title">Regulatory Exposure on Lending</div>
+            <div class="risk-content-desc">A large share of CRED's revenue now comes from credit products distributed through bank and NBFC partners, and from P2P lending routed through an RBI-registered partner. Changes to digital lending guidelines, P2P lending caps, or co-lending norms could directly affect CRED's largest revenue lines, which it does not fully control.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-med">MED</div>
+          <div>
+            <div class="risk-content-title">Valuation Correction & Investor Sentiment</div>
+            <div class="risk-content-desc">The May 2025 down round cut CRED's valuation by roughly 45% from its 2022 peak. While the company frames this as a recalibration alongside improving fundamentals, it also signals that late-stage investors have repriced growth-stage Indian fintech more broadly, which could affect future fundraising terms.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-med">MED</div>
+          <div>
+            <div class="risk-content-title">A Structurally Capped Addressable Market</div>
+            <div class="risk-content-desc">The 750+ credit score gate that built CRED's brand also caps its growth ceiling against an estimated ~120 million active credit cards nationwide — a fraction of the user base available to mass-market UPI apps like PhonePe and Paytm, which face no such filter.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-med">MED</div>
+          <div>
+            <div class="risk-content-title">Competitive Intensity From Both Directions</div>
+            <div class="risk-content-desc">PhonePe and Paytm are increasingly layering credit and lending features onto their free, mass-scale apps, narrowing CRED's differentiation from above. From below, focused challengers like OneCard, Slice, and CheQ target the same credit-conscious user segment with leaner cost structures.</div>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-badge risk-low">LOW</div>
+          <div>
+            <div class="risk-content-title">Marketing Intensity As a Cost Driver</div>
+            <div class="risk-content-desc">FY22 filings showed marketing and promotional spend at ₹973 crore, 57% of total expenses. CRED appears to have shifted toward leaner, monetisation-led growth since, but heavy brand-building spend remains a lever the company could lean on again, with real cost implications.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 INDUSTRY IMPACT -->
+    <div class="sec alt" id="sec-impact">
+      <div class="sec-num">10 — Industry Impact</div>
+      <h2 class="sec-title">CRED Made <em>Design</em> A Competitive Weapon</h2>
+      <p class="lead">Whatever happens to CRED's valuation, it changed two things about how Indian startups compete: how seriously they take product design, and how loudly they're willing to advertise.</p>
+      <p class="bp">Before CRED, most Indian fintech and banking apps optimised heavily for function over form. CRED's emphasis on visual polish, animation, and "delight" as product principles pushed competitors, and eventually some traditional banks, to invest more seriously in design as a differentiator rather than an afterthought.</p>
+      <p class="bp">The schema-disruption style of advertising behind "Indiranagar Ka Gunda" — taking a known, composed public figure and inverting their persona for shock value — was widely copied across Indian startup marketing in the years that followed, well beyond fintech. <span class="ctag">Category Influence</span></p>
+      <p class="bp">CRED also tested whether exclusivity itself could be a growth lever in a market usually obsessed with scale. Rivals such as CheQ explicitly built similar credit-score-gated, trust-first positioning. The mixed results some of those imitators have had suggest CRED's early timing — entering just as Indian fintech advertising was getting louder and UPI adoption was exploding — was as important to its success as the velvet-rope mechanic itself.</p>
+    </div>
+
+    <!-- 11 LESSONS -->
+    <div class="sec base" id="sec-lessons">
+      <div class="sec-num">11 — Lessons For Builders</div>
+      <h2 class="sec-title">What Founders Can <em>Take From This</em></h2>
+      <p class="lead">CRED's strategies translate well beyond credit cards. These are the parts any builder can study, whatever they're shipping.</p>
+      <div class="lessons-grid rc">
+        <div class="lesson-card">
+          <div class="lesson-num">01</div>
+          <div class="lesson-title">A Constraint Can Be a Feature</div>
+          <div class="lesson-desc">CRED's 750+ credit-score gate looked like a growth limiter on paper. In practice, it created the scarcity that made membership feel like an achievement. A narrower entry bar isn't automatically a weakness — ask whether it can become the thing people want to qualify for.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">02</div>
+          <div class="lesson-title">Design Is a Moat, But Not a Permanent One</div>
+          <div class="lesson-desc">CRED's product polish set a category benchmark, but competitors and even legacy banks closed much of that gap within a few years. Design buys you a head start, not a permanent lead — keep treating it as a moving target.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">03</div>
+          <div class="lesson-title">Brand Can Outrun Clarity, Short-Term</div>
+          <div class="lesson-desc">CRED built exceptional brand recall while many users and analysts struggled to articulate exactly what the company does. That worked while growth was the priority; it becomes a liability once investors and regulators start asking how the business actually makes money.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">04</div>
+          <div class="lesson-title">Each New Product Adds Real Complexity</div>
+          <div class="lesson-desc">CRED Mint, CRED Cash, CRED Garage, CRED Store, Happay — each addition lifted average revenue per user, but also added partners, regulatory surfaces, and operational overhead. Diversifying monetisation works, but the complexity bill comes due eventually.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">05</div>
+          <div class="lesson-title">Marketing Spend Buys Attention, Not Unit Economics</div>
+          <div class="lesson-desc">CRED's IPL-era advertising built unmatched awareness in its category. But its path toward profitability in FY24–FY25 came from product and monetisation changes, not from spending more on ads — a reminder that brand buzz and a sustainable business are solved by different levers.</div>
+        </div>
+        <div class="lesson-card">
+          <div class="lesson-num">06</div>
+          <div class="lesson-title">A Down Round Isn't the Same as Failure</div>
+          <div class="lesson-desc">CRED's valuation fell 45% from its 2022 peak in the same period its operating losses fell over 50%. Valuation and underlying business health can move in opposite directions for a while — investors eventually catch up to the fundamentals either way.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 VERDICT -->
+    <div class="sec grad-p" id="sec-verdict">
+      <div class="sec-num">12 — Final FounderLens Verdict</div>
+      <h2 class="sec-title">A Real Brand, Built On <em>A Narrow Bet</em></h2>
+      <p class="lead">CRED is not, and was never going to be, India's biggest fintech app by user count. It set out to be the most desirable one to a deliberately small slice of the population — and largely succeeded at that, even as the economics took years longer to follow.</p>
+
+      <div class="verdict-box">
+        <h3>"Did exclusivity actually build a durable business, or just a durable brand?"</h3>
+        <p>CRED proved that a credit-score gate could be turned into a growth engine rather than a limitation — exclusivity, paired with design and culturally loud advertising, built one of the most recognisable fintech brands among affluent, urban India. That part of the bet clearly paid off.</p>
+        <p>The harder question is whether that brand affinity converts into durable economics. <strong>The 2022 peak valuation of $6.4 billion met a different reality in 2025, when a down round cut it by roughly 45% to about $3.5–3.6 billion.</strong> That's not evidence CRED failed — its FY25 numbers, with operating losses down 51% and a stated FY26 profitability target, suggest the underlying business is genuinely getting healthier. But it is evidence that cultural buzz and venture-scale growth expectations don't automatically move together, especially in a regulated, partner-dependent lending business.</p>
+        <p>For builders, the lesson sits in that gap: <strong>CRED won the attention battle decisively and is still fighting the unit-economics battle.</strong> Both matter, and they are not won with the same tools — the marketing playbook that built the brand is not the same playbook that's narrowing the losses now.</p>
+        <p class="verdict-note">Financial and valuation figures in this analysis are drawn from regulatory filings, company statements, and reporting by outlets including Entrackr, Outlook Business, BW Disrupt, and Wikipedia, current as of mid-2026. As a privately held company, some figures reflect estimates and may be revised in later disclosures.</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand"><span class="footer-dot"></span>FounderLens</div>
+    <p class="footer-desc">Business intelligence explained simply through world-class companies. Strategy, execution, and competitive advantage — decoded for builders and operators.</p>
+    <div class="footer-bottom">
+      <div class="footer-copy"><span>FounderLens</span> · CRED (Dreamplug Technologies) Company Analysis · Compiled June 2026 · Educational purposes only</div>
+      <div class="footer-tags">
+        <span class="footer-tag">Brand Strategy</span>
+        <span class="footer-tag">Design-Led Fintech</span>
+        <span class="footer-tag">Dreamplug Technologies</span>
+        <span class="footer-tag">2018</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+</button>
+
+<script>
+function gotoSec(id) {
+  const el = document.getElementById('sec-' + id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+/* Progress bar */
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+});
+
+/* Scroll reveal */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      e.target.querySelectorAll('.moat-fill').forEach(bar => {
+        setTimeout(() => { bar.style.width = bar.dataset.w + '%'; }, 200);
+      });
+    }
+  });
+}, { threshold: 0.05 });
+document.querySelectorAll('.sec, .rc').forEach(el => ro.observe(el));
+
+/* TOC active state */
+const secs = document.querySelectorAll('.sec[id]');
+const tocObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.toc-btn').forEach(b => b.classList.remove('active'));
+      const id = e.target.id.replace('sec-', '');
+      const t = document.querySelector(`.toc-btn[onclick*="'${id}'"]`);
+      if (t) t.classList.add('active');
+    }
+  });
+}, { rootMargin: '-12% 0px -78% 0px' });
+secs.forEach(s => tocObs.observe(s));
+
+/* Nav pill click */
+document.querySelectorAll('.nav-pill').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('.nav-pill').forEach(x => x.classList.remove('active'));
+    p.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
